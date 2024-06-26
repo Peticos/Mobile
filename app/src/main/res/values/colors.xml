@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="black">#252525</color>
+    <color name="white">#F5EDF0</color>
+    <color name="beige">#EBDFD3</color>
+
+    <color name="red_or_orange">#C54432</color>
+    <color name="water_blue">#2D8580</color>
+    <color name="wood_brown">#73482F</color>
+    <color name="is_it_green">#2E6C56</color>
+    <color name="asereje_yellow">#CF8C3D</color>
+
+    <color name="red_or_orange_light_version">#DB755F</color>
+    <color name="water_blue_light_version">#68BBB6</color>
+    <color name="wood_brown_light_version">#BC8160</color>
+    <color name="is_it_green_light_version">#59B594</color>
+    <color name="asereje_yellow_light_version">#DEA665</color>
+
 </resources>
