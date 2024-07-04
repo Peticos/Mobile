@@ -17,7 +17,7 @@ public class SplashScreen extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {abritela();}
-        }, 2000);
+        }, 1000);
     }
 
     private void abritela(){
