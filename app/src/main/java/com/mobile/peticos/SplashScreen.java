@@ -16,18 +16,13 @@ public class SplashScreen extends AppCompatActivity {
 
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
-            public void run() {
-                openingScreen();
-            }
-        }, 3000);
+            public void run() {abritela();}
+        }, 2000);
     }
 
-
-    public void openingScreen(){
-        Intent intent = new Intent(SplashScreen.this,MainActivity.class);
-
+    private void abritela(){
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
-
         finish();
     }
 }
