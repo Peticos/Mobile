@@ -17,5 +17,6 @@ public class Login extends AppCompatActivity {
     public void TutorOuPeofissional(View view) {
         Intent intent = new Intent(this, Tutor_ou_Profissional.class);
         startActivity(intent);
+        finish();
     }
 }
