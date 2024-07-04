@@ -16,6 +16,9 @@
             android:name=".FeedFotoPet"
             android:exported="false" />
         <activity
+            android:name=".Tutor_ou_Profissional"
+            android:exported="false" />
+        <activity
             android:name=".Login"
             android:exported="false" />
         <activity
