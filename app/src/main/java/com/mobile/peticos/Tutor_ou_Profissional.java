@@ -14,7 +14,7 @@ public class Tutor_ou_Profissional extends AppCompatActivity {
         setContentView(R.layout.activity_tutor_ou_profissional);
     }
 
-    public void EntarLogin(View view) {
+    public void EntrarLogin(View view) {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
