@@ -38,9 +38,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="269dp"
-        android:layout_height="197dp"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
         android:layout_marginTop="36dp"
+        android:layout_marginHorizontal="40dp"
         android:gravity="center"
         android:orientation="vertical"
         android:textAlignment="center"
@@ -59,10 +60,11 @@
 
         <EditText
             android:id="@+id/editTextText"
-            android:layout_width="269dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/rounded_edit_text"
             android:backgroundTint="@color/white"
+            android:layout_marginBottom="16dp"
             android:ems="10"
             android:hint="E-mail"
             android:inputType="text"
@@ -82,7 +84,7 @@
 
         <EditText
             android:id="@+id/editTextText2"
-            android:layout_width="269dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/rounded_edit_text"
             android:backgroundTint="@color/white"
@@ -181,6 +183,7 @@
         android:layout_marginTop="16dp"
         android:autoLink="phone"
         android:linksClickable="true"
+        android:onClick="TutorOuPeofissional"
         android:text="Cadastre-se"
         android:textColor="@color/water_blue"
         app:layout_constraintStart_toEndOf="@+id/textView5"
