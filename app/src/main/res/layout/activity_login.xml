@@ -100,7 +100,7 @@
             android:layout_width="250dp"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/water_blue"
+            android:background="@drawable/principal_button"
             android:elevation="4dp"
             android:fontFamily="@font/lilita_one"
             android:text="Entrar"
