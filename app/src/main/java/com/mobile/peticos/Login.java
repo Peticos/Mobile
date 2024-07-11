@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mobile.peticos.R;
+
 public class Login extends AppCompatActivity {
 
     @Override

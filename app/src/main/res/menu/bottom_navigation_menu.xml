@@ -6,29 +6,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="" />
     <item
         android:id="@+id/navPerdidos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/attention"
-        android:title="Perdidos" />
+        android:title="" />
     <item
         android:id="@+id/navVakinhas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/money"
-        android:title="Vakinhas" />
+        android:title="" />
     <item
         android:id="@+id/navLocal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/location"
-        android:title="Local" />
+        android:title="" />
     <item
         android:id="@+id/navPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/profile"
-        android:title="Perfil" />
+        android:title=""
+        />
 </menu>
