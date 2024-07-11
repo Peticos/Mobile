@@ -19,6 +19,9 @@
             android:name=".CadastroProfissional"
             android:exported="false" />
         <activity
+            android:name=".FeedFotoPet"
+            android:exported="false" />
+        <activity
             android:name=".Tutor_ou_Profissional"
             android:exported="false" />
         <activity

@@ -1,12 +1,10 @@
-package com.mobile.peticos.feedFotoPet;
+package com.mobile.peticos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.mobile.peticos.R;
-
-public class feedFotoPet extends AppCompatActivity {
+public class FeedFotoPet extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
