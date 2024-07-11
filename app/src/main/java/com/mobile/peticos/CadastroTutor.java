@@ -19,4 +19,10 @@ public class CadastroTutor extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void CadastraPet(View view) {
+        Intent intent = new Intent(this, DesejaCadastrarUmPet.class);
+        startActivity(intent);
+        finish();
+    }
 }
