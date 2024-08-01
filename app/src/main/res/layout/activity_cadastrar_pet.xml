@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CadastroTutor"
-    android:background="@color/beige">
+    android:background="@color/beige"
+    tools:context=".CadastrarPet">
 
     <ImageView
         android:id="@+id/imageView5"
@@ -25,9 +25,9 @@
         android:layout_height="88dp"
         android:fontFamily="@font/lilita_one"
         android:gravity="right"
-        android:text="Junte-se a nós!"
+        android:text="Miaw! Mais um aumiguinho"
         android:textColor="@color/water_blue"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.278"
@@ -41,6 +41,7 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="2dp"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -53,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/varela_round"
-            android:text="Nome completo"
+            android:text="Nome/Apelido"
             android:textColor="@color/water_blue" />
 
         <EditText
@@ -63,7 +64,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_edit_text"
             android:ems="10"
-            android:hint=" Nome completo"
+            android:hint="Nome/Apelido"
             android:inputType="text"
             android:paddingLeft="10dp"
             android:textSize="14dp" />
@@ -74,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/varela_round"
-            android:text="Nome de usuário"
+            android:text="Idade"
             android:textColor="@color/water_blue" />
 
         <EditText
@@ -84,8 +85,8 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_edit_text"
             android:ems="10"
-            android:hint="Nome do usuário"
-            android:inputType="text"
+            android:hint="Idade"
+            android:inputType="number"
             android:paddingLeft="10dp"
             android:textSize="14dp" />
 
@@ -95,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/varela_round"
-            android:text="Telefone"
+            android:text="Espécie"
             android:textColor="@color/water_blue" />
 
         <EditText
@@ -105,7 +106,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_edit_text"
             android:ems="10"
-            android:hint="Telefone"
+            android:hint="Espécie"
             android:inputType="text"
             android:paddingLeft="10dp"
             android:textSize="14dp" />
@@ -116,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/varela_round"
-            android:text="E-mail"
+            android:text="Raça"
             android:textColor="@color/water_blue" />
 
         <EditText
@@ -126,7 +127,28 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_edit_text"
             android:ems="10"
-            android:hint="E-mail"
+            android:hint="Raça"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/varela_round"
+            android:text="Cor"
+            android:textColor="@color/water_blue" />
+
+        <EditText
+            android:id="@+id/editTextText7"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_edit_text"
+            android:ems="10"
+            android:hint="Cor"
             android:inputType="text"
             android:paddingLeft="10dp"
             android:textSize="14dp" />
@@ -137,7 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:fontFamily="@font/varela_round"
-            android:text="Senha"
+            android:text="Porte"
             android:textColor="@color/water_blue" />
 
         <EditText
@@ -147,28 +169,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_edit_text"
             android:ems="10"
-            android:hint="Senha"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Confirme sua senha"
-            android:textColor="@color/water_blue" />
-
-        <EditText
-            android:id="@+id/editTextText9"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Confirme sua senha"
+            android:hint="Porte"
             android:inputType="text"
             android:paddingLeft="10dp"
             android:textSize="14dp" />
@@ -181,34 +182,19 @@
             android:background="@drawable/principal_button"
             android:text="Cadastrar"
             android:onClick="CadastraPet"
-            android:textSize="26dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:textSize="26dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="154dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#2C4D4B"
+            android:fontFamily="@font/lilita_one"
+            android:textSize="22dp"
+            android:text="Sair" />
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/varela_round"
-                android:gravity="right"
-                android:layout_marginRight="5dp"
-                android:text="Já tem uma conta?" />
 
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/varela_round"
-                android:onClick="EntrarLogin"
-                android:text="Entrar"
-                android:textColor="@color/water_blue" />
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

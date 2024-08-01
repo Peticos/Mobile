@@ -28,6 +28,12 @@
             android:name=".ItemVacina"
             android:exported="false" />
         <activity
+            android:name=".CadastrarPet"
+            android:exported="false" />
+        <activity
+            android:name=".DesejaCadastrarUmPet"
+            android:exported="false" />
+        <activity
             android:name=".CadastroTutor"
             android:exported="false" />
         <activity
@@ -35,12 +41,6 @@
             android:exported="false" />
         <activity
             android:name=".FeedFotoPet"
-            android:exported="false" />
-        <activity
-            android:name=".CadastroTutor"
-            android:exported="false" />
-        <activity
-            android:name=".CadastroProfissional"
             android:exported="false" />
         <activity
             android:name=".Tutor_ou_Profissional"
