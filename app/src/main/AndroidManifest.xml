@@ -13,6 +13,21 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
+            android:name=".itemCadastroVacina"
+            android:exported="false" />
+        <activity
+            android:name=".cadastro_vacina"
+            android:exported="false" />
+        <activity
+            android:name=".VacinasPets"
+            android:exported="false" />
+        <activity
+            android:name=".ItemDoseVacina"
+            android:exported="false" />
+        <activity
+            android:name=".ItemVacina"
+            android:exported="false" />
+        <activity
             android:name=".CadastroTutor"
             android:exported="false" />
         <activity
