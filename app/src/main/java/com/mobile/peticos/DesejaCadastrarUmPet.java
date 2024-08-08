@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mobile.peticos.feedFotoPet.feedFotoPet;
+
 public class DesejaCadastrarUmPet extends AppCompatActivity {
 
     @Override
@@ -16,6 +18,12 @@ public class DesejaCadastrarUmPet extends AppCompatActivity {
 
     public void CadastrarPet(View view) {
         Intent intent = new Intent(this, CadastrarPet.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void Entrar(View view) {
+        Intent intent = new Intent(this, feedFotoPet.class);
         startActivity(intent);
         finish();
     }

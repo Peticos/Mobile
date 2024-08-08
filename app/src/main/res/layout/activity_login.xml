@@ -104,6 +104,7 @@
             android:elevation="4dp"
             android:fontFamily="@font/lilita_one"
             android:text="Entrar"
+            android:onClick="Entrar"
             android:textSize="22sp" />
 
     </LinearLayout>

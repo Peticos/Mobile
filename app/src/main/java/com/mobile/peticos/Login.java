@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mobile.peticos.feedFotoPet.feedFotoPet;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -16,6 +18,12 @@ public class Login extends AppCompatActivity {
 
     public void TutorOuPeofissional(View view) {
         Intent intent = new Intent(this, Tutor_ou_Profissional.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void Entrar(View view) {
+        Intent intent = new Intent(this, feedFotoPet.class);
         startActivity(intent);
         finish();
     }

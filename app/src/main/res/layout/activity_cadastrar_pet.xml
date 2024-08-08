@@ -191,6 +191,7 @@
             android:layout_height="48dp"
             android:backgroundTint="#2C4D4B"
             android:fontFamily="@font/lilita_one"
+            android:onClick="Sair"
             android:textSize="22dp"
             android:text="Sair" />
 
