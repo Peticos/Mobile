@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/beige"
+    android:backgroundTint="@color/beige"
     tools:context=".VacinasPets">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -55,7 +57,7 @@
                 android:layout_width="58dp"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:srcCompat="@drawable/gato_feliz" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

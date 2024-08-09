@@ -22,9 +22,6 @@
             android:name=".VacinasPets"
             android:exported="false" />
         <activity
-            android:name=".ItemDoseVacina"
-            android:exported="false" />
-        <activity
             android:name=".ItemVacina"
             android:exported="false" />
         <activity

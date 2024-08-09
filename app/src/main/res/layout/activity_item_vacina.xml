@@ -73,7 +73,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -81,7 +80,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -89,7 +87,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -97,7 +94,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -105,7 +101,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -113,7 +108,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -121,7 +115,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -129,7 +122,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
 
                 <ImageView
@@ -137,7 +129,6 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_weight="1"
-                    android:src="@tools:sample/avatars"
                     app:srcCompat="@drawable/circulo_dose" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

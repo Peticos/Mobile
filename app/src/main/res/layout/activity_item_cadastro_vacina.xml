@@ -25,7 +25,6 @@
             android:layout_height="35dp"
             android:layout_marginStart="9dp"
             android:layout_marginTop="15dp"
-            android:src="@tools:sample/avatars"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout3"
             app:srcCompat="@drawable/linha_vertical_dose" />
@@ -45,7 +44,6 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_weight="1"
-                android:src="@tools:sample/avatars"
                 app:srcCompat="@drawable/circulo_dose" />
 
             <TextView
@@ -85,7 +83,6 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:src="@tools:sample/avatars"
                 app:srcCompat="@drawable/ic_calender" />
 
         </LinearLayout>
