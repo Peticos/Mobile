@@ -1,7 +1,9 @@
 package com.mobile.peticos;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -52,10 +54,28 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+
+    public void onBackPressed() {
+
+        new AlertDialog.Builder(this)
+                .setMessage("Você tem certeza que quer sair?")
+                .setCancelable(false)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MainActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("Não", null)
+                .show();
+        if (1==2){
+            super.onBackPressed();
+
+        }
+    }
+
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainerView, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

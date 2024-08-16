@@ -101,6 +101,7 @@
             android:background="@drawable/principal_button"
             android:elevation="4dp"
             android:fontFamily="@font/lilita_one"
+            android:onClick="abrirMainTeste"
             android:text="Entrar"
             android:textSize="22sp" />
 
