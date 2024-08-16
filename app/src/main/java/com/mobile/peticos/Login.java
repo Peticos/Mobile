@@ -21,4 +21,10 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void abrirMainTeste(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
