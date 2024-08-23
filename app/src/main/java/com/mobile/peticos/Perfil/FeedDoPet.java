@@ -3,6 +3,7 @@ package com.mobile.peticos.Perfil;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,16 @@ public class FeedDoPet extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainerView, PerfilFragment.newInstance());
+        transaction.commit();
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_feed_do_pet, container, false);
     }
+
+
 }
