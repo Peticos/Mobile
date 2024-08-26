@@ -25,7 +25,7 @@
                 android:layout_height="37dp"
                 android:layout_weight="1"
                 android:background="#00FFFFFF"
-                android:onClick="voltar"
+
                 android:src="@drawable/baseline_arrow_left_24" />
 
             <TextView

@@ -6,10 +6,6 @@
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginLeft="5dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginBottom="5dp"
     android:background="@color/beige"
     android:backgroundTint="@color/beige"
     app:cardCornerRadius="5dp"
@@ -28,6 +24,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linearLayout3"
             app:srcCompat="@drawable/linha_vertical_dose" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView11"
+            app:srcCompat="@drawable/circulo_dose" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
