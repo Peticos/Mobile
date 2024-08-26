@@ -1,6 +1,5 @@
 package com.mobile.peticos.feedFotoPet;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobile.peticos.R;
 
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterFeedPrincipal extends RecyclerView.Adapter <AdapterFeedPrincipal.MeuViewHolder> {
@@ -24,7 +21,7 @@ public class AdapterFeedPrincipal extends RecyclerView.Adapter <AdapterFeedPrinc
     @Override
     public AdapterFeedPrincipal.MeuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Carregando templete de visualização
-        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.postagem_feed, parent, false);
+        View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_feed, parent, false);
         //Chamar o MeuViewHolder para carregar os dados
         return new AdapterFeedPrincipal.MeuViewHolder((ViewGroup) viewItem);
     }

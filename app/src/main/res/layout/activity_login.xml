@@ -150,7 +150,6 @@
         android:fontFamily="@font/varela_round"
         android:gravity="center_vertical"
         android:iconTint="@null"
-
         android:pointerIcon="none"
         android:text="Entrar com o Google"
         android:textColor="@color/water_blue"
