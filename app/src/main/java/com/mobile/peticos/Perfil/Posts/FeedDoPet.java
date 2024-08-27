@@ -1,4 +1,4 @@
-package com.mobile.peticos.Perfil;
+package com.mobile.peticos.Perfil.Pets;
 
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mobile.peticos.Perfil.PerfilFragment;
 import com.mobile.peticos.R;
 
 /**
