@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.mobile.peticos.Login;
-import com.mobile.peticos.R;
+import com.mobile.peticos.Cadastros.CadastroProfissional;
+import com.mobile.peticos.Cadastros.CadastroTutor;
 
 public class Tutor_ou_Profissional extends AppCompatActivity {
 

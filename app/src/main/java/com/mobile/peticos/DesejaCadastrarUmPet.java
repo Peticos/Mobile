@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mobile.peticos.Cadastros.CadastrarPet;
+
 public class DesejaCadastrarUmPet extends AppCompatActivity {
 
     @Override

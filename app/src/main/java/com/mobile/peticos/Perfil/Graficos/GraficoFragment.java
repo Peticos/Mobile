@@ -1,4 +1,4 @@
-package com.mobile.peticos.Perfil;
+package com.mobile.peticos.Perfil.Graficos;
 
 import android.os.Bundle;
 
