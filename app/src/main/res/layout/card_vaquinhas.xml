@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="430dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="4dp"
+        tools:layout_editor_absoluteY="0dp"
         android:backgroundTint="@color/white"
         android:background="@color/white">
 
         <LinearLayout
-            android:layout_width="409dp"
-            android:layout_height="388dp"
+            android:layout_width="match_parent"
+            android:layout_height="match"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:paddingLeft="20dp"
                     android:layout_weight="1"
                     tools:srcCompat="@tools:sample/avatars" />
 
