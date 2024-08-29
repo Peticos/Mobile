@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/beige"
-    tools:context=".Perfil.Posts.FeedDoPet">
-
+    tools:context=".Perfil.Calendario.CalendarioFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/beige"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,11 +21,11 @@
 
             <ImageButton
                 android:id="@+id/goBack"
-                android:clickable="true"
                 android:layout_width="30dp"
                 android:layout_height="37dp"
                 android:layout_weight="1"
                 android:background="#00FFFFFF"
+                android:clickable="true"
                 android:src="@drawable/baseline_arrow_left_24" />
 
             <TextView
@@ -36,7 +35,7 @@
                 android:layout_marginRight="160dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/lilita_one"
-                android:text="Posts Pets"
+                android:text="Calendário"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -47,14 +46,19 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:scaleType="fitXY"
-                app:shapeAppearance="@style/RoundedImage"
-                android:src="@drawable/fotogenerica" />
+                android:src="@drawable/fotogenerica"
+                app:shapeAppearance="@style/RoundedImage" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <TextView
+            android:id="@+id/textView27"
             android:layout_width="match_parent"
-            android:layout_height="579dp"
-            android:paddingTop="20dp"
-            tools:listitem="@layout/postagem_feed" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lilita_one"
+            android:text="Filtros"
+            android:textColor="@color/water_blue"
+            android:textSize="16sp" />
     </LinearLayout>
 </FrameLayout>

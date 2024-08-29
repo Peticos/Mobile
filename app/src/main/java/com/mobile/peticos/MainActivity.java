@@ -2,17 +2,15 @@ package com.mobile.peticos;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
-import com.mobile.peticos.Perfil.FeedDoPet;
 import com.mobile.peticos.Perfil.PerfilFragment;
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;

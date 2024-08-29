@@ -1,10 +1,14 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Cadastros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.mobile.peticos.DesejaCadastrarUmPet;
+import com.mobile.peticos.Login;
+import com.mobile.peticos.R;
 
 public class CadastroTutor extends AppCompatActivity {
 

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="match_parent"
     android:layout_gravity="center_horizontal">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="336dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="5dp"
         app:cardBackgroundColor="@color/water_blue"
@@ -37,7 +37,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/tituloLembrete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lilita_one"
@@ -58,7 +58,7 @@
                         app:srcCompat="@drawable/ic_time" />
 
                     <TextView
-                        android:id="@+id/textView28"
+                        android:id="@+id/horarioLembrete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
