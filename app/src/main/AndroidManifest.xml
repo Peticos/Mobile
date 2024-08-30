@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
+            android:name=".caixa_de_texto_perfil_pet"
+            android:exported="false" />
+        <activity
+            android:name=".perfil_pet"
+            android:exported="false" />
+        <activity
             android:name=".Tutor_ou_Profissional"
             android:exported="false" />
         <activity

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo_perfil_pet"
+    tools:context=".perfil_pet">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/shareButton"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#00472C2C"
+                app:srcCompat="@drawable/arrow" />
+
+            <TextView
+                android:id="@+id/NomePet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/lilita_one"
+                android:gravity="center"
+                android:text="Nome do Pet"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imagemPet"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/imagem_gato_exemplo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/beige"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/NomePetDois"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lilita_one"
+                android:text="Nome do Pet"
+                android:textColor="@color/is_it_green"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/IdadePet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/varela_round"
+                android:text="11 anos"
+                android:textColor="@color/is_it_green"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/porte" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Sexo"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/sexoPet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Feminino"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/porte" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Raça"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/RacaPet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Raça Pet"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/porte" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Cor"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/CorPet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Branco"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/porte" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Porte"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/PortPet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Médio"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/porte" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Situação"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/SituacaoPet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Adotado"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
