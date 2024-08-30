@@ -5,6 +5,7 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,10 +14,39 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".caixa_de_texto_perfil_pet"
             android:exported="false" />
         <activity
             android:name=".perfil_pet"
+=======
+            android:name=".PersonalizarPets"
+            android:exported="false" />
+        <!-- Add this line -->
+        <activity
+            android:name=".itemCadastroVacina"
+            android:exported="false" />
+        <activity
+            android:name=".cadastro_vacina"
+            android:exported="false" />
+        <activity
+            android:name=".VacinasPets"
+            android:exported="false" />
+        <activity
+            android:name=".ItemVacina"
+            android:exported="false" />
+        <activity
+            android:name=".Cadastros.CadastrarPet"
+            android:exported="false" />
+        <activity
+            android:name=".DesejaCadastrarUmPet"
+            android:exported="false" />
+        <activity
+            android:name=".Cadastros.CadastroTutor"
+            android:exported="false" />
+        <activity
+            android:name=".Cadastros.CadastroProfissional"
+>>>>>>> 423a3be178c5f6672adfc14deb2b537dec89fba6
             android:exported="false" />
         <activity
             android:name=".Tutor_ou_Profissional"

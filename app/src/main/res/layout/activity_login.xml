@@ -9,12 +9,10 @@
     tools:context=".Login">
 
 
-
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
+        android:layout_width="196dp"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -100,9 +98,10 @@
             android:layout_width="250dp"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/water_blue"
+            android:background="@drawable/principal_button"
             android:elevation="4dp"
             android:fontFamily="@font/lilita_one"
+            android:onClick="abrirMainTeste"
             android:text="Entrar"
             android:textSize="22sp" />
 

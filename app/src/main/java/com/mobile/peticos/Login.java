@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mobile.peticos.R;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -16,6 +18,12 @@ public class Login extends AppCompatActivity {
 
     public void TutorOuPeofissional(View view) {
         Intent intent = new Intent(this, Tutor_ou_Profissional.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void abrirMainTeste(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

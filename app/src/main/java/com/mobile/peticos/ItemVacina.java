@@ -1,16 +1,14 @@
-package com.mobile.peticos.feedFotoPet;
+package com.mobile.peticos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.mobile.peticos.R;
-
-public class feedFotoPet extends AppCompatActivity {
+public class ItemVacina extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_foto_pet);
+        setContentView(R.layout.activity_item_vacina);
     }
 }
