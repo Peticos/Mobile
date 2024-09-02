@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_add"
-                        android:tint="@color/wood_brown"
+                        app:tint="@color/wood_brown"
                         android:background="none"/>
 
                     <ImageButton
@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_search"
-                        android:tint="@color/wood_brown"
+                        app:tint="@color/wood_brown"
                         android:background="none"/>
 
                     <ImageButton
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:src="@drawable/ic_config"
-                        android:tint="@color/wood_brown"
+                        app:tint="@color/wood_brown"
                         android:background="none"/>
                 </LinearLayout>
 

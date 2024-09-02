@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 tools:src="@drawable/ic_logo"
-                android:tint="@color/red_or_orange"
+                app:tint="@color/red_or_orange"
                 android:contentDescription="Logo"/>
 
             <LinearLayout
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/ic_add"
-                    android:tint="@color/wood_brown"
+                    app:tint="@color/wood_brown"
                     android:background="none"
                     android:contentDescription="Button add"/>
 
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/ic_search"
-                    android:tint="@color/wood_brown"
+                    app:tint="@color/wood_brown"
                     android:background="none"
                     android:contentDescription="Button search"/>
 
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/ic_config"
-                    android:tint="@color/wood_brown"
+                    app:tint="@color/wood_brown"
                     android:background="none"
                     android:contentDescription="Button config"/>
             </LinearLayout>
@@ -105,13 +105,14 @@
                 android:layout_weight="1"
                 android:paddingRight="140dp"
                 android:src="@drawable/ic_alert"
-                android:tint="@color/red_or_orange"/>
+                app:tint="@color/red_or_orange"/>
 
             <ImageButton
                 android:id="@+id/imageButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:contentDescription="SOS button"
                 tools:src="@drawable/sos" />
 
         </LinearLayout>
