@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.R;
 
 public class Login extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void abrirMainTeste(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomeFragment.class);
         startActivity(intent);
         finish();
     }
