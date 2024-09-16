@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:src="@drawable/ic_logo"
+                    android:src="@drawable/ic_logo"
                     app:tint="@color/asereje_yellow"
                     android:contentDescription="Logo"/>
 
@@ -51,7 +51,6 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_add"
                         app:tint="@color/wood_brown"
-                        android:background="none"
                         android:contentDescription="Button add"/>
 
                     <ImageButton
@@ -61,7 +60,6 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_search"
                         app:tint="@color/wood_brown"
-                        android:background="none"
                         android:contentDescription="Button search"/>
 
                     <ImageButton
@@ -71,7 +69,6 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_config"
                         app:tint="@color/wood_brown"
-                        android:background="none"
                         android:contentDescription="Button config"/>
                 </LinearLayout>
 
@@ -93,7 +90,6 @@
                     android:paddingLeft="24dp"
                     android:paddingRight="8dp"
                     android:textColor="@color/asereje_yellow"
-                    android:background="none"
                     android:fontFamily="@font/lilita_one"
                     android:textSize="20sp"
                     android:text="Vaquinhas Solidárias"/>

@@ -21,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void abritela(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
         finish();
     }
