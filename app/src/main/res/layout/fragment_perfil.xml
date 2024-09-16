@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/beige"
-    tools:context=".Perfil.PerfilFragment">
+    tools:context=".Perfil.Tutor.PerfilFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -237,6 +237,18 @@
                         android:textSize="10sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="110dp"
+                android:clickable="true"
+                android:onClick="openEditor"
+                android:src="@drawable/ic_editar"
+                app:layout_constraintStart_toStartOf="@+id/imageView12"
+                app:layout_constraintTop_toTopOf="@+id/imageView12" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

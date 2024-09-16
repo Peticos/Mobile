@@ -1,5 +1,6 @@
-package com.mobile.peticos.Perfil;
+package com.mobile.peticos.Perfil.Tutor;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.mobile.peticos.Perfil.AdapterLembretes.CarouselAdapter;
-import com.mobile.peticos.Perfil.AdapterLembretes.Lembrete;
-import com.mobile.peticos.Perfil.Calendario.CalendarioFragment;
-import com.mobile.peticos.Perfil.Graficos.GraficoFragment;
+import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.CarouselAdapter;
+import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.Lembrete;
+import com.mobile.peticos.Perfil.Tutor.Calendario.CalendarioFragment;
 import com.mobile.peticos.Perfil.Posts.FeedDoPet;
 import com.mobile.peticos.R;
 
@@ -111,6 +112,16 @@ public class PerfilFragment extends Fragment {
             }
         }    );
 
+        ImageView img = view.findViewById(R.id.imageView23);
+
+        img.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                openEditor(view);
+            }
+        });
+
         return view;
     }
 
@@ -133,6 +144,10 @@ public class PerfilFragment extends Fragment {
     }
 
 
+    public void openEditor(View view) {
+        Intent intent = new Intent(getActivity(), EditarPerfil.class);
+        startActivity(intent);
+    }
 
 
 

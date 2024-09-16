@@ -14,9 +14,17 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
-            android:name=".PersonalizarPets"
+            android:name=".Perfil.Profissional.EditarPerfilProfissional"
             android:exported="false" />
-        <!-- Add this line -->
+        <activity
+            android:name=".Perfil.Tutor.EditarPerfil"
+            android:exported="false" />
+        <activity
+            android:name=".Perfil.Profissional.AdicionarProduto"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalizarPets"
+            android:exported="false" /> <!-- Add this line -->
         <activity
             android:name=".itemCadastroVacina"
             android:exported="false" />
