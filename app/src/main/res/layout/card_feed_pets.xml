@@ -31,7 +31,7 @@
                 android:layout_width="77dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@null" />
 
             <LinearLayout
                 android:layout_width="207dp"
@@ -78,7 +78,7 @@
             android:layout_height="274dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@null" />
 
         <LinearLayout
             android:layout_width="match_parent"

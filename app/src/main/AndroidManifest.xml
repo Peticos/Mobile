@@ -14,13 +14,25 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
+            android:name=".Perfil.Profissional.EditarPerfilProfissional"
+            android:exported="false" />
+        <activity
+            android:name=".Perfil.Tutor.EditarPerfil"
+            android:exported="false" />
+        <activity
+            android:name=".Perfil.Profissional.AdicionarProduto"
+            android:exported="false" />
+        <activity
+            android:name=".PrimeirosCuidados"
             android:name=".caixa_de_texto_perfil_pet"
             android:exported="false" />
         <activity
             android:name=".perfil_pet"
             android:name=".PersonalizarPets"
             android:exported="false" />
-        <!-- Add this line -->
+        <activity
+            android:name=".PersonalizarPets"
+            android:exported="false" /> <!-- Add this line -->
         <activity
             android:name=".itemCadastroVacina"
             android:exported="false" />

@@ -1,4 +1,4 @@
-package com.mobile.peticos.Perfil.AdapterLembretes;
+package com.mobile.peticos.Perfil.Tutor.AdapterLembretes;
 
 public class Lembrete {
 

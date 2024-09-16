@@ -55,6 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="579dp"
             android:paddingTop="20dp"
-            tools:listitem="@layout/postagem_feed" />
+            tools:listitem="@layout/card_feed_pets" />
     </LinearLayout>
 </FrameLayout>

@@ -1,10 +1,9 @@
-package com.mobile.peticos.Perfil.AdapterLembretes;
+package com.mobile.peticos.Perfil.Tutor.AdapterLembretes;
 
 import com.mobile.peticos.R;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

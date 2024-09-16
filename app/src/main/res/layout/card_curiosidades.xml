@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/CardViewCuriosidade"
+    android:layout_width="350dp"
+    android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="12dp">
+
+    <TextView
+        android:id="@+id/TextCuriosidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/wood_brown"
+        android:fontFamily="@font/varela_round"
+        android:textSize="16sp"
+        android:text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit odit facere sunt commodi soluta dolore."/>
+
+</androidx.cardview.widget.CardView>
