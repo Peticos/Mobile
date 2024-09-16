@@ -11,7 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
-import com.mobile.peticos.Perfil.PerfilFragment;
+import com.mobile.peticos.Perfil.Profissional.PerfilProfissional;
+import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-                        Fragment homeFragment = PerfilFragment.newInstance();
+                        Fragment homeFragment = PerfilProfissional.newInstance();
                         openFragment(homeFragment);
                     }
                     return true;

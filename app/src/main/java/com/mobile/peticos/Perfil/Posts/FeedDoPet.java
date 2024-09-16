@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.mobile.peticos.Perfil.PerfilFragment;
+import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
 import com.mobile.peticos.R;
 
 /**
