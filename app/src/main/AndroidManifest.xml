@@ -14,12 +14,10 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
             android:name=".caixa_de_texto_perfil_pet"
             android:exported="false" />
         <activity
             android:name=".perfil_pet"
-=======
             android:name=".PersonalizarPets"
             android:exported="false" />
         <!-- Add this line -->
@@ -46,7 +44,6 @@
             android:exported="false" />
         <activity
             android:name=".Cadastros.CadastroProfissional"
->>>>>>> 423a3be178c5f6672adfc14deb2b537dec89fba6
             android:exported="false" />
         <activity
             android:name=".Tutor_ou_Profissional"

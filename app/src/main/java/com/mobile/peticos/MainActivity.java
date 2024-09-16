@@ -15,7 +15,9 @@ import com.mobile.peticos.Perfil.PerfilFragment;
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
+
 public class MainActivity extends AppCompatActivity {
+
 
     ActivityMainBinding binding;
 
