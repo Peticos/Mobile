@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/button_upload"
+    android:backgroundTint="@color/beige"
+    tools:context=".AdicionarAoFeedPrincipal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/imageView18"
+                style="@style/RoundedImage"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="30dp"
+                android:src="@drawable/user1" />
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/logo_escrita"
+                app:tint="@color/wood_brown" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lilita_one"
+            android:paddingTop="10dp"
+            android:text="Faça o upload da foto do seu pet"
+            android:textColor="@color/wood_brown_light_version"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_upload"
+            android:backgroundTint="@color/beige"
+            android:fontFamily="@font/lilita_one"
+            android:text="Upload"
+            android:textColor="@color/wood_brown"
+            app:icon="@drawable/export_light"
+            app:iconSize="20dp"
+            app:iconTint="@color/wood_brown" />
+
+        <TextView
+            android:id="@+id/textView52"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lilita_one"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Escreva a legenda da publicação"
+            android:textColor="@color/wood_brown_light_version"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/editTextText10"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Escreva uma frase bacana"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:gravity="top"
+            android:textSize="16sp"
+            android:fontFamily="@font/varela_round"
+            android:elevation="5dp"
+            android:background="@drawable/rounded_edit_text"/>
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lilita_one"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Qual (ais) amiguinho(s) estão na foto?"
+            android:textColor="@color/wood_brown_light_version"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</FrameLayout>
