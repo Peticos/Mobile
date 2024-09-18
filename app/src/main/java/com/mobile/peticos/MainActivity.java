@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
                         openFragment(homeFragment);
 
                     } else if (item.getItemId() == R.id.navPerdidos) {
-
                         Fragment perdidosFragment = PerdidoFragment.newInstance();
                         openFragment(perdidosFragment);
                     } else if (item.getItemId() == R.id.navVakinhas) {

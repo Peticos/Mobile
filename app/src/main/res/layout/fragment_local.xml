@@ -21,10 +21,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="30dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -35,34 +36,6 @@
                     android:src="@drawable/ic_logo"
                     app:tint="@color/water_blue"
                     android:contentDescription="Logo"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingLeft="60dp"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/imageButton3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_search"
-                        app:tint="@color/water_blue"
-                        android:contentDescription="Button search"/>
-
-                    <ImageButton
-                        android:id="@+id/imageButton4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_config"
-                        app:tint="@color/water_blue"
-                        android:contentDescription="Button config"/>
-                </LinearLayout>
-
 
             </LinearLayout>
 
@@ -174,9 +147,10 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewLocais"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="30dp"
                 android:layout_marginTop="20dp"/>
 
 
