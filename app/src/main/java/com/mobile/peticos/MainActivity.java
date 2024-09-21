@@ -13,6 +13,7 @@ import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 import com.mobile.peticos.Perfil.Profissional.PerfilProfissional;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
+import com.mobile.peticos.PerfilPetPackage.PerfilPets;
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-                        Fragment homeFragment = PerfilProfissional.newInstance();
+                        Fragment homeFragment = PerfilPets.newInstance();
                         openFragment(homeFragment);
                     }
                     return true;

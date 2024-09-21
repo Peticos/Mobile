@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class EditarPerfilPet extends AppCompatActivity {
     ImageView btnEdit, btnVoltar;
@@ -21,8 +22,7 @@ public class EditarPerfilPet extends AppCompatActivity {
 
         btnVoltar = findViewById(R.id.btnVoltar);
         btnVoltar.setOnClickListener(v -> {
-            Intent intent = new Intent(this, PerfilPet.class);
-            startActivity(intent);
+            finish();
         });
     }
 }
