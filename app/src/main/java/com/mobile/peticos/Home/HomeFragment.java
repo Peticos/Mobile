@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.mobile.peticos.R;
-import com.mobile.peticos.Home.AdapterCuriosidadesDiarias; // Certifique-se de que o import está correto
+import com.mobile.peticos.Home.AdapterCuriosidadesDiarias;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,13 +19,7 @@ public class HomeFragment extends Fragment {
     }
 
     public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        return new HomeFragment();
     }
 
     @Override
@@ -34,18 +28,32 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Configurar o RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.RecyclerViewDicas); // Verifique se o ID corresponde ao layout
+        // Configuração do RecyclerView para dicas
+        RecyclerView recyclerViewDicas = view.findViewById(R.id.RecyclerViewDicas);
+        recyclerViewDicas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Configurar o LayoutManager para orientação horizontal
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        // Dados de exemplo para o RecyclerViewDicas
+        List<String> dicasItems = Arrays.asList("Item 1", "Item 2", "Item 3", "Item 4");
 
-        // Dados de exemplo
-        List<String> items = Arrays.asList("Item 1", "Item 2", "Item 3", "Item 4");
+        // Configuração do Adapter para o RecyclerViewDicas
+        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicasItems);
+        recyclerViewDicas.setAdapter(dicasAdapter);
 
-        // Configurar o Adapter
-        AdapterCuriosidadesDiarias adapter = new AdapterCuriosidadesDiarias(items);
-        recyclerView.setAdapter(adapter);
+        // Configuração do RecyclerView para o feed de pets
+        RecyclerView recyclerViewFeedPets = view.findViewById(R.id.RecyclerViewFeedPets);
+        recyclerViewFeedPets.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Exemplo de dados para o feed de pets
+        List<FeedPet> feedPets = Arrays.asList(
+                new FeedPet("geogeo43", "nutela", "Há 2 dias", "curtido por João", "descrição da imagem", R.drawable.user1, R.drawable.publicacao1),
+                new FeedPet("amanda_pet", "lola", "Há 1 dia", "curtido por Maria", "uma foto da lola", R.drawable.user1, R.drawable.publicacao1)
+        );
+
+        // Configuração do Adapter para o RecyclerViewFeedPets
+        FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(feedPets, feedPet -> {
+            // Tratar clique no item (feedPet)
+        });
+        recyclerViewFeedPets.setAdapter(feedPetsAdapter);
 
         return view;
     }

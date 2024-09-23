@@ -32,44 +32,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingRight="140dp"
                     android:src="@drawable/ic_logo" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="30dp"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:paddingLeft="60dp"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/imageButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_add"
-                        app:tint="@color/wood_brown"
-                       />
-
-                    <ImageButton
-                        android:id="@+id/imageButton3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_search"
-                        app:tint="@color/wood_brown"
-                        />
-
-                    <ImageButton
-                        android:id="@+id/imageButton4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_config"
-                        app:tint="@color/wood_brown"
-                       />
-                </LinearLayout>
-
+                    android:background="#00FFFFFF"
+                    android:src="@drawable/ic_add"
+                    app:tint="@color/wood_brown" />
 
             </LinearLayout>
 
