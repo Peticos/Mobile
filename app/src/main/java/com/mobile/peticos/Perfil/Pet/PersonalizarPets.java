@@ -2,6 +2,7 @@ package com.mobile.peticos.Perfil.Pet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,12 +13,13 @@ import com.mobile.peticos.R;
 public class PersonalizarPets extends AppCompatActivity {
 
     ImageView dog_escolha, cat_escolha, dog_1, dog_2, dog_3, dog_4, dog_5, dog_6, dog_7, dog_8, dog_9, cat_1, cat_2, cat_3, cat_4, cat_5, cat_6, cat_7, cat_8, cat_9;
-    ImageView brinquedo_1, brinquedo_2, brinquedo_3, brinquedo_4, brinquedo_5, brinquedo_6, brinquedo_7, brinquedo_8, brinquedo_9;
-    ImageView oculos_1, oculos_2, oculos_3, oculos_4, oculos_5, oculos_6, oculosao_dog, oculosao_cat;
-    ImageView cabecao,cabeca_1, cabeca_2, cabeca_3, cabeca_4, cabeca_5, cabeca_6, cabeca_7, cabeca_8, cabeca_9;
+    ImageView brinquedo_2, brinquedo_3, brinquedo_4, brinquedo_5, brinquedo_6, brinquedo_7, brinquedo_8, brinquedo_9, remover_brinquedo;
+    ImageView oculos_1, oculos_2, oculos_3, oculos_4, oculos_5, oculos_6, oculosao_dog, oculosao_cat, oculos_7, remover_oculos;
+    ImageView cabecao,cabeca_1, cabeca_2, cabeca_3, cabeca_4, cabeca_6, cabeca_7, cabeca_8, cabeca_9, remover_cabeca;
     ImageView btn_escolha, btn_cor, btn_acessorio_cabeca, btn_brinquedo, petzao, btn_oculos, brinquedao;
     LinearLayout escolhercatordog_layout, color_dog_layout, color_cat_layout, acessorio_cabeca_layout, brinquedo_layout, oculos_layout;
     Boolean initial_value_oculoes = false, dog_cat = true; // true = dog, false = cat
+    ImageView btnVoltar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class PersonalizarPets extends AppCompatActivity {
         dog_7 = findViewById(R.id.dog_7);
         dog_8 = findViewById(R.id.dog_8);
         dog_9 = findViewById(R.id.dog_9);
-        brinquedo_1 = findViewById(R.id.brinquedo_1);
+        remover_brinquedo = findViewById(R.id.remover_brinquedo);
         brinquedo_2 = findViewById(R.id.brinquedo_2);
         brinquedo_3 = findViewById(R.id.brinquedo_3);
         brinquedo_4 = findViewById(R.id.brinquedo_4);
@@ -44,11 +46,13 @@ public class PersonalizarPets extends AppCompatActivity {
         brinquedo_9 = findViewById(R.id.brinquedo_9);
         brinquedao = findViewById(R.id.brinquedao);
         cabecao = findViewById(R.id.cabecao);
+        remover_cabeca = findViewById(R.id.remover_cabeca);
+        remover_oculos = findViewById(R.id.remover_oculos);
         cabeca_1 = findViewById(R.id.cabeca_1);
         cabeca_2 = findViewById(R.id.cabeca_2);
         cabeca_3 = findViewById(R.id.cabeca_3);
         cabeca_4 = findViewById(R.id.cabeca_4);
-        cabeca_5 = findViewById(R.id.cabeca_5);
+        remover_cabeca = findViewById(R.id.remover_cabeca);
         cabeca_6 = findViewById(R.id.cabeca_6);
         cabeca_7 = findViewById(R.id.cabeca_7);
         cabeca_8 = findViewById(R.id.cabeca_8);
@@ -61,6 +65,7 @@ public class PersonalizarPets extends AppCompatActivity {
         oculos_4 = findViewById(R.id.oculos_4);
         oculos_5 = findViewById(R.id.oculos_5);
         oculos_6 = findViewById(R.id.oculos_6);
+        oculos_7 = findViewById(R.id.oculos_7);
         cat_1 = findViewById(R.id.cat_1);
         cat_2 = findViewById(R.id.cat_2);
         cat_3 = findViewById(R.id.cat_3);
@@ -104,6 +109,12 @@ public class PersonalizarPets extends AppCompatActivity {
         brinquedao.setVisibility(View.INVISIBLE);
         cabecao.setVisibility(View.INVISIBLE);
         color_cat_layout.setVisibility(View.GONE);
+
+        //btn voltar
+        btnVoltar = findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(v ->{
+            finish();
+        });
 
 
         btn_cor.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +246,46 @@ public class PersonalizarPets extends AppCompatActivity {
 
             }
         });
+
+        //remover
+        remover_oculos.setOnClickListener( v->{
+            oculosao_cat.setVisibility(View.INVISIBLE);
+            oculosao_dog.setVisibility(View.INVISIBLE);
+            initial_value_oculoes = false;        });
+        remover_brinquedo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                brinquedao.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        remover_cabeca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cabecao.setVisibility(View.INVISIBLE);
+            }
+        });
+
         //setar oculos
+        oculos_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initial_value_oculoes =true;
+                if(dog_cat == true){
+                    oculosao_cat.setVisibility(View.INVISIBLE);
+                    oculosao_cat.setImageResource(R.drawable.oculos_personalizado_7);
+                    oculosao_dog.setImageResource(R.drawable.oculos_personalizado_7);
+                    oculosao_dog.setVisibility(View.VISIBLE);
+
+                }else{
+                    oculosao_dog.setVisibility(View.INVISIBLE);
+                    oculosao_cat.setImageResource(R.drawable.oculos_personalizado_7);
+                    oculosao_dog.setImageResource(R.drawable.oculos_personalizado_7);
+                    oculosao_cat.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
         oculos_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -402,14 +452,7 @@ public class PersonalizarPets extends AppCompatActivity {
             }
         });
         //setar brinquedo
-        brinquedo_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                brinquedao.setImageResource(R.drawable.brinquedo_personalizado_1);
-                brinquedao.setVisibility(View.VISIBLE);
 
-            }
-        });
         brinquedo_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -476,13 +519,7 @@ public class PersonalizarPets extends AppCompatActivity {
         });
 
         //setar cabeca
-        cabeca_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cabecao.setImageResource(R.drawable.cabeca_personalizado_1);
-                cabecao.setVisibility(View.VISIBLE);
-            }
-        });
+
         cabeca_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -504,7 +541,7 @@ public class PersonalizarPets extends AppCompatActivity {
                 cabecao.setVisibility(View.VISIBLE);
             }
         });
-        cabeca_5.setOnClickListener(new View.OnClickListener() {
+        cabeca_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_5);

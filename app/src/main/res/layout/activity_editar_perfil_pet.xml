@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundpersonalizarpet"
+    tools:context=".EditarPerfilPet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/is_it_green_light_version"
+            android:backgroundTint="#BF2D8580"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnVoltar"
+                android:layout_width="30dp"
+                android:layout_height="37dp"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:src="@drawable/baseline_arrow_left_24" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="160dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lilita_one"
+                android:text="Editar Pet"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/gato_feliz" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="254dp">
+
+                <ImageView
+                    android:id="@+id/petzao"
+                    android:layout_width="200dp"
+                    android:layout_height="230dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/dog_personalizado_2" />
+
+                <ImageView
+                    android:id="@+id/oculosao_dog"
+                    android:layout_width="94dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="136dp"
+                    android:layout_marginBottom="148dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/oculos_personalizado_1" />
+
+                <ImageView
+                    android:id="@+id/oculosao_cat"
+                    android:layout_width="140dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="124dp"
+                    android:layout_marginBottom="144dp"
+                    android:rotation="-8"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/oculos_personalizado_6" />
+
+                <ImageView
+                    android:id="@+id/brinquedao"
+                    android:layout_width="66dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="128dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/brinquedo_personalizado_1" />
+
+                <ImageView
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="120dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_editar_iconpet" />
+
+                <ImageView
+                    android:id="@+id/cabecao"
+                    android:layout_width="43dp"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="184dp"
+                    android:layout_marginBottom="188dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/cabeca_personalizado_2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/beige">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Nome/Apelido"
+                    android:textColor="@color/water_blue" />
+
+                <EditText
+                    android:id="@+id/editTextText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Nome/Apelido"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Idade"
+                    android:textColor="@color/water_blue" />
+
+                <EditText
+                    android:id="@+id/editTextText4"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Idade"
+                    android:inputType="number"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Espécie"
+                    android:textColor="@color/water_blue" />
+
+                <EditText
+                    android:id="@+id/editTextText5"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Espécie"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Raça"
+                    android:textColor="@color/water_blue" />
+
+                <EditText
+                    android:id="@+id/editTextText6"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Raça"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Cor"
+                    android:textColor="@color/water_blue" />
+
+                <EditText
+                    android:id="@+id/editTextText7"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Cor"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Porte"
+                    android:textColor="@color/water_blue" />
+
+                <EditText
+                    android:id="@+id/editTextText8"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Porte"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/principal_button"
+                    android:fontFamily="@font/lilita_one"
+                    android:onClick="CadastraPet"
+                    android:text="Cadastrar"
+                    android:textSize="26dp" />
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="154dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="#2C4D4B"
+                    android:fontFamily="@font/lilita_one"
+                    android:text="Sair"
+                    android:textSize="22dp" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
