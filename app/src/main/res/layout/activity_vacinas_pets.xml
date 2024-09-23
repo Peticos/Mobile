@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/beige"
     android:backgroundTint="@color/beige"
-    tools:context=".VacinasPets">
+    tools:context=".Perfil.Pet.VacinasPets">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnadd"

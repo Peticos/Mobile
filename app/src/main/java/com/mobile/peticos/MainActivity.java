@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-                        Fragment homeFragment = PerfilPets.newInstance();
+                        Fragment homeFragment = PerfilProfissional.newInstance();
                         openFragment(homeFragment);
                     }
                     return true;

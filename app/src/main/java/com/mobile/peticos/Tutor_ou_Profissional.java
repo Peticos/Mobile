@@ -26,10 +26,14 @@ public class Tutor_ou_Profissional extends AppCompatActivity {
     public void CadastroProfissional(View view) {
         Intent intent = new Intent(this, CadastroProfissional.class);
         startActivity(intent);
+        finish();
+
     }
 
     public void CadastroTutor(View view) {
         Intent intent = new Intent(this, CadastroTutor.class);
         startActivity(intent);
+        finish();
+
     }
 }
