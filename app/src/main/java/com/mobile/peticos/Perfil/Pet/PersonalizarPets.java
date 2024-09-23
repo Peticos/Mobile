@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.mobile.peticos.EditarPerfilPet;
 import com.mobile.peticos.R;
 
 public class PersonalizarPets extends AppCompatActivity {
@@ -65,7 +66,6 @@ public class PersonalizarPets extends AppCompatActivity {
         oculos_4 = findViewById(R.id.oculos_4);
         oculos_5 = findViewById(R.id.oculos_5);
         oculos_6 = findViewById(R.id.oculos_6);
-        oculos_7 = findViewById(R.id.oculos_7);
         cat_1 = findViewById(R.id.cat_1);
         cat_2 = findViewById(R.id.cat_2);
         cat_3 = findViewById(R.id.cat_3);
@@ -113,7 +113,8 @@ public class PersonalizarPets extends AppCompatActivity {
         //btn voltar
         btnVoltar = findViewById(R.id.btnVoltar);
         btnVoltar.setOnClickListener(v ->{
-            finish();
+            Intent intent = new Intent(this, EditarPerfilPet.class);
+            startActivity(intent);
         });
 
 
@@ -267,25 +268,25 @@ public class PersonalizarPets extends AppCompatActivity {
         });
 
         //setar oculos
-        oculos_7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initial_value_oculoes =true;
-                if(dog_cat == true){
-                    oculosao_cat.setVisibility(View.INVISIBLE);
-                    oculosao_cat.setImageResource(R.drawable.oculos_personalizado_7);
-                    oculosao_dog.setImageResource(R.drawable.oculos_personalizado_7);
-                    oculosao_dog.setVisibility(View.VISIBLE);
-
-                }else{
-                    oculosao_dog.setVisibility(View.INVISIBLE);
-                    oculosao_cat.setImageResource(R.drawable.oculos_personalizado_7);
-                    oculosao_dog.setImageResource(R.drawable.oculos_personalizado_7);
-                    oculosao_cat.setVisibility(View.VISIBLE);
-
-                }
-            }
-        });
+//        oculos_7.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                initial_value_oculoes =true;
+//                if(dog_cat == true){
+//                    oculosao_cat.setVisibility(View.INVISIBLE);
+//                    oculosao_cat.setImageResource(R.drawable.oculos_personalizado_7);
+//                    oculosao_dog.setImageResource(R.drawable.oculos_personalizado_7);
+//                    oculosao_dog.setVisibility(View.VISIBLE);
+//
+//                }else{
+//                    oculosao_dog.setVisibility(View.INVISIBLE);
+//                    oculosao_cat.setImageResource(R.drawable.oculos_personalizado_7);
+//                    oculosao_dog.setImageResource(R.drawable.oculos_personalizado_7);
+//                    oculosao_cat.setVisibility(View.VISIBLE);
+//
+//                }
+//            }
+//        });
         oculos_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
