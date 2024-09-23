@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Perfil.Pet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.mobile.peticos.R;
 
 public class PersonalizarPets extends AppCompatActivity {
 

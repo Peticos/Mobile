@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Cadastros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mobile.peticos.Cadastros.CadastrarPet;
+import com.mobile.peticos.R;
 
 public class DesejaCadastrarUmPet extends AppCompatActivity {
 

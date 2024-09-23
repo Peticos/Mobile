@@ -1,8 +1,10 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Perfil.Pet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.mobile.peticos.R;
 
 public class itemCadastroVacina extends AppCompatActivity {
 

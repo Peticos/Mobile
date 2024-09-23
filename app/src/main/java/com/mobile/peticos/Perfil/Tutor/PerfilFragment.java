@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.CarouselAdapter;
 import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.Lembrete;
 import com.mobile.peticos.Perfil.Tutor.Calendario.CalendarioFragment;
@@ -56,6 +58,7 @@ public class PerfilFragment extends Fragment {
 
 
 
+
         // Dentro da sua Activity ou Fragment
         ViewPager2 viewPager = view.findViewById(R.id.lembretesLista);
 
@@ -67,6 +70,15 @@ public class PerfilFragment extends Fragment {
 
         CarouselAdapter adapter = new CarouselAdapter(items);
         viewPager.setAdapter(adapter);
+
+        //botao logout
+        Button btnLogout = view.findViewById(R.id.btnSair);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout(v);
+            }
+        });
 
 
         // Inflar e adicionar os cartões
@@ -112,9 +124,9 @@ public class PerfilFragment extends Fragment {
             }
         }    );
 
-        ImageView img = view.findViewById(R.id.imageView23);
+        LinearLayout layoutEditar = view.findViewById(R.id.layoutEditar);
 
-        img.setOnClickListener(new View.OnClickListener() {
+        layoutEditar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -147,6 +159,15 @@ public class PerfilFragment extends Fragment {
     public void openEditor(View view) {
         Intent intent = new Intent(getActivity(), EditarPerfil.class);
         startActivity(intent);
+    }
+
+    public void logout(View view) {
+        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+
+        autenticator.signOut();
+        Intent intent = new Intent(getActivity(), Login.class);
+        startActivity(intent);
+
     }
 
 

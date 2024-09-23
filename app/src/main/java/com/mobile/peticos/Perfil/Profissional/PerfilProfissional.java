@@ -1,3 +1,4 @@
+
 package com.mobile.peticos.Perfil.Profissional;
 
 import android.content.Intent;
@@ -6,17 +7,23 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
 import com.mobile.peticos.Perfil.Tutor.EditarPerfil;
 import com.mobile.peticos.R;
 
 public class PerfilProfissional extends Fragment {
+
+
 
 
 
@@ -35,6 +42,7 @@ public class PerfilProfissional extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -45,9 +53,10 @@ public class PerfilProfissional extends Fragment {
 
         Button graphic = view.findViewById(R.id.area_restrita_button);
         Button novoProduto = view.findViewById(R.id.novo_produto_button);
+        LinearLayout editar;
+        editar = view.findViewById(R.id.layoutEditar);
 
 
-        ImageView editar = view.findViewById(R.id.imageView24);
 
 
         editar.setOnClickListener(new View.OnClickListener() {
@@ -92,5 +101,13 @@ public class PerfilProfissional extends Fragment {
         transaction.replace(R.id.fragmentContainerView, GraficoFragment.newInstance());
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+    public void logout(View view) {
+        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+
+        autenticator.signOut();
+        Intent intent = new Intent(getActivity(), Login.class);
+        startActivity(intent);
+
     }
 }

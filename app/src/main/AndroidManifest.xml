@@ -26,25 +26,25 @@
             android:name=".PrimeirosCuidados"
             android:exported="false" />
         <activity
-            android:name=".PersonalizarPets"
+            android:name=".Perfil.Pet.PersonalizarPets"
             android:exported="false" /> <!-- Add this line -->
         <activity
-            android:name=".itemCadastroVacina"
+            android:name=".Perfil.Pet.itemCadastroVacina"
             android:exported="false" />
         <activity
-            android:name=".cadastro_vacina"
+            android:name=".Perfil.Pet.cadastro_vacina"
             android:exported="false" />
         <activity
-            android:name=".VacinasPets"
+            android:name=".Perfil.Pet.VacinasPets"
             android:exported="false" />
         <activity
-            android:name=".ItemVacina"
+            android:name=".Perfil.Pet.ItemVacina"
             android:exported="false" />
         <activity
             android:name=".Cadastros.CadastrarPet"
             android:exported="false" />
         <activity
-            android:name=".DesejaCadastrarUmPet"
+            android:name=".Cadastros.DesejaCadastrarUmPet"
             android:exported="false" />
         <activity
             android:name=".Cadastros.CadastroTutor"
