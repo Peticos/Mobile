@@ -36,6 +36,12 @@ public class CadastroTutor extends AppCompatActivity {
 
     Button btnCadastrar;
     Retrofit retrofit;
+    EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
+
+    View senha1, senha2;
+
+    AutoCompleteTextView bairro;
+    Button cadastrarButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,22 @@ public class CadastroTutor extends AppCompatActivity {
 
         //botoes
         btnCadastrar = findViewById(R.id.cadastrar);
-        btnCadastrar.setOnClickListener(v -> salvarUsuario());
+        senha1 = findViewById(R.id.senhainalida1);
+        senha2 = findViewById(R.id.senhainvalida);
+        senha1.setVisibility(View.INVISIBLE);
+        senha2.setVisibility(View.INVISIBLE);
+        btnCadastrar.setOnClickListener(v -> validarCampos());
+
+
+        nomeCompleto = findViewById(R.id.nomeCompleto);
+        nomeUsuario = findViewById(R.id.NomeUsuario);
+        telefone = findViewById(R.id.Telefone);
+        bairro = findViewById(R.id.autoCompleteTextView);
+        emailCadastro = findViewById(R.id.email_cadastro);
+        senhaCadastro = findViewById(R.id.senha_cadastro);
+        senhaRepetida = findViewById(R.id.senharepetida_cadastro);
+        cadastrarButton = findViewById(R.id.cadastrar);
+        textSenhaRepeita = senhaRepetida.getText().toString();
 
         //chamando API Bairros
         String API = "https://apipeticosdev.onrender.com";
@@ -100,42 +121,124 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     }
-    //public void verificarSenha(View view) {
+
+    private void validarCampos() {
+        boolean erro = false;
+        // Exemplo de validação para os campos
+        if (nomeCompleto.getText().toString().isEmpty()) {
+            nomeCompleto.setError("Nome completo é obrigatório");
+            erro = true;
+        }
+
+        if (nomeUsuario.getText().toString().isEmpty()) {
+            nomeUsuario.setError("Nome de usuário é obrigatório");
+            erro = true;
+        }
+
+        if (telefone.getText().toString().isEmpty()) {
+            telefone.setError("Telefone é obrigatório");
+            erro = true;
+
+        }else if(!validarTelefone(telefone.getText().toString())){
+            telefone.setError("Telefone inválido");
+            erro = true;
+        }
+
+        if (emailCadastro.getText().toString().isEmpty()) {
+            emailCadastro.setError("Campo obrigatorio");
+            erro = true;
+        }else if(!validarEmail(emailCadastro.getText().toString())){
+            emailCadastro.setError("E-mail inválido");
+            erro = true;
+        }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(emailCadastro.getText().toString()).matches()){
+            emailCadastro.setError("E-mail ja cadastrado");
+            erro = true;
+        }
+
+//        if (senhaCadastro.getText().toString().isEmpty()) {
+//            senha1.setVisibility(View.VISIBLE);
+//            senha2.setVisibility(View.VISIBLE);
+//            erro = true;
+//
+//        }else{
+//            senha1.setVisibility(View.INVISIBLE);
+//            senha2.setVisibility(View.INVISIBLE);
+//
+//        }
+//
+//
+//        if (!senhaCadastro.getText().toString().equals(senhaRepetida.getText().toString())) {
+//            senha1.setVisibility(View.VISIBLE);
+//            senha2.setVisibility(View.VISIBLE);
+//            erro = true;
+//        }else{
+//            senha1.setVisibility(View.INVISIBLE);
+//            senha2.setVisibility(View.INVISIBLE);
+//        }
+
+
+        if(bairro.getText().toString().isEmpty()){
+            bairro.setError("Selecione um bairro");
+            erro = true;
+
+        }
+//        if(verificarSenha()){
+//            senha1.setVisibility(View.INVISIBLE);
+//            senha2.setVisibility(View.INVISIBLE);
+//        }else{
+//            senha1.setVisibility(View.VISIBLE);
+//            senha2.setVisibility(View.VISIBLE);
+//            erro = true;
+//        }
+
+        if(erro){
+            salvarUsuario();
+        };
+
+
+
+        // Se todos os campos estiverem preenchidos corretamente, prossiga
+    }
+
+    public boolean verificarSenha() {
+        String txtSenha = senhaCadastro.getText().toString(), textSenhaRepeita = senhaRepetida.getText().toString();
+
 //
 //        // Verificar se as senhas coincidem
-//        if (!senha.equals(senhaRepetida)) {
+//        if (!txtSenha.equals(textSenhaRepeita)) {
 //            Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
-//            return;
+//
+//            return false;
 //        }
 //
 //        // Verificar o comprimento mínimo da senha
-//        if (senha.length() < 8) {
+//        if (txtSenha.length() < 8) {
 //            Toast.makeText(this, "A senha deve ter pelo menos 8 caracteres", Toast.LENGTH_SHORT).show();
-//            return;
+//            return false;
 //        }
 //
 //        // Verificar se a senha contém um número
-//        if (!senha.matches(".*\\d.*")) {
+//        if (!txtSenha.matches(".*\\d.*")) {
 //            Toast.makeText(this, "A senha deve conter pelo menos um número", Toast.LENGTH_SHORT).show();
-//            return;
+//            return false;
 //        }
 //
 //        // Verificar se a senha contém uma letra maiúscula
-//        if (!senha.matches(".*[A-Z].*")) {
+//        if (!txtSenha.matches(".*[A-Z].*")) {
 //            Toast.makeText(this, "A senha deve conter pelo menos uma letra maiúscula", Toast.LENGTH_SHORT).show();
-//            return;
+//            return false;
 //        }
 //
 //        // Verificar se a senha contém um caractere especial
-//        if (!senha.matches(".*[!@#$%^&*+=?-].*")) {
+//        if (!txtSenha.matches(".*[!@#$%^&*+=?-].*")) {
 //            Toast.makeText(this, "A senha deve conter pelo menos um caractere especial (!@#$%^&*+=?-)", Toast.LENGTH_SHORT).show();
-//            return;
+//            return false;
 //        }
-//
-//        // Se passar por todas as verificações, salvar o usuário
-//        salvarUsuario();
-//        Toast.makeText(this, "Usuário salvo com sucesso!", Toast.LENGTH_SHORT).show();
-//    }
+
+        // Se passar por todas as verificações, salvar o usuário
+        return true;
+
+    }
 
 
     public void EntrarLogin(View view) {
@@ -149,12 +252,12 @@ public class CadastroTutor extends AppCompatActivity {
         FirebaseAuth autenticator = FirebaseAuth.getInstance();
 
         // Capturando o texto dos campos de EditText aqui dentro
-        String txtEmail = ((EditText) findViewById(R.id.email_cadastro)).getText().toString();
-        String txtSenha = ((EditText) findViewById(R.id.senha_cadastro)).getText().toString();
+        String txtEmail = emailCadastro.getText().toString(); // Captura o texto do email diretamente do EditText
+        String txtSenha = senhaCadastro.getText().toString(); // Captura o texto da senha
+        String nomeUsuario = this.nomeUsuario.getText().toString(); // Captura o texto do nome de usuário
 
-        // Verificar se os campos estão vazios
-        if (txtEmail.isEmpty() || txtSenha.isEmpty()) {
-            Toast.makeText(CadastroTutor.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+        if(txtEmail.isEmpty() || txtSenha.isEmpty() || nomeUsuario.isEmpty()){
+            Toast.makeText(CadastroTutor.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -168,9 +271,11 @@ public class CadastroTutor extends AppCompatActivity {
 
                             // Atualizar o perfil do usuário
                             FirebaseUser userLogin = autenticator.getCurrentUser();
-                            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().build();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(nomeUsuario) // Define o nome de usuário aqui
+                                    .build();
 
-                            userLogin.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            userLogin.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -186,6 +291,19 @@ public class CadastroTutor extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    // Método para verificar se o telefone é válido
+    private boolean validarTelefone(String phoneNumber) {
+        // Remove espaços e pontuações do número
+        phoneNumber = phoneNumber.replaceAll("[^\\d]", "");
+
+        // Valida o número de telefone brasileiro: 10 ou 11 dígitos
+        return phoneNumber.length() == 10 || phoneNumber.length() == 11;
+    }
+    private boolean validarEmail(String email) {
+        // Expressão regular para verificar se o e-mail corresponde a um dos domínios permitidos
+        return email.matches("^[\\w-\\.]+@(gmail\\.com|outlook\\.com\\.br|yahoo\\.com|germinare\\.org\\.br)$");
     }
 }
 

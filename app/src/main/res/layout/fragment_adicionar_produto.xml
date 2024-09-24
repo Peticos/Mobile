@@ -91,7 +91,7 @@
                 android:textColor="@color/is_it_green_light_version" />
 
             <EditText
-                android:id="@+id/editTextText5"
+                android:id="@+id/Telefone"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginBottom="10dp"
