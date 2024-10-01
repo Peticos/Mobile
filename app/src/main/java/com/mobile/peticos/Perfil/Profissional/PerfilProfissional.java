@@ -55,6 +55,7 @@ public class PerfilProfissional extends Fragment {
         Button novoProduto = view.findViewById(R.id.novo_produto_button);
         LinearLayout editar;
         editar = view.findViewById(R.id.layoutEditar);
+        Button btnLogout = view.findViewById(R.id.btnSair);
 
 
 
@@ -69,6 +70,14 @@ public class PerfilProfissional extends Fragment {
             @Override
             public void onClick(View view) {
                 goToGraphic(view);
+            }
+        });
+
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout(view);
             }
         });
 
