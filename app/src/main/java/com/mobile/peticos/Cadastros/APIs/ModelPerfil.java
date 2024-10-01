@@ -1,23 +1,32 @@
 package com.mobile.peticos.Cadastros.APIs;
 
-public class ModelPerfil {
-//    {
-//        "fullName": "Nome Exemplo",
-//            "username": "usuarioExemplo",
-//            "email": "usuario@gmail.com",
-//            "gender": "Masculino",
-//            "plan": "Sem Plano",
-//            "bairro":"Aclimação",
-//            "phone":"01234567890"
-//    }
+import com.google.gson.annotations.SerializedName;
 
-    public String bairro;
+public class ModelPerfil {
+    //@Param("fullName") String fullName,
+    //            @Param("username") String username,
+    //            @Param("email") String email,
+    //            @Param("bairro") String bairro,
+    //            @Param("plan") String plan,
+    //            @Param("phone") String phone,
+    //            @Param("gender") String gender
+
+    @SerializedName("fullName")
     public String fullName;
-    public String userName;
+    @SerializedName("username")
+    public String username;
+    @SerializedName("email")
     public String email;
+    @SerializedName("bairro")
+    public String bairro;
+    @SerializedName("plan")
+    public String plan;
+    @SerializedName("phone")
+    public String phone;
+    @SerializedName("gender")
     public String gender;
-    public String telefone;
-    public String plano;
+
+    @SerializedName("cnpj")
     public String cnpj;
 
     public String getBairro() {
@@ -39,11 +48,11 @@ public class ModelPerfil {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = username;
     }
 
     public String getEmail() {
@@ -63,19 +72,19 @@ public class ModelPerfil {
     }
 
     public String getTelefone() {
-        return telefone;
+        return phone;
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        this.phone = telefone;
     }
 
     public String getPlano() {
-        return plano;
+        return plan;
     }
 
     public void setPlano(String plano) {
-        this.plano = plano;
+        this.plan = plano;
     }
 
     public String getCnpj() {
@@ -86,26 +95,29 @@ public class ModelPerfil {
         this.cnpj = cnpj;
     }
 
-    public ModelPerfil(String bairro, String fullName, String userName, String email, String gender, String telefone, String plano) {
-        this.bairro = bairro;
+    public ModelPerfil(String fullName, String username, String email, String bairro, String plan, String phone, String gender, String cnpj) {
         this.fullName = fullName;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
+        this.bairro = bairro;
+        this.plan = plan;
+        this.phone = phone;
         this.gender = gender;
-        this.telefone = telefone;
-        this.plano = plano;
+        this.cnpj = cnpj;
+
     }
+
 
     @Override
     public String toString() {
         return "ModelPerfil{" +
                 "bairro='" + bairro + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", plano='" + plano + '\'' +
+                ", telefone='" + phone + '\'' +
+                ", plano='" + plan + '\'' +
                 ", cnpj='" + cnpj + '\'' +
                 '}';
     }
