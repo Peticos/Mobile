@@ -1,531 +1,467 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
-
     tools:context=".Cadastros.CadastroProfissional"
-
-    android:background="@color/beige">
+    android:background="@drawable/fundo">
 
     <ScrollView
-
         android:id="@+id/Scroll"
-
         android:layout_width="407dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-
             android:id="@+id/linearLayout5"
-
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="30dp">
+                android:paddingBottom="20dp">
 
                 <ImageView
-
-                    android:id="@+id/imageView21"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="205dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-
-                    app:layout_constraintHorizontal_bias="0.0"
-
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    app:layout_constraintVertical_bias="0.0"
-
-                    app:srcCompat="@drawable/background_cadastrar" />
-
-                <ImageView
-
                     android:id="@+id/upload"
-
                     android:layout_width="150dp"
-
                     android:layout_height="150dp"
-
-                    android:layout_marginTop="80dp"
-
                     android:backgroundTint="@color/is_it_green"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageView21"
-                    app:srcCompat="@drawable/upload_foto" />
+                    app:srcCompat="@drawable/upload_foto"
+                    tools:layout_editor_absoluteY="36dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/beige"
+                app:contentPaddingTop="30dp">
 
-                <TextView
-
-                    android:id="@+id/textView28"
-
+                <LinearLayout
                     android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="Nome completo"
-
-                    android:textColor="@color/water_blue" />
-
-                <EditText
-
-                    android:id="@+id/nomeCompleto"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="48dp"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@drawable/rounded_edit_text"
-
-                    android:ems="10"
-
-                    android:hint=" Nome completo"
-
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-
-                    android:textSize="14dp" />
-
-                <TextView
-
-                    android:id="@+id/textView12"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="Nome de usuário"
-
-                    android:textColor="@color/water_blue" />
-
-                <EditText
-
-                    android:id="@+id/nomeUsuario"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="48dp"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@drawable/rounded_edit_text"
-
-                    android:ems="10"
-
-                    android:hint="Nome do usuário"
-
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-
-                    android:textSize="14dp" />
-
-                <TextView
-
-                    android:id="@+id/textView13"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="Telefone"
-
-                    android:textColor="@color/water_blue" />
-
-                <EditText
-
-                    android:id="@+id/telefone"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="48dp"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@drawable/rounded_edit_text"
-
-                    android:ems="10"
-
-                    android:hint="Telefone"
-
-                    android:inputType="phone"
-
-                    android:paddingLeft="10dp"
-
-                    android:textSize="14dp" />
-
-                <TextView
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="CNPJ"
-
-                    android:textColor="@color/water_blue"
-
-                    />
-
-                <EditText
-
-                    android:id="@+id/cnpj"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="48dp"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@drawable/rounded_edit_text"
-
-                    android:ems="10"
-
-                    android:hint="Cnpj"
-
-                    android:inputType="phone"
-
-                    android:paddingLeft="10dp"
-                    android:textSize="14dp" />
-
-                <TextView
-
-                    android:id="@+id/textView56"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="Bairro"
-
-                    android:textColor="@color/water_blue" />
-
-                <AutoCompleteTextView
-
-                    android:id="@+id/bairro"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="48dp"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@drawable/rounded_edit_text"
-
-                    android:ems="10"
-
-                    android:hint="Selecione o bairro"
-
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
-
-                    android:textSize="14sp"
-
-                    />
-
-                <TextView
-
-                    android:id="@+id/textView14"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="E-mail"
-
-                    android:textColor="@color/water_blue" />
-
-                <EditText
-
-                    android:id="@+id/email_cadastro"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="48dp"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@drawable/rounded_edit_text"
-
-                    android:ems="10"
-
-                    android:hint="E-mail"
-
-                    android:inputType="textEmailAddress"
-
-                    android:paddingLeft="10dp"
-
-                    android:textSize="14dp" />
-
-                <TextView
-
-                    android:id="@+id/senha"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="Senha"
-
-                    android:textColor="@color/water_blue" />
-
-                <com.google.android.material.textfield.TextInputLayout
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    app:endIconMode="password_toggle"
-
-                    app:passwordToggleTint="@color/black">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-                        android:id="@+id/senha_cadastro"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Nome completo"
+                        android:textColor="@color/water_blue" />
+
+                    <EditText
+                        android:id="@+id/nomeCompleto"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:backgroundTint="@color/white"
+                        android:ems="10"
+                        android:hint=" Nome completo"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Nome de usuário"
+                        android:textColor="@color/water_blue" />
+
+                    <EditText
+                        android:id="@+id/nomeUsuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:backgroundTint="@color/white"
+                        android:ems="10"
+                        android:hint="Nome do usuário"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:textSize="14dp" />
+
+                    <TextView
+
+                        android:id="@+id/textView13"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+
+                        android:fontFamily="@font/varela_round"
+
+                        android:text="Telefone"
+
+                        android:textColor="@color/water_blue" />
+
+                    <EditText
+
+                        android:id="@+id/telefone"
 
                         android:layout_width="match_parent"
 
                         android:layout_height="48dp"
 
+                        android:layout_marginBottom="10dp"
+
                         android:background="@drawable/rounded_edit_text"
+
+                        android:backgroundTint="@color/white"
 
                         android:ems="10"
 
-                        android:hint="Digite sua senha"
+                        android:hint="Telefone"
 
-                        android:inputType="textPassword"
+                        android:inputType="phone"
+
+                        android:paddingLeft="10dp"
+                        android:textSize="14dp" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+
+                        android:fontFamily="@font/varela_round"
+
+                        android:text="CNPJ"
+
+                        android:textColor="@color/water_blue"
+
+                        />
+
+                    <EditText
+
+                        android:id="@+id/cnpj"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="48dp"
+
+                        android:layout_marginBottom="10dp"
+
+                        android:background="@drawable/rounded_edit_text"
+
+                        android:backgroundTint="@color/white"
+
+                        android:ems="10"
+
+                        android:hint="Cnpj"
+
+                        android:inputType="phone"
+                        android:paddingLeft="10dp"
+                        android:textSize="14dp" />
+
+                    <TextView
+
+                        android:id="@+id/textView56"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+
+                        android:fontFamily="@font/varela_round"
+
+                        android:text="Bairro"
+
+                        android:textColor="@color/water_blue" />
+
+                    <AutoCompleteTextView
+
+                        android:id="@+id/bairro"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="48dp"
+
+                        android:layout_marginBottom="10dp"
+
+                        android:background="@drawable/rounded_edit_text"
+
+                        android:backgroundTint="@color/white"
+
+                        android:ems="10"
+
+                        android:hint="Selecione o bairro"
+
+                        android:inputType="text"
 
                         android:paddingLeft="10dp"
 
                         android:paddingRight="10dp"
 
-                        android:textSize="14dp" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:textSize="14sp" />
 
-                <TextView
+                    <TextView
 
-                    android:id="@+id/senhainalida"
+                        android:id="@+id/textView14"
 
-                    android:layout_width="match_parent"
+                        android:layout_width="match_parent"
 
-                    android:layout_height="wrap_content"
+                        android:layout_height="wrap_content"
 
-                    android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="10dp"
 
-                    android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/varela_round"
 
-                    android:fontFamily="@font/varela_round"
+                        android:text="E-mail"
 
-                    android:text="Senha Inválida"
+                        android:textColor="@color/water_blue" />
 
-                    android:textColor="@color/red_or_orange"
+                    <EditText
 
-                    android:textSize="12sp" />
-
-                <TextView
-
-                    android:id="@+id/textView17"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="Confirme sua senha"
-
-                    android:textColor="@color/water_blue" />
-
-                <com.google.android.material.textfield.TextInputLayout
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    app:endIconMode="password_toggle"
-
-                    app:passwordToggleTint="@color/black">
-
-                    <com.google.android.material.textfield.TextInputEditText
-
-                        android:id="@+id/senharepetida_cadastro"
+                        android:id="@+id/email_cadastro"
 
                         android:layout_width="match_parent"
 
                         android:layout_height="48dp"
 
+                        android:layout_marginBottom="10dp"
+
                         android:background="@drawable/rounded_edit_text"
+
+                        android:backgroundTint="@color/white"
 
                         android:ems="10"
 
-                        android:hint="Confirme sua senha"
+                        android:hint="E-mail"
 
-                        android:inputType="textPassword"
+                        android:inputType="textEmailAddress"
 
                         android:paddingLeft="10dp"
-
                         android:textSize="14dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-
-                    android:id="@+id/senhainalida1"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:fontFamily="@font/varela_round"
-
-                    android:text="Senha Inválida"
-
-                    android:textColor="@color/red_or_orange"
-
-                    android:textSize="12sp" />
-
-                <Button
-
-                    android:id="@+id/cadastrar"
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginBottom="10dp"
-
-                    android:background="@drawable/principal_button"
-
-                    android:fontFamily="@font/lilita_one"
-
-                    android:onClick="CadastraPet"
-
-                    android:text="Cadastrar"
-
-                    android:textSize="26dp" />
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-
-                    android:layout_height="match_parent"
-
-                    android:layout_marginBottom="30dp"
-                    android:orientation="horizontal">
 
                     <TextView
 
-                        android:id="@+id/textView18"
+                        android:id="@+id/senha"
 
-                        android:layout_width="100dp"
-
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginRight="5dp"
-
-                        android:layout_weight="1"
-
-                        android:fontFamily="@font/varela_round"
-
-                        android:gravity="right"
-
-                        android:text="Já tem uma conta?" />
-
-                    <TextView
-
-                        android:id="@+id/btnEntrar"
-
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
 
                         android:layout_height="wrap_content"
 
-                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
 
                         android:fontFamily="@font/varela_round"
 
-                        android:onClick="EntrarLogin"
-
-                        android:text="Entrar"
+                        android:text="Senha"
 
                         android:textColor="@color/water_blue" />
-                </LinearLayout>
 
-            </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        app:endIconMode="password_toggle"
+
+                        app:passwordToggleTint="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+                            android:id="@+id/senha_cadastro"
+
+                            android:layout_width="match_parent"
+
+                            android:layout_height="48dp"
+
+                            android:background="@drawable/rounded_edit_text"
+
+                            android:backgroundTint="@color/white"
+
+                            android:ems="10"
+
+                            android:hint="Digite sua senha"
+
+                            android:inputType="textPassword"
+
+                            android:paddingLeft="10dp"
+
+                            android:paddingRight="10dp"
+                            android:textSize="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+
+                        android:id="@+id/senhainalida"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+
+                        android:layout_marginBottom="10dp"
+
+                        android:fontFamily="@font/varela_round"
+
+                        android:text="Senha Inválida"
+
+                        android:textColor="@color/red_or_orange"
+
+                        android:textSize="12sp" />
+
+                    <TextView
+
+                        android:id="@+id/textView17"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+
+                        android:fontFamily="@font/varela_round"
+
+                        android:text="Confirme sua senha"
+
+                        android:textColor="@color/water_blue" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        app:endIconMode="password_toggle"
+
+                        app:passwordToggleTint="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+                            android:id="@+id/senharepetida_cadastro"
+
+                            android:layout_width="match_parent"
+
+                            android:layout_height="48dp"
+
+                            android:background="@drawable/rounded_edit_text"
+
+                            android:backgroundTint="@color/white"
+
+                            android:ems="10"
+
+                            android:hint="Confirme sua senha"
+
+                            android:inputType="textPassword"
+
+                            android:paddingLeft="10dp"
+                            android:textSize="14dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+
+                        android:id="@+id/senhainalida1"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
+
+                        android:layout_marginBottom="10dp"
+
+                        android:fontFamily="@font/varela_round"
+
+                        android:text="Senha Inválida"
+
+                        android:textColor="@color/red_or_orange"
+
+                        android:textSize="12sp" />
+
+                    <Button
+
+                        android:id="@+id/cadastrar"
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="10dp"
+
+                        android:background="@drawable/principal_button"
+
+                        android:fontFamily="@font/lilita_one"
+
+                        android:onClick="CadastraPet"
+
+                        android:text="Cadastrar"
+
+                        android:textSize="26dp" />
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+
+                        android:layout_height="match_parent"
+
+                        android:layout_marginBottom="30dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:id="@+id/textView18"
+
+                            android:layout_width="100dp"
+
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginRight="5dp"
+
+                            android:layout_weight="1"
+
+                            android:fontFamily="@font/varela_round"
+
+                            android:gravity="right"
+
+                            android:text="Já tem uma conta?" />
+
+                        <TextView
+
+                            android:id="@+id/btnEntrar"
+
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+
+                            android:layout_weight="1"
+
+                            android:fontFamily="@font/varela_round"
+
+                            android:onClick="EntrarLogin"
+
+                            android:text="Entrar"
+
+                            android:textColor="@color/water_blue" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>

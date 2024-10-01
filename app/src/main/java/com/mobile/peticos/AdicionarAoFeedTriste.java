@@ -23,6 +23,12 @@ public class AdicionarAoFeedTriste extends Fragment {
     // Constantes
     private static final String CHANNEL_ID = "channel_id";
 
+    public static AdicionarAoFeedTriste newInstance() {
+        AdicionarAoFeedTriste fragment = new AdicionarAoFeedTriste();
+        return fragment;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,7 +60,7 @@ public class AdicionarAoFeedTriste extends Fragment {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentAndroid, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.attention)
+                .setSmallIcon(R.drawable.icon_app_logo)
                 .setContentTitle("Pet Perdido!!!")
                 .setContentText("Um pet foi perdido perto de você. Ajude a encontrá-lo e trazer segurança para ele!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -69,7 +75,13 @@ public class AdicionarAoFeedTriste extends Fragment {
         // Mostrar a notificação
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // Pedir permissão se necessário
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         notificationManager.notify(1, builder.build());
