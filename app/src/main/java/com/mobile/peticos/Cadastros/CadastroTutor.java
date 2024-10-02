@@ -2,8 +2,13 @@ package com.mobile.peticos.Cadastros;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageCapture;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,12 +30,16 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
+import com.mobile.peticos.Camera;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.R;
+import com.mobile.peticos.Upload.DataBaseCamera;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +59,6 @@ public class CadastroTutor extends AppCompatActivity {
     View senha1, senha2;
     List<String> generoList = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +77,13 @@ public class CadastroTutor extends AppCompatActivity {
         senha1 = findViewById(R.id.senhainalida1);
         senha2 = findViewById(R.id.senhainalida);
         btnUpload = findViewById(R.id.upload);
+
+
+        //upload da imagem
+        btnUpload.setOnClickListener(v -> {
+            Intent intent = new Intent(CadastroTutor.this, Camera.class);
+            startActivity(intent);
+        });
 
 
         // Esconder as mensagens de erro de senha inicialmente
