@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
             android:gravity="center">
 
             <TextView
@@ -61,30 +62,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/lilita_one"
                 android:paddingLeft="24dp"
                 android:paddingRight="8dp"
+                android:text="Pets Perdidos"
                 android:textColor="@color/red_or_orange"
-                android:fontFamily="@font/lilita_one"
-                android:textSize="20sp"
-                android:text="Pets Perdidos"/>
-
-            <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingRight="140dp"
-                android:src="@drawable/ic_alert"
-                app:tint="@color/red_or_orange"/>
+                android:textSize="20sp" />
 
             <ImageButton
-                android:id="@+id/imageButton5"
+                android:id="@+id/imageButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingLeft="40dp"
                 android:background="#00FFFFFF"
-                android:contentDescription="SOS button"
-                tools:src="@drawable/sos" />
+                android:src="@drawable/sos" />
 
         </LinearLayout>
 

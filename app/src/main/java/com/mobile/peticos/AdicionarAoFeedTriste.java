@@ -20,42 +20,31 @@ import android.widget.Button;
 
 public class AdicionarAoFeedTriste extends Fragment {
 
-    // Constantes
     private static final String CHANNEL_ID = "channel_id";
 
     public static AdicionarAoFeedTriste newInstance() {
-        AdicionarAoFeedTriste fragment = new AdicionarAoFeedTriste();
-        return fragment;
+        return new AdicionarAoFeedTriste();
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_adicionar_ao_feed_triste, container, false);
 
-        // Configurar botão e ações
-        Button button = view.findViewById(R.id.btnSalvar); // substitua pelo ID real do botão
+        Button button = view.findViewById(R.id.btnSalvar);
         button.setOnClickListener(v -> {
-            // Ação "x" e notificação
             RegistrarPetPerdido(v);
         });
 
         return view;
     }
 
-    // Função que executa a ação "x" e envia a notificação
     public void RegistrarPetPerdido(View view) {
-        // Sua lógica de ação "x" aqui
-
-        // Enviar notificação
         notificar();
     }
 
-    // Função que executa a notificação
     public void notificar() {
-        Context context = getContext(); // Obter o contexto do fragmento
+        Context context = getContext();
         Intent intentAndroid = new Intent(context, NotificationReciver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentAndroid, PendingIntent.FLAG_IMMUTABLE);
 
@@ -67,21 +56,12 @@ public class AdicionarAoFeedTriste extends Fragment {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
-        // Criar canal de notificação
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Notificar", NotificationManager.IMPORTANCE_HIGH);
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.createNotificationChannel(channel);
 
-        // Mostrar a notificação
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         notificationManager.notify(1, builder.build());
