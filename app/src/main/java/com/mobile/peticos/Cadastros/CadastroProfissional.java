@@ -293,6 +293,13 @@ public class CadastroProfissional extends AppCompatActivity {
             email.setError("Excesso de caracteres. Max. 255");
             erro = true;
         }
+        if (cnpj.getText().toString().isEmpty()) {
+            cnpj.setError("CNPJ é obrigatório");
+            erro = true;
+        } else if (!validarCNPJ(cnpj.getText().toString())) {
+            cnpj.setError("CNPJ inválido");
+            erro = true;
+        }
 
         if (bairro.getText().toString().isEmpty()) {
             bairro.setError("Selecione um bairro");
@@ -362,6 +369,43 @@ public class CadastroProfissional extends AppCompatActivity {
                 callback.onResult(false);
             }
         });
+    }
+
+    // Função para validar CNPJ
+    private boolean validarCNPJ(String cnpj) {
+        // Remove qualquer pontuação do CNPJ
+        cnpj = cnpj.replaceAll("[^\\d]", "");
+
+        if (cnpj.length() != 14) {
+            return false;
+        }
+
+        try {
+            int[] peso = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+            // Cálculo do primeiro dígito verificador
+            int soma = 0;
+            for (int i = 0; i < 12; i++) {
+                soma += Character.getNumericValue(cnpj.charAt(i)) * peso[i + 1];
+            }
+
+            int resto = soma % 11;
+            char digito1 = (resto < 2) ? '0' : (char) ((11 - resto) + '0');
+
+            // Cálculo do segundo dígito verificador
+            soma = 0;
+            for (int i = 0; i < 13; i++) {
+                soma += Character.getNumericValue(cnpj.charAt(i)) * peso[i];
+            }
+
+            resto = soma % 11;
+            char digito2 = (resto < 2) ? '0' : (char) ((11 - resto) + '0');
+
+            return (cnpj.charAt(12) == digito1) && (cnpj.charAt(13) == digito2);
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 

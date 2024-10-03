@@ -366,8 +366,6 @@
 
                         android:ems="10"
 
-                        android:hint="Digite sua senha"
-
                         android:inputType="textPassword"
 
                         android:paddingLeft="10dp"
@@ -434,8 +432,6 @@
                         android:background="@drawable/rounded_edit_text"
 
                         android:ems="10"
-
-                        android:hint="Confirme sua senha"
 
                         android:inputType="textPassword"
 
