@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/button_upload"
-    android:backgroundTint="@color/beige"
-    tools:context=".AdicionarAoFeedPrincipal">
+    android:background="@color/beige"
+    tools:context=".AdicionarAoFeedTriste">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +20,7 @@
             android:paddingTop="10dp">
 
             <ImageView
-                android:id="@+id/fotoPerfil"
+                android:id="@+id/imageView18"
                 style="@style/RoundedImage"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -35,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/logo_escrita"
-                app:tint="@color/wood_brown" />
+                app:tint="@color/water_blue" />
         </LinearLayout>
 
         <TextView
@@ -44,24 +43,16 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lilita_one"
             android:paddingTop="10dp"
-            android:text="Faça o upload da foto do seu pet"
-            android:textColor="@color/wood_brown_light_version"
+            android:text="Selecionar o pet desaparecido:"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
 
-        <Button
-            android:id="@+id/btnUpload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_upload"
-            android:backgroundTint="@color/beige"
-            android:fontFamily="@font/lilita_one"
-            android:text="Upload"
-            android:textColor="@color/wood_brown"
-            app:icon="@drawable/export_light"
-            app:iconSize="20dp"
-            app:iconTint="@color/wood_brown" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPets"
+            android:layout_width="match_parent"
+            android:layout_height="102dp" />
+
 
         <TextView
             android:id="@+id/textView52"
@@ -70,12 +61,38 @@
             android:fontFamily="@font/lilita_one"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Escreva a legenda da publicação"
-            android:textColor="@color/wood_brown_light_version"
+            android:text="Descrição do pet: "
+            android:textColor="@color/black"
             android:textSize="16sp"/>
 
         <EditText
-            android:id="@+id/legenda"
+            android:id="@+id/descricaoDoPet"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Escreva uma frase bacana"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:gravity="top"
+            android:textSize="16sp"
+            android:fontFamily="@font/varela_round"
+            android:elevation="5dp"
+            android:background="@drawable/rounded_edit_text"/>
+
+        <TextView
+            android:id="@+id/textDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lilita_one"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Descreva o ocorrido:"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/descricaoDoOcorrido"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:ems="10"
@@ -96,18 +113,30 @@
             android:fontFamily="@font/lilita_one"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="Qual (ais) amiguinho(s) estão na foto?"
-            android:textColor="@color/wood_brown_light_version"
+            android:text="Selecione o bairro do ocorrido: "
+            android:textColor="@color/black"
             android:textSize="16sp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPets"
+        <AutoCompleteTextView
+            android:id="@+id/selecionarBairro"
             android:layout_width="match_parent"
-            android:layout_height="102dp" />
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_edit_text"
+            android:ems="10"
+            android:hint="Selecione o bairro"
+            android:paddingRight="10dp"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textSize="14sp"
+            />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <Button
@@ -128,6 +157,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/wood_brown"
                 android:fontFamily="@font/lilita_one"
+                android:onClick="RegistrarPetPerdido"
                 android:text="Salvar"
                 android:textSize="18sp" />
         </LinearLayout>

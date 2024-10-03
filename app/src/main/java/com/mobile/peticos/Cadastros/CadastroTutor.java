@@ -2,12 +2,6 @@ package com.mobile.peticos.Cadastros;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageCapture;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
@@ -263,16 +257,11 @@ public class CadastroTutor extends AppCompatActivity {
         }
 
         String urlAPI = "https://apipeticos.onrender.com";
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
+
 
 
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
-                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
