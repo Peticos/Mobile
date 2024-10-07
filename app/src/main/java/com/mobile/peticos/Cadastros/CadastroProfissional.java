@@ -40,8 +40,6 @@ import com.mobile.peticos.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -200,16 +198,11 @@ public class CadastroProfissional extends AppCompatActivity {
         }
 
         String urlAPI = "https://apipeticos.onrender.com";
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
+
 
 
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
-                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);

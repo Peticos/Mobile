@@ -1,15 +1,20 @@
 package com.mobile.peticos.Perdidos;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import com.mobile.peticos.AdicionarAoFeedTriste;
+import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -19,6 +24,8 @@ public class PerdidoFragment extends Fragment {
     private RecyclerView recyclerView;
     private AdapterPerdidos adapter;
     private List<PetPerdido> petList;
+
+    private ImageButton bt_adicionar;
 
     public PerdidoFragment() {
         // Required empty public constructor
@@ -70,6 +77,23 @@ public class PerdidoFragment extends Fragment {
         adapter = new AdapterPerdidos(getContext(), petList);
         recyclerView.setAdapter(adapter);
 
+        bt_adicionar = view.findViewById(R.id.btnAdicionar);
+        bt_adicionar.setOnClickListener(v -> {
+            abrirAdicionar();
+        });
+
         return view;
     }
+
+    private void abrirAdicionar() {
+
+
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, AdicionarAoFeedTriste.newInstance());
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+
+    }
+
 }
