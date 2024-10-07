@@ -53,7 +53,7 @@
                 app:cardCornerRadius="12dp">
 
                 <ImageView
-                    android:id="@+id/imageView12"
+                    android:id="@+id/fotoPerfil"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                      />

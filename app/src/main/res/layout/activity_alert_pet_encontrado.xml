@@ -1,0 +1,46 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="285dp"
+    android:layout_height="384dp"
+    android:layout_margin="16dp"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp">
+
+    <!-- Conteúdo do CardView (por exemplo, um TextView ou ImageView) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            card_view:srcCompat="@drawable/img_petencontrado" />
+
+        <TextView
+            android:id="@+id/card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lilita_one"
+            android:gravity="center"
+            android:text="Ebaa!!! Mais um amiguinho encontrado!"
+            android:textColor="@color/is_it_green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/card_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/varela_round"
+            android:gravity="center"
+            android:text="Nós da Peticos ficamos feliz que você tenha encontrado seu Pet! Que tal fazer uma publicação em comemoração?!" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

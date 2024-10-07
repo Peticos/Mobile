@@ -8,184 +8,181 @@
     android:backgroundTint="@color/beige"
     tools:context=".Login">
 
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_height="100dp"
-        android:layout_width="196dp"
-        android:layout_marginTop="52dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_escrita" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/lilita_one"
-        android:text="Bem-Vindo(a)"
-        android:textColor="@color/water_blue"
-        android:textSize="41sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginHorizontal="40dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="196dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="52dp"
+            app:srcCompat="@drawable/logo_escrita" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:fontFamily="@font/varela_round"
-            android:text="E-mail"
-            android:textColor="@color/water_blue" />
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/rounded_edit_text"
-            android:backgroundTint="@color/white"
-            android:ems="10"
-            android:hint="E-mail"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textColor="#252525"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Senha"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/lilita_one"
+            android:text="Bem-Vindo(a)"
             android:textColor="@color/water_blue"
-            android:textSize="14sp" />
+            android:textSize="41sp" />
 
-        <EditText
-            android:id="@+id/senha"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/rounded_edit_text"
-            android:backgroundTint="@color/white"
-            android:ems="10"
-            android:hint="Senha"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:textColor="#252525"
-            android:textSize="12sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/varela_round"
+                android:text="E-mail"
+                android:textColor="@color/water_blue" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_edit_text"
+                android:backgroundTint="@color/white"
+                android:ems="10"
+                android:hint="E-mail"
+                android:inputType="text"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="#252525"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/varela_round"
+                android:text="Senha"
+                android:textColor="@color/water_blue"
+                android:textSize="14sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                app:endIconMode="password_toggle"
+
+                app:passwordToggleTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/senha"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="48dp"
+
+                    android:background="@drawable/rounded_edit_text"
+
+                    android:ems="10"
+
+                    android:inputType="textPassword"
+
+                    android:paddingLeft="10dp"
+
+                    android:paddingRight="10dp"
+                    android:textSize="14dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+
+                android:id="@+id/senhainalida"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginBottom="10dp"
+
+                android:fontFamily="@font/varela_round"
+
+                android:text="Senha Inválida"
+
+                android:textColor="@color/red_or_orange"
+
+                android:textSize="12sp"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/btnentrar"
+                android:layout_width="250dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/principal_button"
+                android:elevation="4dp"
+                android:fontFamily="@font/lilita_one"
+                android:onClick="abrirMainTeste"
+                android:text="Entrar"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="4dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ou" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:background="?android:attr/listDivider" />
+        </LinearLayout>
 
         <Button
-            android:id="@+id/btnentrar"
-            android:layout_width="250dp"
+            android:id="@+id/btnRegistrar"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/principal_button"
             android:elevation="4dp"
             android:fontFamily="@font/lilita_one"
             android:onClick="abrirMainTeste"
-            android:text="Entrar"
+            android:text="Cadastrar"
             android:textSize="22sp" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="150dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="4dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="150dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="40dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="ou"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="250dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="@color/white"
-        android:elevation="4dp"
-        android:fontFamily="@font/varela_round"
-        android:gravity="center_vertical"
-        android:iconTint="@null"
-
-        android:pointerIcon="none"
-        android:text="Entrar com o Google"
-        android:textColor="@color/water_blue"
-        android:textSize="14sp"
-        app:icon="@drawable/img_google"
-        app:iconGravity="end"
-        app:iconSize="20dp"
-        app:iconTintMode="multiply"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/varela_round"
-        android:text="Não tem uma conta?"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:autoLink="phone"
-        android:linksClickable="true"
-        android:onClick="TutorOuPeofissional"
-        android:text="Cadastre-se"
-        android:textColor="@color/water_blue"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

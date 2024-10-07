@@ -31,7 +31,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imageView12"
+                    android:id="@+id/fotoPerfil"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_marginTop="50dp"
@@ -44,31 +44,33 @@
                     app:shapeAppearanceOverlay="@style/RoundedImage" />
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/NickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
                     android:text="TextView"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+                    app:layout_constraintTop_toBottomOf="@+id/fotoPerfil" />
 
                 <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="56dp"
-                    android:layout_height="11dp"
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:fontFamily="@font/varela_round"
+                    android:gravity="center"
                     android:text="TextView"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@+id/NickName" />
 
                 <Button
                     android:id="@+id/area_restrita_button"

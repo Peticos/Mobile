@@ -1,9 +1,12 @@
 package com.mobile.peticos.Cadastros;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,9 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -25,6 +32,7 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
+import com.mobile.peticos.Camera;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.R;
@@ -43,10 +51,14 @@ public class CadastroProfissional extends AppCompatActivity {
     Button btnCadastrar;
 
     // Inicializando variáveis
+    private ActivityResultLauncher<Intent> cameraLauncher;
     EditText nomeCompleto, nomeUsuario, telefone, email, cnpj;
     AutoCompleteTextView bairro;
     TextInputEditText senha1, senha2;
     TextView senhaInvalida1, senhaInvalida2;
+    ImageView btnUpload;
+    String url;
+
 
 
 
@@ -70,11 +82,49 @@ public class CadastroProfissional extends AppCompatActivity {
         senha2 = findViewById(R.id.senharepetida_cadastro);
         senhaInvalida1 = findViewById(R.id.senhainalida);
         senhaInvalida2 = findViewById(R.id.senhainalida1);
+        btnUpload = findViewById(R.id.upload);
         Bairros();
 
         // Esconder as mensagens de erro de senha inicialmente
         senhaInvalida1.setVisibility(View.INVISIBLE);
         senhaInvalida2.setVisibility(View.INVISIBLE);
+
+        // Inicializa o ActivityResultLauncher
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            url = data.getStringExtra("url"); // Obter a URL do Intent
+                            if(url != null){
+                                url.replace("\"", "");
+                                url.replace(" ", "");
+                                RequestOptions options = new RequestOptions()
+                                        .centerCrop() // Garante que a imagem preencha o espaço
+                                        .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
+
+                                Glide.with(this)
+                                        .load(url)
+                                        .apply(options)
+                                        .into(btnUpload);
+
+                            }
+
+                        }
+                    }
+                }
+        );
+
+        //upload da imagem
+        btnUpload.setOnClickListener(v -> {
+            Intent intent = new Intent(CadastroProfissional.this, Camera.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("tipo", "Profissional");
+            intent.putExtras(bundle);
+            cameraLauncher.launch(intent); // Apenas lance o Intent sem o código de solicitação
+        });
+
 
 
 
@@ -113,7 +163,10 @@ public class CadastroProfissional extends AppCompatActivity {
 
                             // Atualizar o perfil do usuário
                             FirebaseUser userLogin = autenticator.getCurrentUser();
-                            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().build();
+                            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(nomeUsuario.getText().toString())
+                                    .setPhotoUri(Uri.parse(url))
+                                    .build();
 
                             userLogin.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -166,8 +219,7 @@ public class CadastroProfissional extends AppCompatActivity {
         );
 
 
-        Log.d("teste", perfil.toString());
-        Call<ModelRetorno> call = aPIPerfil.insertTutor(perfil);
+        Call<ModelRetorno> call = aPIPerfil.insertProfissional(perfil);
 
         call.enqueue(new Callback<ModelRetorno>() {
             @Override
