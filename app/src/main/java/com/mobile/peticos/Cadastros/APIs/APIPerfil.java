@@ -17,14 +17,14 @@ public interface APIPerfil {
     @GET("/getall")
     Call<List<ModelPerfil>> getAll();
 
-    @GET("/getbyusername/{username}")
+    @GET("/api/user/getbyusername/{username}")
     Call<ModelPerfil> getById(@Path("username") String username);
 
     @Headers("Content-Type: application/json")
     @POST("/api/user/inserttutor")
     Call<ModelRetorno> insertTutor(@Body ModelPerfil model);
     @Headers("Content-Type: application/json")
-    @POST("/api/user/insertProfissional")
+    @POST("/api/user/insertprofissional")
     Call<ModelRetorno> insertProfissional(@Body ModelPerfil model);
 
 

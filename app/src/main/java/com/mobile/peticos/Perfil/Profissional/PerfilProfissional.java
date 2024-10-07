@@ -14,7 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
@@ -45,6 +50,10 @@ public class PerfilProfissional extends Fragment {
 
     }
 
+    ImageView fotoPerfil;
+    TextView nome;
+    TextView email;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +65,36 @@ public class PerfilProfissional extends Fragment {
         LinearLayout editar;
         editar = view.findViewById(R.id.layoutEditar);
         Button btnLogout = view.findViewById(R.id.btnSair);
+
+        fotoPerfil = view.findViewById(R.id.fotoPerfil);
+        nome = view.findViewById(R.id.NickName);
+        email = view.findViewById(R.id.email);
+
+
+        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+        if(autenticator.getCurrentUser().getPhotoUrl() != null){
+            RequestOptions options = new RequestOptions()
+                    .centerCrop() // Garante que a imagem preencha o espaço
+                    .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
+
+            Glide.with(this)
+                    .load(autenticator.getCurrentUser().getPhotoUrl())
+                    .apply(options)
+                    .into(fotoPerfil);
+        }
+        if(autenticator.getCurrentUser().getDisplayName() != null){
+
+            nome.setText(autenticator.getCurrentUser().getDisplayName());
+        }
+        if(autenticator.getCurrentUser().getEmail() != null){
+
+            email.setText(autenticator.getCurrentUser().getEmail());
+        }
+
+
+
+
+
 
 
 

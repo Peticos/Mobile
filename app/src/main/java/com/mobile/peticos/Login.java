@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,8 +23,9 @@ import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.R;
 
 public class Login extends AppCompatActivity {
-    Button btnSalvar;
+    Button btnSalvar, btnCadastrar;
     EditText txtEmail, txtSenha;
+    TextView senhainvalida;
 
 
     @Override
@@ -35,48 +37,69 @@ public class Login extends AppCompatActivity {
         FirebaseUser userLogin = autenticator.getCurrentUser();
 
         btnSalvar = findViewById(R.id.btnentrar);
+        btnCadastrar = findViewById(R.id.btnRegistrar);
+        senhainvalida = findViewById(R.id.senhainalida);
+
+
 
         if(userLogin != null){
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
 
+        btnCadastrar.setOnClickListener(v -> {
+            Intent intent = new Intent(Login.this, Tutor_ou_Profissional.class);
+            startActivity(intent);
+        });
 
-        btnSalvar.setOnClickListener(v ->{
-            //Colocar controle para saber se está vazio os campos...
+        btnSalvar.setOnClickListener(v -> {
+            // Recuperar os campos de texto
             txtEmail = findViewById(R.id.email);
             txtSenha = findViewById(R.id.senha);
-            String email = txtEmail.getText().toString();
-            String senha = txtSenha.getText().toString();
+            String email = txtEmail.getText().toString().trim();
+            String senha = txtSenha.getText().toString().trim();
 
-            if (email != null && senha != null) {
-                //Autenticar usuário
+            // Validar os campos antes de autenticar
+            if (email.isEmpty()) {
+                txtEmail.setError("O campo Email é obrigatório!");
+                txtEmail.requestFocus();
+                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
+            }
+            if (senha.isEmpty()) {
+                senhainvalida.setVisibility(View.VISIBLE);
+                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
+            }
+            if(!email.isEmpty() && !senha.isEmpty()) {
+                // Autenticar o usuário
                 autenticator.signInWithEmailAndPassword(email, senha)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // abrir a tela principal
-                                    Intent intent = new Intent(Login.this, MainActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    // mostrar erro
-                                    String msg = "Deu RED!!";
-                                    try {
-                                        throw task.getException();
-                                    } catch (FirebaseAuthInvalidUserException e) {
-                                        msg = "Usuário inválido!";
-                                    } catch (FirebaseAuthInvalidCredentialsException e) {
-                                        msg = "Senha inválida!";
-                                    } catch (Exception e) {
-                                        msg = e.getMessage();
-                                    }
-                                    Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // Abrir a tela principal
+                                Intent intent = new Intent(Login.this, MainActivity.class);
+                                startActivity(intent);
+                            } else {
+                                // Mostrar erro específico
+                                String msg = "Erro ao tentar realizar login.";
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthInvalidUserException e) {
+                                    txtEmail.setError("Email inválido!");
+                                    msg = "Usuário inválido!";
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
+                                    senhainvalida.setVisibility(View.VISIBLE);
+                                    msg = "Senha inválida!";
+                                } catch (Exception e) {
+                                    msg = e.getMessage();
                                 }
+                                Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         });
+
+
+
+
 
 
     }
