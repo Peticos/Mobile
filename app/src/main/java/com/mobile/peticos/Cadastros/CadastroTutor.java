@@ -142,8 +142,7 @@ public class CadastroTutor extends AppCompatActivity {
     }
 
     // Método para validar os campos antes de cadastrar
-    private void validarCampos(View view)
-    {
+    private void validarCampos(View view) {
         boolean erro = false;
 
         if (nomeCompleto.getText().toString().isEmpty()) {
@@ -257,8 +256,6 @@ public class CadastroTutor extends AppCompatActivity {
         }
 
         String urlAPI = "https://apipeticos.onrender.com";
-
-
 
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
@@ -400,7 +397,4 @@ public class CadastroTutor extends AppCompatActivity {
 
         return temLetraMaiuscula && temLetraMinuscula && temNumero && temCaractereEspecial;
     }
-
-
-
 }

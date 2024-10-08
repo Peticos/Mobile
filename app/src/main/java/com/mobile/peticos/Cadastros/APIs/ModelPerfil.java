@@ -11,6 +11,8 @@ public class ModelPerfil {
     //            @Param("phone") String phone,
     //            @Param("gender") String gender
 
+    @SerializedName("id")
+    public int id;
     @SerializedName("fullName")
     public String fullName;
     @SerializedName("username")
@@ -29,6 +31,10 @@ public class ModelPerfil {
     @SerializedName("cnpj")
     public String cnpj;
 
+    public int getId() {
+        return id;
+    }
+
     public String getBairro() {
         return bairro;
     }
@@ -36,8 +42,6 @@ public class ModelPerfil {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-
-
 
     public String getFullName() {
         return fullName;
