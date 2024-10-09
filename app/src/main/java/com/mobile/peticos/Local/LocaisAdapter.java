@@ -46,7 +46,7 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
             super(itemView);
             textViewNome = itemView.findViewById(R.id.textView27);
             textViewDescricao = itemView.findViewById(R.id.textView32);
-            imageView = itemView.findViewById(R.id.imageView12);
+            imageView = itemView.findViewById(R.id.fotoPerfil);
         }
     }
 }

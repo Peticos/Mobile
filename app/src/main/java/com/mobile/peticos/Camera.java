@@ -19,6 +19,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -28,9 +30,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.mobile.peticos.Cadastros.CadastroProfissional;
+import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Upload.DataBaseCamera;
 
 import java.util.Arrays;
@@ -48,6 +53,7 @@ public class Camera extends AppCompatActivity {
     private Map<String, String> docData = new HashMap<>();
     private androidx.camera.view.PreviewView viewFinder;
     private ImageView foto;
+    private ProgressBar progressBar;
     private ImageCapture imageCapture;
     private CameraSelector cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA;
 
@@ -68,6 +74,8 @@ public class Camera extends AppCompatActivity {
         layoutSalvar = findViewById(R.id.layoutsalvar);
         btnsair = findViewById(R.id.btnsair);
         btnsalvar = findViewById(R.id.btnsalvar);
+        progressBar = findViewById(R.id.progressBar);
+
 
 
 
@@ -110,6 +118,7 @@ public class Camera extends AppCompatActivity {
         Button firebase = findViewById(R.id.btnsalvar);
         firebase.setOnClickListener(v -> {
             foto.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.VISIBLE);
             database.downloadGallery(foto, Uri.parse(docData.get("url")));
         });
 
@@ -169,8 +178,25 @@ public class Camera extends AppCompatActivity {
                 layoutSalvar.setVisibility(View.VISIBLE);
                 foto.setImageURI(outputFileResults.getSavedUri());
                 btnsalvar.setOnClickListener(v -> {
-                    Toast.makeText(Camera.this, "foto salva na galeria", Toast.LENGTH_SHORT).show();
-                    database.uploadGallary(Camera.this, foto, docData);
+                    progressBar.setVisibility(View.VISIBLE);
+                    database.uploadGallary(Camera.this, foto, docData, new DataBaseCamera.OnUploadCompleteListener() {
+                        @Override
+                        public void onUploadComplete(String url) {
+                            Intent returnIntent = new Intent();
+                            returnIntent.putExtra("url", docData.get("url")); // Retorna a URL
+                            setResult(RESULT_OK, returnIntent); // Define o resultado
+                            finish(); // Finaliza a atividade
+                        }
+                    });
+
+
+//                    Bundle bundle = getIntent().getExtras();
+//                    Intent returnIntent = new Intent();
+//                    returnIntent.putExtra("url", docData.get("url")); // Adiciona a URL ao Intent de retorno
+//                    setResult(RESULT_OK, returnIntent); // Define o resultado como OK
+//                    finish(); // Encerra a atividade
+
+
                 });
             }
 

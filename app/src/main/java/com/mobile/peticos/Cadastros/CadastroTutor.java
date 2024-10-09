@@ -1,9 +1,16 @@
 package com.mobile.peticos.Cadastros;
 
-import androidx.annotation.NonNull;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+
+
 import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,9 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -25,15 +32,11 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Camera;
-import com.mobile.peticos.Login;
 import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.R;
-import com.mobile.peticos.Upload.DataBaseCamera;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,9 +47,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CadastroTutor extends AppCompatActivity {
 
     // Declaração de variáveis
-    String txtEmail, textSenhaRepetida, txtSenha;
     ImageView btnUpload;
+    private ActivityResultLauncher<Intent> cameraLauncher;
+
     Button btnCadastrar;
+    String url;
     Retrofit retrofit;
     EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
     AutoCompleteTextView bairro, genero;
@@ -71,13 +76,45 @@ public class CadastroTutor extends AppCompatActivity {
         senha1 = findViewById(R.id.senhainalida1);
         senha2 = findViewById(R.id.senhainalida);
         btnUpload = findViewById(R.id.upload);
+        url = null;
+
+        // Inicializa o ActivityResultLauncher
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            url = data.getStringExtra("url"); // Obter a URL do Intent
+                            if(url != null){
+                                url.replace("\"", "");
+                                url.replace(" ", "");
+                                RequestOptions options = new RequestOptions()
+                                        .centerCrop() // Garante que a imagem preencha o espaço
+                                        .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
+
+                                Glide.with(this)
+                                        .load(url)
+                                        .apply(options)
+                                        .into(btnUpload);
+
+                            }
+
+                        }
+                    }
+                }
+        );
 
 
         //upload da imagem
         btnUpload.setOnClickListener(v -> {
             Intent intent = new Intent(CadastroTutor.this, Camera.class);
-            startActivity(intent);
+            Bundle bundle = new Bundle();
+            bundle.putString("tipo", "tutor");
+            intent.putExtras(bundle);
+            cameraLauncher.launch(intent); // Apenas lance o Intent sem o código de solicitação
         });
+
 
 
         // Esconder as mensagens de erro de senha inicialmente
@@ -99,7 +136,7 @@ public class CadastroTutor extends AppCompatActivity {
         genero.setAdapter(adapterGenero);
 
         // Chamar API de bairros
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -140,6 +177,8 @@ public class CadastroTutor extends AppCompatActivity {
         // Configurar o evento do botão de cadastro
         btnCadastrar.setOnClickListener(v -> validarCampos(v));
     }
+
+
 
     // Método para validar os campos antes de cadastrar
     private void validarCampos(View view) {
@@ -209,7 +248,7 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para salvar o usuário no Firebase e no banco
-    private void salvarUsuario(View view) {
+    private void salvarUsuarioFireBase(View view) {
         FirebaseAuth autenticator = FirebaseAuth.getInstance();
         String txtEmail = emailCadastro.getText().toString();
         String txtSenha = senhaCadastro.getText().toString();
@@ -226,6 +265,7 @@ public class CadastroTutor extends AppCompatActivity {
                         FirebaseUser userLogin = autenticator.getCurrentUser();
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(nomeUsuario)
+                                .setPhotoUri(Uri.parse(url))
                                 .build();
 
                         if (userLogin != null) {
@@ -240,6 +280,8 @@ public class CadastroTutor extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
     private void cadastrarTutorBanco(View view) {
@@ -282,7 +324,7 @@ public class CadastroTutor extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                 if (response.isSuccessful()) {
-                    salvarUsuario(view);
+                    salvarUsuarioFireBase(view);
                     Toast.makeText(CadastroTutor.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
                     startActivity(intent);
@@ -324,7 +366,7 @@ public class CadastroTutor extends AppCompatActivity {
     //verificar se o bairro selecionado esta na api
     private void verificarBairro(BairroCallback callback) {
         // URL da API
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -10,20 +10,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="match_parent"
             android:layout_height="178dp"
+            android:layout_marginTop="4dp"
             android:scaleType="centerCrop"
             android:src="@drawable/perfil"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView12"
+            android:id="@+id/fotoPerfil"
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginTop="72dp"
@@ -44,8 +47,8 @@
             android:clickable="true"
             android:onClick="openEditor"
             android:src="@drawable/ic_editar"
-            app:layout_constraintStart_toStartOf="@+id/imageView12"
-            app:layout_constraintTop_toTopOf="@+id/imageView12" />
+            app:layout_constraintStart_toStartOf="@+id/fotoPerfil"
+            app:layout_constraintTop_toTopOf="@+id/fotoPerfil" />
 
         <ImageView
             android:id="@+id/imageView22"

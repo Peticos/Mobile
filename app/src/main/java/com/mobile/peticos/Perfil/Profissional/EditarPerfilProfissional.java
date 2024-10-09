@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
@@ -125,8 +126,11 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 .build();
         APIPerfil api = retrofit.create(APIPerfil.class);
 
+
+        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+
         //Chamada para buscar o perfil pelo nome de usuário
-        Call<ModelPerfil> call = api.getByUsername();
+        Call<ModelPerfil> call = api.getByUsername(autenticator.getCurrentUser().getDisplayName());
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {

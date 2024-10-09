@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
@@ -24,6 +25,7 @@ import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
 import com.mobile.peticos.Camera;
 import com.mobile.peticos.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +88,7 @@ public class EditarPerfil extends AppCompatActivity {
         genero.setAdapter(adapterGenero);
 
         // Chamar API de bairros
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -128,15 +130,17 @@ public class EditarPerfil extends AppCompatActivity {
         btAtualizar.setOnClickListener(v -> validarCampos(v));
     }
     private void carregarDadosDoPerfil(){
-        String urlAPI = "https://apipeticosdev.onrender.com";
+        String urlAPI = "https://apipeticos.onrender.com ";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIPerfil api = retrofit.create(APIPerfil.class);
 
+        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+
         //Chamada para buscar o perfil pelo nome de usuário
-        Call<ModelPerfil> call = api.getByUsername(nomeUsuario.getText().toString());
+        Call<ModelPerfil> call = api.getByUsername(autenticator.getCurrentUser().getDisplayName());
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
@@ -149,8 +153,20 @@ public class EditarPerfil extends AppCompatActivity {
                     bairro.setText(model.bairro);
                     genero.setText(model.gender);
                     telefone.setText(model.phone);
-                }else{
-                    Toast.makeText(EditarPerfil.this, "Erro ao carregar perfil", Toast.LENGTH_SHORT).show();
+                }else {
+                    // Obter o código de erro e a mensagem de erro
+                    int errorCode = response.code();
+                    String errorBody = "";
+                    try {
+                        if (response.errorBody() != null) {
+                            errorBody = response.errorBody().string(); // Obter o corpo da resposta de erro como string
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Exibir o código de erro e a mensagem
+                    Toast.makeText(EditarPerfil.this, "Erro ao carregar perfil: Código " + errorCode + "\n" + errorBody, Toast.LENGTH_LONG).show();
                 }
             }
             @Override
@@ -210,7 +226,7 @@ public class EditarPerfil extends AppCompatActivity {
 
     private void verificarBairro(CadastroTutor.BairroCallback callback) {
         // URL da API
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -256,7 +272,7 @@ public class EditarPerfil extends AppCompatActivity {
 
     private void atualizarTutorBanco(View view) {
 
-        String urlAPI = "https://apipeticosdev.onrender.com";
+        String urlAPI = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())

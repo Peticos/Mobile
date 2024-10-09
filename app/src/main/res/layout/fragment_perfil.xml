@@ -31,7 +31,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/imageView12"
+                    android:id="@+id/fotoPerfil"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_marginTop="50dp"
@@ -44,7 +44,7 @@
                     app:shapeAppearanceOverlay="@style/RoundedImage" />
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/NickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -55,11 +55,11 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+                    app:layout_constraintTop_toBottomOf="@+id/fotoPerfil" />
 
                 <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="56dp"
+                    android:id="@+id/emailCampo"
+                    android:layout_width="wrap_content"
                     android:layout_height="11dp"
                     android:layout_marginTop="1dp"
                     android:fontFamily="@font/varela_round"
@@ -68,7 +68,7 @@
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@+id/NickName" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/lembretesLista"
@@ -77,7 +77,7 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                    app:layout_constraintTop_toBottomOf="@+id/emailCampo" />
 
                 <ImageView
                     android:id="@+id/imageView16"

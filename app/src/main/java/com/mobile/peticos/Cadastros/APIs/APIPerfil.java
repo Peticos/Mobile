@@ -17,18 +17,20 @@ public interface APIPerfil {
     @GET("/getall")
     Call<List<ModelPerfil>> getAll();
 
-    @GET("/getbyusername/{username}")
+    @GET("/api/user/getbyusername/{username}")
     Call<ModelPerfil> getByUsername(@Path("username") String username);
 
     @GET("/getbyid/{id}")
     Call<ModelPerfil> getById(@Path("id") int id);
+    @GET("/api/user/getbyusername/{username}")
+    Call<ModelPerfil> getById(@Path("username") String username);
 
     @Headers("Content-Type: application/json")
     @POST("/api/user/inserttutor")
     Call<ModelRetorno> insertTutor(@Body ModelPerfil model);
 
     @Headers("Content-Type: application/json")
-    @POST("/api/user/insertProfissional")
+    @POST("/api/user/insertprofissional")
     Call<ModelRetorno> insertProfissional(@Body ModelPerfil model);
 
     @PUT("/api/user/update/{id}")
@@ -36,11 +38,4 @@ public interface APIPerfil {
 
     @DELETE("/api/user/delete/{id}")
     Call<ModelPerfil> delete(@Path("id") int id);
-
-
-
-
-
-
-
 }
