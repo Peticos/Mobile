@@ -57,9 +57,7 @@ public class EditarPerfil extends AppCompatActivity {
         bairro = findViewById(R.id.Bairro);
         btUpload = findViewById(R.id.btUpload);
         btAtualizar = findViewById(R.id.btAtualizar);
-        senha = findViewById(R.id.Senha);
         genero = findViewById(R.id.Genero);
-        senhaInvalida = findViewById(R.id.senhaInvalida);
 
         voltar.setOnClickListener(v -> {
             finish();
