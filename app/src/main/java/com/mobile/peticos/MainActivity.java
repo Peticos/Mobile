@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     ModelPerfil perfil = response.body();
 
                     // Aqui, continue com a lógica para abrir o fragment correto
-                    if (perfil.getCnpj().equals("Tutor")) {
+                    if (perfil.getCnpj().equals("Tutor") || perfil.getCnpj().equals(null)) {
                         perfilbool = true;
                     } else {
                         perfilbool = false;

@@ -208,6 +208,7 @@ public class CadastroProfissional extends AppCompatActivity {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
+                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 email.getText().toString(),
@@ -215,6 +216,7 @@ public class CadastroProfissional extends AppCompatActivity {
                 "Plano Profissional - Básico",
                 telefone.getText().toString(),
                 null,
+                0,
                 cnpj.getText().toString()
         );
 

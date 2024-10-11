@@ -36,13 +36,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditarPerfil extends AppCompatActivity {
-    EditText nomeCompleto, nomeUsuario, telefone, senha;
+    EditText nomeCompleto, nomeUsuario, telefone;
     Button btAtualizar;
-    TextView senhaInvalida;
     AutoCompleteTextView bairro, genero;
     ImageView voltar, btUpload;
     Retrofit retrofit;
     List<String> generoList = new ArrayList<>();
+    int idUser, idAddress, idPlan;
+    String emailUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,9 +69,6 @@ public class EditarPerfil extends AppCompatActivity {
             Intent intent = new Intent(EditarPerfil.this, Camera.class);
             startActivity(intent);
         });
-
-        //Esconder mensagens de erro de senha inicialmente
-        senhaInvalida.setVisibility(TextView.INVISIBLE);
 
         // Configuração do Spinner de gênero
         generoList.add("Masculino");
@@ -144,6 +142,11 @@ public class EditarPerfil extends AppCompatActivity {
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     ModelPerfil model = response.body();
+                    idUser = model.id;
+                    emailUser = model.email;
+                    idAddress = model.idAddress;
+                    idPlan = model.idPlan;
+
 
                     //Preencher os campos com os dados do perfil
                     nomeCompleto.setText(model.fullName);
@@ -278,23 +281,25 @@ public class EditarPerfil extends AppCompatActivity {
         APIPerfil api = retrofit.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
+                idAddress,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
-                null,
+                emailUser,
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString(),
                 genero.getText().toString(),
-                null
+                idPlan,
+                "Tutor"
         );
 
         Log.d("EDITAR_PERFIL", perfil.toString());
-        Call<ModelPerfil> call = api.update(perfil.getId() , perfil);
+        Call<ModelPerfil> call = api.update(idUser , perfil);
 
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
-                if(response.isSuccessful() && response.body() != null) {
+                if(response.isSuccessful() || response.body() != null) {
                     Toast.makeText(EditarPerfil.this, "Perfil Editado com sucesso!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(EditarPerfil.this, DesejaCadastrarUmPet.class);
                     startActivity(intent);

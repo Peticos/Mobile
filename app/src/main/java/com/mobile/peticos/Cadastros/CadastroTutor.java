@@ -306,6 +306,7 @@ public class CadastroTutor extends AppCompatActivity {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
+                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 emailCadastro.getText().toString(),
@@ -313,6 +314,7 @@ public class CadastroTutor extends AppCompatActivity {
                 "Sem Plano",
                 telefone.getText().toString(),
                 genero.getText().toString(),
+                0,
                 null
         );
 

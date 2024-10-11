@@ -213,6 +213,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         APIPerfil api = retrofit.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
+                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 null,
@@ -220,7 +221,9 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 "Sem Plano",
                 telefone.getText().toString(),
                 cnpj.getText().toString(),
-                null
+                9,
+                "12.345.678/0001-95"
+
         );
 
         Log.d("EDITAR_PERFIL", perfil.toString());
