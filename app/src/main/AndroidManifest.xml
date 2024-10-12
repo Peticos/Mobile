@@ -4,9 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.permission.camera.any" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -14,8 +12,15 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,69 +32,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
-        <activity
-            android:name=".AlertPetEncontrado"
-            android:exported="false" />
-        <activity
-            android:name=".Camera"
-            android:exported="false" />
-        <activity
-            android:name=".EditarPerfilPet"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Profissional.EditarPerfilProfissional"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Tutor.EditarPerfil"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Profissional.AdicionarProduto"
-            android:exported="false" />
-        <activity
-            android:name=".PrimeirosCuidados"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.PersonalizarPets"
-            android:exported="false" /> <!-- Add this line -->
-        <activity
-            android:name=".Perfil.Pet.itemCadastroVacina"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.cadastro_vacina"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.VacinasPets"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.ItemVacina"
-            android:exported="false" />
-        <activity
-            android:name=".Cadastros.CadastrarPet"
-            android:exported="false" />
-        <activity
-            android:name=".Cadastros.DesejaCadastrarUmPet"
-            android:exported="false" />
-        <activity
-            android:name=".Cadastros.CadastroTutor"
-            android:exported="false" />
-        <activity
-            android:name=".Cadastros.CadastroProfissional"
-            android:exported="false" />
-        <activity
-            android:name=".Tutor_ou_Profissional"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SplashScreen"
-            android:exported="true">
+
+        <activity android:name=".Local.Mapa" android:exported="false" />
+        <activity android:name=".Local.WebViewActivity" android:exported="false" />
+        <activity android:name=".Camera" android:exported="false" />
+        <activity android:name=".EditarPerfilPet" android:exported="false" />
+        <activity android:name=".Perfil.Profissional.EditarPerfilProfissional" android:exported="false" />
+        <activity android:name=".Perfil.Tutor.EditarPerfil" android:exported="false" />
+        <activity android:name=".Perfil.Profissional.AdicionarProduto" android:exported="false" />
+        <activity android:name=".PrimeirosCuidados" android:exported="false" />
+        <activity android:name=".Perfil.Pet.PersonalizarPets" android:exported="false" />
+        <activity android:name=".Perfil.Pet.itemCadastroVacina" android:exported="false" />
+        <activity android:name=".Perfil.Pet.cadastro_vacina" android:exported="false" />
+        <activity android:name=".Perfil.Pet.VacinasPets" android:exported="false" />
+        <activity android:name=".Perfil.Pet.ItemVacina" android:exported="false" />
+        <activity android:name=".Cadastros.CadastrarPet" android:exported="false" />
+        <activity android:name=".Cadastros.DesejaCadastrarUmPet" android:exported="false" />
+        <activity android:name=".Cadastros.CadastroTutor" android:exported="false" />
+        <activity android:name=".Cadastros.CadastroProfissional" android:exported="false" />
+        <activity android:name=".Tutor_ou_Profissional" android:exported="false" />
+        <activity android:name=".Login" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".SplashScreen" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -97,8 +63,8 @@
         <receiver android:name=".NotificationReciver" />
 
         <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCTGXSLqKWpaL6YJWVEBEGS7mwOyowDyBU" />
     </application>
 
 </manifest>
