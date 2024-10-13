@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.mobile.peticos.PerfilPetPackage.PerfilPets;
-
 public class SplashScreen extends AppCompatActivity {
 
     @Override

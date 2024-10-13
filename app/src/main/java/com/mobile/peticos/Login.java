@@ -42,8 +42,9 @@ public class Login extends AppCompatActivity {
         senhainvalida = findViewById(R.id.senhainalida);
 
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        if(userLogin != null){
+        if(userLogin != null || auth.getCurrentUser().getDisplayName() != null) {
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
@@ -54,53 +55,54 @@ public class Login extends AppCompatActivity {
         });
 
         btnSalvar.setOnClickListener(v -> {
-            Intent intent = new Intent(Login.this, CadastrarPet.class);
-            startActivity(intent);
-        });
-//
-//            // Recuperar os campos de texto
-//            txtEmail = findViewById(R.id.email);
-//            txtSenha = findViewById(R.id.senha);
-//            String email = txtEmail.getText().toString().trim();
-//            String senha = txtSenha.getText().toString().trim();
-//
-//            // Validar os campos antes de autenticar
-//            if (email.isEmpty()) {
-//                txtEmail.setError("O campo Email é obrigatório!");
-//                txtEmail.requestFocus();
-//                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
-//            }
-//            if (senha.isEmpty()) {
-//                senhainvalida.setVisibility(View.VISIBLE);
-//                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
-//            }
-//            if(!email.isEmpty() && !senha.isEmpty()) {
-//                // Autenticar o usuário
-//                autenticator.signInWithEmailAndPassword(email, senha)
-//                        .addOnCompleteListener(task -> {
-//                            if (task.isSuccessful()) {
-//                                // Abrir a tela principal
+             //Recuperar os campos de texto
+            txtEmail = findViewById(R.id.email);
+            txtSenha = findViewById(R.id.senha);
+            String email = txtEmail.getText().toString().trim();
+            String senha = txtSenha.getText().toString().trim();
+
+            // Validar os campos antes de autenticar
+            if (email.isEmpty()) {
+                txtEmail.setError("O campo Email é obrigatório!");
+                txtEmail.requestFocus();
+                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
+            }
+            if (senha.isEmpty()) {
+                senhainvalida.setVisibility(View.VISIBLE);
+                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
+            }
+            if(!email.isEmpty() && !senha.isEmpty()) {
+                // Autenticar o usuário
+                autenticator.signInWithEmailAndPassword(email, senha)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // Abrir a tela principal
 //                                Intent intent = new Intent(Login.this, MainActivity.class);
 //                                startActivity(intent);
-//                            } else {
-//                                // Mostrar erro específico
-//                                String msg = "Erro ao tentar realizar login.";
-//                                try {
-//                                    throw task.getException();
-//                                } catch (FirebaseAuthInvalidUserException e) {
-//                                    txtEmail.setError("Email inválido!");
-//                                    msg = "Usuário inválido!";
-//                                } catch (FirebaseAuthInvalidCredentialsException e) {
-//                                    senhainvalida.setVisibility(View.VISIBLE);
-//                                    msg = "Senha inválida!";
-//                                } catch (Exception e) {
-//                                    msg = e.getMessage();
-//                                }
-//                                Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//            }
-//        });
+                                Intent intent = new Intent(Login.this, CadastrarPet.class);
+                                startActivity(intent);
+                            } else {
+                                // Mostrar erro específico
+                                String msg = "Erro ao tentar realizar login.";
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthInvalidUserException e) {
+                                    txtEmail.setError("Email inválido!");
+                                    msg = "Usuário inválido!";
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
+                                    senhainvalida.setVisibility(View.VISIBLE);
+                                    msg = "Senha inválida!";
+                                } catch (Exception e) {
+                                    msg = e.getMessage();
+                                }
+                                Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+
+
+        });
+
 
 
 

@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface APIPets {
 
@@ -18,7 +19,11 @@ public interface APIPets {
    Call<List<Raca>> getAllRaces();
 
    @POST("/api/petregister/insert")
-   Call<ModelRetorno> insertPet(@Body ModelPet pet);
+   Call<ModelRetorno> insertPet(@Body ModelPetBanco pet);
+
+   @GET("/api/petregister/getbyusername/{username}")
+   Call<List<ModelPetBanco>> getPets(@Path("username") String username);
+
 
 
 

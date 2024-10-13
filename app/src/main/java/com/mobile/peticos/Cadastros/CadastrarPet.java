@@ -9,17 +9,16 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.mobile.peticos.Cadastros.APIs.APIPerfil;
-import com.mobile.peticos.Cadastros.Bairros.APIBairro;
-import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.MainActivity;
+import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
 import com.mobile.peticos.Perfil.Pet.Apis.Cor;
-import com.mobile.peticos.Perfil.Pet.Apis.ModelPet;
+import com.mobile.peticos.Perfil.Pet.Apis.ModelPetBanco;
 import com.mobile.peticos.Perfil.Pet.Apis.Raca;
 import com.mobile.peticos.R;
 
@@ -34,6 +33,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CadastrarPet extends AppCompatActivity {
     Button btnCadastrar;
     AutoCompleteTextView especie, raca, cor, porte, genero;
+    EditText idade, nome;
+
     Retrofit retrofit;
 
     @Override
@@ -47,11 +48,15 @@ public class CadastrarPet extends AppCompatActivity {
         cor = findViewById(R.id.cor);
         porte = findViewById(R.id.porte);
         genero = findViewById(R.id.genero);
+        idade = findViewById(R.id.idade);
+        nome = findViewById(R.id.nome);
+
+
 
 
 
         // Chamar API para setar os drops downs
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -59,9 +64,7 @@ public class CadastrarPet extends AppCompatActivity {
         setarDropDowns();
 
         btnCadastrar.setOnClickListener(v -> {
-            Intent intent = new Intent(CadastrarPet.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            Cadastrar(v);
         });
     }
 
@@ -70,17 +73,47 @@ public class CadastrarPet extends AppCompatActivity {
         if(especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
             Toast.makeText(CadastrarPet.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;}
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        FirebaseUser userLogin = autenticator.getCurrentUser();
-        APIPerfil api = retrofit.create(APIPerfil.class);
-//        ModelPet pet = new ModelPet(
-//
-//                especie.getText().toString(),
-//                raca.getText().toString(),
-//                cor.getText().toString(),
-//                porte.getText().toString(),
-//                genero.getText().toString()
-//        );
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        APIPets api = retrofit.create(APIPets.class);
+        if(genero.getText().toString().equals("Macho")) {
+            genero.setText("M");
+        } else {
+            genero.setText("F");
+        }
+
+        if ( auth.getCurrentUser().getDisplayName() != null) {
+            ModelPetBanco pet = new ModelPetBanco(
+                    auth.getCurrentUser().getDisplayName(),
+                    nome.getText().toString(),
+                    Integer.parseInt(idade.getText().toString()),
+                    genero.getText().toString(),
+                    especie.getText().toString(),
+                    raca.getText().toString(),
+                    porte.getText().toString(),
+                    cor.getText().toString()
+            );
+            Call<ModelRetorno> call = api.insertPet(pet);
+            call.enqueue(new Callback<ModelRetorno>() {
+                @Override
+                public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+                    if(response.isSuccessful()) {
+                        Toast.makeText(CadastrarPet.this, "Pet Cadastrado", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(CadastrarPet.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+                @Override
+                public void onFailure(Call<ModelRetorno> call, Throwable t) {
+                    Toast.makeText(CadastrarPet.this, "Erro ao Cadastrar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show();
+        }
+
+
+
     }
 
     //setar dropdowns
@@ -173,10 +206,8 @@ public class CadastrarPet extends AppCompatActivity {
         });
         //genero
         List<String> generoList = new ArrayList<>();
-        generoList.add("Masculino");
-        generoList.add("Feminino");
-        generoList.add("Não Binário");
-        generoList.add("Prefiro não dizer");
+        generoList.add("Macho");
+        generoList.add("Fêmea");
         ArrayAdapter<String> adapterGenero = new ArrayAdapter<>(
                 CadastrarPet.this,
                 android.R.layout.simple_dropdown_item_1line,

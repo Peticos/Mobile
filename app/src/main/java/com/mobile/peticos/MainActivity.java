@@ -1,6 +1,7 @@
 package com.mobile.peticos;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,12 +13,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
+import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 import com.mobile.peticos.Perfil.Profissional.PerfilProfissional;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
-import com.mobile.peticos.PerfilPetPackage.PerfilPets;
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     APIPerfil api;
     Boolean perfilbool = null;
 
+    int idPet = 9;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticosdev.onrender.com")
+                .baseUrl("https://apipeticos.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);
@@ -67,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else{
                     perfilbool = true;
+                    Intent intent = new Intent(MainActivity.this, Login.class);
+                    startActivity(intent);
+
                 }
             }
 
@@ -74,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<ModelPerfil> call, Throwable t) {
                 // Trate a falha da chamada à API aqui
                 perfilbool = true;
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
 
             }
         });

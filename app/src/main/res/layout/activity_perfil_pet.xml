@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundpersonalizarpet"
-    tools:context=".PerfilPetPackage.PerfilPets">
+    tools:context=".PerfilPet">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/shareButton"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/btneditar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="#00472C2C"
@@ -292,39 +295,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_situacao" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/varela_round"
-                        android:gravity="center"
-                        android:text="Situação"
-                        android:textColor="@color/is_it_green"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/SituacaoPet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/varela_round"
-                        android:gravity="center"
-                        android:text="Adotado"
-                        android:textColor="@color/is_it_green"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -443,4 +413,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
