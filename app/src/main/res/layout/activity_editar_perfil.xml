@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="210dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -39,7 +39,7 @@
             app:shapeAppearanceOverlay="@style/RoundedImage" />
 
         <ImageView
-            android:id="@+id/imageView23"
+            android:id="@+id/btUpload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="110dp"
@@ -83,7 +83,6 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
@@ -97,7 +96,7 @@
             android:textColor="@color/water_blue" />
 
         <EditText
-            android:id="@+id/nomeCompleto"
+            android:id="@+id/NomeCompleto"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
@@ -151,7 +150,28 @@
             android:textSize="14dp" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/varela_round"
+            android:text="Gênero"
+            android:textColor="@color/water_blue" />
+
+        <AutoCompleteTextView
+            android:id="@+id/Genero"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_edit_text"
+            android:ems="10"
+            android:hint="Selecione o gênero"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView56"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -159,69 +179,28 @@
             android:text="Bairro"
             android:textColor="@color/water_blue" />
 
-        <EditText
-            android:id="@+id/editTextText6"
+        <AutoCompleteTextView
+            android:id="@+id/Bairro"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_edit_text"
             android:ems="10"
-            android:hint="Bairro"
+            android:hint="Selecione o bairro"
             android:inputType="text"
             android:paddingLeft="10dp"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="E-mail"
-            android:textColor="@color/water_blue" />
-
-        <EditText
-            android:id="@+id/editTextText7"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="E-mail"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Senha"
-            android:textColor="@color/water_blue" />
-
-        <EditText
-            android:id="@+id/editTextText8"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Senha"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
+            android:paddingRight="10dp"
+            android:textSize="14sp" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btAtualizar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/principal_button"
             android:fontFamily="@font/lilita_one"
             android:onClick="CadastraPet"
-            android:text="Cadastrar"
+            android:text="Atualizar Perfil"
             android:textSize="26dp" />
 
 

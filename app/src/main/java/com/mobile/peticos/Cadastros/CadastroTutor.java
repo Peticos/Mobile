@@ -136,7 +136,7 @@ public class CadastroTutor extends AppCompatActivity {
         genero.setAdapter(adapterGenero);
 
         // Chamar API de bairros
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -181,8 +181,7 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para validar os campos antes de cadastrar
-    private void validarCampos(View view)
-    {
+    private void validarCampos(View view) {
         boolean erro = false;
 
         if (nomeCompleto.getText().toString().isEmpty()) {
@@ -300,8 +299,6 @@ public class CadastroTutor extends AppCompatActivity {
 
         String urlAPI = "https://apipeticos.onrender.com";
 
-
-
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -309,6 +306,7 @@ public class CadastroTutor extends AppCompatActivity {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
+                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 emailCadastro.getText().toString(),
@@ -316,6 +314,7 @@ public class CadastroTutor extends AppCompatActivity {
                 "Sem Plano",
                 telefone.getText().toString(),
                 genero.getText().toString(),
+                0,
                 null
         );
 
@@ -369,7 +368,7 @@ public class CadastroTutor extends AppCompatActivity {
     //verificar se o bairro selecionado esta na api
     private void verificarBairro(BairroCallback callback) {
         // URL da API
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -442,7 +441,4 @@ public class CadastroTutor extends AppCompatActivity {
 
         return temLetraMaiuscula && temLetraMinuscula && temNumero && temCaractereEspecial;
     }
-
-
-
 }

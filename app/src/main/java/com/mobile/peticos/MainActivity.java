@@ -45,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         Retrofit retrofit = new Retrofit.Builder()
+<<<<<<< HEAD
                 .baseUrl("https://apipeticosdev.onrender.com")
+=======
+                .baseUrl("https://apipeticos.onrender.com")
+>>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);
@@ -59,7 +63,11 @@ public class MainActivity extends AppCompatActivity {
                     ModelPerfil perfil = response.body();
 
                     // Aqui, continue com a lógica para abrir o fragment correto
+<<<<<<< HEAD
                     if (perfil.getCnpj().equals("Tutor")) {
+=======
+                    if (perfil.getCnpj().equals("Tutor") || perfil.getCnpj().equals(null)) {
+>>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
                         perfilbool = true;
                     } else {
                         perfilbool = false;

@@ -54,7 +54,10 @@ public class Login extends AppCompatActivity {
         });
 
         btnSalvar.setOnClickListener(v -> {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
             // Recuperar os campos de texto
             txtEmail = findViewById(R.id.email);
             txtSenha = findViewById(R.id.senha);
@@ -102,6 +105,11 @@ public class Login extends AppCompatActivity {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
     }
 
     public void TutorOuPeofissional(View view) {

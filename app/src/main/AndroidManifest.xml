@@ -4,9 +4,21 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+=======
 
+    <uses-feature android:name="android.permission.camera.any" />
+>>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
 
     <uses-permission
@@ -60,6 +72,9 @@
             android:exported="false" />
         <activity
             android:name=".Local.WebViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AlertPetEncontrado"
             android:exported="false" />
         <activity
             android:name=".Camera"
