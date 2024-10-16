@@ -24,6 +24,9 @@ public interface APIPets {
    @GET("/api/petregister/getbyusername/{username}")
    Call<List<ModelPetBanco>> getPets(@Path("username") String username);
 
+   @POST("/personalizations/insert")
+   Call<ModelRetorno> personalizarPet(@Path ("fotoPet") Personalizacao pet);
+
 
 
 

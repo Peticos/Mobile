@@ -7,18 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.mobile.peticos.Perfil.Pet.Apis.ModelPetBanco;
 
-import com.mobile.peticos.PerfilPet;
+import com.mobile.peticos.Perfil.Pet.PerfilPet;
 import com.mobile.peticos.R;
 import java.util.List;
 
@@ -53,6 +48,7 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.PetViewHolder> {
             bundle.putString("cor", Pet.getColorpet());
             bundle.putString("porte", Pet.getSize());
             bundle.putString("genero", Pet.getSex());
+            bundle.putInt("id", Pet.getIdPet());
             intent.putExtras(bundle);
             v.getContext().startActivity(intent);
 

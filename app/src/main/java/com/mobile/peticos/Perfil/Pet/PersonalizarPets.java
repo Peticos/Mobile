@@ -5,11 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.mobile.peticos.EditarPerfilPet;
+import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
+import com.mobile.peticos.Perfil.Pet.Apis.Personalizacao;
 import com.mobile.peticos.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PersonalizarPets extends AppCompatActivity {
 
@@ -20,6 +30,10 @@ public class PersonalizarPets extends AppCompatActivity {
     ImageView btn_escolha, btn_cor, btn_acessorio_cabeca, btn_brinquedo, petzao, btn_oculos, brinquedao;
     LinearLayout escolhercatordog_layout, color_dog_layout, color_cat_layout, acessorio_cabeca_layout, brinquedo_layout, oculos_layout;
     Boolean initial_value_oculoes = false, dog_cat = true; // true = dog, false = cat
+
+    int hatId=0,  hairId=0, toyId=0, glassesId=0;
+    Button btnSalvar, btnSair;
+    String species;
     ImageView btnVoltar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +110,8 @@ public class PersonalizarPets extends AppCompatActivity {
 
 
 
+
+
         //icon pre selecionado
         btn_escolha.setImageResource(R.drawable.ic_personalizar_pet_1_2);
 
@@ -115,6 +131,16 @@ public class PersonalizarPets extends AppCompatActivity {
         btnVoltar.setOnClickListener(v ->{
             Intent intent = new Intent(this, EditarPerfilPet.class);
             startActivity(intent);
+        });
+        //btn sair e salvar
+        btnSalvar = findViewById(R.id.btnSalvar);
+        btnSair = findViewById(R.id.btnSair);
+        btnSair.setOnClickListener(v ->{
+            Intent intent = new Intent(this, EditarPerfilPet.class);
+            startActivity(intent);
+        });
+        btnSalvar.setOnClickListener(v->{
+            salvar(v);
         });
 
 
@@ -231,6 +257,7 @@ public class PersonalizarPets extends AppCompatActivity {
                 if(initial_value_oculoes == true){
                     oculosao_cat.setVisibility(View.VISIBLE);
                 }
+                species = "GATO";
 
 
             }
@@ -244,6 +271,7 @@ public class PersonalizarPets extends AppCompatActivity {
                 if(initial_value_oculoes == true){
                     oculosao_dog.setVisibility(View.VISIBLE);
                 }
+                species = "CACHORRO";
 
             }
         });
@@ -252,11 +280,14 @@ public class PersonalizarPets extends AppCompatActivity {
         remover_oculos.setOnClickListener( v->{
             oculosao_cat.setVisibility(View.INVISIBLE);
             oculosao_dog.setVisibility(View.INVISIBLE);
-            initial_value_oculoes = false;        });
+            initial_value_oculoes = false;
+            glassesId = 0;
+        });
         remover_brinquedo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 brinquedao.setVisibility(View.INVISIBLE);
+                toyId = 0;
 
             }
         });
@@ -264,6 +295,7 @@ public class PersonalizarPets extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cabecao.setVisibility(View.INVISIBLE);
+                hairId =0;
             }
         });
 
@@ -304,6 +336,7 @@ public class PersonalizarPets extends AppCompatActivity {
                     oculosao_cat.setVisibility(View.VISIBLE);
 
                 }
+                glassesId = 1;
 
             }
         });
@@ -322,6 +355,7 @@ public class PersonalizarPets extends AppCompatActivity {
                     oculosao_cat.setVisibility(View.VISIBLE);
 
                 }
+                glassesId = 2;
 
             }
         });
@@ -340,6 +374,7 @@ public class PersonalizarPets extends AppCompatActivity {
                     oculosao_dog.setImageResource(R.drawable.oculos_personalizado_3);
                     oculosao_cat.setVisibility(View.VISIBLE);
                 }
+                glassesId = 3;
 
             }
         });
@@ -358,6 +393,7 @@ public class PersonalizarPets extends AppCompatActivity {
                     oculosao_dog.setImageResource(R.drawable.oculos_personalizado_4);
                     oculosao_cat.setVisibility(View.VISIBLE);
                 }
+                glassesId = 4;
 
             }
         });
@@ -376,7 +412,7 @@ public class PersonalizarPets extends AppCompatActivity {
                     oculosao_cat.setImageResource(R.drawable.oculos_personalizado_5);
                     oculosao_cat.setVisibility(View.VISIBLE);
                 }
-
+                glassesId = 5;
             }
         });
         oculos_6.setOnClickListener(new View.OnClickListener() {
@@ -394,71 +430,82 @@ public class PersonalizarPets extends AppCompatActivity {
                     oculosao_cat.setImageResource(R.drawable.oculos_personalizado_6);
                     oculosao_cat.setVisibility(View.VISIBLE);
                 }
-
+                glassesId = 6;
             }
         });
+        //FALTANDO 7
         //SETAR COR CAT
         cat_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_1);
+                hatId = 1;
             }
         });
         cat_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_2);
+                hatId = 2;
             }
         });
         cat_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_3);
+                hatId = 3;
             }
         });
         cat_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_4);
+                hatId = 4;
             }
         });
         cat_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_5);
+                hatId = 5;
             }
         });
         cat_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_6);
+                hatId = 6;
             }
         });
         cat_7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_7);
+                hatId = 7;
             }
         });
         cat_8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_8);
+                hatId = 8;
             }
         });
         cat_9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.cat_personalizado_9);
+                hatId = 9;
             }
         });
         //setar brinquedo
-
+        //FALTANDO 1
         brinquedo_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_2);
                 brinquedao.setVisibility(View.VISIBLE);
+                toyId = 2;
 
             }
         });
@@ -467,6 +514,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_3);
                 brinquedao.setVisibility(View.VISIBLE);
+                toyId = 3;
 
             }
         });
@@ -475,6 +523,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_4);
                 brinquedao.setVisibility(View.VISIBLE);
+                toyId = 4;
 
             }
         });
@@ -483,6 +532,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_5);
                 brinquedao.setVisibility(View.VISIBLE);
+                toyId = 5;
 
             }
         });
@@ -491,7 +541,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_6);
                 brinquedao.setVisibility(View.VISIBLE);
-
+                toyId = 6;
             }
         });
         brinquedo_7.setOnClickListener(new View.OnClickListener() {
@@ -499,7 +549,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_7);
                 brinquedao.setVisibility(View.VISIBLE);
-
+                toyId = 7;
             }
         });
         brinquedo_8.setOnClickListener(new View.OnClickListener() {
@@ -507,7 +557,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_8);
                 brinquedao.setVisibility(View.VISIBLE);
-
+                toyId = 8;
             }
         });
         brinquedo_9.setOnClickListener(new View.OnClickListener() {
@@ -515,17 +565,18 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 brinquedao.setImageResource(R.drawable.brinquedo_personalizado_9);
                 brinquedao.setVisibility(View.VISIBLE);
-
+                toyId = 9;
             }
         });
 
         //setar cabeca
-
+        //FALTANDO 5
         cabeca_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_2);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 2;
             }
         });
         cabeca_3.setOnClickListener(new View.OnClickListener() {
@@ -533,6 +584,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_3);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 3;
             }
         });
         cabeca_4.setOnClickListener(new View.OnClickListener() {
@@ -540,6 +592,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_4);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 4;
             }
         });
         cabeca_1.setOnClickListener(new View.OnClickListener() {
@@ -547,6 +600,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_5);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 1;
             }
         });
         cabeca_6.setOnClickListener(new View.OnClickListener() {
@@ -554,6 +608,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_6);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 6;
             }
         });
         cabeca_7.setOnClickListener(new View.OnClickListener() {
@@ -561,6 +616,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_7);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 7;
             }
         });
         cabeca_8.setOnClickListener(new View.OnClickListener() {
@@ -568,6 +624,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_8);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 8;
             }
         });
         cabeca_9.setOnClickListener(new View.OnClickListener() {
@@ -575,6 +632,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 cabecao.setImageResource(R.drawable.cabeca_personalizado_9);
                 cabecao.setVisibility(View.VISIBLE);
+                hairId = 9;
             }
         });
 
@@ -583,58 +641,97 @@ public class PersonalizarPets extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_1);
+                hatId = 1;
             }
         });
         dog_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_2);
+                hatId = 1;
             }
         });
         dog_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_3);
+                hatId = 3;
             }
         });
         dog_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_4);
+                hatId = 4;
             }
         });
         dog_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_5);
+                hatId = 5;
             }
         });
         dog_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_6);
+                hatId = 6;
             }
         });
         dog_7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_7);
+                hatId = 7;
             }
         });
         dog_8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_8);
+                hatId = 9;
             }
         });
         dog_9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 petzao.setImageResource(R.drawable.dog_personalizado_9);
+                hatId = 9;
             }
         });
 
 
+
+
+    }
+
+    private void salvar(View v) {
+        Bundle bundle = getIntent().getExtras();
+
+        String API = "https://apimongo-ghjh.onrender.com/swagger-ui/index.html#/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Personalizacao pet = new Personalizacao(bundle.getInt("id"),species,hatId,hairId,toyId,glassesId);
+
+        APIPets apiPets = retrofit.create(APIPets.class);
+        Call<ModelRetorno> call = apiPets.personalizarPet(pet);
+        call.enqueue(new Callback<ModelRetorno>() {
+            @Override
+            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(PersonalizarPets.this, "Pet personalizado", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(PersonalizarPets.this, EditarPerfilPet.class);
+                    startActivity(intent);
+                }
+            }
+            @Override
+            public void onFailure(Call<ModelRetorno> call, Throwable t) {
+                Toast.makeText(PersonalizarPets.this, "Erro ao Cadastrar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }

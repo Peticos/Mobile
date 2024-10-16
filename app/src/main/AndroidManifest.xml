@@ -28,7 +28,7 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
-            android:name=".PerfilPet"
+            android:name=".Perfil.Pet.PerfilPet"
             android:exported="false" />
         <activity
             android:name=".AlertPetEncontrado"
@@ -37,7 +37,7 @@
             android:name=".Camera"
             android:exported="false" />
         <activity
-            android:name=".EditarPerfilPet"
+            android:name=".Perfil.Pet.EditarPerfilPet"
             android:exported="false" />
         <activity
             android:name=".Perfil.Profissional.EditarPerfilProfissional"

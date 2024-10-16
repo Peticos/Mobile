@@ -20,7 +20,7 @@ public class DataBaseCamera {
     public void uploadGallary(Context context, ImageView foto, Map<String, String> docData, OnUploadCompleteListener listener) {
         Bitmap bitmap = ((BitmapDrawable) foto.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos);
         byte[] databyte = baos.toByteArray();
 
         FirebaseStorage storage = FirebaseStorage.getInstance();

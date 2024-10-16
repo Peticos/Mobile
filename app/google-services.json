@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "223107235819",
-    "project_id": "peticos-5c769",
-    "storage_bucket": "peticos-5c769.appspot.com"
+    "project_number": "433538220523",
+    "project_id": "peticos-b4633",
+    "storage_bucket": "peticos-b4633.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:223107235819:android:978265d7954ac42cee63ae",
+        "mobilesdk_app_id": "1:433538220523:android:044ffb640ef54031aa99ae",
         "android_client_info": {
           "package_name": "com.mobile.peticos"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "223107235819-s1ctbpqivir18gcg91hnis34m380mg67.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAx6JhPogu2vRQ73PmeTmpMFETFORedttc"
+          "current_key": "AIzaSyDaRu2YTXgyL2IFW5nh4GAi_3g89z_EBDc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "223107235819-s1ctbpqivir18gcg91hnis34m380mg67.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
