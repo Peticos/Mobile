@@ -35,9 +35,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditarPerfilProfissional extends AppCompatActivity {
-      EditText nomeCompleto, nomeUsuario, telefone, senha, cnpj;
+    EditText nomeCompleto, nomeUsuario, telefone, cnpj;
     Button btAtualizar;
-    TextView senhaInvalida;
     AutoCompleteTextView bairro;
     ImageView voltar, btUpload;
     Retrofit retrofit;
@@ -53,8 +52,6 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         nomeUsuario = findViewById(R.id.NomeUsuario);
         telefone = findViewById(R.id.Telefone);
         bairro = findViewById(R.id.Bairro);
-        senha = findViewById(R.id.Senha);
-        senhaInvalida = findViewById(R.id.senhaInvalida);
         cnpj = findViewById(R.id.cnpj);
 
         btUpload = findViewById(R.id.btUpload);
@@ -72,9 +69,6 @@ public class EditarPerfilProfissional extends AppCompatActivity {
             Intent intent = new Intent(EditarPerfilProfissional.this, Camera.class);
             startActivity(intent);
         });
-
-        //Esconder mensagens de erro de senha inicialmente
-        senhaInvalida.setVisibility(TextView.INVISIBLE);
 
         // Chamar API de bairros
         String API = "https://apipeticos.onrender.com";
