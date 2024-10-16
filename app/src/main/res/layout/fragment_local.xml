@@ -58,13 +58,6 @@
                     android:textSize="20sp"
                     android:text="Locais para pets"/>
 
-                <ImageView
-                    android:id="@+id/imageView17"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_alert"
-                    app:tint="@color/water_blue"/>
             </LinearLayout>
 
             <LinearLayout
@@ -85,6 +78,14 @@
                     android:textColor="@color/water_blue"
                     android:textSize="20sp" />
 
+
+                <ImageView
+                    android:id="@+id/btn_semfiltro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_semfiltro" />
+
             </LinearLayout>
 
 
@@ -94,7 +95,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button11"
+                    android:id="@+id/btnVet"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_marginLeft="16dp"
@@ -108,7 +109,7 @@
                     app:iconSize="38dp" />
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/btnConsulta"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_marginHorizontal="4dp"
@@ -121,7 +122,7 @@
                     app:iconSize="38dp" />
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/btnLazer"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_marginHorizontal="4dp"
@@ -134,7 +135,7 @@
                     app:iconSize="38dp" />
 
                 <Button
-                    android:id="@+id/button10"
+                    android:id="@+id/btnOngs"
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:layout_marginLeft="4dp"

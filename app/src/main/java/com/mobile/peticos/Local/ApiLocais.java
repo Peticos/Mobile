@@ -12,6 +12,6 @@ public interface ApiLocais {
     Call<List<Local>> getAll();
 
     @GET ("/api/locations/getbytype/{id}")
-    Call<List<Local>> getByType(@Path("idTipo") int id);
+    Call<List<Local>> getByType(@Path("id") int id);
 
 }

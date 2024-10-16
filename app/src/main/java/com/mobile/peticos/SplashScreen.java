@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.mobile.peticos.Local.Mapa;
-import com.mobile.peticos.PerfilPetPackage.PerfilPets;
+import com.mobile.peticos.Local.MapsActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -24,8 +23,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void abritela(){
-        Intent intent = new Intent(this, Mapa.class);
-
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
         finish();
     }

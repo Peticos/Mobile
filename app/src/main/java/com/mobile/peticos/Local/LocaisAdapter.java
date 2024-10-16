@@ -43,6 +43,12 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
             intent.putExtra("url", local.getLinkKnowMore());
             holder.itemView.getContext().startActivity(intent);
         });
+        holder.btnLocalizacao.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), MapsActivity.class);
+            intent.putExtra("local", "Av. Raimundo Pereira de Magalhães, 1465 - Jardim Iris, São Paulo - SP, 05145-000");
+            holder.itemView.getContext().startActivity(intent);
+        });
+
         //holder.imageView.setImageResource(local.getLocalPicture());
     }
 
@@ -53,7 +59,7 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
 
     public static class LocalViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNome, textViewDescricao;
-        ImageView imageView;
+        ImageView imageView, btnLocalizacao;
         TextView btnSaibaMais;
 
         public LocalViewHolder(@NonNull View itemView) {
@@ -63,6 +69,7 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
             textViewDescricao = itemView.findViewById(R.id.descricao);
             imageView = itemView.findViewById(R.id.fotoLocal);
             btnSaibaMais = itemView.findViewById(R.id.btnSaibaMais);
+            btnLocalizacao = itemView.findViewById(R.id.btnLocalizacao);
 
 
 

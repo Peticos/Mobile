@@ -69,12 +69,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView14"
+                    android:id="@+id/btnLocalizacao"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
                     android:src="@drawable/location"
-                    app:tint="@color/water_blue"/>
+                    app:tint="@color/water_blue" />
 
                 <ImageView
                     android:id="@+id/imageView15"
