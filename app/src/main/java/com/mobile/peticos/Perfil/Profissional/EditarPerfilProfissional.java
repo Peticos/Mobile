@@ -41,6 +41,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
     ImageView voltar, btUpload;
     Retrofit retrofit;
     String emailUser;
+    int userId, idAddress, idPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +132,9 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 if(response.isSuccessful() && response.body() != null) {
                     ModelPerfil model = response.body();
                     emailUser = model.email;
+                    userId = model.id;
+                    idAddress = model.idAddress;
+                    idPlan = model.idPlan;
 
                     //Preencher os campos com os dados do perfil
                     nomeCompleto.setText(model.fullName);
@@ -208,7 +212,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         APIPerfil api = retrofit.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
-                0,
+                idAddress,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 emailUser,
@@ -216,12 +220,12 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 "Sem Plano",
                 telefone.getText().toString(),
                 null,
-                9,
+                idPlan,
                 cnpj.getText().toString()
         );
 
         Log.d("EDITAR_PERFIL", perfil.toString());
-        Call<ModelPerfil> call = api.update(perfil.getId() , perfil);
+        Call<ModelPerfil> call = api.update(userId , perfil);
 
         call.enqueue(new Callback<ModelPerfil>() {
             @Override

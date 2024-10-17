@@ -29,8 +29,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
-
-
     ActivityMainBinding binding;
 
     APIPerfil api;
@@ -96,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-
+                        openFragment(PerfilFragment.newInstance());
                         if (perfilbool != null) {
                             if (perfilbool) {
                                 openFragment(PerfilFragment.newInstance());
