@@ -140,7 +140,7 @@ public class CadastrarPet extends AppCompatActivity {
                 Toast.makeText(CadastrarPet.this, "Erro ao carregar Cores", Toast.LENGTH_SHORT).show();
                 Log.e("CadastrarPet", "Erro ao carregar Cores", throwable);
             }
-        });
+        });git
 
         // Raça
         Call<List<Raca>> callRaca = apiPets.getAllRaces();

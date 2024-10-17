@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
-import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.R;
@@ -54,7 +53,6 @@ public class Login extends AppCompatActivity {
         });
 
         btnSalvar.setOnClickListener(v -> {
-
             // Recuperar os campos de texto
             txtEmail = findViewById(R.id.email);
             txtSenha = findViewById(R.id.senha);
@@ -98,6 +96,8 @@ public class Login extends AppCompatActivity {
                         });
             }
         });
+
+
 
 
 
