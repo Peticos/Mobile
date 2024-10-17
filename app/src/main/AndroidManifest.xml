@@ -55,9 +55,7 @@
             android:name=".Local.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
-        <activity
-            android:name=".Local.Mapa"
-            android:exported="false" />
+
         <activity
             android:name=".Local.WebViewActivity"
             android:exported="false" />

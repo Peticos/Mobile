@@ -17,15 +17,14 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.MainActivity;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
-import com.mobile.peticos.Perfil.Pet.Apis.Cor;
-import com.mobile.peticos.Perfil.Pet.Apis.ModelPet;
-import com.mobile.peticos.Perfil.Pet.Apis.Raca;
+
+import com.mobile.peticos.Perfil.Pet.API.Cor;
+import com.mobile.peticos.Perfil.Pet.API.Raca;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,7 +50,7 @@ public class CadastrarPet extends AppCompatActivity {
 
 
         // Chamar API para setar os drops downs
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -140,7 +139,7 @@ public class CadastrarPet extends AppCompatActivity {
                 Toast.makeText(CadastrarPet.this, "Erro ao carregar Cores", Toast.LENGTH_SHORT).show();
                 Log.e("CadastrarPet", "Erro ao carregar Cores", throwable);
             }
-        });git
+        });
 
         // Raça
         Call<List<Raca>> callRaca = apiPets.getAllRaces();
