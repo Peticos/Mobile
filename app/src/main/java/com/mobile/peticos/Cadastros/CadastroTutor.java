@@ -136,7 +136,7 @@ public class CadastroTutor extends AppCompatActivity {
         genero.setAdapter(adapterGenero);
 
         // Chamar API de bairros
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -369,7 +369,7 @@ public class CadastroTutor extends AppCompatActivity {
     //verificar se o bairro selecionado esta na api
     private void verificarBairro(BairroCallback callback) {
         // URL da API
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

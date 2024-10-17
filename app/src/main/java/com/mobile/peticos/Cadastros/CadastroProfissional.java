@@ -259,7 +259,7 @@ public class CadastroProfissional extends AppCompatActivity {
     private void Bairros (){
 
         // Chamar API de bairros
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -372,7 +372,7 @@ public class CadastroProfissional extends AppCompatActivity {
     //verificar se o bairro selecionado esta na api
     private void verificarBairro(CadastroTutor.BairroCallback callback) {
         // URL da API
-        String API = "https://apipeticosdev.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
