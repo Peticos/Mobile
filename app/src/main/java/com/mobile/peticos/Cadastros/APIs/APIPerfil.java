@@ -22,7 +22,8 @@ public interface APIPerfil {
 
     @Headers("Content-Type: application/json")
     @POST("/api/user/inserttutor")
-    Call<ModelRetorno> insertTutor(@Body ModelPerfil model);
+    Call<Integer> insertTutor(@Body ModelPerfil model);
+
     @Headers("Content-Type: application/json")
     @POST("/api/user/insertprofissional")
     Call<ModelRetorno> insertProfissional(@Body ModelPerfil model);
