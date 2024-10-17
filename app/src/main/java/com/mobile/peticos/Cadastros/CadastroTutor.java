@@ -24,9 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
@@ -249,38 +247,38 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para salvar o usuário no Firebase e no banco
-    private void salvarUsuarioFireBase(View view) {
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        String txtEmail = emailCadastro.getText().toString();
-        String txtSenha = senhaCadastro.getText().toString();
-        String nomeUsuario = this.nomeUsuario.getText().toString();
-
-        if (txtEmail.isEmpty() || txtSenha.isEmpty() || nomeUsuario.isEmpty()) {
-            Toast.makeText(CadastroTutor.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        autenticator.createUserWithEmailAndPassword(txtEmail, txtSenha)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser userLogin = autenticator.getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(nomeUsuario)
-                                .setPhotoUri(Uri.parse(url))
-                                .build();
-
-                        if (userLogin != null) {
-                            userLogin.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    cadastrarTutorBanco(view);
-                                }
-                            });
-                        }
-                    } else {
-                        Toast.makeText(CadastroTutor.this, "Erro ao cadastrar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
+   // private void salvarUsuarioFireBase(View view) {
+//        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+//        String txtEmail = emailCadastro.getText().toString();
+//        String txtSenha = senhaCadastro.getText().toString();
+//        String nomeUsuario = this.nomeUsuario.getText().toString();
+//
+//        if (txtEmail.isEmpty() || txtSenha.isEmpty() || nomeUsuario.isEmpty()) {
+//            Toast.makeText(CadastroTutor.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        autenticator.createUserWithEmailAndPassword(txtEmail, txtSenha)
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        FirebaseUser userLogin = autenticator.getCurrentUser();
+//                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                                .setDisplayName(nomeUsuario)
+//                                .setPhotoUri(Uri.parse(url))
+//                                .build();
+//
+//                        if (userLogin != null) {
+//                            userLogin.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
+//                                if (task1.isSuccessful()) {
+//                                    cadastrarTutorBanco(view);
+//                                }
+//                            });
+//                        }
+//                    } else {
+//                        Toast.makeText(CadastroTutor.this, "Erro ao cadastrar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
 
 
 
@@ -321,13 +319,12 @@ public class CadastroTutor extends AppCompatActivity {
 
 
         Log.d("teste", perfil.toString());
-        Call<ModelRetorno> call = aPIPerfil.insertTutor(perfil);
+        Call<Integer> call = aPIPerfil.insertTutor(perfil);
 
-        call.enqueue(new Callback<ModelRetorno>() {
+        call.enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
-                    salvarUsuarioFireBase(view);
                     Toast.makeText(CadastroTutor.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
                     startActivity(intent);
@@ -353,7 +350,7 @@ public class CadastroTutor extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ModelRetorno> call, Throwable t) {
+            public void onFailure(Call<Integer> call, Throwable t) {
                 Toast.makeText(CadastroTutor.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
