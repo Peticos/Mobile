@@ -77,6 +77,26 @@ public class LocalFragment extends Fragment {
                 .build();
         apiLocais = retrofit.create(ApiLocais.class);
     }
+    private void initRecyclerView() {
+        Call<List<Local>> call = apiLocais.getAll();
+        call.enqueue(new Callback<List<Local>>() {
+            @Override
+            public void onResponse(Call<List<Local>> call, Response<List<Local>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Local> localList = response.body();
+                    updateRecyclerView(localList);
+                } else {
+                    showToast("Nenhum local encontrado");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Local>> call, Throwable throwable) {
+                showToast("Erro ao carregar Locais");
+            }
+        });
+    }
+
 
     // Configura os botões para aplicar os filtros
     private void setupButtonListeners() {
@@ -110,25 +130,6 @@ public class LocalFragment extends Fragment {
     }
 
     // Inicializa o RecyclerView com todos os locais
-    private void initRecyclerView() {
-        Call<List<Local>> call = apiLocais.getAll();
-        call.enqueue(new Callback<List<Local>>() {
-            @Override
-            public void onResponse(Call<List<Local>> call, Response<List<Local>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Local> localList = response.body();
-                    updateRecyclerView(localList);
-                } else {
-                    showToast("Nenhum local encontrado");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Local>> call, Throwable throwable) {
-                showToast("Erro ao carregar Locais");
-            }
-        });
-    }
 
     // Atualiza o RecyclerView com a lista de locais
     private void updateRecyclerView(List<Local> localList) {
