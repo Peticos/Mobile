@@ -147,7 +147,6 @@ public class EditarPerfil extends AppCompatActivity {
                     idAddress = model.idAddress;
                     idPlan = model.idPlan;
 
-
                     //Preencher os campos com os dados do perfil
                     nomeCompleto.setText(model.fullName);
                     nomeUsuario.setText(model.username);

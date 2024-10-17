@@ -40,6 +40,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
     AutoCompleteTextView bairro;
     ImageView voltar, btUpload;
     Retrofit retrofit;
+    String emailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,6 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 .build();
         APIPerfil api = retrofit.create(APIPerfil.class);
 
-
         FirebaseAuth autenticator = FirebaseAuth.getInstance();
 
         //Chamada para buscar o perfil pelo nome de usuário
@@ -130,6 +130,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     ModelPerfil model = response.body();
+                    emailUser = model.email;
 
                     //Preencher os campos com os dados do perfil
                     nomeCompleto.setText(model.fullName);
@@ -210,14 +211,13 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
-                null,
+                emailUser,
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString(),
-                cnpj.getText().toString(),
+                null,
                 9,
-                "12.345.678/0001-95"
-
+                cnpj.getText().toString()
         );
 
         Log.d("EDITAR_PERFIL", perfil.toString());
