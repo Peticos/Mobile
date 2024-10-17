@@ -18,7 +18,9 @@ public interface APIPerfil {
     Call<List<ModelPerfil>> getAll();
 
     @GET("/api/user/getbyusername/{username}")
-    Call<ModelPerfil> getById(@Path("username") String username);
+    Call<ModelPerfil> getByUsername(@Path("username") String username);
+    @GET("/api/user/getbyusername/{username}")
+    Call<ModelPerfil> getById(@Path("username") int id);
 
     @Headers("Content-Type: application/json")
     @POST("/api/user/inserttutor")
