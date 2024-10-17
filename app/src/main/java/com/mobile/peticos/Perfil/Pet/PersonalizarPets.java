@@ -31,10 +31,11 @@ public class PersonalizarPets extends AppCompatActivity {
     LinearLayout escolhercatordog_layout, color_dog_layout, color_cat_layout, acessorio_cabeca_layout, brinquedo_layout, oculos_layout;
     Boolean initial_value_oculoes = false, dog_cat = true; // true = dog, false = cat
 
-    int hatId=0,  hairId=0, toyId=0, glassesId=0;
+    int hatId=1,  hairId=0, toyId=0, glassesId=0;
     Button btnSalvar, btnSair;
     String species;
     ImageView btnVoltar;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +108,10 @@ public class PersonalizarPets extends AppCompatActivity {
         acessorio_cabeca_layout = findViewById(R.id.cabeca);
         oculos_layout = findViewById(R.id.oculos);
         color_cat_layout = findViewById(R.id.gatos_cores);
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getInt("id");
+
+
 
 
 
@@ -127,10 +132,9 @@ public class PersonalizarPets extends AppCompatActivity {
         color_cat_layout.setVisibility(View.GONE);
 
         //btn voltar
-        btnVoltar = findViewById(R.id.btnVoltar);
+        btnVoltar = findViewById(R.id.btn_voltar_editar);
         btnVoltar.setOnClickListener(v ->{
-            Intent intent = new Intent(this, EditarPerfilPet.class);
-            startActivity(intent);
+            finish();
         });
         //btn sair e salvar
         btnSalvar = findViewById(R.id.btnSalvar);
@@ -705,36 +709,16 @@ public class PersonalizarPets extends AppCompatActivity {
 
 
     }
-
     private void salvar(View v) {
         Bundle bundle = getIntent().getExtras();
-
-        String API = "https://apimongo-ghjh.onrender.com/swagger-ui/index.html#/";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Personalizacao pet = new Personalizacao(bundle.getInt("id"),species,hatId,hairId,toyId,glassesId);
-
-        APIPets apiPets = retrofit.create(APIPets.class);
-        Call<ModelRetorno> call = apiPets.personalizarPet(pet);
-        call.enqueue(new Callback<ModelRetorno>() {
-            @Override
-            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
-                if(response.isSuccessful()) {
-                    Toast.makeText(PersonalizarPets.this, "Pet personalizado", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(PersonalizarPets.this, EditarPerfilPet.class);
-                    startActivity(intent);
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelRetorno> call, Throwable t) {
-                Toast.makeText(PersonalizarPets.this, "Erro ao Cadastrar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        if (bundle == null) {
+//            Toast.makeText(this, "Erro: Dados não disponíveis", Toast.LENGTH_SHORT).show();
+//            return; // Saia do método se o bundle for nulo
+//        }
 
 
     }
+
 
 
 }

@@ -44,7 +44,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
@@ -60,14 +60,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/dog_personalizado_2" />
+                    app:srcCompat="@drawable/dog_personalizado_1" />
 
                 <ImageView
                     android:id="@+id/oculosao_dog"
                     android:layout_width="94dp"
                     android:layout_height="41dp"
-                    android:layout_marginStart="136dp"
+                    android:layout_marginStart="84dp"
                     android:layout_marginBottom="148dp"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/oculos_personalizado_1" />
@@ -76,9 +77,10 @@
                     android:id="@+id/oculosao_cat"
                     android:layout_width="140dp"
                     android:layout_height="45dp"
-                    android:layout_marginStart="124dp"
-                    android:layout_marginBottom="144dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginBottom="148dp"
                     android:rotation="-8"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/oculos_personalizado_6" />
@@ -87,7 +89,7 @@
                     android:id="@+id/brinquedao"
                     android:layout_width="66dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="128dp"
+                    android:layout_marginEnd="52dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,8 +99,8 @@
                     android:id="@+id/cabecao"
                     android:layout_width="43dp"
                     android:layout_height="37dp"
-                    android:layout_marginStart="184dp"
-                    android:layout_marginBottom="188dp"
+                    android:layout_marginStart="136dp"
+                    android:layout_marginBottom="192dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/cabeca_personalizado_2" />
@@ -143,21 +145,38 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/IdadePet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:fontFamily="@font/varela_round"
-                android:text="11 anos"
-                android:textColor="@color/is_it_green"
-                android:textSize="15sp" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/IdadePet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/varela_round"
+                    android:text="11 "
+                    android:textColor="@color/is_it_green"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Anos"
+                    android:textColor="@color/is_it_green"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center|center_vertical"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout

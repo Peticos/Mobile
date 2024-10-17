@@ -19,7 +19,10 @@ import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
 import com.mobile.peticos.Perfil.Pet.Apis.Cor;
 import com.mobile.peticos.Perfil.Pet.Apis.ModelPetBanco;
+import com.mobile.peticos.Perfil.Pet.Apis.Personalizacao;
 import com.mobile.peticos.Perfil.Pet.Apis.Raca;
+import com.mobile.peticos.Perfil.Pet.EditarPerfilPet;
+import com.mobile.peticos.Perfil.Pet.PersonalizarPets;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -216,4 +219,42 @@ public class CadastrarPet extends AppCompatActivity {
         genero.setAdapter(adapterGenero);
         genero.setThreshold(1);
     }
+
+//    public void cadastrarFoto(){
+//        String API = "https://apimongo-ghjh.onrender.com";
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(API)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        Personalizacao pet = new Personalizacao(
+//                id,
+//                species,
+//                hatId,
+//                hairId,
+//                toyId,
+//                glassesId
+//        );
+//
+//        APIPets apiPets = retrofit.create(APIPets.class);
+//        Call<ModelRetorno> call = apiPets.personalizarPet(pet);
+//        call.enqueue(new Callback<ModelRetorno>() {
+//            @Override
+//            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(PersonalizarPets.this, "Pet personalizado", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(PersonalizarPets.this, EditarPerfilPet.class);
+//                    startActivity(intent);
+//                    finish();
+//                } else {
+//                    Toast.makeText(PersonalizarPets.this, "Erro: " + response.message(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ModelRetorno> call, Throwable t) {
+//                Toast.makeText(PersonalizarPets.this, "Erro ao Cadastrar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }
