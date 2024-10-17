@@ -24,16 +24,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Camera;
 import com.mobile.peticos.ModelRetorno;
-import com.mobile.peticos.Perfil.Pet.EditarPerfilPet;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -282,7 +279,7 @@ public class CadastroTutor extends AppCompatActivity {
 //                    }
 //                });
 //    }
-//
+
 
 
 
@@ -329,12 +326,7 @@ public class CadastroTutor extends AppCompatActivity {
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(CadastroTutor.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-
                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", response.body());
-                    intent.putExtras(bundle);
-
                     startActivity(intent);
                     finish();
                 } else {

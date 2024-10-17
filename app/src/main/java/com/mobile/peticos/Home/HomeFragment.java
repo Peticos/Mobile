@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,11 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobile.peticos.R;
-import com.mobile.peticos.Home.AdapterCuriosidadesDiarias;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment {
 
@@ -61,22 +67,10 @@ public class HomeFragment extends Fragment {
         // Configuração do Adapter para o RecyclerViewDicas
         AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicasItems);
         recyclerViewDicas.setAdapter(dicasAdapter);
+        setupRetrofit();
+        initRecyclerView(view);
 
-        // Configuração do RecyclerView para o feed de pets
-        RecyclerView recyclerViewFeedPets = view.findViewById(R.id.RecyclerViewFeedPets);
-        recyclerViewFeedPets.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Exemplo de dados para o feed de pets
-        List<FeedPet> feedPets = Arrays.asList(
-                new FeedPet("geogeo43", "nutela", "Há 2 dias", "curtido por João", "descrição da imagem", R.drawable.user1, R.drawable.publicacao1),
-                new FeedPet("amanda_pet", "lola", "Há 1 dia", "curtido por Maria", "uma foto da lola", R.drawable.user1, R.drawable.publicacao1)
-        );
-
-        // Configuração do Adapter para o RecyclerViewFeedPets
-        FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(feedPets, feedPet -> {
-            // Tratar clique no item (feedPet)
-        });
-        recyclerViewFeedPets.setAdapter(feedPetsAdapter);
 
         return view;
     }
@@ -88,5 +82,79 @@ public class HomeFragment extends Fragment {
                 ActivityCompat.requestPermissions(getActivity(), REQUIRED_PERMISSIONS, REQUEST_NOTIFICATION_PERMISSION);
             }
         }
+    }
+    ApiHome apiHome;
+    Retrofit retrofit;
+    // Configuração do Retrofit
+    private void setupRetrofit() {
+        String API = "https://apimongo-ghjh.onrender.com";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiHome = retrofit.create(ApiHome.class);
+    }
+    // Inicializa o RecyclerView com todos os locais
+    private void initRecyclerView(View v) {
+        Call<List<FeedPet>> call = apiHome.getAll();
+        call.enqueue(new Callback<List<FeedPet>>() {
+            @Override
+            public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<FeedPet> feedList = response.body();
+                    updateRecyclerView(feedList, v);
+                } else {
+                    Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+                Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void updateRecyclerView(List<FeedPet> feedList, View v) {
+        List<FeedPet> postagens = new ArrayList<>();
+        for (FeedPet postagem : feedList) {
+            if(postagem.isIs_mei()){
+                postagens.add(new FeedPet(
+                        postagem.getUserId(),
+                        postagem.getLikes(),
+                        postagem.getShares(),
+                        postagem.getPicture(),
+                        postagem.getCaption(),
+                        postagem.getPostDate(),
+                        postagem.isIs_mei(),
+                        postagem.getPrice(),
+                        postagem.getTelephone(),
+                        postagem.getProductName()
+                        )
+                );
+            }else{
+                postagens.add(new FeedPet(
+                                postagem.getUserId(),
+                                postagem.getLikes(),
+                                postagem.getShares(),
+                                postagem.getPicture(),
+                                postagem.getCaption(),
+                                postagem.getPets(),
+                                postagem.getPostDate(),
+                                postagem.isIs_mei()
+                        )
+                );
+            }
+        }
+        // Configuração do RecyclerView para o feed de pets
+        RecyclerView recyclerViewFeedPets = v.findViewById(R.id.RecyclerViewFeedPets);
+        recyclerViewFeedPets.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+
+        // Configuração do Adapter para o RecyclerViewFeedPets
+        FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(postagens);
+        recyclerViewFeedPets.setAdapter(feedPetsAdapter);
     }
 }

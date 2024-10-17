@@ -38,6 +38,9 @@ public interface APIPerfil {
     @DELETE("/api/user/delete/{id}")
     Call<ModelPerfil> delete(@Path("id") int id);
 
+    @GET("/api/user/findbyid/{id}")
+    Call<ModelPerfil> findById(@Path("id") int id);
+
 
 
 
