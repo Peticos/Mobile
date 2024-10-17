@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
-import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.R;
@@ -56,9 +55,12 @@ public class Login extends AppCompatActivity {
         btnSalvar.setOnClickListener(v -> {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
+=======
+>>>>>>> 81ab31b2e40503b695489eba98bdf630dec1dfb0
             // Recuperar os campos de texto
             txtEmail = findViewById(R.id.email);
             txtSenha = findViewById(R.id.senha);
@@ -101,55 +103,16 @@ public class Login extends AppCompatActivity {
                             }
                         });
             }
+<<<<<<< HEAD
 =======
             Intent intent = new Intent(Login.this, CadastrarPet.class);
             startActivity(intent);
 >>>>>>> bc9030fd032b0bb50353c62334b643f85a4e0129
+=======
+>>>>>>> 81ab31b2e40503b695489eba98bdf630dec1dfb0
         });
-//
-//            // Recuperar os campos de texto
-//            txtEmail = findViewById(R.id.email);
-//            txtSenha = findViewById(R.id.senha);
-//            String email = txtEmail.getText().toString().trim();
-//            String senha = txtSenha.getText().toString().trim();
-//
-//            // Validar os campos antes de autenticar
-//            if (email.isEmpty()) {
-//                txtEmail.setError("O campo Email é obrigatório!");
-//                txtEmail.requestFocus();
-//                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
-//            }
-//            if (senha.isEmpty()) {
-//                senhainvalida.setVisibility(View.VISIBLE);
-//                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
-//            }
-//            if(!email.isEmpty() && !senha.isEmpty()) {
-//                // Autenticar o usuário
-//                autenticator.signInWithEmailAndPassword(email, senha)
-//                        .addOnCompleteListener(task -> {
-//                            if (task.isSuccessful()) {
-//                                // Abrir a tela principal
-//                                Intent intent = new Intent(Login.this, MainActivity.class);
-//                                startActivity(intent);
-//                            } else {
-//                                // Mostrar erro específico
-//                                String msg = "Erro ao tentar realizar login.";
-//                                try {
-//                                    throw task.getException();
-//                                } catch (FirebaseAuthInvalidUserException e) {
-//                                    txtEmail.setError("Email inválido!");
-//                                    msg = "Usuário inválido!";
-//                                } catch (FirebaseAuthInvalidCredentialsException e) {
-//                                    senhainvalida.setVisibility(View.VISIBLE);
-//                                    msg = "Senha inválida!";
-//                                } catch (Exception e) {
-//                                    msg = e.getMessage();
-//                                }
-//                                Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//            }
-//        });
+
+
 
 
 
