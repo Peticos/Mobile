@@ -33,6 +33,7 @@ import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Camera;
 import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Perfil.Pet.EditarPerfilPet;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -330,6 +331,10 @@ public class CadastroTutor extends AppCompatActivity {
                     Toast.makeText(CadastroTutor.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id", response.body());
+                    intent.putExtras(bundle);
+
                     startActivity(intent);
                     finish();
                 } else {

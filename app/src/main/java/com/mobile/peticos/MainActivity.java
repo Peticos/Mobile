@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("id");
 
-        Call<ModelPerfil> call = api.getById(String.valueOf(id));
+        Call<ModelPerfil> call = api.getById(id);
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {

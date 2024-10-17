@@ -19,6 +19,7 @@ public interface APIPerfil {
 
     @GET("/api/user/getbyusername/{username}")
     Call<ModelPerfil> getByUsername(@Path("username") String username);
+
     @GET("/api/user/getbyusername/{username}")
     Call<ModelPerfil> getById(@Path("username") int id);
 
@@ -28,7 +29,7 @@ public interface APIPerfil {
 
     @Headers("Content-Type: application/json")
     @POST("/api/user/insertprofissional")
-    Call<ModelRetorno> insertProfissional(@Body ModelPerfil model);
+    Call<Integer> insertProfissional(@Body ModelPerfil model);
 
 
     @PUT("/api/user/update/{id}")
