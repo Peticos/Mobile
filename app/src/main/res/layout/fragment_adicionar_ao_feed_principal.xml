@@ -49,19 +49,16 @@
             android:textSize="16sp" />
 
 
-        <Button
+        <ImageView
             android:id="@+id/btnUpload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_upload"
-            android:backgroundTint="@color/beige"
-            android:fontFamily="@font/lilita_one"
-            android:text="Upload"
-            android:textColor="@color/wood_brown"
-            app:icon="@drawable/export_light"
-            app:iconSize="20dp"
-            app:iconTint="@color/wood_brown" />
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:backgroundTint="@color/is_it_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/upload_foto"
+            tools:layout_editor_absoluteY="40dp" />
 
         <TextView
             android:id="@+id/textView52"

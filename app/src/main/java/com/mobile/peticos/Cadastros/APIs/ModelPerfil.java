@@ -104,7 +104,6 @@ public class ModelPerfil {
         this.phone = phone;
         this.gender = gender;
         this.cnpj = cnpj;
-
     }
 
 

@@ -1,19 +1,26 @@
-package com.mobile.peticos.Home;
+package com.mobile.peticos.Home.Feed;
+
+import static java.security.AccessController.getContext;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
+import com.mobile.peticos.MetodosBanco;
 import com.mobile.peticos.R;
 
 import java.time.LocalDate;
@@ -72,15 +79,34 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 v.getContext().startActivity(intent);
             });}
 
-        // NOMES
-        
+        // Buscando o perfil do usuário e atualizando a UI após obter os dados
+        MetodosBanco metodosBanco = new MetodosBanco();
+        metodosBanco.getPerfil(feedPet.userId, holder.itemView.getContext(), new MetodosBanco.PerfilCallback() {
+            @Override
+            public void onSuccess(ModelPerfil perfil) {
+                // Configure as informações do perfil no holder, por exemplo:
+                holder.username.setText(perfil.getFullName());
+                //holder.userPhoto.setImageURI(Uri.parse(perfil.get()));
+                // Adicione outros campos conforme necessário
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                // Trate o erro se necessário, por exemplo:
+                Toast.makeText(holder.itemView.getContext(), "Erro ao carregar o perfil" + errorMessage, Toast.LENGTH_SHORT).show();
+                Log.e("Erro", errorMessage);
+            }
+        });
+
+
+
 
 
 
 
 
         // Bind data to views
-        holder.username.setText(String.valueOf(feedPet.getUserId()));
+
         holder.petsInPhoto.setText(feedPet.getPets() != null ? feedPet.getPets().toString() : "");
         holder.description.setText(feedPet.getCaption());
 

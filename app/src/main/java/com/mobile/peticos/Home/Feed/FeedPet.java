@@ -1,16 +1,70 @@
-package com.mobile.peticos.Home;
+package com.mobile.peticos.Home.Feed;
 
 import java.util.List;
 
 public class FeedPet {
-    private int userId;
-    private int likes;
-    private int shares;
-    private String picture;
-    private String caption;
-    private List<Integer> pets;
-    private String postDate;
-    private boolean is_mei;
+ //{
+    //    {
+    //    "id": "67126838e1d62b337917a8cb",
+    //    "userId": 2,
+    //    "likes": [],
+    //    "shares": 15,
+    //    "picture": "https://firebasestorage.googleapis.com/v0/b/peticos-5c769.appspot.com/o/ImagensLocais%2Fmulheres-negras-1.jpg?alt=media&token=3c69f19b-bb22-4432-b466-f95e2edaaccf",
+    //    "caption": "Produto especial para pets! Aproveite o desconto!",
+    //    "pets": null,
+    //    "postDate": "2024-10-16T14:20:00.000+00:00",
+    //    "price": 99.99,
+    //    "telephone": "+5511999999999",
+    //    "productName": "Brinquedo para cachorro",
+    //    "is_mei": false
+    //  },
+    //},
+
+
+    public String id;
+    public int userId;
+    public List<String> likes;
+    public int shares;
+    public String picture;
+    public String caption;
+    public List<Integer> pets;
+    public String postDate;
+    public boolean is_mei;
+    public double price;
+    public String telephone;
+    public String productName;
+
+
+    public FeedPet(int userId, int shares, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
+        this.userId = userId;
+
+        this.shares = shares;
+        this.picture = picture;
+        this.caption = caption;
+        this.pets = pets;
+        this.postDate = postDate;
+        this.is_mei = isMei;
+    }
+
+    public FeedPet(int userId, int shares, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
+        this.userId = userId;
+        this.shares = shares;
+        this.picture = picture;
+        this.caption = caption;
+        this.postDate = postDate;
+        this.is_mei = isMei;
+        this.price = price;
+        this.telephone = telephone;
+        this.productName = productName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getUserId() {
         return userId;
@@ -20,11 +74,11 @@ public class FeedPet {
         this.userId = userId;
     }
 
-    public int getLikes() {
+    public List<String> getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(List<String> likes) {
         this.likes = likes;
     }
 
@@ -100,12 +154,8 @@ public class FeedPet {
         this.productName = productName;
     }
 
-    private double price;
-    private String telephone;
-    private String productName;
-
-
-    public FeedPet(int userId, int likes, int shares, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
+    public FeedPet(String id, int userId, List<String> likes, int shares, String picture, String caption, List<Integer> pets, String postDate, boolean is_mei, double price, String telephone, String productName) {
+        this.id = id;
         this.userId = userId;
         this.likes = likes;
         this.shares = shares;
@@ -113,22 +163,10 @@ public class FeedPet {
         this.caption = caption;
         this.pets = pets;
         this.postDate = postDate;
-        this.is_mei = isMei;
-    }
-
-    public FeedPet(int userId, int likes, int shares, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
-        this.userId = userId;
-        this.likes = likes;
-        this.shares = shares;
-        this.picture = picture;
-        this.caption = caption;
-        this.postDate = postDate;
-        this.is_mei = isMei;
+        this.is_mei = is_mei;
         this.price = price;
         this.telephone = telephone;
         this.productName = productName;
     }
-
-
 }
 

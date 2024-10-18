@@ -182,6 +182,7 @@ public class Camera extends AppCompatActivity {
                     database.uploadGallary(Camera.this, foto, docData, new DataBaseCamera.OnUploadCompleteListener() {
                         @Override
                         public void onUploadComplete(String url) {
+                            Bundle bundle = getIntent().getExtras();
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("url", docData.get("url")); // Retorna a URL
                             setResult(RESULT_OK, returnIntent); // Define o resultado

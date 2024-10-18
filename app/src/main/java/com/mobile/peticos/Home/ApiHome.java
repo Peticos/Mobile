@@ -1,5 +1,8 @@
 package com.mobile.peticos.Home;
 
+import com.mobile.peticos.Home.Feed.FeedPet;
+import com.mobile.peticos.Home.HomeDica.DicasDoDia;
+
 import java.util.List;
 
 import retrofit2.Call;

@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -15,10 +17,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobile.peticos.AdicionarAoFeedPrincipal;
+import com.mobile.peticos.Home.Feed.FeedPet;
+import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
+import com.mobile.peticos.Home.HomeDica.AdapterCuriosidadesDiarias;
+import com.mobile.peticos.Home.HomeDica.DicasDoDia;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,6 +55,7 @@ public class HomeFragment extends Fragment {
         return new HomeFragment();
     }
 
+    ImageButton btnCadastrar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +63,18 @@ public class HomeFragment extends Fragment {
 
         // Verificar e solicitar permissão de notificação ao abrir a tela
         checkNotificationPermission();
+
+        btnCadastrar = view.findViewById(R.id.btnCadastrar);
+
+        btnCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainerView,  AdicionarAoFeedPrincipal.newInstance())
+                            .addToBackStack(null)
+                            .commit();
+            }
+        });
 
         setupRetrofitFeed();
         initRecyclerViewFeed(view);
@@ -98,12 +117,16 @@ public class HomeFragment extends Fragment {
                     List<FeedPet> feedList = response.body();
                     updateRecyclerViewFeed(feedList, v);
                 } else {
-                    Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
+                    Log.e("FeedPet", "Erro: " + response.errorBody().toString());
+                    //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+                Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("FeedPet", "Erro: " + throwable.getMessage());
+
                 Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
 
             }
@@ -113,33 +136,20 @@ public class HomeFragment extends Fragment {
     private void updateRecyclerViewFeed(List<FeedPet> feedList, View v) {
         List<FeedPet> postagens = new ArrayList<>();
         for (FeedPet postagem : feedList) {
-            if(postagem.isIs_mei()){
-                postagens.add(new FeedPet(
-                        postagem.getUserId(),
-                        postagem.getLikes(),
-                        postagem.getShares(),
-                        postagem.getPicture(),
-                        postagem.getCaption(),
-                        postagem.getPostDate(),
-                        postagem.isIs_mei(),
-                        postagem.getPrice(),
-                        postagem.getTelephone(),
-                        postagem.getProductName()
-                        )
-                );
-            }else{
-                postagens.add(new FeedPet(
-                                postagem.getUserId(),
-                                postagem.getLikes(),
-                                postagem.getShares(),
-                                postagem.getPicture(),
-                                postagem.getCaption(),
-                                postagem.getPets(),
-                                postagem.getPostDate(),
-                                postagem.isIs_mei()
-                        )
-                );
-            }
+            postagens.add(new FeedPet(
+                    postagem.getId(),
+                    postagem.getUserId(),
+                    postagem.getLikes(),
+                    postagem.getShares(),
+                    postagem.getPicture(),
+                    postagem.getCaption(),
+                    postagem.getPets(),
+                    postagem.getPostDate(),
+                    postagem.isIs_mei(),
+                    postagem.getPrice(),
+                    postagem.getTelephone(),
+                    postagem.getProductName()
+            ));
         }
         // Configuração do RecyclerView para o feed de pets
         RecyclerView recyclerViewFeedPets = v.findViewById(R.id.RecyclerViewFeedPets);
