@@ -57,18 +57,12 @@ public class HomeFragment extends Fragment {
         // Verificar e solicitar permissão de notificação ao abrir a tela
         checkNotificationPermission();
 
-        // Configuração do RecyclerView para dicas
-        RecyclerView recyclerViewDicas = view.findViewById(R.id.RecyclerViewDicas);
-        recyclerViewDicas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        setupRetrofitFeed();
+        initRecyclerViewFeed(view);
 
-        // Dados de exemplo para o RecyclerViewDicas
-        List<String> dicasItems = Arrays.asList("Item 1", "Item 2", "Item 3", "Item 4");
+        setupRetrofiAdapter();
+        initRecyclerViewDicas(view);
 
-        // Configuração do Adapter para o RecyclerViewDicas
-        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicasItems);
-        recyclerViewDicas.setAdapter(dicasAdapter);
-        setupRetrofit();
-        initRecyclerView(view);
 
 
 
@@ -86,7 +80,7 @@ public class HomeFragment extends Fragment {
     ApiHome apiHome;
     Retrofit retrofit;
     // Configuração do Retrofit
-    private void setupRetrofit() {
+    private void setupRetrofitFeed() {
         String API = "https://apimongo-ghjh.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
@@ -95,14 +89,14 @@ public class HomeFragment extends Fragment {
         apiHome = retrofit.create(ApiHome.class);
     }
     // Inicializa o RecyclerView com todos os locais
-    private void initRecyclerView(View v) {
+    private void initRecyclerViewFeed(View v) {
         Call<List<FeedPet>> call = apiHome.getAll();
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<FeedPet> feedList = response.body();
-                    updateRecyclerView(feedList, v);
+                    updateRecyclerViewFeed(feedList, v);
                 } else {
                     Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
@@ -116,7 +110,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void updateRecyclerView(List<FeedPet> feedList, View v) {
+    private void updateRecyclerViewFeed(List<FeedPet> feedList, View v) {
         List<FeedPet> postagens = new ArrayList<>();
         for (FeedPet postagem : feedList) {
             if(postagem.isIs_mei()){
@@ -157,4 +151,60 @@ public class HomeFragment extends Fragment {
         FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(postagens);
         recyclerViewFeedPets.setAdapter(feedPetsAdapter);
     }
+
+    // Curiosidades
+    private void setupRetrofiAdapter() {
+        String API = "https://apipeticos.onrender.com";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiHome = retrofit.create(ApiHome.class);
+    }
+    private void initRecyclerViewDicas(View v) {
+        Call<List<DicasDoDia>> call = apiHome.getDayHint();
+        call.enqueue(new Callback<List<DicasDoDia>>() {
+            @Override
+            public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<DicasDoDia> dicas = response.body();
+                    updateRecyclerViewDicas(dicas, v);
+
+                } else {
+                    Toast.makeText(getContext(), "Nenhuma Dica encontrada", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
+                Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+    private void updateRecyclerViewDicas(List<DicasDoDia> dicasdodia, View v) {
+
+//
+//        // Configuração do Adapter para o RecyclerViewDicas
+//        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas);
+//        recyclerViewDicas.setAdapter(dicasAdapter);
+//        setupRetrofitFeed();
+//        initRecyclerViewFeed(v);
+
+        List<String> dicas = new ArrayList<>();
+        for (DicasDoDia dica : dicasdodia) {
+            dicas.add(dica.getHint_text());
+        }
+
+        // Configuração do RecyclerView para o dica do dia
+        RecyclerView recyclerViewDicas = v.findViewById(R.id.RecyclerViewDicas);
+        recyclerViewDicas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        // Configuração do Adapter para o RecyclerViewFeedPets
+        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas);
+        recyclerViewDicas.setAdapter(dicasAdapter);
+
+    }
+
+
 }

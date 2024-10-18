@@ -10,5 +10,8 @@ public interface ApiHome {
     @GET("/api/posts/alternado")
     Call<List<FeedPet>> getAll();
 
+    @GET("/api/dayhint/random")
+    Call <List<DicasDoDia>> getDayHint();
+
     
 }

@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
@@ -84,32 +83,6 @@ public class PerfilFragment extends Fragment {
 
         btn_cadastrarpet = view.findViewById(R.id.btn_cadastrarpet);
 
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-
-        nome.setText(autenticator.getCurrentUser().getDisplayName());
-        email.setText(autenticator.getCurrentUser().getEmail());
-        fotoPerfil.setImageURI(autenticator.getCurrentUser().getPhotoUrl());
-
-        if(autenticator.getCurrentUser().getPhotoUrl() != null){
-            RequestOptions options = new RequestOptions()
-                    .centerCrop() // Garante que a imagem preencha o espaço
-                    .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
-
-            Glide.with(this)
-                    .load(autenticator.getCurrentUser().getPhotoUrl())
-                    .apply(options)
-                    .into(fotoPerfil);
-        }
-        if(autenticator.getCurrentUser().getDisplayName() != null){
-
-            nome.setText(autenticator.getCurrentUser().getDisplayName());
-        }
-        if(autenticator.getCurrentUser().getEmail() != null){
-
-            email.setText(autenticator.getCurrentUser().getEmail());
-        }
-
-
 
 
         // Dentro da sua Activity ou Fragment
@@ -148,31 +121,31 @@ public class PerfilFragment extends Fragment {
 
 
         APIPets apiPets = retrofit.create(APIPets.class);
-        FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        Call<List<ModelPetBanco>> call = apiPets.getPets(auth.getCurrentUser().getDisplayName());
 
-        call.enqueue(new Callback<List<ModelPetBanco>>() {
-            @Override
-            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
-                if (response.isSuccessful()) {
-                    List<ModelPetBanco> ListaPets = response.body(); // Lista recebida da API
-                    if (ListaPets != null) {
-                        AdapterPet adapterPet = new AdapterPet(ListaPets); // Passa a lista para o Adapter
-                        recyclerPets.setAdapter(adapterPet); // Configura o RecyclerView
-                        adapterPet.notifyDataSetChanged();
+        //Call<List<ModelPetBanco>> call = apiPets.getPets();
 
-                    }
-                } else {
-                    // Tratar caso não seja bem-sucedido
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
-                // Tratar falha
-            }
-        });
+//        call.enqueue(new Callback<List<ModelPetBanco>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
+//                if (response.isSuccessful()) {
+//                    List<ModelPetBanco> ListaPets = response.body(); // Lista recebida da API
+//                    if (ListaPets != null) {
+//                        AdapterPet adapterPet = new AdapterPet(ListaPets); // Passa a lista para o Adapter
+//                        recyclerPets.setAdapter(adapterPet); // Configura o RecyclerView
+//                        adapterPet.notifyDataSetChanged();
+//
+//                    }
+//                } else {
+//                    // Tratar caso não seja bem-sucedido
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+//                // Tratar falha
+//            }
+//        });
 
 
 
@@ -254,9 +227,7 @@ public class PerfilFragment extends Fragment {
     }
 
     public void logout(View view) {
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
 
-        autenticator.signOut();
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);
 

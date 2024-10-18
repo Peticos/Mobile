@@ -3,19 +3,6 @@ package com.mobile.peticos.Home;
 import java.util.List;
 
 public class FeedPet {
-//    {
-//  "userId": "102",
-//  "likes": 120,
-//  "shares": 10,
-//  "picture": "https://example.com/image1.jpg",
-//  "caption": "Um ótimo dia no parque com meus pets!",
-//  "pets": [
-//    "104",
-//    "120"
-//  ],
-//  "postDate": "2024-10-16T12:34:56Z",
-//  "is_mei": false
-//}
     private int userId;
     private int likes;
     private int shares;
