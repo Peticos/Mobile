@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     APIPerfil api;
     Boolean perfilbool = null;
 
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
         Retrofit retrofit = new Retrofit.Builder()
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -58,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         api = retrofit.create(APIPerfil.class);
 
-        Call<ModelPerfil> call = api.getById(auth.getCurrentUser().getDisplayName());
-        Toast.makeText(this, auth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+
+//        Bundle bundle = getIntent().getExtras();
+//        id = bundle.getInt("id");
+
+        Call<ModelPerfil> call = api.getById(102);
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {

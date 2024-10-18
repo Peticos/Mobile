@@ -19,6 +19,7 @@ public interface APIPerfil {
 
     @GET("/api/user/getbyusername/{username}")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     Call<ModelPerfil> getByUsername(@Path("username") String username);
 
@@ -37,6 +38,20 @@ public interface APIPerfil {
     Call<ModelRetorno> insertProfissional(@Body ModelPerfil model);
 =======
 >>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
+=======
+    Call<ModelPerfil> getByUsername(@Path("username") String username);
+
+    @GET("/api/user/getbyusername/{username}")
+    Call<ModelPerfil> getById(@Path("username") int id);
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/user/inserttutor")
+    Call<Integer> insertTutor(@Body ModelPerfil model);
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/user/insertprofissional")
+    Call<Integer> insertProfissional(@Body ModelPerfil model);
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 
     @Headers("Content-Type: application/json")
     @POST("/api/user/insertprofissional")
@@ -47,4 +62,17 @@ public interface APIPerfil {
 
     @DELETE("/api/user/delete/{id}")
     Call<ModelPerfil> delete(@Path("id") int id);
+<<<<<<< HEAD
+=======
+
+    @GET("/api/user/findbyid/{id}")
+    Call<ModelPerfil> findById(@Path("id") int id);
+
+
+
+
+
+
+
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 }

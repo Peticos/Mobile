@@ -41,8 +41,7 @@ public class Login extends AppCompatActivity {
         senhainvalida = findViewById(R.id.senhainalida);
 
 
-
-        if(userLogin != null){
+        if (userLogin != null) {
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
@@ -68,6 +67,7 @@ public class Login extends AppCompatActivity {
             String senha = txtSenha.getText().toString().trim();
 
             // Validar os campos antes de autenticar
+<<<<<<< HEAD
             if (email.isEmpty()) {
                 txtEmail.setError("O campo Email é obrigatório!");
                 txtEmail.requestFocus();
@@ -122,8 +122,22 @@ public class Login extends AppCompatActivity {
 
 
 >>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
-    }
+=======
+//            if (email.isEmpty()) {
+//                txtEmail.setError("O campo Email é obrigatório!");
+//                txtEmail.requestFocus();
+//                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
+//            }
+//            if (senha.isEmpty()) {
+//                senhainvalida.setVisibility(View.VISIBLE);
+//                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
+//            }
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+        });
 
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
+    }
     public void TutorOuPeofissional(View view) {
         Intent intent = new Intent(this, Tutor_ou_Profissional.class);
         startActivity(intent);

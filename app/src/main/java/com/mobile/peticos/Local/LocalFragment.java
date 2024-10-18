@@ -77,6 +77,7 @@ public class LocalFragment extends Fragment {
                 .build();
         apiLocais = retrofit.create(ApiLocais.class);
     }
+    // Inicializa o RecyclerView com todos os locais
     private void initRecyclerView() {
         Call<List<Local>> call = apiLocais.getAll();
         call.enqueue(new Callback<List<Local>>() {
@@ -96,7 +97,6 @@ public class LocalFragment extends Fragment {
             }
         });
     }
-
 
     // Configura os botões para aplicar os filtros
     private void setupButtonListeners() {
@@ -128,8 +128,6 @@ public class LocalFragment extends Fragment {
             }
         });
     }
-
-    // Inicializa o RecyclerView com todos os locais
 
     // Atualiza o RecyclerView com a lista de locais
     private void updateRecyclerView(List<Local> localList) {
