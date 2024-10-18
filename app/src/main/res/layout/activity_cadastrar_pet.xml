@@ -7,193 +7,289 @@
     android:background="@color/beige"
     tools:context=".Cadastros.CadastrarPet">
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="150dp"
-        android:layout_height="106dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.054"
-        app:srcCompat="@drawable/gato_feliz" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="168dp"
-        android:layout_height="88dp"
-        android:fontFamily="@font/lilita_one"
-        android:gravity="right"
-        android:text="Miaw! Mais um aumiguinho"
-        android:textColor="@color/water_blue"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="2dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView11"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Nome/Apelido"
-            android:textColor="@color/water_blue" />
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/nomeCompleto"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Nome/Apelido"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Idade"
-            android:textColor="@color/water_blue" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/NomeUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Idade"
-            android:inputType="number"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="150dp"
+                        android:layout_height="106dp"
+                        app:srcCompat="@drawable/gato_feliz" />
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Espécie"
-            android:textColor="@color/water_blue" />
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="168dp"
+                        android:layout_height="55dp"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="right"
+                        android:text="Miaw! Mais um aumiguinho"
+                        android:textColor="@color/water_blue"
+                        android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/Telefone"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Espécie"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Raça"
-            android:textColor="@color/water_blue" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Nome/Apelido"
+                    android:textColor="@color/water_blue" />
 
-        <EditText
-            android:id="@+id/editTextText6"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Raça"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
+                <EditText
+                    android:id="@+id/nomeCompleto"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Nome/Apelido"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Cor"
-            android:textColor="@color/water_blue" />
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Idade"
+                    android:textColor="@color/water_blue" />
 
-        <EditText
-            android:id="@+id/editTextText7"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Cor"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
+                <EditText
+                    android:id="@+id/NomeUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:ems="10"
+                    android:hint="Idade"
+                    android:inputType="number"
+                    android:paddingLeft="10dp"
+                    android:textSize="14dp" />
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/varela_round"
-            android:text="Porte"
-            android:textColor="@color/water_blue" />
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Espécie"
+                    android:textColor="@color/water_blue" />
 
-        <EditText
-            android:id="@+id/editTextText8"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Porte"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
+                <AutoCompleteTextView
 
-        <Button
-            android:id="@+id/btnCadastrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/principal_button"
-            android:fontFamily="@font/lilita_one"
-            android:onClick="CadastraPet"
-            android:text="Cadastrar"
-            android:textSize="26dp" />
+                    android:id="@+id/especie"
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="154dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#2C4D4B"
-            android:fontFamily="@font/lilita_one"
-            android:textSize="22dp"
-            android:text="Sair" />
+                    android:layout_width="match_parent"
 
+                    android:layout_height="48dp"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:background="@drawable/rounded_edit_text"
+
+                    android:ems="10"
+
+                    android:hint="Selecione a especie"
+
+                    android:inputType="text"
+
+                    android:paddingLeft="10dp"
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Gênero"
+                    android:textColor="@color/water_blue" />
+
+                <AutoCompleteTextView
+
+                    android:id="@+id/genero"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="48dp"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:background="@drawable/rounded_edit_text"
+
+                    android:ems="10"
+
+                    android:hint="Selecione o gênero"
+
+                    android:inputType="text"
+
+                    android:paddingLeft="10dp"
+
+                    android:paddingRight="10dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Raça"
+                    android:textColor="@color/water_blue" />
+
+                <AutoCompleteTextView
+
+                    android:id="@+id/raca"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="48dp"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:background="@drawable/rounded_edit_text"
+
+                    android:ems="10"
+
+                    android:hint="Selecione a raça"
+
+                    android:inputType="text"
+
+                    android:paddingLeft="10dp"
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Cor"
+                    android:textColor="@color/water_blue" />
+
+                <AutoCompleteTextView
+
+                    android:id="@+id/cor"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="48dp"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:background="@drawable/rounded_edit_text"
+
+                    android:ems="10"
+
+                    android:hint="Selecione o gênero"
+
+                    android:inputType="text"
+
+                    android:paddingLeft="10dp"
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Porte"
+                    android:textColor="@color/water_blue" />
+
+                <AutoCompleteTextView
+
+                    android:id="@+id/porte"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="48dp"
+
+                    android:layout_marginBottom="20dp"
+
+                    android:background="@drawable/rounded_edit_text"
+
+                    android:ems="10"
+
+                    android:hint="Selecione o porte"
+
+                    android:inputType="text"
+
+                    android:paddingLeft="10dp"
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
+
+                <Button
+                    android:id="@+id/btnCadastrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/principal_button"
+                    android:fontFamily="@font/lilita_one"
+                    android:onClick="CadastraPet"
+                    android:text="Cadastrar"
+                    android:textSize="26dp" />
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="154dp"
+                    android:layout_height="48dp"
+                    android:backgroundTint="#2C4D4B"
+                    android:fontFamily="@font/lilita_one"
+                    android:text="Sair"
+                    android:textSize="22dp" />
+
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

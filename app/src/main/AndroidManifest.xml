@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 =======
@@ -28,14 +29,28 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 >>>>>>> bc9030fd032b0bb50353c62334b643f85a4e0129
+=======
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
+
+>>>>>>> 6734098c45b01a5636665a5211396c1a26b06b82
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -47,8 +62,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
+
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCTGXSLqKWpaL6YJWVEBEGS7mwOyowDyBU" />
+
         <activity
-            android:name=".AlertPetEncontrado"
+            android:name=".Local.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name=".Local.WebViewActivity"
             android:exported="false" />
         <activity
             android:name=".AlertPetEncontrado"
@@ -73,7 +109,7 @@
             android:exported="false" />
         <activity
             android:name=".Perfil.Pet.PersonalizarPets"
-            android:exported="false" /> <!-- Add this line -->
+            android:exported="false" />
         <activity
             android:name=".Perfil.Pet.itemCadastroVacina"
             android:exported="false" />
@@ -118,10 +154,6 @@
         </activity>
 
         <receiver android:name=".NotificationReciver" />
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

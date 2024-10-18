@@ -17,7 +17,7 @@ import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 import com.mobile.peticos.Perfil.Profissional.PerfilProfissional;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
-import com.mobile.peticos.PerfilPetPackage.PerfilPets;
+
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
@@ -46,10 +46,14 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         Retrofit retrofit = new Retrofit.Builder()
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .baseUrl("https://apipeticosdev.onrender.com")
 =======
                 .baseUrl("https://apipeticos.onrender.com")
 >>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
+=======
+                .baseUrl("https://apipeticos.onrender.com")
+>>>>>>> 6734098c45b01a5636665a5211396c1a26b06b82
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);

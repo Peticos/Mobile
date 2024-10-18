@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundpersonalizarpet"
-    tools:context=".PerfilPetPackage.PerfilPets">
+    tools:context=".Perfil.Pet.PerfilPet">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/shareButton"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/btnvoltar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="#00472C2C"
@@ -41,7 +44,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
@@ -57,14 +60,15 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/dog_personalizado_2" />
+                    app:srcCompat="@drawable/dog_personalizado_1" />
 
                 <ImageView
                     android:id="@+id/oculosao_dog"
                     android:layout_width="94dp"
                     android:layout_height="41dp"
-                    android:layout_marginStart="136dp"
+                    android:layout_marginStart="84dp"
                     android:layout_marginBottom="148dp"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/oculos_personalizado_1" />
@@ -73,9 +77,10 @@
                     android:id="@+id/oculosao_cat"
                     android:layout_width="140dp"
                     android:layout_height="45dp"
-                    android:layout_marginStart="124dp"
-                    android:layout_marginBottom="144dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginBottom="148dp"
                     android:rotation="-8"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/oculos_personalizado_6" />
@@ -84,7 +89,7 @@
                     android:id="@+id/brinquedao"
                     android:layout_width="66dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="128dp"
+                    android:layout_marginEnd="52dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -94,8 +99,8 @@
                     android:id="@+id/cabecao"
                     android:layout_width="43dp"
                     android:layout_height="37dp"
-                    android:layout_marginStart="184dp"
-                    android:layout_marginBottom="188dp"
+                    android:layout_marginStart="136dp"
+                    android:layout_marginBottom="192dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/cabeca_personalizado_2" />
@@ -140,21 +145,38 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/IdadePet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:fontFamily="@font/varela_round"
-                android:text="11 anos"
-                android:textColor="@color/is_it_green"
-                android:textSize="15sp" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/IdadePet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/varela_round"
+                    android:text="11 "
+                    android:textColor="@color/is_it_green"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Anos"
+                    android:textColor="@color/is_it_green"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center|center_vertical"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -292,39 +314,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_situacao" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/varela_round"
-                        android:gravity="center"
-                        android:text="Situação"
-                        android:textColor="@color/is_it_green"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/SituacaoPet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/varela_round"
-                        android:gravity="center"
-                        android:text="Adotado"
-                        android:textColor="@color/is_it_green"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -443,4 +432,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
