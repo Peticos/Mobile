@@ -41,8 +41,7 @@ public class Login extends AppCompatActivity {
         senhainvalida = findViewById(R.id.senhainalida);
 
 
-
-        if(userLogin != null){
+        if (userLogin != null) {
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
@@ -60,50 +59,20 @@ public class Login extends AppCompatActivity {
             String senha = txtSenha.getText().toString().trim();
 
             // Validar os campos antes de autenticar
-            if (email.isEmpty()) {
-                txtEmail.setError("O campo Email é obrigatório!");
-                txtEmail.requestFocus();
-                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
-            }
-            if (senha.isEmpty()) {
-                senhainvalida.setVisibility(View.VISIBLE);
-                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
-            }
-            if(!email.isEmpty() && !senha.isEmpty()) {
-                // Autenticar o usuário
-                autenticator.signInWithEmailAndPassword(email, senha)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                // Abrir a tela principal
-                                Intent intent = new Intent(Login.this, MainActivity.class);
-                                startActivity(intent);
-                            } else {
-                                // Mostrar erro específico
-                                String msg = "Erro ao tentar realizar login.";
-                                try {
-                                    throw task.getException();
-                                } catch (FirebaseAuthInvalidUserException e) {
-                                    txtEmail.setError("Email inválido!");
-                                    msg = "Usuário inválido!";
-                                } catch (FirebaseAuthInvalidCredentialsException e) {
-                                    senhainvalida.setVisibility(View.VISIBLE);
-                                    msg = "Senha inválida!";
-                                } catch (Exception e) {
-                                    msg = e.getMessage();
-                                }
-                                Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
+//            if (email.isEmpty()) {
+//                txtEmail.setError("O campo Email é obrigatório!");
+//                txtEmail.requestFocus();
+//                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
+//            }
+//            if (senha.isEmpty()) {
+//                senhainvalida.setVisibility(View.VISIBLE);
+//                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
+//            }
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
         });
 
-
-
-
-
-
     }
-
     public void TutorOuPeofissional(View view) {
         Intent intent = new Intent(this, Tutor_ou_Profissional.class);
         startActivity(intent);

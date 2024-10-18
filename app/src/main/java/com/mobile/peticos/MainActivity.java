@@ -17,7 +17,7 @@ import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 import com.mobile.peticos.Perfil.Profissional.PerfilProfissional;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
-import com.mobile.peticos.PerfilPetPackage.PerfilPets;
+
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
@@ -29,11 +29,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
     ActivityMainBinding binding;
 
     APIPerfil api;
     Boolean perfilbool = null;
 
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +44,17 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://apipeticos.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);
 
-        Call<ModelPerfil> call = api.getById(auth.getCurrentUser().getDisplayName());
-        Toast.makeText(this, auth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+
+//        Bundle bundle = getIntent().getExtras();
+//        id = bundle.getInt("id");
+
+        Call<ModelPerfil> call = api.getById(102);
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     ModelPerfil perfil = response.body();
 
                     // Aqui, continue com a lógica para abrir o fragment correto
-                    if (perfil.getCnpj().equals("Tutor") || perfil.getCnpj().equals(null)) {
+                    if (perfil.getCnpj().equals("Tutor")) {
                         perfilbool = true;
                     } else {
                         perfilbool = false;
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-                        openFragment(PerfilFragment.newInstance());
+
                         if (perfilbool != null) {
                             if (perfilbool) {
                                 openFragment(PerfilFragment.newInstance());
