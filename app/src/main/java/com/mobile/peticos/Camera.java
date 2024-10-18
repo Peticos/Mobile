@@ -239,7 +239,8 @@ public class Camera extends AppCompatActivity {
     }
 
     // Configura a camera
-    private void startCamera() {
+    private void startCamera()
+    {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
         cameraProviderFuture.addListener(() -> {

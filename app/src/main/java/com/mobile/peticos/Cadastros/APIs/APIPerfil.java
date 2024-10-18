@@ -41,6 +41,12 @@ public interface APIPerfil {
     @GET("/api/user/findbyid/{id}")
     Call<ModelPerfil> findById(@Path("id") int id);
 
+    @POST("/api/auth/register")
+    Call<ModelRetorno> register(@Body ModelPerfilAuth model);
+
+    @POST("/api/auth/login")
+    Call<ModelRetorno> login(@Body ModelPerfilAuth model);
+
 
 
 
