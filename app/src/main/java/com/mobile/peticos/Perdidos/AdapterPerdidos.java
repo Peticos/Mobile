@@ -63,7 +63,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             username = itemView.findViewById(R.id.username);
             days = itemView.findViewById(R.id.days);
             petsInPhoto = itemView.findViewById(R.id.petsInPhoto);
-            textView31 = itemView.findViewById(R.id.textView31);
+            textView31 = itemView.findViewById(R.id.nomepet2);
             textView32 = itemView.findViewById(R.id.textView32);
         }
     }

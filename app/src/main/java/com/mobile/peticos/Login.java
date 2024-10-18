@@ -53,12 +53,12 @@ public class Login extends AppCompatActivity {
 
         btnSalvar.setOnClickListener(v -> {
             // Recuperar os campos de texto
-            txtEmail = findViewById(R.id.email);
-            txtSenha = findViewById(R.id.senha);
-            String email = txtEmail.getText().toString().trim();
-            String senha = txtSenha.getText().toString().trim();
+//            txtEmail = findViewById(R.id.email);
+//            txtSenha = findViewById(R.id.senha);
+//            String email = txtEmail.getText().toString().trim();
+//            String senha = txtSenha.getText().toString().trim();
 
-            // Validar os campos antes de autenticar
+//            // Validar os campos antes de autenticar
 //            if (email.isEmpty()) {
 //                txtEmail.setError("O campo Email é obrigatório!");
 //                txtEmail.requestFocus();
