@@ -23,10 +23,14 @@ import android.widget.TextView;
 
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 
+import com.mobile.peticos.Perdidos.PerdidoFragment;
+
 public class AdicionarAoFeedTriste extends Fragment {
     Button bntSair;
+
     ImageButton btn_voltar_publicacoes;
     TextView publicacoes;
+
 
     private static final String CHANNEL_ID = "channel_id";
 
@@ -67,16 +71,6 @@ public class AdicionarAoFeedTriste extends Fragment {
                 transaction.commit();
             }
         });
-
-        bntSair.setOnClickListener(v -> {
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainerView, PerdidoFragment.newInstance());
-            transaction.addToBackStack(null);
-            transaction.commit();
-        });
-
-        return view;
-    }
 
     public void RegistrarPetPerdido(View view) {
         notificar();
