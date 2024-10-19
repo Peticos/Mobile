@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/rounded_edit_text"
-                 />
+                    android:scaleType="fitXY" />
 
             </androidx.cardview.widget.CardView>
 
