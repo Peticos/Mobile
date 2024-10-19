@@ -40,14 +40,26 @@
             app:layout_constraintStart_toEndOf="@+id/btn_voltar_publicacoes"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/upload"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="64dp"
+            android:backgroundTint="@color/wood_brown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/upload_foto" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="480dp"
+            android:layout_height="500dp"
             android:background="@color/beige"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="30dp"
-            android:paddingBottom="100dp"
+            android:paddingBottom="150dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -135,17 +147,6 @@
                 android:textSize="24dp"/>
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/upload"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="64dp"
-            android:backgroundTint="@color/wood_brown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/upload_foto" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
