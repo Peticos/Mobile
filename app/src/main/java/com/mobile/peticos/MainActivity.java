@@ -17,7 +17,7 @@ import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 import com.mobile.peticos.Perfil.Profissional.PerfilProfissional;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
-import com.mobile.peticos.PerfilPetPackage.PerfilPets;
+
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
     APIPerfil api;
     Boolean perfilbool = null;
 
+<<<<<<< HEAD
+=======
+    int id;
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +45,26 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+<<<<<<< HEAD
         FirebaseAuth auth = FirebaseAuth.getInstance();
+=======
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://apipeticos.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);
 
+<<<<<<< HEAD
         Call<ModelPerfil> call = api.getById(auth.getCurrentUser().getDisplayName());
         Toast.makeText(this, auth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+=======
+
+//        Bundle bundle = getIntent().getExtras();
+//        id = bundle.getInt("id");
+
+        Call<ModelPerfil> call = api.getById(102);
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
@@ -57,7 +72,11 @@ public class MainActivity extends AppCompatActivity {
                     ModelPerfil perfil = response.body();
 
                     // Aqui, continue com a lógica para abrir o fragment correto
+<<<<<<< HEAD
                     if (perfil.getCnpj().equals("Tutor") || perfil.getCnpj().equals(null)) {
+=======
+                    if (perfil.getCnpj().equals("Tutor")) {
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
                         perfilbool = true;
                     } else {
                         perfilbool = false;
@@ -94,7 +113,11 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
+<<<<<<< HEAD
                         openFragment(PerfilFragment.newInstance());
+=======
+
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
                         if (perfilbool != null) {
                             if (perfilbool) {
                                 openFragment(PerfilFragment.newInstance());

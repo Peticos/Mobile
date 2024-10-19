@@ -1,33 +1,134 @@
 package com.mobile.peticos.Home;
 
+import java.util.List;
+
 public class FeedPet {
+    private int userId;
+    private int likes;
+    private int shares;
+    private String picture;
+    private String caption;
+    private List<Integer> pets;
+    private String postDate;
+    private boolean is_mei;
 
-    private String username;
-    private String petsInPhoto;
-    private String daysAgo;
-    private String likedBy;
-    private String description;
-    private int userPhotoResId;
-    private int photoResId;
-
-    // Construtor
-    public FeedPet(String username, String petsInPhoto, String daysAgo, String likedBy, String description, int userPhotoResId, int photoResId) {
-        this.username = username;
-        this.petsInPhoto = petsInPhoto;
-        this.daysAgo = daysAgo;
-        this.likedBy = likedBy;
-        this.description = description;
-        this.userPhotoResId = userPhotoResId;
-        this.photoResId = photoResId;
+    public int getUserId() {
+        return userId;
     }
 
-    // Getters
-    public String getUsername() { return username; }
-    public String getPetsInPhoto() { return petsInPhoto; }
-    public String getDaysAgo() { return daysAgo; }
-    public String getLikedBy() { return likedBy; }
-    public String getDescription() { return description; }
-    public int getUserPhotoResId() { return userPhotoResId; }
-    public int getPhotoResId() { return photoResId; }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getShares() {
+        return shares;
+    }
+
+    public void setShares(int shares) {
+        this.shares = shares;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public List<Integer> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Integer> pets) {
+        this.pets = pets;
+    }
+
+    public String getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(String postDate) {
+        this.postDate = postDate;
+    }
+
+    public boolean isIs_mei() {
+        return is_mei;
+    }
+
+    public void setIs_mei(boolean is_mei) {
+        this.is_mei = is_mei;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    private double price;
+    private String telephone;
+    private String productName;
+
+
+    public FeedPet(int userId, int likes, int shares, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
+        this.userId = userId;
+        this.likes = likes;
+        this.shares = shares;
+        this.picture = picture;
+        this.caption = caption;
+        this.pets = pets;
+        this.postDate = postDate;
+        this.is_mei = isMei;
+    }
+
+    public FeedPet(int userId, int likes, int shares, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
+        this.userId = userId;
+        this.likes = likes;
+        this.shares = shares;
+        this.picture = picture;
+        this.caption = caption;
+        this.postDate = postDate;
+        this.is_mei = isMei;
+        this.price = price;
+        this.telephone = telephone;
+        this.productName = productName;
+    }
+
+
 }
 
