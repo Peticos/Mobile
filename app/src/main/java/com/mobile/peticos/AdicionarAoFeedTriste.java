@@ -12,13 +12,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mobile.peticos.Perdidos.PerdidoFragment;
+
 public class AdicionarAoFeedTriste extends Fragment {
+    Button bntSair;
 
     private static final String CHANNEL_ID = "channel_id";
 
@@ -34,6 +38,14 @@ public class AdicionarAoFeedTriste extends Fragment {
         Button button = view.findViewById(R.id.btnSalvar);
         button.setOnClickListener(v -> {
             RegistrarPetPerdido(v);
+        });
+
+        bntSair = view.findViewById(R.id.btnSair);
+        bntSair.setOnClickListener(v -> {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, PerdidoFragment.newInstance());
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
 
         return view;
