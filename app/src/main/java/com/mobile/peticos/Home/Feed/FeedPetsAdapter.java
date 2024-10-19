@@ -4,6 +4,7 @@ import static java.security.AccessController.getContext;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.MetodosBanco;
+import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.R;
 
 import java.time.LocalDate;
@@ -69,7 +72,8 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 holder.days.setText("Há "+dias + " dias atrás");
 
             }
-        }else{
+        }
+        else{
             holder.days.setText( "R$ "+feedPet.getPrice());
             holder.entrarContato.setVisibility(View.VISIBLE);
             holder.entrarContato.setOnClickListener(v -> {
@@ -93,17 +97,10 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             @Override
             public void onError(String errorMessage) {
                 // Trate o erro se necessário, por exemplo:
-                Toast.makeText(holder.itemView.getContext(), "Erro ao carregar o perfil" + errorMessage, Toast.LENGTH_SHORT).show();
                 Log.e("Erro", errorMessage);
+                holder.username.setText("Erro ao buscar perfil");
             }
         });
-
-
-
-
-
-
-
 
         // Bind data to views
 
@@ -111,7 +108,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         holder.description.setText(feedPet.getCaption());
 
 
-        holder.likedBy.setText("joao"); // Ajuste conforme a sua lógica
+        holder.likedBy.setText(feedPet.getLikes().toString()); // Ajuste conforme a sua lógica
 
 
         // foto do produto
@@ -124,6 +121,50 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 .load((autenticator.getCurrentUser().getPhotoUrl()))
                 .into(holder.userPhoto);
 
+        holder.photo.setOnClickListener(v -> {
+            //arrumar com a bianca
+//            metodosBanco.curtir(102, feedPet, new MetodosBanco.CurtirCallback() {
+//                @Override
+//                public void onSuccess(ModelRetorno modelRetorno) {
+//                    holder.curtida.setVisibility(View.VISIBLE);
+//                    holder.likedBy.setVisibility(View.VISIBLE);
+//                    // Criar um Handler para remover a curtida após 5 segundos
+//                    new Handler().postDelayed(() -> {
+//                        holder.curtida.setVisibility(View.GONE);
+//
+//                    }, 5000); // 5000 milliseconds = 5 segundos
+//                }
+//
+//                @Override
+//                public void onError(String errorMessage) {
+//                    // Trate o erro se necessário, por exemplo:
+//                    Log.e("Erro", errorMessage);
+//                    holder.username.setText("Erro ao buscar perfil");
+//                }
+//            });
+
+            holder.curtida.setVisibility(View.VISIBLE);
+            holder.likeButton.setImageResource(R.drawable.like); // Use setBackgroundResource para definir o fundo
+            holder.liked = true;
+            new Handler().postDelayed(() -> {
+                holder.curtida.setVisibility(View.GONE);
+            }, 1000); // 5000 milliseconds = 5 segundos
+
+        });
+        holder.likeButton.setOnClickListener(v -> {
+            if(holder.liked){
+                holder.liked = false;
+                holder.likeButton.setImageResource(R.drawable.like);
+            }else{
+                holder.liked = true;
+                holder.likeButton.setImageResource(R.drawable.ic_like);
+            }
+            // Verifica o estado atual da curtida
+
+        });
+
+
+
     }
 
     @Override
@@ -133,6 +174,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
 
     // ViewHolder class to represent each item
     public static class FeedPetsViewHolder extends RecyclerView.ViewHolder {
+        Boolean liked = false;
 
         ImageView userPhoto;
         TextView username;
@@ -157,7 +199,8 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             likedBy = itemView.findViewById(R.id.liked_by);
             description = itemView.findViewById(R.id.decription);
             entrarContato = itemView.findViewById(R.id.entrarContato);
-            curtida = itemView.findViewById(R.id.curtida);
+            curtida = itemView.findViewById(R.id.imagem);
+
 
 
 

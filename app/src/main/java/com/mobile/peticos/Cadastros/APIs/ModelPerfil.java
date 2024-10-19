@@ -11,6 +11,10 @@ public class ModelPerfil {
     //            @Param("phone") String phone,
     //            @Param("gender") String gender
 
+    @SerializedName("idUser")
+    public int id;
+    @SerializedName("idAddress")
+    public int idAddress;
     @SerializedName("fullName")
     public String fullName;
     @SerializedName("username")
@@ -25,9 +29,14 @@ public class ModelPerfil {
     public String phone;
     @SerializedName("gender")
     public String gender;
-
+    @SerializedName("idPlan")
+    public int idPlan;
     @SerializedName("cnpj")
     public String cnpj;
+
+    public int getId() {
+        return id;
+    }
 
     public String getBairro() {
         return bairro;
@@ -36,8 +45,6 @@ public class ModelPerfil {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-
-
 
     public String getFullName() {
         return fullName;
@@ -75,9 +82,26 @@ public class ModelPerfil {
         return phone;
     }
 
+    public int getIdAddress() {
+        return idAddress;
+    }
+
+    public void setIdAddress(int idAddress) {
+        this.idAddress = idAddress;
+    }
+
+    public int getIdPlan() {
+        return idPlan;
+    }
+
+    public void setIdPlan(int idPlan) {
+        this.idPlan = idPlan;
+    }
+
     public void setTelefone(String telefone) {
         this.phone = telefone;
     }
+
 
     public String getPlano() {
         return plan;
@@ -95,7 +119,8 @@ public class ModelPerfil {
         this.cnpj = cnpj;
     }
 
-    public ModelPerfil(String fullName, String username, String email, String bairro, String plan, String phone, String gender, String cnpj) {
+    public ModelPerfil(int idAdress, String fullName, String username, String email, String bairro, String plan, String phone, String gender, int idPlan, String cnpj) {
+        this.idAddress = idAdress;
         this.fullName = fullName;
         this.username = username;
         this.email = email;
@@ -103,6 +128,7 @@ public class ModelPerfil {
         this.plan = plan;
         this.phone = phone;
         this.gender = gender;
+        this.idPlan = idPlan;
         this.cnpj = cnpj;
     }
 

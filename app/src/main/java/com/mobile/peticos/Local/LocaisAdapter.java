@@ -76,4 +76,3 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
         }
     }
 }
-

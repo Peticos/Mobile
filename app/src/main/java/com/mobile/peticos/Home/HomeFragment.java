@@ -9,11 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,9 +25,13 @@ import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Home.HomeDica.AdapterCuriosidadesDiarias;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
+import com.mobile.peticos.AdicionarAoFeedPrincipal;
+import com.mobile.peticos.AdicionarAoFeedTriste;
+import com.mobile.peticos.Perfil.Profissional.AdicionarProduto;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -69,10 +76,17 @@ public class HomeFragment extends Fragment {
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //fazer logica de qual dos cadastros chamar quando o id vier do cash!
+                //adicionar ao feed
+//                getParentFragmentManager().beginTransaction()
+//                        .replace(R.id.fragmentContainerView,  AdicionarAoFeedPrincipal.newInstance())
+//                            .addToBackStack(null)
+//                            .commit();
+                //adicionar produto
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView,  AdicionarAoFeedPrincipal.newInstance())
-                            .addToBackStack(null)
-                            .commit();
+                        .replace(R.id.fragmentContainerView,  AdicionarProduto.newInstance())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -187,7 +201,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
-                Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
 
             }
         });

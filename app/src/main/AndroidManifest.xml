@@ -63,7 +63,7 @@
             android:name=".Camera"
             android:exported="false" />
         <activity
-            android:name=".EditarPerfilPet"
+            android:name=".Perfil.Pet.EditarPerfilPet"
             android:exported="false" />
         <activity
             android:name=".Perfil.Profissional.EditarPerfilProfissional"

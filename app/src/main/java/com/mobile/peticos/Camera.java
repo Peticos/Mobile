@@ -47,7 +47,7 @@ public class Camera extends AppCompatActivity {
     private static final String[] REQUIRED_PERMISSIONS = {
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private DataBaseCamera database = new DataBaseCamera();
     private Map<String, String> docData = new HashMap<>();

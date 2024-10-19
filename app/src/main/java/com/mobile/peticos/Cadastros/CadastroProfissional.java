@@ -163,13 +163,15 @@ public class CadastroProfissional extends AppCompatActivity {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
+                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 email.getText().toString(),
                 bairro.getText().toString(),
-                "Plano Profissional - Básico",
+                "Sem Plano",
                 telefone.getText().toString(),
                 null,
+                11,
                 cnpj.getText().toString()
         );
 
@@ -317,7 +319,7 @@ public class CadastroProfissional extends AppCompatActivity {
 //                @Override
 //                public void onResult(boolean bairroEncontrado) {
 //                    if (bairroEncontrado) {
-                        cadastrarTutorBanco(view); // Continuar com o cadastro
+            cadastrarTutorBanco(view); // Continuar com o cadastro
 //                    } else {
 //                        bairro.setError("Selecione um bairro válido");
 //                    }

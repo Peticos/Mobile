@@ -237,7 +237,7 @@ public class CadastroTutor extends AppCompatActivity {
 //                @Override
 //                public void onResult(boolean bairroEncontrado) {
 //                    if (bairroEncontrado) {
-                        cadastrarTutorBanco(view); // Continuar com o cadastro
+            cadastrarTutorBanco(view); // Continuar com o cadastro
 //                    } else {
 //                        bairro.setError("Selecione um bairro válido");
 //                    }
@@ -248,7 +248,7 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para salvar o usuário no Firebase e no banco
-   // private void salvarUsuarioFireBase(View view) {
+    // private void salvarUsuarioFireBase(View view) {
 //        FirebaseAuth autenticator = FirebaseAuth.getInstance();
 //        String txtEmail = emailCadastro.getText().toString();
 //        String txtSenha = senhaCadastro.getText().toString();
@@ -308,6 +308,7 @@ public class CadastroTutor extends AppCompatActivity {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
+                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 emailCadastro.getText().toString(),
@@ -315,7 +316,8 @@ public class CadastroTutor extends AppCompatActivity {
                 "Sem Plano",
                 telefone.getText().toString(),
                 genero.getText().toString(),
-                null
+                9,
+                "Tutor"
         );
 
 

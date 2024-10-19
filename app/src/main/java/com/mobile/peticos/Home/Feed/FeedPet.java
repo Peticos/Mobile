@@ -35,10 +35,8 @@ public class FeedPet {
     public String productName;
 
 
-    public FeedPet(int userId, int shares, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
+    public FeedPet(int userId, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
         this.userId = userId;
-
-        this.shares = shares;
         this.picture = picture;
         this.caption = caption;
         this.pets = pets;
@@ -46,9 +44,9 @@ public class FeedPet {
         this.is_mei = isMei;
     }
 
-    public FeedPet(int userId, int shares, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
+
+    public FeedPet(int userId, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
         this.userId = userId;
-        this.shares = shares;
         this.picture = picture;
         this.caption = caption;
         this.postDate = postDate;

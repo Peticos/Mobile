@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Home.ApiHome;
+import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class MetodosBanco {
 
             @Override
             public void onFailure(Call<ModelPerfil> call, Throwable throwable) {
-                Toast.makeText(context, "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
+                Log.e("Perfil", "Erro: " + throwable.getMessage());
                 callback.onError(throwable.getMessage());
             }
         });
@@ -56,6 +57,45 @@ public class MetodosBanco {
         void onError(String errorMessage);
     }
 
+    public void curtir(int id, FeedPet feedPet, CurtirCallback callback) {
+        String API = "https://apimongo-ghjh.onrender.com/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiHome api = retrofit.create(ApiHome.class);
+
+        Call<ModelRetorno> call = api.like(id, feedPet);
+        call.enqueue(new Callback<ModelRetorno>() {
+            @Override
+            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("Curtir", "Curtir: " + response.body());
+                    callback.onSuccess(response.body());
+
+
+                } else {
+                    Log.d("Curtir", "Curtir: " + response.errorBody().toString());
+                    callback.onError(response.errorBody().toString());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
+                Log.d("Curtir", "Curtir: " + throwable.getMessage());
+                callback.onError(throwable.getMessage());
+
+            }
+        });
+
+    }
+    public interface CurtirCallback {
+        void onSuccess(ModelRetorno modelRetorno);
+        void onError(String errorMessage);
+    }
 
 
 
