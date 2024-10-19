@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mobile.peticos.Cadastros.CadastrarPet;
+import com.mobile.peticos.MainActivity;
 import com.mobile.peticos.R;
 
 public class DesejaCadastrarUmPet extends AppCompatActivity {
@@ -19,6 +20,12 @@ public class DesejaCadastrarUmPet extends AppCompatActivity {
 
     public void CadastrarPet(View view) {
         Intent intent = new Intent(this, CadastrarPet.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void Entrar(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
