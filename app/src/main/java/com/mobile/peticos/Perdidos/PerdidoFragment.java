@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 
 import com.mobile.peticos.AdicionarAoFeedTriste;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
+import com.mobile.peticos.PrimeirosCuidados;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class PerdidoFragment extends Fragment {
     private RecyclerView recyclerView;
     private AdapterPerdidos adapter;
     private List<PetPerdido> petList;
+    ImageButton bntSos;
 
     private ImageButton bt_adicionar;
 
@@ -81,6 +83,11 @@ public class PerdidoFragment extends Fragment {
         bt_adicionar.setOnClickListener(v -> {
             abrirAdicionar();
         });
+        bntSos = view.findViewById(R.id.btnSos);
+        bntSos.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), PrimeirosCuidados.class);
+            startActivity(intent);
+        });
 
         return view;
     }
@@ -95,5 +102,4 @@ public class PerdidoFragment extends Fragment {
 
 
     }
-
 }

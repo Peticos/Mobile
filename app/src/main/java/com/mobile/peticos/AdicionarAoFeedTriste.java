@@ -12,13 +12,25 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.mobile.peticos.Perdidos.PerdidoFragment;
+
+import com.mobile.peticos.Perdidos.PerdidoFragment;
 
 public class AdicionarAoFeedTriste extends Fragment {
+    Button bntSair;
+
+    ImageButton btn_voltar_publicacoes;
+    TextView publicacoes;
+
 
     private static final String CHANNEL_ID = "channel_id";
 
@@ -31,13 +43,34 @@ public class AdicionarAoFeedTriste extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adicionar_ao_feed_triste, container, false);
 
-        Button button = view.findViewById(R.id.btnSalvar);
-        button.setOnClickListener(v -> {
+        Button btnPublicar = view.findViewById(R.id.btnPublicar);
+        btnPublicar.setOnClickListener(v -> {
             RegistrarPetPerdido(v);
         });
 
-        return view;
-    }
+        bntSair = view.findViewById(R.id.btnSair);
+        btn_voltar_publicacoes = view.findViewById(R.id.btn_voltar_publicacoes);
+        publicacoes = view.findViewById(R.id.publicacoes);
+
+        btn_voltar_publicacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, PerdidoFragment.newInstance());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        publicacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, PerdidoFragment.newInstance());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
     public void RegistrarPetPerdido(View view) {
         notificar();
