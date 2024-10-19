@@ -7,14 +7,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobile.peticos.AdicionarAoFeedPrincipal;
+import com.mobile.peticos.AdicionarAoFeedTriste;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -31,6 +36,7 @@ public class HomeFragment extends Fragment {
 
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
+    ImageButton btnAdicionarAoFeed;
 
     static {
         List<String> requiredPermissions = new ArrayList<>();
@@ -63,10 +69,23 @@ public class HomeFragment extends Fragment {
         setupRetrofiAdapter();
         initRecyclerViewDicas(view);
 
-
+        btnAdicionarAoFeed = view.findViewById(R.id.btnAdicionarAoFeed);
+        btnAdicionarAoFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirAdicionar();
+            }
+        });
 
 
         return view;
+    }
+
+    private void abrirAdicionar() {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainerView, AdicionarAoFeedPrincipal.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     // Verificar e solicitar permissão de notificação
