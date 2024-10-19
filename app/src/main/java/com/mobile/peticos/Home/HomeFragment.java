@@ -73,7 +73,10 @@ public class HomeFragment extends Fragment {
         btnAdicionarAoFeed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                abrirAdicionar();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, AdicionarAoFeedPrincipal.newInstance());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -82,10 +85,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void abrirAdicionar() {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, AdicionarAoFeedPrincipal.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
+
     }
 
     // Verificar e solicitar permissão de notificação
