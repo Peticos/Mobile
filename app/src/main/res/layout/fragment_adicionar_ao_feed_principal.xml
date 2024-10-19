@@ -45,13 +45,16 @@
             android:layout_height="150dp"
             android:layout_marginTop="64dp"
             android:backgroundTint="@color/wood_brown"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/upload_foto" />
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/adicionar_imagem_marrom" />
 
         <LinearLayout
+            android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="500dp"
             android:background="@color/beige"
@@ -123,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_add" />
+                        app:srcCompat="@drawable/ic_cadastrar_pet" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -143,7 +146,7 @@
                 android:backgroundTint="@color/dark_brown"
                 android:fontFamily="@font/lilita_one"
                 android:text="Sair"
-                android:textSize="24dp"/>
+                android:textSize="24dp" />
 
         </LinearLayout>
 

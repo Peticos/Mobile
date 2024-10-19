@@ -76,7 +76,7 @@
             android:id="@+id/photo"
             android:layout_width="match_parent"
             android:layout_height="337dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="10dp"
             android:scaleType="fitXY"
             tools:srcCompat="@null" />
