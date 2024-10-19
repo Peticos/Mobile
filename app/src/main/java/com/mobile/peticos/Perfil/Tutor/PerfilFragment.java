@@ -19,19 +19,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-<<<<<<< HEAD
-=======
 import android.widget.Toast;
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-<<<<<<< HEAD
-import com.google.firebase.auth.FirebaseAuth;
-=======
 import com.mobile.peticos.Cadastros.CadastrarPet;
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
@@ -75,12 +68,8 @@ public class PerfilFragment extends Fragment {
     }
     TextView nome;
     TextView email;
-<<<<<<< HEAD
-    ImageView fotoPerfil;
-=======
     ImageView fotoPerfil, btn_cadastrarpet;
     RecyclerView recyclerPets;
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -89,39 +78,10 @@ public class PerfilFragment extends Fragment {
         fotoPerfil = view.findViewById(R.id.fotoPerfil);
         nome = view.findViewById(R.id.NickName);
         email = view.findViewById(R.id.emailCampo);
-<<<<<<< HEAD
-
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-
-        nome.setText(autenticator.getCurrentUser().getDisplayName());
-        email.setText(autenticator.getCurrentUser().getEmail());
-        fotoPerfil.setImageURI(autenticator.getCurrentUser().getPhotoUrl());
-
-        if(autenticator.getCurrentUser().getPhotoUrl() != null){
-            RequestOptions options = new RequestOptions()
-                    .centerCrop() // Garante que a imagem preencha o espaço
-                    .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
-
-            Glide.with(this)
-                    .load(autenticator.getCurrentUser().getPhotoUrl())
-                    .apply(options)
-                    .into(fotoPerfil);
-        }
-        if(autenticator.getCurrentUser().getDisplayName() != null){
-
-            nome.setText(autenticator.getCurrentUser().getDisplayName());
-        }
-        if(autenticator.getCurrentUser().getEmail() != null){
-
-            email.setText(autenticator.getCurrentUser().getEmail());
-        }
-
-=======
         recyclerPets = view.findViewById(R.id.amiguinhos);
         recyclerPets.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         btn_cadastrarpet = view.findViewById(R.id.btn_cadastrarpet);
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 
 
 

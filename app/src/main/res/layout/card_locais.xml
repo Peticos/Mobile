@@ -52,18 +52,13 @@
                 android:foregroundGravity="center"
                 app:cardCornerRadius="12dp">
 
+
                 <ImageView
-<<<<<<< HEAD
-                    android:id="@+id/fotoPerfil"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY" />
-=======
                     android:id="@+id/fotoLocal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
-
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/fotogenerica" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout

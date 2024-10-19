@@ -74,13 +74,6 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_height="274dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:scaleType="fitXY"
-            tools:srcCompat="@null" />
-=======
             android:layout_height="274dp">
 
             <ImageView
@@ -130,7 +123,6 @@
 
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 
         <LinearLayout
             android:layout_width="match_parent"
