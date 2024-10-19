@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Padrao;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,8 +8,8 @@ import android.widget.Toast;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfilAuth;
-import com.mobile.peticos.Cadastros.AuthCallback;
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.CallBack.AuthCallback;
+import com.mobile.peticos.Padrao.CallBack.PerfilCallback;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/button_upload"
     android:backgroundTint="@color/beige"
-    tools:context=".AdicionarAoFeedPrincipal">
+    tools:context=".Home.AdicionarAoFeedPrincipal">
 
     <LinearLayout
         android:layout_width="match_parent"

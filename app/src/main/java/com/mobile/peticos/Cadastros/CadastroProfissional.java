@@ -2,14 +2,10 @@ package com.mobile.peticos.Cadastros;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -22,17 +18,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
-import com.mobile.peticos.Camera;
-import com.mobile.peticos.Login;
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.CallBack.AuthCallback;
+import com.mobile.peticos.Padrao.Camera;
+import com.mobile.peticos.Padrao.Metodos;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -263,7 +258,98 @@ public class CadastroProfissional extends AppCompatActivity {
 
     // Método para cadastrar o tutor no banco de dados
     private void cadastrarTutorBanco(View view) {
+        // Verificando se os campos obrigatórios estão preenchidos
+        if (nomeCompleto.getText().toString().isEmpty() ||
+                nomeUsuario.getText().toString().isEmpty() ||
+                email.getText().toString().isEmpty() ||
+                bairro.getText().toString().isEmpty() ||
+                telefone.getText().toString().isEmpty() ||
+                cnpj.getText().toString().isEmpty()) {
+
+            Toast.makeText(CadastroProfissional.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String urlAPI = "https://apipeticos.onrender.com";
 
 
+
+        Retrofit retrofitPerfil = new Retrofit.Builder()
+                .baseUrl(urlAPI)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
+
+        ModelPerfil perfil = new ModelPerfil(
+                nomeCompleto.getText().toString(),
+                nomeUsuario.getText().toString(),
+                email.getText().toString(),
+                bairro.getText().toString(),
+                "Sem Plano",
+                telefone.getText().toString(),
+                null,
+                url,
+                null,
+                cnpj.getText().toString()
+        );
+
+
+        Call<Integer> call = aPIPerfil.insertProfissional(perfil);
+
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful()) {
+                    int id = response.body();
+                    Metodos metodos = new Metodos();
+                    metodos.Authentication(
+                            view,
+                            email.getText().toString(),
+                            senha1.getText().toString(),
+                            view.getContext(),
+                            new AuthCallback() {
+                                @Override
+                                public void onSuccess(ModelRetorno perfil) {
+                                    Toast.makeText(CadastroProfissional.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CadastroProfissional.this, DesejaCadastrarUmPet.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("id", id);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onError(String errorMessage) {
+                                    // Lide com o erro, se necessário
+                                    Toast.makeText(CadastroProfissional.this, "Erro ao autenticar: " + errorMessage, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                    );
+                } else {
+                    String errorMessage;
+                    switch (response.code()) {
+                        case 400:
+                            errorMessage = "Erro 400: Requisição inválida. Verifique os dados.";
+                            break;
+                        case 404:
+                            errorMessage = "Erro 404: Servidor não encontrado.";
+                            break;
+                        case 500:
+                            errorMessage = "Erro 500: Erro no servidor.";
+                            break;
+                        default:
+                            errorMessage = "Erro ao cadastrar: " + response.code();
+                            break;
+                    }
+                    Toast.makeText(CadastroProfissional.this, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Toast.makeText(CadastroProfissional.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

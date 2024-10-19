@@ -1,4 +1,4 @@
-package com.mobile.peticos.Perfil.Pet;
+package com.mobile.peticos.Perfil.Pet.Vacinas;
 
 import androidx.appcompat.app.AppCompatActivity;
 

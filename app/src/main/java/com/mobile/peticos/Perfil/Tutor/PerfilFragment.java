@@ -26,7 +26,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Login;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.CarouselAdapter;
 import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.Lembrete;
@@ -123,8 +123,8 @@ public class PerfilFragment extends Fragment {
         APIPets apiPets = retrofit.create(APIPets.class);
 
 
-        //Call<List<ModelPetBanco>> call = apiPets.getPets();
-
+//        Call<List<ModelPetBanco>> call = apiPets.getPets();
+//
 //        call.enqueue(new Callback<List<ModelPetBanco>>() {
 //            @Override
 //            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
@@ -146,30 +146,8 @@ public class PerfilFragment extends Fragment {
 //                // Tratar falha
 //            }
 //        });
-
-
-
-
-
-
-
-//        for (int i = 0; i < 10; i++) {  // Adicione quantos cards você precisar
-//            View cardView = layoutInflater.inflate(R.layout.pet, linearLayoutPets, false);
-//            cardView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // Lógica para lidar com o clique no card
-//                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.fragmentContainerView, FeedDoPet.newInstance());
-//                    transaction.commit();
 //
 //
-//
-//                }
-//            });
-//            linearLayoutPets.addView(cardView);
-//        }
-
 
         CardView cardPost = view.findViewById(R.id.cardPost);
         CardView cardCalendar = view.findViewById(R.id.cardCalendar);
@@ -179,13 +157,6 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 goToPost(view);
-            }
-        }    );
-        cardCalendar.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                goToCalendar(view);
             }
         }    );
 
@@ -209,15 +180,6 @@ public class PerfilFragment extends Fragment {
         transaction.replace(R.id.fragmentContainerView, FeedDoPet.newInstance());
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-
-    public void goToCalendar(View view) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, CalendarioFragment.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
-
     }
 
 

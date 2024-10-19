@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Perdidos;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,6 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.mobile.peticos.Padrao.NotificationReciver;
+import com.mobile.peticos.R;
 
 public class AdicionarAoFeedTriste extends Fragment {
 

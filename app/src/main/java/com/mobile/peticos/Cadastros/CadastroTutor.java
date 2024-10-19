@@ -23,9 +23,10 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
-import com.mobile.peticos.Camera;
-import com.mobile.peticos.Metodos;
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.CallBack.AuthCallback;
+import com.mobile.peticos.Padrao.Camera;
+import com.mobile.peticos.Padrao.Metodos;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class CadastroTutor extends AppCompatActivity {
     // Variáveis de configuração
     private String url;
     private Metodos metodos = new Metodos();
-    private  AuthCallback callback;
+    private AuthCallback callback;
     private Retrofit retrofit;
     private ActivityResultLauncher<Intent> cameraLauncher;
     private List<String> generoList = new ArrayList<>();
@@ -90,6 +91,8 @@ public class CadastroTutor extends AppCompatActivity {
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString(),
+                null,
+                url,
                 genero.getText().toString(),
                 null
         );
@@ -99,6 +102,7 @@ public class CadastroTutor extends AppCompatActivity {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
+                    int id = response.body();
                     Metodos metodos = new Metodos();
                     metodos.Authentication(
                             view,
@@ -108,9 +112,13 @@ public class CadastroTutor extends AppCompatActivity {
                             new AuthCallback() {
                                 @Override
                                 public void onSuccess(ModelRetorno perfil) {
-                                    // Faça algo com o perfil recuperado, como atualizar a UI
-                                    // Exemplo: Exibir mensagem de sucesso
                                     Toast.makeText(CadastroTutor.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("id", id);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
                                 }
 
                                 @Override
