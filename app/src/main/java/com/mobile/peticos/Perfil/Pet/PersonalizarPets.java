@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.mobile.peticos.EditarPerfilPet;
+
 import com.mobile.peticos.R;
 
 public class PersonalizarPets extends AppCompatActivity {

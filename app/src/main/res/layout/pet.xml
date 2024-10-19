@@ -15,13 +15,13 @@
         tools:layout_editor_absoluteY="1dp">
 
         <ImageView
-            android:id="@+id/imageView13"
+            android:id="@+id/fotopet"
             android:layout_width="61dp"
             android:layout_height="61dp"
             app:srcCompat="@drawable/modolinho" />
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/nomepet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/lilita_one"

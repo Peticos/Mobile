@@ -7,8 +7,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface APIBairro {
-
-
     @GET("/api/address/getall")
     Call<List<ModelBairro>> getAll();
 

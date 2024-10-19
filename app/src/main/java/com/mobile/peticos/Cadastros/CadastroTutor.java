@@ -237,7 +237,11 @@ public class CadastroTutor extends AppCompatActivity {
 //                @Override
 //                public void onResult(boolean bairroEncontrado) {
 //                    if (bairroEncontrado) {
+<<<<<<< HEAD
             cadastrarTutorBanco(view); // Continuar com o cadastro
+=======
+                        cadastrarTutorBanco(view); // Continuar com o cadastro
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 //                    } else {
 //                        bairro.setError("Selecione um bairro válido");
 //                    }
@@ -248,7 +252,11 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para salvar o usuário no Firebase e no banco
+<<<<<<< HEAD
     // private void salvarUsuarioFireBase(View view) {
+=======
+   // private void salvarUsuarioFireBase(View view) {
+>>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 //        FirebaseAuth autenticator = FirebaseAuth.getInstance();
 //        String txtEmail = emailCadastro.getText().toString();
 //        String txtSenha = senhaCadastro.getText().toString();
