@@ -139,50 +139,6 @@ public class CadastroProfissional extends AppCompatActivity {
         finish();
     }
 
-<<<<<<< HEAD
-        // Capturando o texto dos campos de EditText aqui dentro
-
-
-
-        // Verificar se os campos estão vazios
-        if (email.getText().toString().isEmpty() || senha1.getText().toString().isEmpty()) {
-            Toast.makeText(CadastroProfissional.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Criando o usuário com email e senha no Firebase
-        autenticator.createUserWithEmailAndPassword(email.getText().toString(), senha1.getText().toString())
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(CadastroProfissional.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-
-                            // Atualizar o perfil do usuário
-                            FirebaseUser userLogin = autenticator.getCurrentUser();
-                            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(nomeUsuario.getText().toString())
-                                    .setPhotoUri(Uri.parse(url))
-                                    .build();
-
-                            userLogin.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Intent intent = new Intent(CadastroProfissional.this, DesejaCadastrarUmPet.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(CadastroProfissional.this, "Erro ao cadastrar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-=======
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
     private void cadastrarTutorBanco(View view) {
         // Verificando se os campos obrigatórios estão preenchidos
         if (nomeCompleto.getText().toString().isEmpty() ||
@@ -212,19 +168,15 @@ public class CadastroProfissional extends AppCompatActivity {
                 nomeUsuario.getText().toString(),
                 email.getText().toString(),
                 bairro.getText().toString(),
-                "Plano Profissional - Básico",
+                "Sem Plano",
                 telefone.getText().toString(),
                 null,
-                0,
+                11,
                 cnpj.getText().toString()
         );
 
 
-<<<<<<< HEAD
-        Call<ModelRetorno> call = aPIPerfil.insertProfissional(perfil);
-=======
         Call<Integer> call = aPIPerfil.insertProfissional(perfil);
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 
         call.enqueue(new Callback<Integer>() {
             @Override
@@ -367,7 +319,7 @@ public class CadastroProfissional extends AppCompatActivity {
 //                @Override
 //                public void onResult(boolean bairroEncontrado) {
 //                    if (bairroEncontrado) {
-                        cadastrarTutorBanco(view); // Continuar com o cadastro
+            cadastrarTutorBanco(view); // Continuar com o cadastro
 //                    } else {
 //                        bairro.setError("Selecione um bairro válido");
 //                    }

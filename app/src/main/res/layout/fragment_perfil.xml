@@ -30,105 +30,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-<<<<<<< HEAD
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/fotoPerfil"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="50dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/fotogenerica"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearanceOverlay="@style/RoundedImage" />
-
-                <TextView
-                    android:id="@+id/NickName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/lilita_one"
-                    android:text="TextView"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fotoPerfil" />
-
-                <TextView
-                    android:id="@+id/emailCampo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="11dp"
-                    android:layout_marginTop="1dp"
-                    android:fontFamily="@font/varela_round"
-                    android:text="TextView"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/NickName" />
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/lembretesLista"
-                    android:layout_width="336dp"
-                    android:layout_height="72dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/emailCampo" />
-
-                <ImageView
-                    android:id="@+id/imageView16"
-                    android:layout_width="334dp"
-                    android:layout_height="104dp"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/seja_premium"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.519"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lembretesLista" />
-
-                <TextView
-                    android:id="@+id/textView31"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/lilita_one"
-                    android:text="Coisas para fazer"
-                    android:textColor="@color/water_blue"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-                <TextView
-                    android:id="@+id/textView30"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/lilita_one"
-                    android:text="Seus Amiguinhos"
-                    android:textColor="@color/water_blue"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView16" />
-
-                <ScrollView
-                    android:id="@+id/scrollView2"
-                    android:layout_width="380dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView30">
-
-                    <LinearLayout
-                        android:id="@+id/linearLayoutPets"
-=======
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -146,7 +47,6 @@
 
                     <TextView
                         android:id="@+id/NickName"
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

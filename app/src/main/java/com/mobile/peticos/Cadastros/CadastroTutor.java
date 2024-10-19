@@ -24,22 +24,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-<<<<<<< HEAD
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-=======
 
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Camera;
-<<<<<<< HEAD
-=======
 import com.mobile.peticos.MainActivity;
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.R;
 
@@ -189,7 +180,8 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para validar os campos antes de cadastrar
-    private void validarCampos(View view) {
+    private void validarCampos(View view)
+    {
         boolean erro = false;
 
         if (nomeCompleto.getText().toString().isEmpty()) {
@@ -245,7 +237,7 @@ public class CadastroTutor extends AppCompatActivity {
 //                @Override
 //                public void onResult(boolean bairroEncontrado) {
 //                    if (bairroEncontrado) {
-                        cadastrarTutorBanco(view); // Continuar com o cadastro
+            cadastrarTutorBanco(view); // Continuar com o cadastro
 //                    } else {
 //                        bairro.setError("Selecione um bairro válido");
 //                    }
@@ -256,14 +248,7 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para salvar o usuário no Firebase e no banco
-<<<<<<< HEAD
-    private void salvarUsuarioFireBase(View view) {
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        String txtEmail = emailCadastro.getText().toString();
-        String txtSenha = senhaCadastro.getText().toString();
-        String nomeUsuario = this.nomeUsuario.getText().toString();
-=======
-   // private void salvarUsuarioFireBase(View view) {
+    // private void salvarUsuarioFireBase(View view) {
 //        FirebaseAuth autenticator = FirebaseAuth.getInstance();
 //        String txtEmail = emailCadastro.getText().toString();
 //        String txtSenha = senhaCadastro.getText().toString();
@@ -295,33 +280,6 @@ public class CadastroTutor extends AppCompatActivity {
 //                    }
 //                });
 //    }
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
-
-
-<<<<<<< HEAD
-        autenticator.createUserWithEmailAndPassword(txtEmail, txtSenha)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser userLogin = autenticator.getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(nomeUsuario)
-                                .setPhotoUri(Uri.parse(url))
-                                .build();
-
-                        if (userLogin != null) {
-                            userLogin.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
-                                if (task1.isSuccessful()) {
-                                    cadastrarTutorBanco(view);
-                                }
-                            });
-                        }
-                    } else {
-                        Toast.makeText(CadastroTutor.this, "Erro ao cadastrar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-=======
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 
 
 
@@ -341,6 +299,8 @@ public class CadastroTutor extends AppCompatActivity {
 
         String urlAPI = "https://apipeticos.onrender.com";
 
+
+
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -355,9 +315,9 @@ public class CadastroTutor extends AppCompatActivity {
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString(),
-                genero.getText().toString(),
-                0,
-                null
+                null,
+                11,
+                "Tutor"
         );
 
 
@@ -368,10 +328,6 @@ public class CadastroTutor extends AppCompatActivity {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
-<<<<<<< HEAD
-                    salvarUsuarioFireBase(view);
-=======
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
                     Toast.makeText(CadastroTutor.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                     Bundle bundle = new Bundle();
                     Integer id = response.body();
@@ -416,54 +372,6 @@ public class CadastroTutor extends AppCompatActivity {
         return phoneNumber.length() == 10 || phoneNumber.length() == 11;
     }
 
-<<<<<<< HEAD
-    //verificar se o bairro selecionado esta na api
-    private void verificarBairro(BairroCallback callback) {
-        // URL da API
-        String API = "https://apipeticos.onrender.com";
-        retrofit = new Retrofit.Builder()
-                .baseUrl(API)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Criar chamada
-        APIBairro apiBairro = retrofit.create(APIBairro.class);
-        Call<List<ModelBairro>> call = apiBairro.getAll();
-
-        // Defina o bairro que você deseja verificar
-        String bairroProcurado = bairro.getText().toString();
-
-        // Executar chamada da API
-        call.enqueue(new Callback<List<ModelBairro>>() {
-            @Override
-            public void onResponse(Call<List<ModelBairro>> call, retrofit2.Response<List<ModelBairro>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<ModelBairro> bairrosList = response.body();
-
-                    // Verificar se o bairro está presente
-                    boolean bairroEncontrado = false;
-                    for (ModelBairro bairro : bairrosList) {
-                        if (bairroProcurado.equalsIgnoreCase(bairro.getNeighborhood())) {
-                            bairroEncontrado = true;
-                            break;
-                        }
-                    }
-
-                    // Chamar o callback com o resultado
-                    callback.onResult(bairroEncontrado);
-                } else {
-                    callback.onResult(false);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
-                throwable.printStackTrace();
-                callback.onResult(false);
-            }
-        });
-    }
-=======
 //    //verificar se o bairro selecionado esta na api
 //    private void verificarBairro(BairroCallback callback) {
 //        // URL da API
@@ -510,7 +418,6 @@ public class CadastroTutor extends AppCompatActivity {
 //            }
 //        });
 //    }
->>>>>>> 0d6800ca02b26fccdb4ff1b695203b08d08597b1
 
     // Interface de callback para a verificação de bairro
     public interface BairroCallback {
@@ -541,4 +448,7 @@ public class CadastroTutor extends AppCompatActivity {
 
         return temLetraMaiuscula && temLetraMinuscula && temNumero && temCaractereEspecial;
     }
+
+
+
 }
