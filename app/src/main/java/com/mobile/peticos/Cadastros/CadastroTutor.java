@@ -248,7 +248,11 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     // Método para salvar o usuário no Firebase e no banco
+<<<<<<< HEAD
     // private void salvarUsuarioFireBase(View view) {
+=======
+   // private void salvarUsuarioFireBase(View view) {
+>>>>>>> 4494e51e9be726f3078e612009aeb30a69d94459
 //        FirebaseAuth autenticator = FirebaseAuth.getInstance();
 //        String txtEmail = emailCadastro.getText().toString();
 //        String txtSenha = senhaCadastro.getText().toString();
