@@ -53,23 +53,7 @@
                 app:cardCornerRadius="12dp">
 
                 <ImageView
-<<<<<<< HEAD
                     android:id="@+id/fotoLocal"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    android:id="@+id/fotoLocal"
-=======
-                    android:id="@+id/fotoPerfil"
->>>>>>> 51ba98e06cd7792c2f601d63dd2fc28d90e7fd8d
-=======
-                    android:id="@+id/fotoPerfil"
->>>>>>> bc9030fd032b0bb50353c62334b643f85a4e0129
-=======
-                    android:id="@+id/fotoLocal"
->>>>>>> 6734098c45b01a5636665a5211396c1a26b06b82
->>>>>>> 4494e51e9be726f3078e612009aeb30a69d94459
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
