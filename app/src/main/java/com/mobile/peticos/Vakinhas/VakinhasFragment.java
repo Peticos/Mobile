@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import androidx.cardview.widget.CardView;
 
 import com.mobile.peticos.R;
 
@@ -23,6 +25,10 @@ public class VakinhasFragment extends Fragment {
 
     ImageButton btAdicionar;
     private List<Vakinha> vakinhaList;
+
+    // Novo: Definindo as referências para infoVakinha, fechar e cardInfoVakinha
+    private ImageView infoVakinha, fechar;
+    private CardView cardInfoVakinha;
 
     public VakinhasFragment() {
         // Required empty public constructor
@@ -45,6 +51,30 @@ public class VakinhasFragment extends Fragment {
         recyclerView = view.findViewById(R.id.RecyclerViewVakinhas);
         btAdicionar = view.findViewById(R.id.btnAdicionar);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Inicializando o card como GONE inicialmente
+        cardInfoVakinha = view.findViewById(R.id.cardInfoVakinha);
+        cardInfoVakinha.setVisibility(View.GONE); // Esconde o card inicialmente
+
+        // Referenciando os botões
+        infoVakinha = view.findViewById(R.id.infoVakinha);
+        fechar = view.findViewById(R.id.fechar);
+
+        // Adicione o listener para mostrar o card ao clicar no infoVakinha
+        infoVakinha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardInfoVakinha.setVisibility(View.VISIBLE); // Mostrar o card
+            }
+        });
+
+        // Adicione o listener para esconder o card ao clicar no fechar
+        fechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardInfoVakinha.setVisibility(View.GONE); // Esconder o card
+            }
+        });
 
         // Inicialize a lista de vakinhas
         vakinhaList = new ArrayList<>();
