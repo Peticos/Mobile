@@ -33,15 +33,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_weight="1"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
                     android:foregroundGravity="left"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/btn_voltar_publicacoes"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="16dp"
                         android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:src="@drawable/baseline_arrow_left_24" />
@@ -49,11 +50,11 @@
                     <TextView
                         android:id="@+id/publicacoes"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="22dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/lilita_one"
                         android:text="Perdidos"
+                        android:gravity="center"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
                 </LinearLayout>

@@ -91,9 +91,19 @@ public class PerdidoFragment extends Fragment {
         fechar = view.findViewById(R.id.fechar);
         cardInfoPerdido = view.findViewById(R.id.cardInfoPerdido);
 
-        infoPerdidos.setOnClickListener(v -> cardInfoPerdido.setVisibility(View.VISIBLE));
+        infoPerdidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardInfoPerdido.setVisibility(View.VISIBLE);
+            }
+        });
 
-        fechar.setOnClickListener(v -> cardInfoPerdido.setVisibility(View.GONE));
+        fechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardInfoPerdido.setVisibility(View.GONE);
+            }
+        });
 
         return view;
     }
