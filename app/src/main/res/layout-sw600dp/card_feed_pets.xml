@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/postagem_feed"
-    layout_height="10dp"
-    layout_width="20dp"
     android:layout_width="match_parent"
     android:layout_height="550dp"
     android:layout_marginBottom="20dp"
@@ -75,7 +73,7 @@
         <ImageView
             android:id="@+id/photo"
             android:layout_width="match_parent"
-            android:layout_height="337dp"
+            android:layout_height="338dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:scaleType="fitXY"

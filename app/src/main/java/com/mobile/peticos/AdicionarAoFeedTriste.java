@@ -23,14 +23,10 @@ import android.widget.TextView;
 
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 
-import com.mobile.peticos.Perdidos.PerdidoFragment;
-
 public class AdicionarAoFeedTriste extends Fragment {
     Button bntSair;
-
     ImageButton btn_voltar_publicacoes;
     TextView publicacoes;
-
 
     private static final String CHANNEL_ID = "channel_id";
 
@@ -39,13 +35,15 @@ public class AdicionarAoFeedTriste extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adicionar_ao_feed_triste, container, false);
 
         Button btnPublicar = view.findViewById(R.id.btnPublicar);
-        btnPublicar.setOnClickListener(v -> {
-            RegistrarPetPerdido(v);
+        btnPublicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificar();  // Chama a função notificar corretamente.
+            }
         });
 
         bntSair = view.findViewById(R.id.btnSair);
@@ -72,10 +70,10 @@ public class AdicionarAoFeedTriste extends Fragment {
             }
         });
 
-    public void RegistrarPetPerdido(View view) {
-        notificar();
+        return view;  // Adicione o retorno do view aqui.
     }
 
+    // Método notificar deve ser fora do onCreateView.
     public void notificar() {
         Context context = getContext();
         Intent intentAndroid = new Intent(context, NotificationReciver.class);
