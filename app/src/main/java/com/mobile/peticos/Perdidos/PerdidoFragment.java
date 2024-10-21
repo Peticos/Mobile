@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.mobile.peticos.Local.ApiLocais;
 import com.mobile.peticos.Local.LocaisAdapter;
 import com.mobile.peticos.Local.Local;
-import com.mobile.peticos.PrimeirosCuidados;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -33,9 +33,9 @@ public class PerdidoFragment extends Fragment {
     private RecyclerView recyclerView;
     private AdapterPerdidos adapter;
     private List<PetPerdido> petList;
-    ImageButton bntSos;
-
-    private ImageButton bt_adicionar;
+    private ImageButton btAdicionar, btnSos;
+    private ImageView infoPerdidos, fechar;
+    private View cardInfoPerdido;
 
     public PerdidoFragment() {
         // Required empty public constructor
@@ -51,25 +51,43 @@ public class PerdidoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_perdido, container, false);
 
         recyclerView = view.findViewById(R.id.RecyclerViewPetsPerdidos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        bt_adicionar = view.findViewById(R.id.btnAdicionar);
-        bt_adicionar.setOnClickListener(v -> {
+        btAdicionar = view.findViewById(R.id.btnAdicionar);
+        btAdicionar.setOnClickListener(v -> {
             abrirAdicionar();
         });
-        bntSos = view.findViewById(R.id.btnSos);
-        bntSos.setOnClickListener(v -> {
+        btnSos = view.findViewById(R.id.btnSos);
+        btnSos.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), PrimeirosCuidados.class);
             startActivity(intent);
         });
         setupRetrofit();
         initRecyclerView();
 
+
+        // Configurações para mostrar e esconder o card de informação
+        infoPerdidos = view.findViewById(R.id.infoPerdidos);
+        fechar = view.findViewById(R.id.fechar);
+        cardInfoPerdido = view.findViewById(R.id.cardInfoPerdido);
+
+        infoPerdidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardInfoPerdido.setVisibility(View.VISIBLE);
+            }
+        });
+
+        fechar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardInfoPerdido.setVisibility(View.GONE);
+            }
+        });
 
         return view;
     }
@@ -124,13 +142,9 @@ public class PerdidoFragment extends Fragment {
     }
 
     private void abrirAdicionar() {
-
-
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainerView, AdicionarAoFeedTriste.newInstance());
-            transaction.addToBackStack(null);
-            transaction.commit();
-
-
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainerView, AdicionarAoFeedTriste.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

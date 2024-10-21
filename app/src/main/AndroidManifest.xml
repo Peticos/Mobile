@@ -60,7 +60,7 @@
             android:name=".Local.WebViewActivity"
             android:exported="false" />
         <activity
-            android:name=".Camera"
+            android:name=".Padrao.Camera"
             android:exported="false" />
         <activity
             android:name=".Perfil.Pet.EditarPerfilPet"
@@ -75,22 +75,22 @@
             android:name=".Perfil.Profissional.AdicionarProduto"
             android:exported="false" />
         <activity
-            android:name=".PrimeirosCuidados"
+            android:name=".Perdidos.PrimeirosCuidados"
             android:exported="false" />
         <activity
             android:name=".Perfil.Pet.PersonalizarPets"
             android:exported="false" />
         <activity
-            android:name=".Perfil.Pet.itemCadastroVacina"
+            android:name=".Perfil.Pet.Vacinas.itemCadastroVacina"
             android:exported="false" />
         <activity
-            android:name=".Perfil.Pet.cadastro_vacina"
+            android:name=".Perfil.Pet.Vacinas.cadastro_vacina"
             android:exported="false" />
         <activity
-            android:name=".Perfil.Pet.VacinasPets"
+            android:name=".Perfil.Pet.Vacinas.VacinasPets"
             android:exported="false" />
         <activity
-            android:name=".Perfil.Pet.ItemVacina"
+            android:name=".Perfil.Pet.Vacinas.ItemVacina"
             android:exported="false" />
         <activity
             android:name=".Cadastros.CadastrarPet"
@@ -105,7 +105,7 @@
             android:name=".Cadastros.CadastroProfissional"
             android:exported="false" />
         <activity
-            android:name=".Tutor_ou_Profissional"
+            android:name=".Cadastros.Tutor_ou_Profissional"
             android:exported="false" />
         <activity
             android:name=".Login"
@@ -123,7 +123,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".NotificationReciver" />
+        <receiver android:name=".Padrao.NotificationReciver" />
     </application>
 
 </manifest>

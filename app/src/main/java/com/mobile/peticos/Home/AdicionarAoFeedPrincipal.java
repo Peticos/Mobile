@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Home;
 
 import android.os.Bundle;
 
@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mobile.peticos.Home.HomeFragment;
+
+import com.mobile.peticos.R;
 
 /**
  * A simple {@link Fragment} subclass.

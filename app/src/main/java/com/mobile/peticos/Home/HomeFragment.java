@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mobile.peticos.AdicionarAoFeedPrincipal;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;

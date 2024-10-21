@@ -7,11 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.mobile.peticos.ModelRetorno;
-import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
 import com.mobile.peticos.R;
 
@@ -20,7 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 
 public class PerfilPet extends AppCompatActivity {
     TextView NomePet, sexoPet, idadePet, especiePet, racaPet, corPet, portePet, NomePet2;

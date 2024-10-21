@@ -21,7 +21,7 @@ import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
-import com.mobile.peticos.Camera;
+import com.mobile.peticos.Padrao.Camera;
 import com.mobile.peticos.Perfil.Tutor.EditarPerfil;
 import com.mobile.peticos.R;
 
@@ -40,7 +40,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
     AutoCompleteTextView bairro;
     ImageView voltar, btUpload;
     Retrofit retrofit;
-    String emailUser;
+    String emailUser, url;
     int userId, idAddress, idPlan;
 
     @Override
@@ -132,9 +132,9 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 if(response.isSuccessful() && response.body() != null) {
                     ModelPerfil model = response.body();
                     emailUser = model.email;
-                    userId = model.id;
-                    idAddress = model.idAddress;
-                    idPlan = model.idPlan;
+//                    userId = model.id;
+//                    idAddress = model.idAddress;
+//                    idPlan = model.idPlan;
 
                     //Preencher os campos com os dados do perfil
                     nomeCompleto.setText(model.fullName);
@@ -189,16 +189,16 @@ public class EditarPerfilProfissional extends AppCompatActivity {
 
         if (!erro) {
             // Verificar se o bairro é válido antes de continuar o cadastro
-            verificarBairro(new CadastroTutor.BairroCallback() {
-                @Override
-                public void onResult(boolean bairroEncontrado) {
-                    if (bairroEncontrado) {
-                        atualizarTutorBanco(view); // Continuar com o cadastro
-                    } else {
-                        bairro.setError("Selecione um bairro válido");
-                    }
-                }
-            });
+//            verificarBairro(new CadastroTutor.BairroCallback() {
+//                @Override
+//                public void onResult(boolean bairroEncontrado) {
+//                    if (bairroEncontrado) {
+//                        atualizarTutorBanco(view); // Continuar com o cadastro
+//                    } else {
+//                        bairro.setError("Selecione um bairro válido");
+//                    }
+//                }
+//            });
         }
     }
 
@@ -212,7 +212,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         APIPerfil api = retrofit.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
-                idAddress,
+                userId,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 emailUser,
@@ -220,7 +220,8 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                 "Sem Plano",
                 telefone.getText().toString(),
                 null,
-                idPlan,
+                url,
+                null,
                 cnpj.getText().toString()
         );
 
@@ -267,49 +268,49 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         return phoneNumber.length() == 10 || phoneNumber.length() == 11;
     }
 
-    private void verificarBairro(CadastroTutor.BairroCallback callback) {
-        // URL da API
-        String API = "https://apipeticos.onrender.com";
-        retrofit = new Retrofit.Builder()
-                .baseUrl(API)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Criar chamada
-        APIBairro apiBairro = retrofit.create(APIBairro.class);
-        Call<List<ModelBairro>> call = apiBairro.getAll();
-
-        // Defina o bairro que você deseja verificar
-        String bairroProcurado = bairro.getText().toString();
-
-        // Executar chamada da API
-        call.enqueue(new Callback<List<ModelBairro>>() {
-            @Override
-            public void onResponse(Call<List<ModelBairro>> call, retrofit2.Response<List<ModelBairro>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<ModelBairro> bairrosList = response.body();
-
-                    // Verificar se o bairro está presente
-                    boolean bairroEncontrado = false;
-                    for (ModelBairro bairro : bairrosList) {
-                        if (bairroProcurado.equalsIgnoreCase(bairro.getNeighborhood())) {
-                            bairroEncontrado = true;
-                            break;
-                        }
-                    }
-
-                    // Chamar o callback com o resultado
-                    callback.onResult(bairroEncontrado);
-                } else {
-                    callback.onResult(false);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
-                throwable.printStackTrace();
-                callback.onResult(false);
-            }
-        });
-    }
+    //private void verificarBairro(CadastroTutor.BairroCallback callback) {
+//        // URL da API
+//        String API = "https://apipeticos.onrender.com";
+//        retrofit = new Retrofit.Builder()
+//                .baseUrl(API)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        // Criar chamada
+//        APIBairro apiBairro = retrofit.create(APIBairro.class);
+//        Call<List<ModelBairro>> call = apiBairro.getAll();
+//
+//        // Defina o bairro que você deseja verificar
+//        String bairroProcurado = bairro.getText().toString();
+//
+//        // Executar chamada da API
+//        call.enqueue(new Callback<List<ModelBairro>>() {
+//            @Override
+//            public void onResponse(Call<List<ModelBairro>> call, retrofit2.Response<List<ModelBairro>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    List<ModelBairro> bairrosList = response.body();
+//
+//                    // Verificar se o bairro está presente
+//                    boolean bairroEncontrado = false;
+//                    for (ModelBairro bairro : bairrosList) {
+//                        if (bairroProcurado.equalsIgnoreCase(bairro.getNeighborhood())) {
+//                            bairroEncontrado = true;
+//                            break;
+//                        }
+//                    }
+//
+//                    // Chamar o callback com o resultado
+//                    callback.onResult(bairroEncontrado);
+//                } else {
+//                    callback.onResult(false);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
+//                throwable.printStackTrace();
+//                callback.onResult(false);
+//            }
+//        });
+//    }
 }

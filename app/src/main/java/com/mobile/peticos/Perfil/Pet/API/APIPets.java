@@ -1,6 +1,6 @@
-package com.mobile.peticos.Perfil.Pet.Apis;
+package com.mobile.peticos.Perfil.Pet.API;
 
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.Perfil.Pet.API.Cor;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.Perfil.Pet.API.Personalizacao;

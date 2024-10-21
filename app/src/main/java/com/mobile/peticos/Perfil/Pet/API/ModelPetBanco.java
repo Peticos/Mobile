@@ -4,18 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class ModelPetBanco {
     //{
-    //  "user":"anabiaaaacruz",
-    //  "nickname": "Bolt",
-    //  "age": 3,
-    //  "sex": "M",
-    //  "specie": "Cachorro",
-    //  "race": "Shih Tzu",
-    //  "size": "Pequeno",
-    //  "color": "Branco e Marrom"
+    //  {
+    //  "idUser": 0,
+    //  "nickname": "string",
+    //  "age": 0,
+    //  "sex": "string",
+    //  "idSpecie": 0,
+    //  "idRace": 0,
+    //  "idSize": 0,
+    //  "idColor": 0,
+    //  "specie": "string",
+    //  "race": "string",
+    //  "size": "string",
+    //  "color": "string",
+    //  "user": "string"
     //}
 
 
-    @SerializedName("user")
+    @SerializedName("idUser")
     public String user;
     @SerializedName("nickname")
     public String nickname;
@@ -36,7 +42,8 @@ public class ModelPetBanco {
     public int idPet;
 
 
-    public ModelPetBanco(String user, String nickname, int age, String sex, String specie, String race, String size, String colorpet) {
+    public ModelPetBanco(int iduser, String user, String nickname, int age, String sex, String specie, String race, String size, String colorpet) {
+        this.idPet = iduser;
         this.user = user;
         this.nickname = nickname;
         this.age = age;
