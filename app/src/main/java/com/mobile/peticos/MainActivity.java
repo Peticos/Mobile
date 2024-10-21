@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
+
     APIPerfil api;
     Boolean perfilbool = null;
 
@@ -55,43 +56,47 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
+
         id = bundle.getInt("id");
+        if(id == 0) {
+            id = 112;
+        }
 
         Toast.makeText(this, "id: " + id , Toast.LENGTH_SHORT).show();
 
 
-        Call<ModelPerfil> call = api.findById(id);
-        call.enqueue(new Callback<ModelPerfil>() {
-            @Override
-            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ModelPerfil perfil = response.body();
-
-                    // Aqui, continue com a lógica para abrir o fragment correto
-                    if (perfil.getCnpj().equals("Tutor")) {
-                        perfilbool = true;
-                        Toast.makeText(MainActivity.this, "tutor", Toast.LENGTH_SHORT).show();
-                    } else {
-                        perfilbool = false;
-                        Toast.makeText(MainActivity.this, "profissional", Toast.LENGTH_SHORT).show();
-
-
-                    }
-                }else{
-                    perfilbool = true;
-                    Toast.makeText(MainActivity.this, "else", Toast.LENGTH_SHORT).show();
-                    Log.e("erro", "Erro: " + response.code());
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ModelPerfil> call, Throwable t) {
-                // Trate a falha da chamada à API aqui
-                perfilbool = true;
-
-            }
-        });
+//        Call<ModelPerfil> call = api.findById(id);
+//        call.enqueue(new Callback<ModelPerfil>() {
+//            @Override
+//            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//                    ModelPerfil perfil = response.body();
+//
+//                    // Aqui, continue com a lógica para abrir o fragment correto
+//                    if (perfil.getCnpj().equals("Tutor")) {
+//                        perfilbool = true;
+//                        Toast.makeText(MainActivity.this, "tutor", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        perfilbool = false;
+//                        Toast.makeText(MainActivity.this, "profissional", Toast.LENGTH_SHORT).show();
+//
+//
+//                    }
+//                }else{
+//                    perfilbool = true;
+//                    Toast.makeText(MainActivity.this, "else", Toast.LENGTH_SHORT).show();
+//                    Log.e("erro", "Erro: " + response.code());
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ModelPerfil> call, Throwable t) {
+//                // Trate a falha da chamada à API aqui
+//                perfilbool = true;
+//
+//            }
+//        });
 
         openFragment(HomeFragment.newInstance());
 

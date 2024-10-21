@@ -24,7 +24,7 @@ import com.mobile.peticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

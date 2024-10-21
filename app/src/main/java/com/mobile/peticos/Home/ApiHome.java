@@ -2,7 +2,7 @@ package com.mobile.peticos.Home;
 
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 
 import java.util.List;
 

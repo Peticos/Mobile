@@ -55,7 +55,6 @@ public class Login extends AppCompatActivity {
 //            String email = txtEmail.getText().toString().trim();
 //            String senha = txtSenha.getText().toString().trim();
 
-<<<<<<< HEAD
 //            // Validar os campos antes de autenticar
 //            if (email.isEmpty()) {
 //                txtEmail.setError("O campo Email é obrigatório!");
@@ -68,24 +67,8 @@ public class Login extends AppCompatActivity {
 //            }
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
-=======
-            // Validar os campos antes de autenticar
-            if (email.isEmpty()) {
-                txtEmail.setError("O campo Email é obrigatório!");
-                txtEmail.requestFocus();
-                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
-            }
-            if (senha.isEmpty()) {
-                senhainvalida.setVisibility(View.VISIBLE);
-                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
-            }
-            if (email.isEmpty()||senha.isEmpty()) {
-                return;
-            }else{
-                Authentication(v);
-            }
+            finish();
 
->>>>>>> 7e7a0039b99430db2598f138b7589b2ac225f26e
         });
 
     }

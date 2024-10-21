@@ -25,6 +25,7 @@ import com.mobile.peticos.Home.HomeFragment;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.mobile.peticos.Padrao.Camera;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;

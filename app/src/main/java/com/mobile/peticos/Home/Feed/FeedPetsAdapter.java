@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.MetodosBanco;
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
 
 import java.time.LocalDate;
