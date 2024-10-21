@@ -35,8 +35,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        FirebaseUser userLogin = autenticator.getCurrentUser();
 
         btnSalvar = findViewById(R.id.btnentrar);
         btnCadastrar = findViewById(R.id.btnRegistrar);
@@ -90,22 +88,25 @@ public class Login extends AppCompatActivity {
                 txtSenha.getText().toString()
         );
 
-        Call<ModelRetorno> call = aPIPerfil.login(perfil);
-        call.enqueue(new Callback<ModelRetorno>() {
+        Call<Integer> call = aPIPerfil.login(perfil);
+        call.enqueue(new Callback<Integer>() {
             @Override
-            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
                     Bundle bundle = new Bundle();
+                    bundle.putInt("id", response.body());
                     Intent intent = new Intent(Login.this, MainActivity.class);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
+
                 } else {
                         Toast.makeText(Login.this, "Senha ou Email Incorretos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<ModelRetorno> call, Throwable t) {
+            public void onFailure(Call<Integer> call, Throwable t) {
                 Log.e("CadastroTutor", "Erro: " + t.getMessage());
                 Toast.makeText(Login.this, "Erro ao tentar Logar.", Toast.LENGTH_SHORT).show();
             }

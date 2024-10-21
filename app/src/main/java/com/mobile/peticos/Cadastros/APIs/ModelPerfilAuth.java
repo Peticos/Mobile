@@ -16,11 +16,17 @@ public class ModelPerfilAuth {
     @SerializedName("id")
     public String id;
 
+    public ModelPerfilAuth(String email, String senha, int id) {
+        this.email = email;
+        this.senha = senha;
+        this.id = String.valueOf(id);
+
+    }
     public ModelPerfilAuth(String email, String senha) {
         this.email = email;
         this.senha = senha;
-
     }
+
 
     public String getEmail() {
         return email;

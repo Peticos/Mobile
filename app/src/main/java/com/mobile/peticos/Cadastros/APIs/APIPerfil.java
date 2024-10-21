@@ -31,7 +31,6 @@ public interface APIPerfil {
     @POST("/api/user/insertprofissional")
     Call<Integer> insertProfissional(@Body ModelPerfil model);
 
-
     @PUT("/api/user/update/{id}")
     Call<ModelPerfil> update(@Path("id") int id, @Body ModelPerfil model);
 
@@ -45,7 +44,7 @@ public interface APIPerfil {
     Call<ModelRetorno> register(@Body ModelPerfilAuth model);
 
     @POST("/api/auth/login")
-    Call<ModelRetorno> login(@Body ModelPerfilAuth model);
+    Call<Integer> login(@Body ModelPerfilAuth model);
 
 
 

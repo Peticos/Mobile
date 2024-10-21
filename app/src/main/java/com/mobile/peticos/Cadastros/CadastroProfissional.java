@@ -304,6 +304,7 @@ public class CadastroProfissional extends AppCompatActivity {
                     Metodos metodos = new Metodos();
                     metodos.Authentication(
                             view,
+                            id,
                             email.getText().toString(),
                             senha1.getText().toString(),
                             view.getContext(),

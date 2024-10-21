@@ -48,7 +48,7 @@ public class CadastroTutor extends AppCompatActivity {
     private View senha1, senha2;
 
     // Variáveis de configuração
-    private String url;
+    private String url = null;
     private Metodos metodos = new Metodos();
     private AuthCallback callback;
     private Retrofit retrofit;
@@ -97,15 +97,17 @@ public class CadastroTutor extends AppCompatActivity {
                 null
         );
 
+
         Call<Integer> call = aPIPerfil.insertTutor(perfil);
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                if (response.isSuccessful()) {
+                if (response.code() == 200) {
                     int id = response.body();
                     Metodos metodos = new Metodos();
                     metodos.Authentication(
                             view,
+                            id,
                             emailCadastro.getText().toString(),
                             senhaCadastro.getText().toString(),
                             view.getContext(),
@@ -129,7 +131,9 @@ public class CadastroTutor extends AppCompatActivity {
                             }
                     );
 
-                } else {
+                }
+
+                else {
                     Toast.makeText(CadastroTutor.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }

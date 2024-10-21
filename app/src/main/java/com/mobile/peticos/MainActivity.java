@@ -54,11 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
-            id = bundle.getInt("id");
-        }else {
-            id = 237;
-        }
+
+        id = bundle.getInt("id");
+
         Toast.makeText(this, "id: " + id , Toast.LENGTH_SHORT).show();
 
 

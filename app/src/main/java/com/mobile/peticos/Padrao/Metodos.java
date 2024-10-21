@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Metodos {
-    public void Authentication(View view, String emailCadastro, String senhaCadastro, Context context, AuthCallback callback) {
+    public void Authentication(View view, int id, String emailCadastro, String senhaCadastro, Context context, AuthCallback callback) {
 
         String urlAPI = "https://apimongo-ghjh.onrender.com/";
         Retrofit retrofitPerfil = new Retrofit.Builder()
@@ -29,7 +29,8 @@ public class Metodos {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
         ModelPerfilAuth perfil = new ModelPerfilAuth(
                 emailCadastro.trim(),
-                senhaCadastro.trim()
+                senhaCadastro.trim(),
+                id
         );
 
         Call<ModelRetorno> call = aPIPerfil.register(perfil);

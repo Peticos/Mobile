@@ -82,8 +82,11 @@ public class CadastrarPet extends AppCompatActivity {
             genero.setText("F");
         }
 
+        Bundle bundle = getIntent().getExtras();
+        int id = bundle.getInt("id");
+
         ModelPetBanco pet = new ModelPetBanco(
-                11,
+                id,
                 "giooo",
                 nome.getText().toString(),
                 Integer.parseInt(idade.getText().toString()),
