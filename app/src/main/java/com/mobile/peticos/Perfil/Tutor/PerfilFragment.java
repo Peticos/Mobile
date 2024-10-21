@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,30 +18,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
-import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
-import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.CarouselAdapter;
-import com.mobile.peticos.Perfil.Tutor.AdapterLembretes.Lembrete;
-import com.mobile.peticos.Perfil.Tutor.AdapterPet;
 import com.mobile.peticos.Perfil.Tutor.Calendario.CalendarioFragment;
 import com.mobile.peticos.Perfil.Posts.FeedDoPet;
 import com.mobile.peticos.R;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -83,19 +68,6 @@ public class PerfilFragment extends Fragment {
 
         btn_cadastrarpet = view.findViewById(R.id.btn_cadastrarpet);
 
-
-
-        // Dentro da sua Activity ou Fragment
-        ViewPager2 viewPager = view.findViewById(R.id.lembretesLista);
-
-        // Exemplo de lista de itens para o carrossel
-        List<Lembrete> items = new ArrayList<>();
-        items.add(new Lembrete("Veterinário", "15:00 - 16:00"));
-        items.add(new Lembrete("Vacinação", "10:00 - 11:00"));
-        items.add(new Lembrete("Banho", "12:00 - 13:00"));
-
-        CarouselAdapter adapter = new CarouselAdapter(items);
-        viewPager.setAdapter(adapter);
 
         //botao logout
         Button btnLogout = view.findViewById(R.id.btnSair);
@@ -172,7 +144,8 @@ public class PerfilFragment extends Fragment {
 
 
         CardView cardPost = view.findViewById(R.id.cardPost);
-        CardView cardCalendar = view.findViewById(R.id.cardCalendar);
+        CardView cardVakinhas = view.findViewById(R.id.cardVakinhas);
+        CardView cardPerdidos = view.findViewById(R.id.cardPerdidos);
 
         cardPost.setOnClickListener(new View.OnClickListener() {
 
@@ -181,13 +154,19 @@ public class PerfilFragment extends Fragment {
                 goToPost(view);
             }
         }    );
-        cardCalendar.setOnClickListener(new View.OnClickListener() {
+        cardVakinhas.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                goToCalendar(view);
+                goToPost(view);
             }
         }    );
+        cardPerdidos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToPost(view);
+            }
+        });
 
         LinearLayout layoutEditar = view.findViewById(R.id.layoutEditar);
 
@@ -209,15 +188,6 @@ public class PerfilFragment extends Fragment {
         transaction.replace(R.id.fragmentContainerView, FeedDoPet.newInstance());
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-
-    public void goToCalendar(View view) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, CalendarioFragment.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
-
     }
 
 
