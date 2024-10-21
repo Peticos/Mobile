@@ -149,7 +149,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/textView32"
+                        android:id="@+id/descrição"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/varela_round"

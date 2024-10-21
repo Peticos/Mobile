@@ -6,170 +6,211 @@
     android:layout_height="match_parent"
     android:background="@drawable/fundo_marrom"
     android:backgroundTint="@color/beige"
-    tools:context=".AdicionarAoFeedTriste">
+    tools:context=".Perdidos.AdicionarAoFeedTriste">
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/fundo_vermelho">
 
-        <ImageButton
-            android:id="@+id/btn_voltar_publicacoes"
-            android:layout_width="30dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:background="#00FFFFFF"
-            android:src="@drawable/baseline_arrow_left_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/publicacoes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/lilita_one"
-            android:text="Perdidos"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/btn_voltar_publicacoes"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/upload"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="68dp"
-            android:backgroundTint="@color/wood_brown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.486"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/upload_foto" />
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:background="@color/beige"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingHorizontal="30dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lilita_one"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Descreva o ocorrido: "
-                android:textColor="@color/red_or_orange"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/descricao"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:background="@drawable/rounded_edit_text"
-                android:elevation="5dp"
-                android:ems="10"
-                android:fontFamily="@font/varela_round"
-                android:gravity="top"
-                android:hint="Escreva uma desrição do ocorrido"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lilita_one"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Bairro"
-                android:textColor="@color/red_or_orange"
-                android:textSize="16sp" />
-
-            <AutoCompleteTextView
-                android:id="@+id/bairro"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_edit_text"
-                android:ems="10"
-                android:hint="Selecione o bairro"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lilita_one"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Qual amiguinho desapareceu?"
-                android:textColor="@color/red_or_orange"
-                android:textSize="16sp" />
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:layout_marginTop="16dp"
                     android:gravity="center"
+                    android:foregroundGravity="left"
                     android:orientation="horizontal">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/amiguinhos"
+                    <ImageButton
+                        android:id="@+id/btn_voltar_publicacoes"
                         android:layout_width="wrap_content"
-                        android:layout_height="80dp"
-                        android:orientation="horizontal"
-                        android:padding="16dp"
-                        android:paddingHorizontal="10dp" />
-
-                    <ImageView
-                        android:id="@+id/btn_cadastrarpet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_add" />
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/baseline_arrow_left_24" />
+
+                    <TextView
+                        android:id="@+id/publicacoes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/lilita_one"
+                        android:text="Perdidos"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
                 </LinearLayout>
-            </HorizontalScrollView>
 
-            <Button
-                android:id="@+id/btnPublicar"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red_or_orange"
-                android:fontFamily="@font/lilita_one"
-                android:text="Publicar"
-                android:textSize="24dp" />
+                <ImageView
+                    android:id="@+id/upload"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/wood_brown"
+                    app:srcCompat="@drawable/adicionar_imagem_vermelho" />
 
-            <Button
-                android:id="@+id/btnSair"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/dark_brown"
-                android:fontFamily="@font/lilita_one"
-                android:text="Sair"
-                android:textSize="24dp" />
-        </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/beige"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Descreva o ocorrido: "
+                        android:textColor="@color/red_or_orange"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/descricao"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:elevation="5dp"
+                        android:ems="10"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="top"
+                        android:hint="Escreva uma desrição do ocorrido"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Bairro"
+                        android:textColor="@color/red_or_orange"
+                        android:textSize="16sp" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/bairro"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="Selecione o bairro"
+                        android:inputType="text"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Data que perdeu o pet:"
+                        android:textColor="@color/red_or_orange"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/data"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="Indique a data em que perdeu o pet"
+                        android:inputType="date"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Qual amiguinho desapareceu?"
+                        android:textColor="@color/red_or_orange"
+                        android:textSize="16sp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/amiguinhos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:orientation="horizontal"
+                                android:padding="16dp"
+                                android:paddingHorizontal="10dp" />
+
+                            <ImageView
+                                android:id="@+id/btn_cadastrarpet"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/ic_cadastrar_pet_perdido" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <Button
+                        android:id="@+id/btnPublicar"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/red_or_orange"
+                        android:fontFamily="@font/lilita_one"
+                        android:text="Publicar"
+                        android:textSize="24dp" />
+
+                    <Button
+                        android:id="@+id/btnSair"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/dark_brown"
+                        android:fontFamily="@font/lilita_one"
+                        android:text="Sair"
+                        android:textSize="24dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

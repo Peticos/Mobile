@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Perdidos;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
+
+import com.mobile.peticos.R;
 
 public class PrimeirosCuidados extends AppCompatActivity {
     Button btnPerdido, btnOng;

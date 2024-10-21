@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Padrao;
 
 public class ModelRetorno {
     private String message;

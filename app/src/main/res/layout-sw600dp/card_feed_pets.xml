@@ -73,8 +73,13 @@
         <ImageView
             android:id="@+id/photo"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="338dp"
             android:layout_marginTop="10dp"
+=======
+            android:layout_height="337dp"
+            android:layout_marginTop="16dp"
+>>>>>>> 7e7a0039b99430db2598f138b7589b2ac225f26e
             android:layout_marginBottom="10dp"
             android:scaleType="fitXY"
             tools:srcCompat="@null" />
