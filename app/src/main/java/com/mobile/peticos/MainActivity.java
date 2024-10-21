@@ -2,6 +2,7 @@ package com.mobile.peticos;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -51,10 +52,15 @@ public class MainActivity extends AppCompatActivity {
         api = retrofit.create(APIPerfil.class);
 
 
-//        Bundle bundle = getIntent().getExtras();
-//        id = bundle.getInt("id");
 
-        Call<ModelPerfil> call = api.getById(102);
+        Bundle bundle = getIntent().getExtras();
+
+        id = bundle.getInt("id");
+
+        Toast.makeText(this, "id: " + id , Toast.LENGTH_SHORT).show();
+
+
+        Call<ModelPerfil> call = api.findById(id);
         call.enqueue(new Callback<ModelPerfil>() {
             @Override
             public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
@@ -64,12 +70,18 @@ public class MainActivity extends AppCompatActivity {
                     // Aqui, continue com a lógica para abrir o fragment correto
                     if (perfil.getCnpj().equals("Tutor")) {
                         perfilbool = true;
+                        Toast.makeText(MainActivity.this, "tutor", Toast.LENGTH_SHORT).show();
                     } else {
                         perfilbool = false;
+                        Toast.makeText(MainActivity.this, "profissional", Toast.LENGTH_SHORT).show();
+
 
                     }
                 }else{
                     perfilbool = true;
+                    Toast.makeText(MainActivity.this, "else", Toast.LENGTH_SHORT).show();
+                    Log.e("erro", "Erro: " + response.code());
+
                 }
             }
 

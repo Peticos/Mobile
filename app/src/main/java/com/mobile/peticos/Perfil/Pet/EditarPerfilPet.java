@@ -18,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 
 public class EditarPerfilPet extends AppCompatActivity {
     ImageView btnVoltarEditar, btnEdit, petzao, cabeca, oculos_dog, oculos_cat, brinquedo, especie;

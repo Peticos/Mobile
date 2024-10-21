@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Cadastros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.mobile.peticos.Cadastros.CadastroProfissional;
 import com.mobile.peticos.Cadastros.CadastroTutor;
+import com.mobile.peticos.Login;
+import com.mobile.peticos.R;
 
 public class Tutor_ou_Profissional extends AppCompatActivity {
 

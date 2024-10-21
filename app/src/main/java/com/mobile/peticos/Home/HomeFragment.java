@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+<<<<<<< HEAD
 import com.mobile.peticos.AdicionarAoFeedPrincipal;
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
@@ -28,6 +29,10 @@ import com.mobile.peticos.Home.HomeDica.DicasDoDia;
 import com.mobile.peticos.AdicionarAoFeedPrincipal;
 import com.mobile.peticos.AdicionarAoFeedTriste;
 import com.mobile.peticos.Perfil.Profissional.AdicionarProduto;
+=======
+import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
+import com.mobile.peticos.Perdidos.AdicionarAoFeedTriste;
+>>>>>>> 7e7a0039b99430db2598f138b7589b2ac225f26e
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;

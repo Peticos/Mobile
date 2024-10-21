@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Home;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -40,6 +40,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import com.mobile.peticos.R;
 
 /**
  * A simple {@link Fragment} subclass.
