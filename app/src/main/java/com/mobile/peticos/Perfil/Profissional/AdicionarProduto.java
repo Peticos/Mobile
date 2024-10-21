@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mobile.peticos.Home.ApiHome;
@@ -37,7 +39,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AdicionarProduto extends Fragment {
     Button btnPublicar, btnSair;
 
-
+    EditText legenda, nomeProduto, valor, telefone;
+    ImageView upload;
 
 
     public AdicionarProduto() {
@@ -63,7 +66,12 @@ public class AdicionarProduto extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_adicionar_produto, container, false);
 
+        legenda = view.findViewById(R.id.legenda);
+        nomeProduto = view.findViewById(R.id.NomeProduto);
+        valor = view.findViewById(R.id.valor);
+        telefone = view.findViewById(R.id.telefone);
         btnPublicar = view.findViewById(R.id.btnPublicar);
+        upload = view.findViewById(R.id.upload);
         btnPublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,13 +87,6 @@ public class AdicionarProduto extends Fragment {
         //mudar quando a camera tiver funcionando
         String url = "https://firebasestorage.googleapis.com/v0/b/peticos-b4633.appspot.com/o/720403.png?alt=media&token=2429fb00-920b-4979-a004-9d6c2034bda9"; // Exemplo de URL da imagem
 
-        //geo conectar com o front
-        String legenda = "Meu pet adorável!"; // Exemplo de legenda
-        String telephone = "(11) 91234-5678"; // Exemplo de telefone
-        String productName = "Ração Premium"; // Exemplo de nome do produto
-        double price = 49.90; // Preço do produto
-
-
         //mudar quando o cache funcionar
         int userId = 2;
 
@@ -96,12 +97,12 @@ public class AdicionarProduto extends Fragment {
         FeedPet post = new FeedPet(
                 userId, // userId
                 url, // picture
-                legenda, // caption
+                legenda.getText().toString(), // caption
                 postDate, // postDate
                 true, // isMei
-                price, // price
-                telephone, // telephone
-                productName // productName
+                Double.parseDouble(valor.getText().toString()), // price
+                telefone.getText().toString(), // telephone
+                nomeProduto.getText().toString() // productName
         );
 
         String API = "https://apimongo-ghjh.onrender.com/";
