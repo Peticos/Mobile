@@ -19,7 +19,25 @@ public class DesejaCadastrarUmPet extends AppCompatActivity {
     }
 
     public void CadastrarPet(View view) {
+        Bundle bundleCadastro = getIntent().getExtras();
+        int id = bundleCadastro.getInt("id");
+
         Intent intent = new Intent(this, CadastrarPet.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+    }
+    public void Main(View view) {
+
+        Bundle bundleCadastro = getIntent().getExtras();
+        int id = bundleCadastro.getInt("id");
+
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
@@ -29,4 +47,6 @@ public class DesejaCadastrarUmPet extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 }

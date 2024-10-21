@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Perdidos;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -22,6 +22,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mobile.peticos.Perdidos.PerdidoFragment;
+
+import com.mobile.peticos.Padrao.NotificationReciver;
+import com.mobile.peticos.R;
 
 public class AdicionarAoFeedTriste extends Fragment {
     Button bntSair;

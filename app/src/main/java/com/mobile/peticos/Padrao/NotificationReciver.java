@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Padrao;
 
 import android.content.Context;
 import android.content.Intent;

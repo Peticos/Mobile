@@ -21,13 +21,23 @@ import android.widget.TextView;
 
 import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Login;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
+
+import com.mobile.peticos.Perfil.Tutor.AdapterPet;
 import com.mobile.peticos.Perfil.Tutor.Calendario.CalendarioFragment;
 import com.mobile.peticos.Perfil.Posts.FeedDoPet;
 import com.mobile.peticos.R;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -95,8 +105,8 @@ public class PerfilFragment extends Fragment {
         APIPets apiPets = retrofit.create(APIPets.class);
 
 
-        //Call<List<ModelPetBanco>> call = apiPets.getPets();
-
+//        Call<List<ModelPetBanco>> call = apiPets.getPets();
+//
 //        call.enqueue(new Callback<List<ModelPetBanco>>() {
 //            @Override
 //            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
@@ -118,30 +128,8 @@ public class PerfilFragment extends Fragment {
 //                // Tratar falha
 //            }
 //        });
-
-
-
-
-
-
-
-//        for (int i = 0; i < 10; i++) {  // Adicione quantos cards você precisar
-//            View cardView = layoutInflater.inflate(R.layout.pet, linearLayoutPets, false);
-//            cardView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // Lógica para lidar com o clique no card
-//                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.fragmentContainerView, FeedDoPet.newInstance());
-//                    transaction.commit();
 //
 //
-//
-//                }
-//            });
-//            linearLayoutPets.addView(cardView);
-//        }
-
 
         CardView cardPost = view.findViewById(R.id.cardPost);
         CardView cardVakinhas = view.findViewById(R.id.cardVakinhas);

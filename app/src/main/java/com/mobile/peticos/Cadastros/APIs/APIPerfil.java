@@ -1,6 +1,6 @@
 package com.mobile.peticos.Cadastros.APIs;
 
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 
 import java.util.List;
 
@@ -31,7 +31,6 @@ public interface APIPerfil {
     @POST("/api/user/insertprofissional")
     Call<Integer> insertProfissional(@Body ModelPerfil model);
 
-
     @PUT("/api/user/update/{id}")
     Call<ModelPerfil> update(@Path("id") int id, @Body ModelPerfil model);
 
@@ -40,6 +39,12 @@ public interface APIPerfil {
 
     @GET("/api/user/findbyid/{id}")
     Call<ModelPerfil> findById(@Path("id") int id);
+
+    @POST("/api/auth/register")
+    Call<ModelRetorno> register(@Body ModelPerfilAuth model);
+
+    @POST("/api/auth/login")
+    Call<Integer> login(@Body ModelPerfilAuth model);
 
 
 

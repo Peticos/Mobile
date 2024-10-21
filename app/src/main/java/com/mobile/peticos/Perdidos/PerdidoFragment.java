@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.mobile.peticos.AdicionarAoFeedTriste;
-import com.mobile.peticos.PrimeirosCuidados;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -72,6 +70,8 @@ public class PerdidoFragment extends Fragment {
                 "Texto 31",
                 "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         ));
+
+        // Adicione mais pets conforme necessário
 
         adapter = new AdapterPerdidos(getContext(), petList);
         recyclerView.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Padrao;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -19,8 +19,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.nfc.NfcAdapter;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -34,8 +32,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.mobile.peticos.Cadastros.CadastroProfissional;
-import com.mobile.peticos.Cadastros.CadastroTutor;
+import com.mobile.peticos.R;
 import com.mobile.peticos.Upload.DataBaseCamera;
 
 import java.util.Arrays;
@@ -239,7 +236,8 @@ public class Camera extends AppCompatActivity {
     }
 
     // Configura a camera
-    private void startCamera() {
+    private void startCamera()
+    {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
         cameraProviderFuture.addListener(() -> {
