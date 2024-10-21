@@ -115,6 +115,7 @@ public class PerdidoFragment extends Fragment {
                     pet.getPostTime(),
                     pet.getPicture(),
                     pet.getStreet(),
+                    pet.getStreetNum(),
                     pet.getLostDate()
 
             ));

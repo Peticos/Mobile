@@ -10,6 +10,7 @@ public class PetPerdido {
 //  "postTime": "2024-10-19T21:26:22.091Z",
 //  "picture": "string",
 //  "street": "string",
+//  "streetNum": 0,
 //  "lostDate": "2024-10-19"
 //}
 
@@ -21,7 +22,10 @@ public class PetPerdido {
     private String postTime;
     private String picture;
     private String street;
+    private int streetNum;
     private String lostDate;
+
+
 
     public int getIdPet() {
         return idPet;
@@ -96,7 +100,15 @@ public class PetPerdido {
         this.lostDate = lostDate;
     }
 
-    public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String street, String lostDate) {
+    public int getStreetNum() {
+        return streetNum;
+    }
+
+    public void setStreetNum(int streetNum) {
+        this.streetNum = streetNum;
+    }
+
+    public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String street, int streetNum, String lostDate) {
         this.idPet = idPet;
         this.idUser = idUser;
         this.bairro = bairro;
@@ -105,6 +117,7 @@ public class PetPerdido {
         this.postTime = postTime;
         this.picture = picture;
         this.street = street;
+        this.streetNum = streetNum;
         this.lostDate = lostDate;
     }
 

@@ -27,6 +27,10 @@ import com.mobile.peticos.ModelRetorno;
 import com.mobile.peticos.NotificationReciver;
 import com.mobile.peticos.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -101,20 +105,36 @@ public class AdicionarAoFeedTriste extends Fragment {
         String postTime = "1970-01-01T19:08:00";  // Horário do post (formato de data e hora com fuso horário)
         String picture = "https://example.com/image.jpg";  // URL da imagem
         String street = "Rua da Alegria";  // Nome da rua
-        String lostDate = "2024-09-22";  // Data em que o pet foi perdido (formato YYYY-MM-DD)
 
+
+        Date dataAtual = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+        String dataFormatada = formato.format(dataAtual);
+
+//        {
+//            "idPet": 18,
+//                "idUser": 112,
+//                "bairro": "Lapa",
+//                "title": "Cachorro perdido 2",
+//                "description": "Cachorro de porte médio, cor marrom, desaparecido.",
+//                "postTime": "2024-10-17T12:00:00",
+//                "picture": "https://linkdaimagem.com/imagem.jpg",
+//                "street": "Rua das Flores",
+//                "streetNum": 789,
+//                "lostDate": "2024-10-15"
+//        }
         PetPerdido petPerdido = new PetPerdido(
-                idPet,
-                idUser,
-                bairro,
-                title,
-                description,
-                postTime,
-                picture,
-                street,
-                lostDate
+                18,
+                112,
+                "Lapa",
+                "OIIIIIIII",
+                "Cachorro de porte médio, cor marrom, desaparecido.",
+                dataFormatada,
+                "https://linkdaimagem.com/imagem.jpg",
+                "Rua das Flores",
+                789,
+                "2024-10-15"
         );
-
 
 
         Call<ModelRetorno> call = apiPerdidos.isertPerdido(petPerdido);
