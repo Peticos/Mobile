@@ -1,6 +1,10 @@
 package com.mobile.peticos.Perdidos;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -57,7 +61,12 @@ public class PerdidoFragment extends Fragment {
         recyclerView = view.findViewById(R.id.RecyclerViewPetsPerdidos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        Boolean mei = sharedPreferences.getBoolean("mei", true);
         btAdicionar = view.findViewById(R.id.btnAdicionar);
+        if( mei ) {
+            btAdicionar.setVisibility(View.INVISIBLE);
+        }
         btAdicionar.setOnClickListener(v -> {
             abrirAdicionar();
         });

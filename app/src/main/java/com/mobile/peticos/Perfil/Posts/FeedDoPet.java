@@ -4,14 +4,31 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.mobile.peticos.Home.FeedPet;
+import com.mobile.peticos.Home.FeedPetsAdapter;
+import com.mobile.peticos.Local.ApiLocais;
+import com.mobile.peticos.Local.LocaisAdapter;
+import com.mobile.peticos.Local.Local;
+import com.mobile.peticos.Perfil.APIPerfil;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
 import com.mobile.peticos.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,15 +50,18 @@ public class FeedDoPet extends Fragment {
 
 
     }
-
+    RecyclerView recyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_feed_do_pet, container, false);
+        recyclerView = view.findViewById(R.id.recycler);
 
         ImageButton voltar = view.findViewById(R.id.goBack);
+        setupRetrofit();
+        initRecyclerView();
 
         voltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +73,49 @@ public class FeedDoPet extends Fragment {
             }
         });
 
+
+        APIPerfil api;
+
+
+
+
+
         return view;
     }
+    Retrofit retrofit;
+    APIPerfil apiPerfil;
+    private void setupRetrofit() {
+        String API = "https://apimongo-ghjh.onrender.com";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiPerfil = retrofit.create(APIPerfil.class);
+    }
+    // Inicializa o RecyclerView com todos os locais
+    private void initRecyclerView() {
+        Call<List<FeedPet>> call = apiPerfil.getPostByid();
+        call.enqueue(new Callback<List<FeedPet>>() {
+            @Override
+            public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<FeedPet> feedList = response.body();
+                    recyclerView.setAdapter(new FeedPetsAdapter(feedList));
+
+                } else {
+                    Toast.makeText(getActivity(), "Nenhum post encontrado", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+                Toast.makeText(getActivity(), "Erro ao buscar", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+
 
 
 

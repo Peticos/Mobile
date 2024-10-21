@@ -1,7 +1,11 @@
 
 package com.mobile.peticos.Perfil.Profissional;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -45,7 +49,9 @@ public class PerfilProfissional extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
 
 
     }
@@ -71,32 +77,29 @@ public class PerfilProfissional extends Fragment {
         email = view.findViewById(R.id.email);
 
 
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        if(autenticator.getCurrentUser().getPhotoUrl() != null){
-            RequestOptions options = new RequestOptions()
+        // Acesso ao SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+
+        // Recuperar os dados
+
+        int id = sharedPreferences.getInt("id", 278);
+        String url = sharedPreferences.getString("url", "https://firebasestorage.googleapis.com/v0/b/apipeticos.appspot.com/o/Imagens%2Fdefault.png?alt=media&token=5d7a6aaf-0d4f-4b3e-9f4b-0e2e9f1c9a0c");
+
+        RequestOptions options = new RequestOptions()
                     .centerCrop() // Garante que a imagem preencha o espaço
                     .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
 
-            Glide.with(this)
-                    .load(autenticator.getCurrentUser().getPhotoUrl())
+        Glide.with(this)
+                    .load(url)
                     .apply(options)
+                    .error(R.drawable.fotogenerica) // Imagem que aparece em caso de erro
                     .into(fotoPerfil);
-        }
-        if(autenticator.getCurrentUser().getDisplayName() != null){
 
-            nome.setText(autenticator.getCurrentUser().getDisplayName());
-        }
-        if(autenticator.getCurrentUser().getEmail() != null){
+        String username = sharedPreferences.getString("nome_usuario", "nome_usuario");
+        nome.setText(username);
 
-            email.setText(autenticator.getCurrentUser().getEmail());
-        }
-
-
-
-
-
-
-
+        String emailUser = sharedPreferences.getString("email", "email");
+        email.setText(emailUser);
 
 
         editar.setOnClickListener(new View.OnClickListener() {

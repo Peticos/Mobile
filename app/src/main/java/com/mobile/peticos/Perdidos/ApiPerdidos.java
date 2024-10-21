@@ -1,6 +1,6 @@
 package com.mobile.peticos.Perdidos;
 
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 
 import java.util.List;
 

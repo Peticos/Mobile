@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -102,43 +103,25 @@ public class AdicionarAoFeedTriste extends Fragment {
 
     public void RegistrarPetPerdido(View view) {
 
-        int idPet = 1;          // ID do pet
-        int idUser = 123;      // ID do usuário
-        String bairro = "Lapa";  // Bairro
-        String title = "Cachorrinho Perdido";  // Título do anúncio
-        String description = "Meu cachorro desapareceu na região do Centro. Ele é pequeno e tem pelagem branca.";  // Descrição
-        String postTime = "1970-01-01T19:08:00";  // Horário do post (formato de data e hora com fuso horário)
-        String picture = "https://example.com/image.jpg";  // URL da imagem
-        String street = "Rua da Alegria";  // Nome da rua
-
-
         Date dataAtual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
         String dataFormatada = formato.format(dataAtual);
 
-//        {
-//            "idPet": 18,
-//                "idUser": 112,
-//                "bairro": "Lapa",
-//                "title": "Cachorro perdido 2",
-//                "description": "Cachorro de porte médio, cor marrom, desaparecido.",
-//                "postTime": "2024-10-17T12:00:00",
-//                "picture": "https://linkdaimagem.com/imagem.jpg",
-//                "street": "Rua das Flores",
-//                "streetNum": 789,
-//                "lostDate": "2024-10-15"
-//        }
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        int id = sharedPreferences.getInt("id", 278);
+
+
         PetPerdido petPerdido = new PetPerdido(
                 18,
-                112,
+                id,
                 "Lapa",
                 "OIIIIIIII",
-                "Cachorro de porte médio, cor marrom, desaparecido.",
+                "teste.",
                 dataFormatada,
-                "https://linkdaimagem.com/imagem.jpg",
+                "https://firebasestorage.googleapis.com/v0/b/peticos-b4633.appspot.com/o/17589433.548cad5c026f1.jpg?alt=media&token=59237338-3f7b-4d0d-b656-f1d0f27d150a",
                 "Rua das Flores",
                 789,
-                "2024-10-15"
+                "2024-10-21"
         );
 
 

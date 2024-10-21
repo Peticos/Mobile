@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -301,6 +302,24 @@ public class CadastroProfissional extends AppCompatActivity {
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
                     int id = response.body();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    // Armazenar todas as informações no SharedPreferences
+                    editor.putString("nome", perfil.getFullName());
+                    editor.putString("nome_usuario", perfil.getUserName());
+                    editor.putString("email", perfil.getEmail());
+                    editor.putString("bairro", perfil.getBairro());
+                    editor.putBoolean("mei", true);
+                    editor.putString("telefone", perfil.getTelefone());
+                    editor.putString("url", perfil.getProfilePicture());
+                    editor.putString("genero", perfil.getGender());
+                    editor.putInt("id", response.body());
+
+                    editor.apply();
+
+
+
                     Metodos metodos = new Metodos();
                     metodos.Authentication(
                             view,
