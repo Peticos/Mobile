@@ -54,7 +54,6 @@ public class VakinhasFragment extends Fragment {
 
         // Inicializando o card como GONE inicialmente
         cardInfoVakinha = view.findViewById(R.id.cardInfoVakinha);
-        cardInfoVakinha.setVisibility(View.GONE); // Esconde o card inicialmente
 
         // Referenciando os botões
         infoVakinha = view.findViewById(R.id.infoVakinha);

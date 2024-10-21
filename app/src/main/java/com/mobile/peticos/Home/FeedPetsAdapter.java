@@ -92,12 +92,6 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         Glide.with(holder.photo.getContext())
                 .load(feedPet.getPicture())
                 .into(holder.photo);
-        // foto de perfil
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        Glide.with(holder.userPhoto.getContext())
-                .load((autenticator.getCurrentUser().getPhotoUrl()))
-                .into(holder.userPhoto);
-
     }
 
     @Override
