@@ -12,14 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.mobile.peticos.AdicionarAoFeedTriste;
-import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
+import com.mobile.peticos.Local.ApiLocais;
+import com.mobile.peticos.Local.LocaisAdapter;
+import com.mobile.peticos.Local.Local;
 import com.mobile.peticos.PrimeirosCuidados;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PerdidoFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -50,35 +58,6 @@ public class PerdidoFragment extends Fragment {
         recyclerView = view.findViewById(R.id.RecyclerViewPetsPerdidos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Inicialize a lista de pets perdidos
-        petList = new ArrayList<>();
-
-        // Adicione exemplos de pets na lista
-        petList.add(new PetPerdido(
-                R.drawable.user1, // Exemplo de imagem do usuário
-                R.drawable.pet_perdido1, // Exemplo de imagem principal
-                "geogeo43", // Username
-                "Há 2 dias", // Days
-                "Nutela", // Pets in Photo
-                "Texto 31", // TextView31
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit." // TextView32
-        ));
-
-        petList.add(new PetPerdido(
-                R.drawable.user1, // Exemplo de imagem do usuário
-                R.drawable.pet_perdido1, // Exemplo de imagem principal
-                "john_doe", // Username
-                "Há 5 dias", // Days
-                "Bella", // Pets in Photo
-                "Texto 31", // TextView31
-                "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." // TextView32
-        ));
-
-        // Adicione mais pets conforme necessário
-
-        adapter = new AdapterPerdidos(getContext(), petList);
-        recyclerView.setAdapter(adapter);
-
         bt_adicionar = view.findViewById(R.id.btnAdicionar);
         bt_adicionar.setOnClickListener(v -> {
             abrirAdicionar();
@@ -88,8 +67,59 @@ public class PerdidoFragment extends Fragment {
             Intent intent = new Intent(getContext(), PrimeirosCuidados.class);
             startActivity(intent);
         });
+        setupRetrofit();
+        initRecyclerView();
+
 
         return view;
+    }
+    ApiPerdidos apiPerdidos;
+    private void setupRetrofit() {
+        String API = "https://apipeticos.onrender.com";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiPerdidos = retrofit.create(ApiPerdidos.class);
+    }
+
+    private void initRecyclerView() {
+        Call<List<PetPerdido>> call = apiPerdidos.getPerdidos();
+        call.enqueue(new Callback<List<PetPerdido>>() {
+            @Override
+            public void onResponse(Call<List<PetPerdido>> call, Response<List<PetPerdido>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<PetPerdido> PerdidosList = response.body();
+                    updateRecyclerView(PerdidosList);
+                    //updateRecyclerView(PerdidosList);
+                } else {
+                    Toast.makeText( getActivity(), "Nenhum perdido perdido", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PetPerdido>> call, Throwable throwable) {
+                Toast.makeText( getActivity(), "Erro ao carregar perdidos", Toast.LENGTH_SHORT).show();            }
+        });
+    }
+    private void updateRecyclerView(List<PetPerdido> PetlList) {
+        List<PetPerdido> PerdidosModels = new ArrayList<>();
+        for (PetPerdido pet : PetlList) {
+
+            PerdidosModels.add(new PetPerdido(
+                    pet.getIdPet(),
+                    pet.getIdUser(),
+                    pet.getBairro(),
+                    pet.getTitle(),
+                    pet.getDescription(),
+                    pet.getPostTime(),
+                    pet.getPicture(),
+                    pet.getStreet(),
+                    pet.getLostDate()
+
+            ));
+        }
+        recyclerView.setAdapter(new AdapterPerdidos(PerdidosModels));
     }
 
     private void abrirAdicionar() {
