@@ -35,6 +35,8 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+        FirebaseUser userLogin = autenticator.getCurrentUser();
 
         btnSalvar = findViewById(R.id.btnentrar);
         btnCadastrar = findViewById(R.id.btnRegistrar);
@@ -50,24 +52,26 @@ public class Login extends AppCompatActivity {
 
         btnSalvar.setOnClickListener(v -> {
             // Recuperar os campos de texto
-//            txtEmail = findViewById(R.id.email);
-//            txtSenha = findViewById(R.id.senha);
-//            String email = txtEmail.getText().toString().trim();
-//            String senha = txtSenha.getText().toString().trim();
+            txtEmail = findViewById(R.id.email);
+            txtSenha = findViewById(R.id.senha);
+            String email = txtEmail.getText().toString().trim();
+            String senha = txtSenha.getText().toString().trim();
 
-//            // Validar os campos antes de autenticar
-//            if (email.isEmpty()) {
-//                txtEmail.setError("O campo Email é obrigatório!");
-//                txtEmail.requestFocus();
-//                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
-//            }
-//            if (senha.isEmpty()) {
-//                senhainvalida.setVisibility(View.VISIBLE);
-//                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
-//            }
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            // Validar os campos antes de autenticar
+            if (email.isEmpty()) {
+                txtEmail.setError("O campo Email é obrigatório!");
+                txtEmail.requestFocus();
+                Toast.makeText(Login.this, "Por favor, preencha o campo de Email.", Toast.LENGTH_SHORT).show();
+            }
+            if (senha.isEmpty()) {
+                senhainvalida.setVisibility(View.VISIBLE);
+                Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
+            }
+            if (email.isEmpty()||senha.isEmpty()) {
+                return;
+            }else{
+                Authentication(v);
+            }
 
         });
 
@@ -97,7 +101,9 @@ public class Login extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
-
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                         Toast.makeText(Login.this, "Senha ou Email Incorretos", Toast.LENGTH_SHORT).show();
                 }
