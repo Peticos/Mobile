@@ -161,7 +161,7 @@
                     android:paddingLeft="5dp">
 
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/nomepet2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lilita_one"
@@ -170,7 +170,7 @@
                         android:textSize="20sp" />
 
                     <TextView
-                        android:id="@+id/textView32"
+                        android:id="@+id/legenda"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/varela_round"

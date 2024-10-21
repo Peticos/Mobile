@@ -7,7 +7,6 @@
     android:background="@drawable/fundo_marrom"
     android:backgroundTint="@color/beige"
     tools:context=".Perdidos.AdicionarAoFeedTriste">
-    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
