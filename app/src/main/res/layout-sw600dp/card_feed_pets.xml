@@ -6,13 +6,13 @@
     layout_height="10dp"
     layout_width="20dp"
     android:layout_width="match_parent"
-    android:layout_height="454dp"
+    android:layout_height="550dp"
     android:layout_marginBottom="20dp"
     android:backgroundTint="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingTop="10dp"
         android:paddingBottom="20dp">
@@ -72,65 +72,18 @@
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ImageView
+            android:id="@+id/photo"
             android:layout_width="match_parent"
-            android:layout_height="274dp">
-
-            <ImageView
-                android:id="@+id/photo"
-                android:layout_width="match_parent"
-                android:layout_height="274dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/fotogenerica" />
-
-            <ImageView
-                android:id="@+id/curtida"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/ic_like" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/entrarContato"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:visibility="invisible"
-                app:cardBackgroundColor="#C873482F"
-                app:layout_constraintBottom_toBottomOf="@+id/photo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="Entrar em contato"
-                        android:textColor="@color/beige" />
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="337dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitXY"
+            tools:srcCompat="@null" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="21dp">

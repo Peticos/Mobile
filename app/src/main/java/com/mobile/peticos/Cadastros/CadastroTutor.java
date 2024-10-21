@@ -229,6 +229,7 @@ public class CadastroTutor extends AppCompatActivity {
         APIBairro apiBairro = retrofit.create(APIBairro.class);
         Call<List<ModelBairro>> call = apiBairro.getAll();
 
+        // Executar chamada para pegar os bairros
         call.enqueue(new Callback<List<ModelBairro>>() {
             @Override
             public void onResponse(Call<List<ModelBairro>> call, Response<List<ModelBairro>> response) {
@@ -253,6 +254,9 @@ public class CadastroTutor extends AppCompatActivity {
                 Toast.makeText(CadastroTutor.this, "Erro ao carregar bairros", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Configurar o evento do botão de cadastro
+        btnCadastrar.setOnClickListener(v -> validarCampos(v));
     }
 
     // Configura o botão de cadastro

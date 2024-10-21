@@ -173,6 +173,8 @@ public class ModelPerfil {
         this.cnpj = cnpj;
     }
 
+
+
     @Override
     public String toString() {
         return "ModelPerfil{" +
