@@ -70,15 +70,7 @@ public class AdicionarAoFeedTriste extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-        return view;
-    }
-
-    public void RegistrarPetPerdido(View view) {
-        notificar();
-=======
         return view;  // Adicione o retorno do view aqui.
->>>>>>> 19cef53bd4f86c9a5088b4513bc1236ec8e514fe
     }
 
     // Método notificar deve ser fora do onCreateView.
