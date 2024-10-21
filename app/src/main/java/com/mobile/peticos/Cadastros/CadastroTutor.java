@@ -29,9 +29,9 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
-import com.mobile.peticos.Camera;
+import com.mobile.peticos.Padrao.Camera;
 import com.mobile.peticos.MainActivity;
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -308,15 +308,15 @@ public class CadastroTutor extends AppCompatActivity {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
-                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 emailCadastro.getText().toString(),
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString(),
+                null,
+                url,
                 genero.getText().toString(),
-                9,
                 "Tutor"
         );
 

@@ -30,9 +30,9 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
-import com.mobile.peticos.Camera;
+import com.mobile.peticos.Padrao.Camera;
 import com.mobile.peticos.Login;
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -163,7 +163,6 @@ public class CadastroProfissional extends AppCompatActivity {
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
-                0,
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 email.getText().toString(),
@@ -171,7 +170,8 @@ public class CadastroProfissional extends AppCompatActivity {
                 "Sem Plano",
                 telefone.getText().toString(),
                 null,
-                11,
+                url,
+                null,
                 cnpj.getText().toString()
         );
 
