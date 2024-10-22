@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class LocalFragment extends Fragment {
     private RecyclerView recyclerView;
     private Retrofit retrofit;
     private ApiLocais apiLocais;
+    CardView cardErroLocal;
 
     // Construtor
     public LocalFragment() {
@@ -48,6 +50,8 @@ public class LocalFragment extends Fragment {
         // Configuração do RecyclerView
         recyclerView = view.findViewById(R.id.recyclerViewLocais);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        cardErroLocal = view.findViewById(R.id.cardErroLugares);
 
         // Configuração dos botões
         btnConsulta = view.findViewById(R.id.btnConsulta);
@@ -93,6 +97,7 @@ public class LocalFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Local>> call, Throwable throwable) {
+                cardErroLocal.setVisibility(View.VISIBLE);
                 showToast("Erro ao carregar Locais");
             }
         });

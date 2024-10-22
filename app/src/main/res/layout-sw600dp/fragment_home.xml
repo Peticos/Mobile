@@ -64,5 +64,93 @@
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDicasErro"
+            android:layout_width="530dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="26dp"
+            android:layout_marginBottom="680dp"
+            android:visibility="gone"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView20"
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/modolinho_triste" />
+
+                <TextView
+                    android:id="@+id/textView52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lilita_one"
+                    android:text="Nada por aqui!"
+                    android:textColor="@color/wood_brown"
+                    android:textSize="28dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFeedErro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
+            android:backgroundTint="@color/beige"
+            android:visibility="gone"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="30dp"
+                    android:src="@drawable/modolinho_triste" />
+
+                <TextView
+                    android:id="@+id/textView53"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:text="Ops! Parece que algo deu errado..."
+                    android:textColor="@color/wood_brown"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/textView55"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:paddingHorizontal="100dp"
+                    android:paddingVertical="16dp"
+                    android:text="Nosso feed de principal não conseguiu carregar. 🐾 Mas não se preocupe, estamos tentando consertar! Enquanto isso, que tal dar uma olhada nas outras funcionalidades do app?"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
