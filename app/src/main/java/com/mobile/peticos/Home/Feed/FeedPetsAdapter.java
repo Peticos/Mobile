@@ -112,10 +112,16 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 // Configure as informações do perfil no holder, por exemplo:
                 holder.username.setText(perfil.getFullName());
                 // Adicione outros campos conforme necessário
-                Glide.with(holder.userPhoto.getContext())
-                        .load(Uri.parse(perfil.getProfilePicture()))
-                        .error(R.drawable.fotogenerica)
-                        .into(holder.userPhoto);
+                String profilePicture = perfil.getProfilePicture();
+                if (profilePicture != null && !profilePicture.isEmpty()) {
+                    Glide.with(holder.userPhoto.getContext())
+                            .load(Uri.parse(profilePicture))
+                            .error(R.drawable.fotogenerica)
+                            .into(holder.userPhoto);
+                } else {
+                    // Caso a URL seja nula ou vazia, carregar uma imagem genérica
+                    holder.userPhoto.setImageResource(R.drawable.fotogenerica);
+                }
             }
 
             @Override

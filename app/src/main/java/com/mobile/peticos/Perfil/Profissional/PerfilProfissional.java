@@ -59,6 +59,7 @@ public class PerfilProfissional extends Fragment {
     ImageView fotoPerfil;
     TextView nome;
     TextView email;
+    Button novo_produto_button;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,10 +141,10 @@ public class PerfilProfissional extends Fragment {
     }
 
     private void goToNewProduct(View view) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, AdicionarProduto.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainerView, AdicionarProduto.newInstance())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void goToGraphic(View view) {
