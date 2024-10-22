@@ -28,7 +28,7 @@ public class VakinhasFragment extends Fragment {
 
     // Novo: Definindo as referências para infoVakinha, fechar e cardInfoVakinha
     private ImageView infoVakinha, fechar;
-    private CardView cardInfoVakinha;
+    private CardView cardInfoVakinha, cardErroVakinhas;
 
     public VakinhasFragment() {
         // Required empty public constructor
@@ -51,6 +51,7 @@ public class VakinhasFragment extends Fragment {
         recyclerView = view.findViewById(R.id.RecyclerViewVakinhas);
         btAdicionar = view.findViewById(R.id.btnAdicionar);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        cardErroVakinhas = view.findViewById(R.id.cardErroVakinhas);
 
         // Inicializando o card como GONE inicialmente
         cardInfoVakinha = view.findViewById(R.id.cardInfoVakinha);
