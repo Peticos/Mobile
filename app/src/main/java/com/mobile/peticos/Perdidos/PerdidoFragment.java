@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class PerdidoFragment extends Fragment {
     private ImageButton btAdicionar, btnSos;
     private ImageView infoPerdidos, fechar;
     private View cardInfoPerdido;
+    CardView cardErroPerdidos;
 
     public PerdidoFragment() {
         // Required empty public constructor
@@ -60,6 +62,7 @@ public class PerdidoFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.RecyclerViewPetsPerdidos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        cardErroPerdidos = view.findViewById(R.id.cardErroPerdidos);
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
         Boolean mei = sharedPreferences.getBoolean("mei", true);
@@ -125,6 +128,7 @@ public class PerdidoFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<PetPerdido>> call, Throwable throwable) {
+                cardErroPerdidos.setVisibility(View.VISIBLE);
                 Toast.makeText( getActivity(), "Erro ao carregar perdidos", Toast.LENGTH_SHORT).show();            }
         });
     }

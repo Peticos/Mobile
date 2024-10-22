@@ -1,3 +1,4 @@
+
 package com.mobile.peticos.Home;
 
 import android.Manifest;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
 
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
+    CardView cardFeedErro, cardDicasErro;
 
     static {
         List<String> requiredPermissions = new ArrayList<>();
@@ -73,7 +76,8 @@ public class HomeFragment extends Fragment {
         // Verificar e solicitar permissão de notificação ao abrir a tela
         checkNotificationPermission();
 
-
+        cardFeedErro = view.findViewById(R.id.cardFeedErro);
+        cardDicasErro = view.findViewById(R.id.cardDicasErro);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
@@ -158,8 +162,8 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
+                cardFeedErro.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -218,6 +222,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
+                cardDicasErro.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
 
             }
