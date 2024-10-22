@@ -7,7 +7,6 @@
     android:background="@drawable/fundo_marrom"
     android:backgroundTint="@color/beige"
     tools:context=".Perdidos.AdicionarAoFeedTriste">
-    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -148,6 +147,29 @@
                         android:ems="10"
                         android:hint="Indique a data em que perdeu o pet"
                         android:inputType="date"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Referência de local:"
+                        android:textColor="@color/red_or_orange"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/referencia"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="Digite uma referência do local do ocorrido"
+                        android:inputType="text"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textSize="14sp" />

@@ -47,6 +47,4 @@ public class DesejaCadastrarUmPet extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 }

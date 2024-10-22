@@ -12,12 +12,7 @@
           "package_name": "com.mobile.peticos"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "223107235819-s1ctbpqivir18gcg91hnis34m380mg67.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyDu8tubsuN3znVYpzk0lA5ls7k_gCUJgRk"
@@ -25,12 +20,7 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "223107235819-s1ctbpqivir18gcg91hnis34m380mg67.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

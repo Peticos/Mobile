@@ -24,7 +24,7 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
-import com.mobile.peticos.Padrao.Camera;
+import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
@@ -37,6 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import android.content.SharedPreferences;
+
 
 public class CadastroTutor extends AppCompatActivity {
 
@@ -98,11 +100,30 @@ public class CadastroTutor extends AppCompatActivity {
         );
 
 
+
+
+
+
+
         Call<Integer> call = aPIPerfil.insertTutor(perfil);
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.code() == 200) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    // Armazenar todas as informações no SharedPreferences
+                    editor.putString("nome", perfil.getFullName());
+                    editor.putString("nome_usuario", perfil.getUserName());
+                    editor.putString("email", perfil.getEmail());
+                    editor.putString("bairro", perfil.getBairro());
+                    editor.putBoolean("mei", false);
+                    editor.putString("telefone", perfil.getTelefone());
+                    editor.putString("url", perfil.getProfilePicture());
+                    editor.putString("genero", perfil.getGender());
+                    editor.putInt("id", response.body());
+
+                    editor.apply();
                     int id = response.body();
                     Metodos metodos = new Metodos();
                     metodos.Authentication(
@@ -116,9 +137,6 @@ public class CadastroTutor extends AppCompatActivity {
                                 public void onSuccess(ModelRetorno perfil) {
                                     Toast.makeText(CadastroTutor.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("id", id);
-                                    intent.putExtras(bundle);
                                     startActivity(intent);
                                     finish();
                                 }

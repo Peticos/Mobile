@@ -69,10 +69,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/beige"
                     android:orientation="vertical"
-                    android:background="@color/beige">
+                    android:paddingBottom="120dp">
+
                     <TextView
-                        android:id="@+id/nomepet2"
+                        android:id="@+id/textView31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -150,6 +152,7 @@
                                 android:id="@+id/cardPerdidos"
                                 android:layout_width="152dp"
                                 android:layout_height="100dp"
+                                android:layout_marginEnd="20dp"
                                 android:background="@drawable/perfil"
                                 android:backgroundTint="@color/water_blue"
                                 android:clickable="true"
@@ -194,14 +197,6 @@
                                         android:textSize="10sp" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/cardVakinhas"
@@ -252,13 +247,6 @@
                                         android:textSize="10sp" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cardVazio"
-                                android:layout_width="152dp"
-                                android:layout_height="100dp"
-                                android:background="@drawable/perfil"
-                                android:backgroundTint="@color/beige">
-                            </androidx.cardview.widget.CardView>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -273,6 +261,7 @@
                         android:text="Seus Amiguinhos"
                         android:textColor="@color/water_blue"
                         android:textSize="16sp" />
+
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"

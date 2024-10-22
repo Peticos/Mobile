@@ -75,7 +75,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             @Override
             public void onClick(View v) {
                 //decidir oq vai colocar no compartilhar
-                String postContent = "Venha para!";
+                String postContent = "Venha perder seu pet!";
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
@@ -123,3 +123,4 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
         }
     }
 }
+

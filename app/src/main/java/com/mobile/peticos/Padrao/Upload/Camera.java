@@ -1,4 +1,4 @@
-package com.mobile.peticos.Padrao;
+package com.mobile.peticos.Padrao.Upload;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -33,7 +33,6 @@ import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.mobile.peticos.R;
-import com.mobile.peticos.Upload.DataBaseCamera;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,8 +42,8 @@ import java.util.concurrent.ExecutionException;
 public class Camera extends AppCompatActivity {
     private static final String[] REQUIRED_PERMISSIONS = {
             Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.CAMERA,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.CAMERA
+            //Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private DataBaseCamera database = new DataBaseCamera();
     private Map<String, String> docData = new HashMap<>();
@@ -176,23 +175,11 @@ public class Camera extends AppCompatActivity {
                 foto.setImageURI(outputFileResults.getSavedUri());
                 btnsalvar.setOnClickListener(v -> {
                     progressBar.setVisibility(View.VISIBLE);
-                    database.uploadGallary(Camera.this, foto, docData, new DataBaseCamera.OnUploadCompleteListener() {
-                        @Override
-                        public void onUploadComplete(String url) {
-                            Intent returnIntent = new Intent();
-                            returnIntent.putExtra("url", docData.get("url")); // Retorna a URL
-                            setResult(RESULT_OK, returnIntent); // Define o resultado
-                            finish(); // Finaliza a atividade
-                        }
-                    });
-
-
-//                    Bundle bundle = getIntent().getExtras();
-//                    Intent returnIntent = new Intent();
-//                    returnIntent.putExtra("url", docData.get("url")); // Adiciona a URL ao Intent de retorno
-//                    setResult(RESULT_OK, returnIntent); // Define o resultado como OK
-//                    finish(); // Encerra a atividade
-
+                    database.uploadGallary(Camera.this, foto, docData);
+//                            Intent returnIntent = new Intent();
+//                            returnIntent.putExtra("url", docData.get("url")); // Retorna a URL
+//                            setResult(RESULT_OK, returnIntent); // Define o resultado
+//                            finish(); // Finaliza a atividade
 
                 });
             }
@@ -236,8 +223,7 @@ public class Camera extends AppCompatActivity {
     }
 
     // Configura a camera
-    private void startCamera()
-    {
+    private void startCamera() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
         cameraProviderFuture.addListener(() -> {

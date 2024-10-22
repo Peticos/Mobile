@@ -3,6 +3,8 @@ package com.mobile.peticos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,10 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
+import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfilAuth;
+import com.mobile.peticos.Cadastros.CadastroTutor;
+import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
 import com.mobile.peticos.Cadastros.Tutor_ou_Profissional;
 import com.mobile.peticos.Padrao.ModelRetorno;
 
@@ -28,7 +34,7 @@ public class Login extends AppCompatActivity {
     Button btnSalvar, btnCadastrar;
     EditText txtEmail, txtSenha;
     TextView senhainvalida;
-
+    MetodosBanco metodosBanco = new MetodosBanco();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ public class Login extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnentrar);
         btnCadastrar = findViewById(R.id.btnRegistrar);
         senhainvalida = findViewById(R.id.senhainalida);
+
+
 
 
 
@@ -74,6 +82,8 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
+
     private void Authentication(View view) {
 
         String urlAPI = "https://apimongo-ghjh.onrender.com/";
@@ -93,12 +103,42 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("id", response.body());
-                    Intent intent = new Intent(Login.this, MainActivity.class);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    finish();
+                    int id = response.body();
+                    if(id != -1){
+                        metodosBanco.getPerfil(id, Login.this, new MetodosBanco.PerfilCallback() {
+                                    @Override
+                                    public void onSuccess(ModelPerfil perfil) {
+                                        SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        // Armazenar todas as informações no SharedPreferences
+                                        editor.putString("nome", perfil.getFullName());
+                                        editor.putString("nome_usuario", perfil.getUserName());
+                                        editor.putString("email", perfil.getEmail());
+                                        editor.putString("bairro", perfil.getBairro());
+                                        editor.putBoolean("mei", false);
+                                        editor.putString("telefone", perfil.getTelefone());
+                                        editor.putString("url", perfil.getProfilePicture());
+                                        editor.putString("genero", perfil.getGender());
+                                        editor.putInt("id", response.body());
+                                        editor.apply();
+                                        Toast.makeText(Login.this, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent( Login.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onError(String errorMessage) {
+                                        Toast.makeText(Login.this, "Erro ao tentar Logar.", Toast.LENGTH_SHORT).show();
+                                        Log.e("Login", "Erro: " + errorMessage);
+                                    }
+                                }
+                        );
+                    }else{
+                        Toast.makeText(Login.this, "nao ta no mongo", Toast.LENGTH_SHORT).show();
+                    }
+
+
 
                 } else {
                         Toast.makeText(Login.this, "Senha ou Email Incorretos", Toast.LENGTH_SHORT).show();

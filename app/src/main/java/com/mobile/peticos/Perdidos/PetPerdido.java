@@ -1,49 +1,124 @@
 package com.mobile.peticos.Perdidos;
 
 public class PetPerdido {
-    private final int userPhotoResId;
-    private final int fotoPrincipalResId;
-    private final String username;
-    private final String days;
-    private final String petsInPhoto;
-    private final String textView31;
-    private final String textView32;
+//    {
+//  "idPet": 0,
+//  "idUser": 0,
+//  "bairro": "string",
+//  "title": "string",
+//  "description": "string",
+//  "postTime": "2024-10-19T21:26:22.091Z",
+//  "picture": "string",
+//  "street": "string",
+//  "streetNum": 0,
+//  "lostDate": "2024-10-19"
+//}
 
-    public PetPerdido(int userPhotoResId, int fotoPrincipalResId, String username, String days, String petsInPhoto, String textView31, String textView32) {
-        this.userPhotoResId = userPhotoResId;
-        this.fotoPrincipalResId = fotoPrincipalResId;
-        this.username = username;
-        this.days = days;
-        this.petsInPhoto = petsInPhoto;
-        this.textView31 = textView31;
-        this.textView32 = textView32;
+    private int idPet;
+    private int idUser;
+    private String bairro;
+    private String title;
+    private String description;
+    private String postTime;
+    private String picture;
+    private String street;
+    private int streetNum;
+    private String lostDate;
+
+
+
+    public int getIdPet() {
+        return idPet;
     }
 
-    public int getUserPhotoResId() {
-        return userPhotoResId;
+    public void setIdPet(int idPet) {
+        this.idPet = idPet;
     }
 
-    public int getFotoPrincipalResId() {
-        return fotoPrincipalResId;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public String getUsername() {
-        return username;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
-    public String getDays() {
-        return days;
+
+    public String getBairro() {
+        return bairro;
     }
 
-    public String getPetsInPhoto() {
-        return petsInPhoto;
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
     }
 
-    public String getTextView31() {
-        return textView31;
+    public String getTitle() {
+        return title;
     }
 
-    public String getTextView32() {
-        return textView32;
+    public void setTitle(String title) {
+        this.title = title;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPostTime() {
+        return postTime;
+    }
+
+    public void setPostTime(String postTime) {
+        this.postTime = postTime;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getLostDate() {
+        return lostDate;
+    }
+
+    public void setLostDate(String lostDate) {
+        this.lostDate = lostDate;
+    }
+
+    public int getStreetNum() {
+        return streetNum;
+    }
+
+    public void setStreetNum(int streetNum) {
+        this.streetNum = streetNum;
+    }
+
+    public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String street, int streetNum, String lostDate) {
+        this.idPet = idPet;
+        this.idUser = idUser;
+        this.bairro = bairro;
+        this.title = title;
+        this.description = description;
+        this.postTime = postTime;
+        this.picture = picture;
+        this.street = street;
+        this.streetNum = streetNum;
+        this.lostDate = lostDate;
+    }
+
 }
