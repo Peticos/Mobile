@@ -176,10 +176,7 @@ public class Camera extends AppCompatActivity {
                 btnsalvar.setOnClickListener(v -> {
                     progressBar.setVisibility(View.VISIBLE);
                     database.uploadGallary(Camera.this, foto, docData);
-//                            Intent returnIntent = new Intent();
-//                            returnIntent.putExtra("url", docData.get("url")); // Retorna a URL
-//                            setResult(RESULT_OK, returnIntent); // Define o resultado
-//                            finish(); // Finaliza a atividade
+
 
                 });
             }

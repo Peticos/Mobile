@@ -11,8 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
@@ -69,8 +68,7 @@ public class CadastrarPet extends AppCompatActivity {
         if(especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
             Toast.makeText(CadastrarPet.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;}
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        FirebaseUser userLogin = autenticator.getCurrentUser();
+
         APIPerfil api = retrofit.create(APIPerfil.class);
 //        ModelPet pet = new ModelPet(
 //
