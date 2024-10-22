@@ -27,7 +27,7 @@ public interface ApiHome {
     Call<String> like(@Path("id") String id, @Query("username")String username);
 
     @PUT("/api/posts/{id}/dislike")
-    Call<FeedPet> dislike(@Path("id") int id);
+    Call<String> dislike(@Path("id") String id, @Query("username")String username);
 
     @POST("/api/posts/insert")
     Call<FeedPet> insert(@Body FeedPet feedPet);

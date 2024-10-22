@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
@@ -130,47 +130,47 @@ public class EditarPerfil extends AppCompatActivity {
                 .build();
         APIPerfil api = retrofit.create(APIPerfil.class);
 
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
+
 
         //Chamada para buscar o perfil pelo nome de usuário
-        Call<ModelPerfil> call = api.getByUsername(autenticator.getCurrentUser().getDisplayName());
-        call.enqueue(new Callback<ModelPerfil>() {
-            @Override
-            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
-                if(response.isSuccessful() && response.body() != null) {
-                    ModelPerfil model = response.body();
-//                    idUser = model.id;
-//                    emailUser = model.email;
-//                    idAddress = model.idAddress;
-//                    idPlan = model.idPlan;
-
-                    //Preencher os campos com os dados do perfil
-                    nomeCompleto.setText(model.fullName);
-                    nomeUsuario.setText(model.username);
-                    bairro.setText(model.bairro);
-                    genero.setText(model.gender);
-                    telefone.setText(model.phone);
-                }else {
-                    // Obter o código de erro e a mensagem de erro
-                    int errorCode = response.code();
-                    String errorBody = "";
-                    try {
-                        if (response.errorBody() != null) {
-                            errorBody = response.errorBody().string(); // Obter o corpo da resposta de erro como string
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    // Exibir o código de erro e a mensagem
-                    Toast.makeText(EditarPerfil.this, "Erro ao carregar perfil: Código " + errorCode + "\n" + errorBody, Toast.LENGTH_LONG).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelPerfil> call, Throwable t) {
-                Toast.makeText(EditarPerfil.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<ModelPerfil> call = api.getByUsername(autenticator.getCurrentUser().getDisplayName());
+//        call.enqueue(new Callback<ModelPerfil>() {
+//            @Override
+//            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
+//                if(response.isSuccessful() && response.body() != null) {
+//                    ModelPerfil model = response.body();
+////                    idUser = model.id;
+////                    emailUser = model.email;
+////                    idAddress = model.idAddress;
+////                    idPlan = model.idPlan;
+//
+//                    //Preencher os campos com os dados do perfil
+//                    nomeCompleto.setText(model.fullName);
+//                    nomeUsuario.setText(model.username);
+//                    bairro.setText(model.bairro);
+//                    genero.setText(model.gender);
+//                    telefone.setText(model.phone);
+//                }else {
+//                    // Obter o código de erro e a mensagem de erro
+//                    int errorCode = response.code();
+//                    String errorBody = "";
+//                    try {
+//                        if (response.errorBody() != null) {
+//                            errorBody = response.errorBody().string(); // Obter o corpo da resposta de erro como string
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    // Exibir o código de erro e a mensagem
+//                    Toast.makeText(EditarPerfil.this, "Erro ao carregar perfil: Código " + errorCode + "\n" + errorBody, Toast.LENGTH_LONG).show();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<ModelPerfil> call, Throwable t) {
+//                Toast.makeText(EditarPerfil.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     // Método para validar os campos antes de cadastrar

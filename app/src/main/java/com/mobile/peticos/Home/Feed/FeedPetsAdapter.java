@@ -162,32 +162,69 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         holder.likedBy.setText("Curtido por: "+feedPet.getLikes());
 
 
-        holder.photo.setOnClickListener(v -> {
-            //arrumar com a bianca
-            metodosBanco.curtir(feedPet.getId(), sharedPreferences.getString("nome_usuario", "nome do tutor"), new MetodosBanco.CurtirCallback() {
-                @Override
-                public void onSuccess(String modelRetorno) {
-                    holder.curtida.setVisibility(View.VISIBLE);
-                    holder.likedBy.setVisibility(View.VISIBLE);
-                    Toast.makeText(holder.itemView.getContext(), "curtido", Toast.LENGTH_SHORT).show();
+        if(feedPet.getLikes().contains(sharedPreferences.getString("nome_usuario", "nome do tutor"))){
+            holder.likeButton.setImageResource(R.drawable.like);
+            holder.liked = true;
+            holder.photo.setOnClickListener(v -> {
+                holder.curtida.setVisibility(View.VISIBLE);
 
-                    // Criar um Handler para remover a curtida após 5 segundos
-                    new Handler().postDelayed(() -> {
-                        holder.curtida.setVisibility(View.GONE);
 
-                    }, 5000); // 5000 milliseconds = 5 segundos
-                }
+                //arrumar com a bianca
+                metodosBanco.descurtir(feedPet.getId(), sharedPreferences.getString("nome_usuario", "nome do tutor"), new MetodosBanco.CurtirCallback() {
+                    @Override
+                    public void onSuccess(String modelRetorno) {
+                        holder.curtida.setVisibility(View.VISIBLE);
+                        holder.likedBy.setVisibility(View.VISIBLE);
+                        Toast.makeText(holder.itemView.getContext(), "curtido", Toast.LENGTH_SHORT).show();
 
-                @Override
-                public void onError(String errorMessage) {
-                    // Trate o erro se necessário, por exemplo:
-                    Log.e("Erro", errorMessage);
-                    Toast.makeText(holder.itemView.getContext(), "erro" + errorMessage, Toast.LENGTH_SHORT).show();
+                        // Criar um Handler para remover a curtida após 5 segundos
+                        new Handler().postDelayed(() -> {
+                            holder.curtida.setVisibility(View.GONE);
 
-                }
+                        }, 5000); // 5000 milliseconds = 5 segundos
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        // Trate o erro se necessário, por exemplo:
+                        Log.e("Erro", errorMessage);
+                    }
+                });
+
             });
 
-        });
+
+        }else{
+            holder.likeButton.setImageResource(R.drawable.ic_like);
+            holder.liked = true;
+            holder.photo.setOnClickListener(v -> {
+                //arrumar com a bianca
+                metodosBanco.curtir(feedPet.getId(), sharedPreferences.getString("nome_usuario", "nome do tutor"), new MetodosBanco.CurtirCallback() {
+                    @Override
+                    public void onSuccess(String modelRetorno) {
+                        holder.curtida.setVisibility(View.VISIBLE);
+                        holder.likedBy.setVisibility(View.VISIBLE);
+                        Toast.makeText(holder.itemView.getContext(), "curtido", Toast.LENGTH_SHORT).show();
+
+                        // Criar um Handler para remover a curtida após 5 segundos
+                        new Handler().postDelayed(() -> {
+                            holder.curtida.setVisibility(View.GONE);
+
+                        }, 5000); // 5000 milliseconds = 5 segundos
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        // Trate o erro se necessário, por exemplo:
+                        Log.e("Erro", errorMessage);
+
+                    }
+                });
+
+            });
+        }
+
+
         holder.likeButton.setOnClickListener(v -> {
             if(holder.liked){
                 holder.liked = false;

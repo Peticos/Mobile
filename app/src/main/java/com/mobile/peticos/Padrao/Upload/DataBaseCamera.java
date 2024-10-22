@@ -1,6 +1,10 @@
 package com.mobile.peticos.Padrao.Upload;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -33,8 +37,11 @@ public class DataBaseCamera {
                         taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Toast.makeText(context, "foi mas parou!", Toast.LENGTH_SHORT).show();
                                 docData.put("url", uri.toString());
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("url", docData.get("url")); // Retorna a URL
+                                ((Activity) context).setResult(Activity.RESULT_OK, returnIntent); // Define o resultado
+                                ((Activity) context).finish(); // Finaliza a atividade
 
                             }
                             public void onFailure(Exception e) {

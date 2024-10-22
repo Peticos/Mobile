@@ -23,8 +23,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
+
+
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
 import com.mobile.peticos.Perfil.Tutor.EditarPerfil;
@@ -155,9 +155,7 @@ public class PerfilProfissional extends Fragment {
         transaction.commit();
     }
     public void logout(View view) {
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
 
-        autenticator.signOut();
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);
 

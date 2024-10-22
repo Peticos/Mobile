@@ -164,8 +164,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
     }
 
     private void PublicarPost() {
-        // mudar para url quando funcionar
-        String url = "https://firebasestorage.googleapis.com/v0/b/peticos-b4633.appspot.com/o/720403.png?alt=media&token=2429fb00-920b-4979-a004-9d6c2034bda9"; // Exemplo de URL da imagem
+
 
         // Obter a data atual formatada
         String postDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -177,9 +176,11 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
 
+        List<String> likes = Arrays.asList();
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
                 sharedPreferences.getInt("id", 284), // userId
+                likes, // likes
                 url, // picture
                 legenda.getText().toString(), // caption
                 pets, // pets

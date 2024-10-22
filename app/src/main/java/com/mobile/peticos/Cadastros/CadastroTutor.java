@@ -137,9 +137,6 @@ public class CadastroTutor extends AppCompatActivity {
                                 public void onSuccess(ModelRetorno perfil) {
                                     Toast.makeText(CadastroTutor.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("id", id);
-                                    intent.putExtras(bundle);
                                     startActivity(intent);
                                     finish();
                                 }

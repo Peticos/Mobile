@@ -72,20 +72,45 @@ public class MetodosBanco {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()) {
                     Log.d("Curtir response code", "Curtir: " + response.code());
                     callback.onSuccess(response.body());
                 } else {
-                    try {
-                        // Aqui estamos pegando o corpo do erro corretamente
-                        String errorResponse = response.errorBody() != null ? response.errorBody().string() : "Erro desconhecido";
-                        Log.e("Curti error", "Erro ao curtir: " + errorResponse);
-                        callback.onError(errorResponse);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        callback.onError("Erro ao processar o corpo do erro");
-                    }
+                    callback.onError("Erro ao curtir");
                 }
+                Log.d("Response", response.toString());
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable throwable) {
+                Log.e("Curtir error onFailure", "Falha ao curtir: " + throwable.getMessage());
+                callback.onError(throwable.getMessage());
+            }
+        });
+    }
+    public void descurtir(String id, String username, CurtirCallback callback) {
+        String API = "https://apimongo-ghjh.onrender.com/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiHome api = retrofit.create(ApiHome.class);
+
+        Call<String> call = api.dislike(id, username);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Curtir response code", "Curtir: " + response.code());
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError("Erro ao curtir" + response.code());
+
+                }
+
+
             }
 
             @Override

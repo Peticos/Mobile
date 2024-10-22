@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Home.HomeFragment;
@@ -83,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!mei) {
                             openFragment(PerfilFragment.newInstance());
                         } else {
-                            openFragment(PerfilFragment.newInstance());
-                            //openFragment(PerfilProfissional.newInstance());
+                            openFragment(PerfilProfissional.newInstance());
                         }
 
                     }

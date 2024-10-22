@@ -35,8 +35,9 @@ public class FeedPet {
     public String productName;
 
 
-    public FeedPet(int userId, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
+    public FeedPet(int userId,List<String> likes, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
         this.userId = userId;
+        this.likes = likes;
         this.picture = picture;
         this.caption = caption;
         this.pets = pets;
