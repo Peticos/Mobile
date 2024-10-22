@@ -71,6 +71,20 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                 intent.setData(Uri.parse("tel:" + numero));
                 v.getContext().startActivity(intent);
             });
+            holder.shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //decidir oq vai colocar no compartilhar
+                String postContent = "Aqui está o conteúdo do post que quero compartilhar!";
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+
+                shareIntent.putExtra(Intent.EXTRA_TEXT, postContent);
+
+                v.getContext().startActivity(Intent.createChooser(shareIntent, "Compartilhar post via"));
+            }
+        });
 
             // Atribuição de outros campos, como nome do pet e foto do usuário (se disponível)
             // holder.username.setText(pet.getUsername());
@@ -93,7 +107,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
          TextView petsInPhoto;
          TextView descricao;
          TextView nomepet;
-         ImageView ic_telefone;
+         ImageView ic_telefone, shareButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +119,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             descricao = itemView.findViewById(R.id.descricaopet);
             nomepet = itemView.findViewById(R.id.nomepet2);
             ic_telefone = itemView.findViewById(R.id.ic_telefone);
+            shareButton = itemView.findViewById(R.id.btn_compartilhar);
         }
     }
 }

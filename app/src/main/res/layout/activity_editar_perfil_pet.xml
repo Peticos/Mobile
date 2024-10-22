@@ -220,7 +220,7 @@
                     android:textColor="@color/water_blue" />
 
                 <EditText
-                    android:id="@+id/editTextText6"
+                    android:id="@+id/NomeProduto"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginBottom="10dp"

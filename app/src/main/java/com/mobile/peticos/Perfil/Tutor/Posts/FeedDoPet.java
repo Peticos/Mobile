@@ -1,5 +1,7 @@
-package com.mobile.peticos.Perfil.Posts;
+package com.mobile.peticos.Perfil.Tutor.Posts;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,16 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.mobile.peticos.Home.FeedPet;
-import com.mobile.peticos.Home.FeedPetsAdapter;
-import com.mobile.peticos.Local.ApiLocais;
-import com.mobile.peticos.Local.LocaisAdapter;
-import com.mobile.peticos.Local.Local;
+import com.mobile.peticos.Home.Feed.FeedPet;
+import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Perfil.APIPerfil;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
 import com.mobile.peticos.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -93,8 +91,12 @@ public class FeedDoPet extends Fragment {
         apiPerfil = retrofit.create(APIPerfil.class);
     }
     // Inicializa o RecyclerView com todos os locais
+
     private void initRecyclerView() {
-        Call<List<FeedPet>> call = apiPerfil.getPostByid();
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        String id = String.valueOf(sharedPreferences.getInt("id", 2));
+        Toast.makeText(getContext(), id, Toast.LENGTH_SHORT).show();
+        Call<List<FeedPet>> call = apiPerfil.getPostByid(id);;
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {

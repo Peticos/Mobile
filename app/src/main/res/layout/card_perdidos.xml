@@ -111,12 +111,12 @@
                     app:tint="@color/red_or_orange" />
 
                 <ImageView
-                    android:id="@+id/imageView15"
+                    android:id="@+id/btn_compartilhar"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
                     android:src="@drawable/ic_share"
-                    app:tint="@color/red_or_orange"/>
+                    app:tint="@color/red_or_orange" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,7 +140,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/nomepet2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lilita_one"

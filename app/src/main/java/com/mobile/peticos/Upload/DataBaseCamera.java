@@ -25,7 +25,7 @@ public class DataBaseCamera {
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
-        storage.getReference("/Perfil").child("FotoPerfil" + System.currentTimeMillis() + ".jpg")
+        storage.getReference("/Posts").child("Postagem" + System.currentTimeMillis() + ".jpg")
                 .putBytes(databyte).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -33,6 +33,7 @@ public class DataBaseCamera {
                         taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+                                Toast.makeText(context, "foi mas parou!", Toast.LENGTH_SHORT).show();
                                 docData.put("url", uri.toString());
                                 listener.onUploadComplete(uri.toString()); // Chame o callback
                             }

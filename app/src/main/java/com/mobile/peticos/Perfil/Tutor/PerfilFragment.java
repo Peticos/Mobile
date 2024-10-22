@@ -28,17 +28,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
-import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 
-import com.mobile.peticos.Perfil.Tutor.AdapterPet;
-import com.mobile.peticos.Perfil.Tutor.Calendario.CalendarioFragment;
-import com.mobile.peticos.Perfil.Posts.FeedDoPet;
+import com.mobile.peticos.Perfil.Tutor.Posts.FeedDoPet;
 import com.mobile.peticos.R;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
