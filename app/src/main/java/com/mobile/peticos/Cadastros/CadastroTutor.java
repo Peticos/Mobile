@@ -4,13 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-
-
-import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +23,9 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
+import com.mobile.peticos.Padrao.CallBack.AuthCallback;
 import com.mobile.peticos.Padrao.Camera;
-import com.mobile.peticos.MainActivity;
+import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
 
@@ -47,26 +42,43 @@ import android.content.SharedPreferences;
 
 public class CadastroTutor extends AppCompatActivity {
 
-    // Declaração de variáveis
-    ImageView btnUpload;
-    private ActivityResultLauncher<Intent> cameraLauncher;
+    // Variáveis de interface
+    private ImageView btnUpload;
+    private Button btnCadastrar;
+    private EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
+    private AutoCompleteTextView bairro, genero;
+    private View senha1, senha2;
 
-    Button btnCadastrar;
-    String url;
-    Retrofit retrofit;
-    EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
-    AutoCompleteTextView bairro, genero;
-    View senha1, senha2;
-    List<String> generoList = new ArrayList<>();
+    // Variáveis de configuração
+    private String url = null;
+    private Metodos metodos = new Metodos();
+    private AuthCallback callback;
+    private Retrofit retrofit;
+    private ActivityResultLauncher<Intent> cameraLauncher;
+    private List<String> generoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_tutor);
+        inicializarComponentes();
+        configurarCameraLauncher();
+        configurarGenero();
+        carregarBairros();
+        configurarCadastro();
+    }
+    // Método para cadastrar o tutor no banco de dados
+    private void cadastrarTutorBanco(View view) {
+        if (nomeCompleto.getText().toString().isEmpty() ||
+                nomeUsuario.getText().toString().isEmpty() ||
+                emailCadastro.getText().toString().isEmpty() ||
+                bairro.getText().toString().isEmpty() ||
+                telefone.getText().toString().isEmpty() ||
+                genero.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-<<<<<<< HEAD
-        // Inicializando variáveis de interface
-=======
         String urlAPI = "https://apipeticos.onrender.com";
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
@@ -160,7 +172,6 @@ public class CadastroTutor extends AppCompatActivity {
 
     // Inicializa os componentes de interface
     private void inicializarComponentes() {
->>>>>>> 76312e3696b5ddca060882ef5836125117b90647
         nomeCompleto = findViewById(R.id.nomeCompleto);
         nomeUsuario = findViewById(R.id.nomeUsuario);
         telefone = findViewById(R.id.telefone);
@@ -175,64 +186,61 @@ public class CadastroTutor extends AppCompatActivity {
         btnUpload = findViewById(R.id.upload);
         url = null;
 
-        // Inicializa o ActivityResultLauncher
+        senha1.setVisibility(View.INVISIBLE);
+        senha2.setVisibility(View.INVISIBLE);
+    }
+
+    // Configura o ActivityResultLauncher para a câmera
+    private void configurarCameraLauncher() {
         cameraLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            url = data.getStringExtra("url"); // Obter a URL do Intent
-                            if(url != null){
-                                url.replace("\"", "");
-                                url.replace(" ", "");
+                            url = data.getStringExtra("url");
+                            if (url != null) {
+                                url = url.replace("\"", "").replace(" ", "");
                                 RequestOptions options = new RequestOptions()
-                                        .centerCrop() // Garante que a imagem preencha o espaço
-                                        .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
+                                        .centerCrop()
+                                        .transform(new RoundedCorners(30));
 
                                 Glide.with(this)
                                         .load(url)
                                         .apply(options)
                                         .into(btnUpload);
-
                             }
-
                         }
                     }
                 }
         );
 
-
-        //upload da imagem
         btnUpload.setOnClickListener(v -> {
             Intent intent = new Intent(CadastroTutor.this, Camera.class);
             Bundle bundle = new Bundle();
             bundle.putString("tipo", "tutor");
             intent.putExtras(bundle);
-            cameraLauncher.launch(intent); // Apenas lance o Intent sem o código de solicitação
+            cameraLauncher.launch(intent);
         });
+    }
 
-
-
-        // Esconder as mensagens de erro de senha inicialmente
-        senha1.setVisibility(View.INVISIBLE);
-        senha2.setVisibility(View.INVISIBLE);
-
-        // Configuração do Spinner de gênero
-
+    // Configura o AutoCompleteTextView para gênero
+    private void configurarGenero() {
         generoList.add("Masculino");
         generoList.add("Feminino");
         generoList.add("Não Binário");
         generoList.add("Prefiro não dizer");
 
         ArrayAdapter<String> adapterGenero = new ArrayAdapter<>(
-                CadastroTutor.this,
+                this,
                 android.R.layout.simple_dropdown_item_1line,
                 generoList
         );
         genero.setAdapter(adapterGenero);
+    }
 
-        // Chamar API de bairros
+    // Carrega os bairros usando a API
+    private void carregarBairros() {
         String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
@@ -248,20 +256,17 @@ public class CadastroTutor extends AppCompatActivity {
             public void onResponse(Call<List<ModelBairro>> call, Response<List<ModelBairro>> response) {
                 List<ModelBairro> bairrosList = response.body();
                 List<String> bairrosNomes = new ArrayList<>();
-
                 if (bairrosList != null) {
                     for (ModelBairro bairro : bairrosList) {
                         bairrosNomes.add(bairro.getNeighborhood());
                     }
-
-                    // Configurando o AutoCompleteTextView com o adapter
                     ArrayAdapter<String> adapterBairro = new ArrayAdapter<>(
                             CadastroTutor.this,
                             android.R.layout.simple_dropdown_item_1line,
                             bairrosNomes
                     );
                     bairro.setAdapter(adapterBairro);
-                    bairro.setThreshold(1); // Número mínimo de caracteres para sugestões
+                    bairro.setThreshold(1);
                 }
             }
 
@@ -275,17 +280,20 @@ public class CadastroTutor extends AppCompatActivity {
         btnCadastrar.setOnClickListener(v -> validarCampos(v));
     }
 
-
+    // Configura o botão de cadastro
+    private void configurarCadastro() {
+        btnCadastrar.setOnClickListener(v ->
+                validarCampos(v));
+    }
 
     // Método para validar os campos antes de cadastrar
-    private void validarCampos(View view)
-    {
+    private void validarCampos(View view) {
         boolean erro = false;
 
         if (nomeCompleto.getText().toString().isEmpty()) {
             nomeCompleto.setError("Nome completo é obrigatório");
             erro = true;
-        }else if (nomeCompleto.getText().toString().length() > 255) {
+        } else if (nomeCompleto.getText().toString().length() > 255) {
             nomeCompleto.setError("Excesso de caracteres. Max. 255");
             erro = true;
         }
@@ -293,34 +301,25 @@ public class CadastroTutor extends AppCompatActivity {
         if (nomeUsuario.getText().toString().isEmpty()) {
             nomeUsuario.setError("Nome de usuário é obrigatório");
             erro = true;
-        }else if (nomeUsuario.getText().toString().length() > 255) {
+        } else if (nomeUsuario.getText().toString().length() > 255) {
             nomeUsuario.setError("Excesso de caracteres. Max. 255");
             erro = true;
         }
-        if(genero.getText().toString().isEmpty()){
-            genero.setError("Genero é obrigatório");
-            erro = true;
-        }else if(!generoList.contains(genero.getText().toString())){
+
+        if (genero.getText().toString().isEmpty() || !generoList.contains(genero.getText().toString())) {
             genero.setError("Genero inválido");
             erro = true;
         }
 
-        if (telefone.getText().toString().isEmpty()) {
-            telefone.setError("Telefone é obrigatório");
-            erro = true;
-        } else if (!validarTelefone(telefone.getText().toString())) {
+        if (telefone.getText().toString().isEmpty() || !validarTelefone(telefone.getText().toString())) {
             telefone.setError("Telefone inválido");
             erro = true;
         }
 
-        if (emailCadastro.getText().toString().isEmpty()) {
-            emailCadastro.setError("Campo obrigatório");
-            erro = true;
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailCadastro.getText().toString()).matches()) {
-            emailCadastro.setError("E-mail inválido");
-            erro = true;
-        }else if (emailCadastro.getText().toString().length() > 255) {
-            emailCadastro.setError("Excesso de caracteres. Max. 255");
+        if (emailCadastro.getText().toString().isEmpty() ||
+                !android.util.Patterns.EMAIL_ADDRESS.matcher(emailCadastro.getText().toString()).matches() ||
+                emailCadastro.getText().toString().length() > 255) {
+            emailCadastro.setError("E-mail inválido ou com excesso de caracteres");
             erro = true;
         }
 
@@ -330,223 +329,13 @@ public class CadastroTutor extends AppCompatActivity {
         }
 
         if (!erro) {
-            // Verificar se o bairro é válido antes de continuar o cadastro
-//            verificarBairro(new BairroCallback() {
-//                @Override
-//                public void onResult(boolean bairroEncontrado) {
-//                    if (bairroEncontrado) {
-            cadastrarTutorBanco(view); // Continuar com o cadastro
-//                    } else {
-//                        bairro.setError("Selecione um bairro válido");
-//                    }
-//                }
-//            });
+            cadastrarTutorBanco(view);
         }
     }
 
 
-    // Método para salvar o usuário no Firebase e no banco
-    // private void salvarUsuarioFireBase(View view) {
-//        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-//        String txtEmail = emailCadastro.getText().toString();
-//        String txtSenha = senhaCadastro.getText().toString();
-//        String nomeUsuario = this.nomeUsuario.getText().toString();
-//
-//        if (txtEmail.isEmpty() || txtSenha.isEmpty() || nomeUsuario.isEmpty()) {
-//            Toast.makeText(CadastroTutor.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        autenticator.createUserWithEmailAndPassword(txtEmail, txtSenha)
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        FirebaseUser userLogin = autenticator.getCurrentUser();
-//                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                                .setDisplayName(nomeUsuario)
-//                                .setPhotoUri(Uri.parse(url))
-//                                .build();
-//
-//                        if (userLogin != null) {
-//                            userLogin.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
-//                                if (task1.isSuccessful()) {
-//                                    cadastrarTutorBanco(view);
-//                                }
-//                            });
-//                        }
-//                    } else {
-//                        Toast.makeText(CadastroTutor.this, "Erro ao cadastrar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
-
-
-
-
-    private void cadastrarTutorBanco(View view) {
-        // Verificando se os campos obrigatórios estão preenchidos
-        if (nomeCompleto.getText().toString().isEmpty() ||
-                nomeUsuario.getText().toString().isEmpty() ||
-                emailCadastro.getText().toString().isEmpty() ||
-                bairro.getText().toString().isEmpty() ||
-                telefone.getText().toString().isEmpty() ||
-                genero.getText().toString().isEmpty()) {
-
-            Toast.makeText(CadastroTutor.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String urlAPI = "https://apipeticos.onrender.com";
-
-
-
-        Retrofit retrofitPerfil = new Retrofit.Builder()
-                .baseUrl(urlAPI)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
-
-        ModelPerfil perfil = new ModelPerfil(
-                nomeCompleto.getText().toString(),
-                nomeUsuario.getText().toString(),
-                emailCadastro.getText().toString(),
-                bairro.getText().toString(),
-                "Sem Plano",
-                telefone.getText().toString(),
-                null,
-                url,
-                genero.getText().toString(),
-                "Tutor"
-        );
-
-
-        Log.d("teste", perfil.toString());
-        Call<Integer> call = aPIPerfil.insertTutor(perfil);
-
-        call.enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(CadastroTutor.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                    Bundle bundle = new Bundle();
-                    Integer id = response.body();
-                    bundle.putInt("id", id);
-                    Toast.makeText(CadastroTutor.this, "oi " + id, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CadastroTutor.this, MainActivity.class);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    finish();
-
-                } else {
-                    String errorMessage;
-                    switch (response.code()) {
-                        case 400:
-                            errorMessage = "Erro 400: Requisição inválida. Verifique os dados.";
-                            break;
-                        case 404:
-                            errorMessage = "Erro 404: Servidor não encontrado.";
-                            break;
-                        case 500:
-                            errorMessage = "Erro 500: Erro no servidor.";
-                            break;
-                        default:
-                            errorMessage = "Erro ao cadastrar: " + response.code();
-                            break;
-                    }
-                    Toast.makeText(CadastroTutor.this, errorMessage, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-                Toast.makeText(CadastroTutor.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    // Método para validar o formato do telefone
+    private boolean validarTelefone(String telefone) {
+        return android.util.Patterns.PHONE.matcher(telefone).matches() && telefone.length() <= 15;
     }
-
-
-    // Verifica se o telefone é válido (10 ou 11 dígitos)
-    private boolean validarTelefone(String phoneNumber) {
-        phoneNumber = phoneNumber.replaceAll("[^\\d]", "");
-        return phoneNumber.length() == 10 || phoneNumber.length() == 11;
-    }
-
-//    //verificar se o bairro selecionado esta na api
-//    private void verificarBairro(BairroCallback callback) {
-//        // URL da API
-//        String API = "https://apipeticos.onrender.com";
-//        retrofit = new Retrofit.Builder()
-//                .baseUrl(API)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        // Criar chamada
-//        APIBairro apiBairro = retrofit.create(APIBairro.class);
-//        Call<List<ModelBairro>> call = apiBairro.getAll();
-//
-//        // Defina o bairro que você deseja verificar
-//        String bairroProcurado = bairro.getText().toString();
-//
-//        // Executar chamada da API
-//        call.enqueue(new Callback<List<ModelBairro>>() {
-//            @Override
-//            public void onResponse(Call<List<ModelBairro>> call, retrofit2.Response<List<ModelBairro>> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    List<ModelBairro> bairrosList = response.body();
-//
-//                    // Verificar se o bairro está presente
-//                    boolean bairroEncontrado = false;
-//                    for (ModelBairro bairro : bairrosList) {
-//                        if (bairroProcurado.equalsIgnoreCase(bairro.getNeighborhood())) {
-//                            bairroEncontrado = true;
-//                            break;
-//                        }
-//                    }
-//
-//                    // Chamar o callback com o resultado
-//                    callback.onResult(bairroEncontrado);
-//                } else {
-//                    callback.onResult(false);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
-//                throwable.printStackTrace();
-//                callback.onResult(false);
-//            }
-//        });
-//    }
-
-    // Interface de callback para a verificação de bairro
-    public interface BairroCallback {
-        void onResult(boolean bairroEncontrado);
-    }
-    // Método para validar se a senha é forte
-    private boolean validarSenhaForte(String senha) {
-        if (senha.length() < 8) {
-            return false;
-        }
-
-        boolean temLetraMaiuscula = false;
-        boolean temLetraMinuscula = false;
-        boolean temNumero = false;
-        boolean temCaractereEspecial = false;
-
-        for (char c : senha.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                temLetraMaiuscula = true;
-            } else if (Character.isLowerCase(c)) {
-                temLetraMinuscula = true;
-            } else if (Character.isDigit(c)) {
-                temNumero = true;
-            } else if (!Character.isLetterOrDigit(c)) {
-                temCaractereEspecial = true;
-            }
-        }
-
-        return temLetraMaiuscula && temLetraMinuscula && temNumero && temCaractereEspecial;
-    }
-
-
-
 }

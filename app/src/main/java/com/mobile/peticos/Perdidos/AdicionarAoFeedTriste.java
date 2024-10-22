@@ -187,9 +187,6 @@ public class AdicionarAoFeedTriste extends Fragment {
             Log.e("AdicionarAoFeedTriste", "Permissão de notificações não concedida.");
         }
     }
-<<<<<<< HEAD
-}
-=======
 
     private void createNotificationChannel() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -203,4 +200,3 @@ public class AdicionarAoFeedTriste extends Fragment {
 
 
 }
->>>>>>> 76312e3696b5ddca060882ef5836125117b90647
