@@ -21,13 +21,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.mobile.peticos.Home.ApiHome;
 import com.mobile.peticos.Home.Feed.FeedPet;
-import com.mobile.peticos.Home.HomeFragment;
+
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.mobile.peticos.Padrao.Camera;
+import com.mobile.peticos.Padrao.Upload.Camera;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;

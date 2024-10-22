@@ -134,10 +134,8 @@ public class PerfilFragment extends Fragment {
                     List<ModelPetBanco> listaPets = response.body();
                     AdapterPet adapterPet = new AdapterPet(listaPets);
                     recyclerPets.setAdapter(adapterPet);
-                    Toast.makeText(getContext(), "Sucesso", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
-                    Toast.makeText(getContext(), "Erro: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 

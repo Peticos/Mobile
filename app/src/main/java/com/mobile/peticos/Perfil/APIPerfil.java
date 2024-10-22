@@ -10,6 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface APIPerfil {
+
     @GET("/api/posts/findbyuserid/{id}")
     Call<List<FeedPet>> getPostByid(@Path("id") String id);
 }
