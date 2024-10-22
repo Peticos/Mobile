@@ -44,7 +44,7 @@ public class Camera extends AppCompatActivity {
     private static final String[] REQUIRED_PERMISSIONS = {
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private DataBaseCamera database = new DataBaseCamera();
     private Map<String, String> docData = new HashMap<>();
@@ -179,6 +179,7 @@ public class Camera extends AppCompatActivity {
                     database.uploadGallary(Camera.this, foto, docData, new DataBaseCamera.OnUploadCompleteListener() {
                         @Override
                         public void onUploadComplete(String url) {
+                            Bundle bundle = getIntent().getExtras();
                             Intent returnIntent = new Intent();
                             returnIntent.putExtra("url", docData.get("url")); // Retorna a URL
                             setResult(RESULT_OK, returnIntent); // Define o resultado

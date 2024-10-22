@@ -6,7 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+<<<<<<< HEAD
 import android.net.Uri;
+=======
+import android.content.SharedPreferences;
+>>>>>>> 76312e3696b5ddca060882ef5836125117b90647
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -182,6 +186,7 @@ public class CadastroProfissional extends AppCompatActivity {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()) {
+<<<<<<< HEAD
                     Toast.makeText(CadastroProfissional.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(CadastroProfissional.this, DesejaCadastrarUmPet.class);
@@ -191,6 +196,45 @@ public class CadastroProfissional extends AppCompatActivity {
 
                     startActivity(intent);
                     finish();
+=======
+                    int id = response.body();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    // Armazenar todas as informações no SharedPreferences
+                    editor.putString("nome", perfil.getFullName());
+                    editor.putString("nome_usuario", perfil.getUserName());
+                    editor.putString("email", perfil.getEmail());
+                    editor.putString("bairro", perfil.getBairro());
+                    editor.putBoolean("mei", true);
+                    editor.putString("telefone", perfil.getTelefone());
+                    editor.putString("url", perfil.getProfilePicture());
+                    editor.putString("genero", perfil.getGender());
+                    editor.putInt("id", response.body());
+
+                    editor.apply();
+
+
+
+                    Metodos metodos = new Metodos();
+                    metodos.Authentication(
+                            view,
+                            id,
+                            email.getText().toString(),
+                            senha1.getText().toString(),
+                            view.getContext(),
+                            new AuthCallback() {
+                                @Override
+                                public void onSuccess(ModelRetorno perfil) {
+                                    Toast.makeText(CadastroProfissional.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CadastroProfissional.this, DesejaCadastrarUmPet.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("id", id);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                }
+>>>>>>> 76312e3696b5ddca060882ef5836125117b90647
 
                 } else {
                     String errorMessage;

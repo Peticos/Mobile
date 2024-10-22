@@ -1,4 +1,4 @@
-package com.mobile.peticos.Home;
+package com.mobile.peticos.Home.HomeDica;
 
 public class DicasDoDia {
 //    [

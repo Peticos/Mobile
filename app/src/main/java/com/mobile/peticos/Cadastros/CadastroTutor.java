@@ -42,6 +42,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import android.content.SharedPreferences;
+
 
 public class CadastroTutor extends AppCompatActivity {
 
@@ -62,7 +64,103 @@ public class CadastroTutor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_tutor);
 
+<<<<<<< HEAD
         // Inicializando variáveis de interface
+=======
+        String urlAPI = "https://apipeticos.onrender.com";
+        Retrofit retrofitPerfil = new Retrofit.Builder()
+                .baseUrl(urlAPI)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
+        ModelPerfil perfil = new ModelPerfil(
+                nomeCompleto.getText().toString(),
+                nomeUsuario.getText().toString(),
+                emailCadastro.getText().toString(),
+                bairro.getText().toString(),
+                "Sem Plano",
+                telefone.getText().toString(),
+                null,
+                url,
+                genero.getText().toString(),
+                null
+        );
+
+
+
+
+
+
+
+        Call<Integer> call = aPIPerfil.insertTutor(perfil);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.code() == 200) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    // Armazenar todas as informações no SharedPreferences
+                    editor.putString("nome", perfil.getFullName());
+                    editor.putString("nome_usuario", perfil.getUserName());
+                    editor.putString("email", perfil.getEmail());
+                    editor.putString("bairro", perfil.getBairro());
+                    editor.putBoolean("mei", false);
+                    editor.putString("telefone", perfil.getTelefone());
+                    editor.putString("url", perfil.getProfilePicture());
+                    editor.putString("genero", perfil.getGender());
+                    editor.putInt("id", response.body());
+
+                    editor.apply();
+                    int id = response.body();
+                    Metodos metodos = new Metodos();
+                    metodos.Authentication(
+                            view,
+                            id,
+                            emailCadastro.getText().toString(),
+                            senhaCadastro.getText().toString(),
+                            view.getContext(),
+                            new AuthCallback() {
+                                @Override
+                                public void onSuccess(ModelRetorno perfil) {
+                                    Toast.makeText(CadastroTutor.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("id", id);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onError(String errorMessage) {
+                                    // Lide com o erro, se necessário
+                                    Toast.makeText(CadastroTutor.this, "Erro ao autenticar: " + errorMessage, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                    );
+
+                }
+
+                else {
+                    Toast.makeText(CadastroTutor.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.e("CadastroTutor", "Erro: " + t.getMessage());
+                Toast.makeText(CadastroTutor.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
+    // Inicializa os componentes de interface
+    private void inicializarComponentes() {
+>>>>>>> 76312e3696b5ddca060882ef5836125117b90647
         nomeCompleto = findViewById(R.id.nomeCompleto);
         nomeUsuario = findViewById(R.id.nomeUsuario);
         telefone = findViewById(R.id.telefone);
