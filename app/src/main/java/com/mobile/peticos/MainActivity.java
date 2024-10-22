@@ -83,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!mei) {
                             openFragment(PerfilFragment.newInstance());
                         } else {
-                            openFragment(PerfilFragment.newInstance());
-                            //openFragment(PerfilProfissional.newInstance());
+                            openFragment(PerfilProfissional.newInstance());
                         }
 
                     }

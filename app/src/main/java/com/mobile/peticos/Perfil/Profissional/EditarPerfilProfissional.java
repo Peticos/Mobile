@@ -11,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,8 +19,10 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
+import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
-import com.mobile.peticos.Padrao.Upload.Camera;
+import com.mobile.peticos.Padrao.Camera;
+import com.mobile.peticos.Perfil.Tutor.EditarPerfil;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
