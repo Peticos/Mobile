@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiHome {
 
@@ -23,13 +24,17 @@ public interface ApiHome {
     Call <List<DicasDoDia>> getDayHint();
 
     @PUT("/api/posts/{id}/like")
-    Call<ModelRetorno> like(@Path("id") int id, @Body FeedPet feedPet);
+    Call<String> like(@Path("id") String id, @Query("username")String username);
 
     @PUT("/api/posts/{id}/dislike")
     Call<FeedPet> dislike(@Path("id") int id);
 
     @POST("/api/posts/insert")
     Call<FeedPet> insert(@Body FeedPet feedPet);
+
+    @GET("/api/petregister/nicknames")
+    Call<List<String>> getPetNicknames( @Query("ids") List<Integer> ids);
+
 
 
 

@@ -1,6 +1,7 @@
 package com.mobile.peticos;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,48 +53,14 @@ public class MainActivity extends AppCompatActivity {
         api = retrofit.create(APIPerfil.class);
 
 
-
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
-            id = bundle.getInt("id");
-        }else {
-            id = 237;
-        }
-        Toast.makeText(this, "id: " + id , Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+        Boolean mei = sharedPreferences.getBoolean("mei", true);
+        int id = sharedPreferences.getInt("id", 278);
 
 
-        Call<ModelPerfil> call = api.findById(id);
-        call.enqueue(new Callback<ModelPerfil>() {
-            @Override
-            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ModelPerfil perfil = response.body();
-
-                    // Aqui, continue com a lógica para abrir o fragment correto
-                    if (perfil.getCnpj().equals("Tutor")) {
-                        perfilbool = true;
-                        Toast.makeText(MainActivity.this, "tutor", Toast.LENGTH_SHORT).show();
-                    } else {
-                        perfilbool = false;
-                        Toast.makeText(MainActivity.this, "profissional", Toast.LENGTH_SHORT).show();
 
 
-                    }
-                }else{
-                    perfilbool = true;
-                    Toast.makeText(MainActivity.this, "else", Toast.LENGTH_SHORT).show();
-                    Log.e("erro", "Erro: " + response.code());
 
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ModelPerfil> call, Throwable t) {
-                // Trate a falha da chamada à API aqui
-                perfilbool = true;
-
-            }
-        });
 
         openFragment(HomeFragment.newInstance());
 
@@ -113,18 +80,11 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-
-                        if (perfilbool != null) {
-                            if (perfilbool) {
-                                openFragment(PerfilFragment.newInstance());
-                            } else {
-                                openFragment(PerfilProfissional.newInstance());
-                            }
+                        if (!mei) {
+                            openFragment(PerfilFragment.newInstance());
                         } else {
-                            // Se o perfil ainda não foi carregado, exibe uma mensagem ou faz algo
-                            showLoadingMessage();
+                            openFragment(PerfilProfissional.newInstance());
                         }
-
 
                     }
                     return true;

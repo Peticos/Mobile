@@ -1,6 +1,8 @@
 package com.mobile.peticos.Home;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -31,7 +34,6 @@ import com.mobile.peticos.Perdidos.AdicionarAoFeedTriste;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -62,7 +64,7 @@ public class HomeFragment extends Fragment {
         return new HomeFragment();
     }
 
-    ImageButton btnCadastrar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,24 +73,39 @@ public class HomeFragment extends Fragment {
         // Verificar e solicitar permissão de notificação ao abrir a tela
         checkNotificationPermission();
 
-        btnCadastrar = view.findViewById(R.id.btnCadastrar);
 
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //fazer logica de qual dos cadastros chamar quando o id vier do cash!
-                //adicionar ao feed
-//                getParentFragmentManager().beginTransaction()
-//                        .replace(R.id.fragmentContainerView,  AdicionarAoFeedPrincipal.newInstance())
-//                            .addToBackStack(null)
-//                            .commit();
-                //adicionar produto
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView,  AdicionarProduto.newInstance())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+
+        Boolean mei = sharedPreferences.getBoolean("mei", true);
+
+        // Encontrar o ImageView com o ID correto
+        ImageView btnCadastrar = view.findViewById(R.id.btn_cadastrar_feed);
+
+        if (btnCadastrar != null) {
+            btnCadastrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mei) {
+                        // Adicionar produto
+                        getParentFragmentManager().beginTransaction()
+                                .replace(R.id.fragmentContainerView, AdicionarProduto.newInstance())
+                                .addToBackStack(null)
+                                .commit();
+                    } else {
+                        // Adicionar ao feed
+                        getParentFragmentManager().beginTransaction()
+                                .replace(R.id.fragmentContainerView, AdicionarAoFeedPrincipal.newInstance())
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                }
+            });
+        } else {
+            // Log para depuração, caso o botão ainda seja nulo
+            Log.e("HomeFragment", "btnCadastrar é nulo");
+        }
+
 
         setupRetrofitFeed();
         initRecyclerViewFeed(view);

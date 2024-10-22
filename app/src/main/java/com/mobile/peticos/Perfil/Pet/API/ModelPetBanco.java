@@ -6,13 +6,10 @@ public class ModelPetBanco {
     //{
     //  {
     //  "idUser": 0,
+    //  "idPet": 0,
     //  "nickname": "string",
     //  "age": 0,
     //  "sex": "string",
-    //  "idSpecie": 0,
-    //  "idRace": 0,
-    //  "idSize": 0,
-    //  "idColor": 0,
     //  "specie": "string",
     //  "race": "string",
     //  "size": "string",

@@ -1,6 +1,8 @@
 package com.mobile.peticos.Perfil.Tutor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,21 +20,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Cadastros.CadastrarPet;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
-import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 
-import com.mobile.peticos.Perfil.Tutor.AdapterPet;
-import com.mobile.peticos.Perfil.Tutor.Calendario.CalendarioFragment;
-import com.mobile.peticos.Perfil.Posts.FeedDoPet;
+import com.mobile.peticos.Perfil.Tutor.Posts.FeedDoPet;
 import com.mobile.peticos.R;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -78,6 +80,27 @@ public class PerfilFragment extends Fragment {
 
         btn_cadastrarpet = view.findViewById(R.id.btn_cadastrarpet);
 
+        // Acesso ao SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+
+
+        // Recuperar os dados
+        String url = sharedPreferences.getString("url", "https://firebasestorage.googleapis.com/v0/b/apipeticos.appspot.com/o/Imagens%2Fdefault.png?alt=media&token=5d7a6aaf-0d4f-4b3e-9f4b-0e2e9f1c9a0c");
+        RequestOptions options = new RequestOptions()
+                .centerCrop() // Garante que a imagem preencha o espaço
+                .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
+
+        Glide.with(this)
+                .load(url)
+                .apply(options)
+                .error(R.drawable.fotogenerica) // Imagem que aparece em caso de erro
+                .into(fotoPerfil);
+
+
+        nome.setText(sharedPreferences.getString("nome", "nome do tutor"));
+        email.setText(sharedPreferences.getString("email", "email do tutor"));
+
+
 
         //botao logout
         Button btnLogout = view.findViewById(R.id.btnSair);
@@ -101,35 +124,32 @@ public class PerfilFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-
         APIPets apiPets = retrofit.create(APIPets.class);
 
+        Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "modolo"));
+        call.enqueue(new Callback<List<ModelPetBanco>>() {
+            @Override
+            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<ModelPetBanco> listaPets = response.body();
+                    AdapterPet adapterPet = new AdapterPet(listaPets);
+                    recyclerPets.setAdapter(adapterPet);
+                    Toast.makeText(getContext(), "Sucesso", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("API_ERROR", "Erro: " + response.errorBody());
+                    Toast.makeText(getContext(), "Erro: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
 
-//        Call<List<ModelPetBanco>> call = apiPets.getPets();
-//
-//        call.enqueue(new Callback<List<ModelPetBanco>>() {
-//            @Override
-//            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
-//                if (response.isSuccessful()) {
-//                    List<ModelPetBanco> ListaPets = response.body(); // Lista recebida da API
-//                    if (ListaPets != null) {
-//                        AdapterPet adapterPet = new AdapterPet(ListaPets); // Passa a lista para o Adapter
-//                        recyclerPets.setAdapter(adapterPet); // Configura o RecyclerView
-//                        adapterPet.notifyDataSetChanged();
-//
-//                    }
-//                } else {
-//                    // Tratar caso não seja bem-sucedido
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
-//                // Tratar falha
-//            }
-//        });
-//
-//
+            @Override
+            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                Log.e("API_ERROR", "Falha na chamada", t);
+                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
 
         CardView cardPost = view.findViewById(R.id.cardPost);
         CardView cardVakinhas = view.findViewById(R.id.cardVakinhas);

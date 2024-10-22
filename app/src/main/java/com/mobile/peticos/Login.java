@@ -101,9 +101,7 @@ public class Login extends AppCompatActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
-                    Intent intent = new Intent(Login.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+
                 } else {
                         Toast.makeText(Login.this, "Senha ou Email Incorretos", Toast.LENGTH_SHORT).show();
                 }

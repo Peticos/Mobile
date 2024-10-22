@@ -11,6 +11,7 @@ import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
 import com.mobile.peticos.Padrao.ModelRetorno;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -58,7 +59,7 @@ public class MetodosBanco {
         void onError(String errorMessage);
     }
 
-    public void curtir(int id, FeedPet feedPet, CurtirCallback callback) {
+    public void curtir(String id, String username, CurtirCallback callback) {
         String API = "https://apimongo-ghjh.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
@@ -67,34 +68,72 @@ public class MetodosBanco {
 
         ApiHome api = retrofit.create(ApiHome.class);
 
-        Call<ModelRetorno> call = api.like(id, feedPet);
-        call.enqueue(new Callback<ModelRetorno>() {
+        Call<String> call = api.like(id, username);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("Curtir", "Curtir: " + response.body());
+                    Log.d("Curtir response code", "Curtir: " + response.code());
                     callback.onSuccess(response.body());
-
-
                 } else {
-                    Log.d("Curtir", "Curtir: " + response.errorBody().toString());
-                    callback.onError(response.errorBody().toString());
+                    try {
+                        // Aqui estamos pegando o corpo do erro corretamente
+                        String errorResponse = response.errorBody() != null ? response.errorBody().string() : "Erro desconhecido";
+                        Log.e("Curti error", "Erro ao curtir: " + errorResponse);
+                        callback.onError(errorResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        callback.onError("Erro ao processar o corpo do erro");
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable throwable) {
+                Log.e("Curtir error onFailure", "Falha ao curtir: " + throwable.getMessage());
+                callback.onError(throwable.getMessage());
+            }
+        });
+    }
+    public interface CurtirCallback {
+        void onSuccess(String modelRetorno);
+        void onError(String errorMessage);
+    }
+
+    public void getPets(List<Integer> ids, PetsCallBack callback) {
+        String API = "https://apipeticos.onrender.com";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiHome api = retrofit.create(ApiHome.class);
+
+        Call<List<String>> call = api.getPetNicknames(ids);
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<String> listapets = response.body();
+                    Log.d("Perfil", "Perfil: " + listapets);
+
+                    callback.onSuccess(listapets);
+                } else {
+
+                    callback.onError("Nenhum perfil encontrado");
 
                 }
             }
 
             @Override
-            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
-                Log.d("Curtir", "Curtir: " + throwable.getMessage());
+            public void onFailure(Call<List<String>> call, Throwable throwable) {
+                Log.e("Perfil", "Erro: " + throwable.getMessage());
                 callback.onError(throwable.getMessage());
-
             }
         });
-
     }
-    public interface CurtirCallback {
-        void onSuccess(ModelRetorno modelRetorno);
+    public interface PetsCallBack {
+        void onSuccess(List<String> nomes);
         void onError(String errorMessage);
     }
 

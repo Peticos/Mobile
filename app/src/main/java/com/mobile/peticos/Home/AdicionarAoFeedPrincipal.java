@@ -2,7 +2,9 @@ package com.mobile.peticos.Home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -173,11 +175,12 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         List<Integer> pets = Arrays.asList(1,3,6); // Usando Arrays.asList para criar a lista
 
         //mudar para o id do user quando funcionar
-        int id = 2;
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+
 
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
-                id, // userId
+                sharedPreferences.getInt("id", 284), // userId
                 url, // picture
                 legenda.getText().toString(), // caption
                 pets, // pets

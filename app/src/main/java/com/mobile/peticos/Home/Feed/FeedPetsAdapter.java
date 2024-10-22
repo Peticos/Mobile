@@ -1,8 +1,11 @@
 package com.mobile.peticos.Home.Feed;
 
+import static androidx.core.content.ContextCompat.startActivity;
 import static java.security.AccessController.getContext;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
@@ -20,7 +23,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.MetodosBanco;
 import com.mobile.peticos.Padrao.ModelRetorno;
@@ -50,8 +52,10 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
     @Override
     public void onBindViewHolder(@NonNull FeedPetsViewHolder holder, int position) {
         FeedPet feedPet = feedList.get(position);
+        MetodosBanco metodosBanco = new MetodosBanco();
         //data OU PREÇO
         if(!feedPet.isIs_mei()){
+            holder.entrarContato.setVisibility(View.GONE);
             // Parseando a data da foto para um OffsetDateTime e depois pegando a data (LocalDate)
             OffsetDateTime dateTime = OffsetDateTime.parse(feedPet.getPostDate());
             LocalDate dataAnterior = dateTime.toLocalDate();
@@ -72,33 +76,57 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 holder.days.setText("Há "+dias + " dias atrás");
 
             }
-        }
-        else{
+            metodosBanco.getPets( feedPet.getPets(), new MetodosBanco.PetsCallBack() {
+                @Override
+                public void onSuccess(List<String> pets) {
+                    holder.petsInPhoto.setText(pets.toString());
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    // Trate o erro se você deseja, por exemplo:
+                    Log.e("Erro", errorMessage);
+                    holder.petsInPhoto.setText("Erro ao buscar pets");
+                }
+
+            });
+        } if(feedPet.isIs_mei()){
             holder.days.setText( "R$ "+feedPet.getPrice());
             holder.entrarContato.setVisibility(View.VISIBLE);
             holder.entrarContato.setOnClickListener(v -> {
-                String phoneNumber = "tel:123456789"; // Substitua pelo número que você deseja discar
+                String phoneNumber = feedPet.getTelephone();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse(phoneNumber));
                 v.getContext().startActivity(intent);
-            });}
+            });
+            holder.petsInPhoto.setText(feedPet.getProductName());
+
+        }
+
 
         // Buscando o perfil do usuário e atualizando a UI após obter os dados
-        MetodosBanco metodosBanco = new MetodosBanco();
+
         metodosBanco.getPerfil(feedPet.userId, holder.itemView.getContext(), new MetodosBanco.PerfilCallback() {
             @Override
             public void onSuccess(ModelPerfil perfil) {
                 // Configure as informações do perfil no holder, por exemplo:
                 holder.username.setText(perfil.getFullName());
-                //holder.userPhoto.setImageURI(Uri.parse(perfil.get()));
                 // Adicione outros campos conforme necessário
+                Glide.with(holder.userPhoto.getContext())
+                        .load(Uri.parse(perfil.getProfilePicture()))
+                        .error(R.drawable.fotogenerica)
+                        .into(holder.userPhoto);
             }
 
             @Override
             public void onError(String errorMessage) {
                 // Trate o erro se necessário, por exemplo:
                 Log.e("Erro", errorMessage);
-                holder.username.setText("Erro ao buscar perfil");
+                holder.username.setText(String.format("Erro: %s", feedPet.userId));
+                Glide.with(holder.userPhoto.getContext())
+                        .load(R.drawable.fotogenerica)
+                        .error(R.drawable.fotogenerica)
+                        .into(holder.userPhoto);
             }
         });
 
@@ -108,47 +136,46 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         holder.description.setText(feedPet.getCaption());
 
 
-        holder.likedBy.setText(feedPet.getLikes().toString()); // Ajuste conforme a sua lógica
+        //holder.likedBy.setText(feedPet.getLikes()); // Ajuste conforme a sua lógica
 
 
         // foto do produto
         Glide.with(holder.photo.getContext())
                 .load(feedPet.getPicture())
                 .into(holder.photo);
-        // foto de perfil
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        Glide.with(holder.userPhoto.getContext())
-                .load((autenticator.getCurrentUser().getPhotoUrl()))
-                .into(holder.userPhoto);
+
+
+
+        SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+
+
+        holder.likedBy.setText("Curtido por: "+feedPet.getLikes());
+
 
         holder.photo.setOnClickListener(v -> {
             //arrumar com a bianca
-//            metodosBanco.curtir(102, feedPet, new MetodosBanco.CurtirCallback() {
-//                @Override
-//                public void onSuccess(ModelRetorno modelRetorno) {
-//                    holder.curtida.setVisibility(View.VISIBLE);
-//                    holder.likedBy.setVisibility(View.VISIBLE);
-//                    // Criar um Handler para remover a curtida após 5 segundos
-//                    new Handler().postDelayed(() -> {
-//                        holder.curtida.setVisibility(View.GONE);
-//
-//                    }, 5000); // 5000 milliseconds = 5 segundos
-//                }
-//
-//                @Override
-//                public void onError(String errorMessage) {
-//                    // Trate o erro se necessário, por exemplo:
-//                    Log.e("Erro", errorMessage);
-//                    holder.username.setText("Erro ao buscar perfil");
-//                }
-//            });
+            metodosBanco.curtir(feedPet.getId(), sharedPreferences.getString("nome_usuario", "nome do tutor"), new MetodosBanco.CurtirCallback() {
+                @Override
+                public void onSuccess(String modelRetorno) {
+                    holder.curtida.setVisibility(View.VISIBLE);
+                    holder.likedBy.setVisibility(View.VISIBLE);
+                    Toast.makeText(holder.itemView.getContext(), "curtido", Toast.LENGTH_SHORT).show();
 
-            holder.curtida.setVisibility(View.VISIBLE);
-            holder.likeButton.setImageResource(R.drawable.like); // Use setBackgroundResource para definir o fundo
-            holder.liked = true;
-            new Handler().postDelayed(() -> {
-                holder.curtida.setVisibility(View.GONE);
-            }, 1000); // 5000 milliseconds = 5 segundos
+                    // Criar um Handler para remover a curtida após 5 segundos
+                    new Handler().postDelayed(() -> {
+                        holder.curtida.setVisibility(View.GONE);
+
+                    }, 5000); // 5000 milliseconds = 5 segundos
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    // Trate o erro se necessário, por exemplo:
+                    Log.e("Erro", errorMessage);
+                    Toast.makeText(holder.itemView.getContext(), "erro" + errorMessage, Toast.LENGTH_SHORT).show();
+
+                }
+            });
 
         });
         holder.likeButton.setOnClickListener(v -> {
@@ -162,6 +189,24 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             // Verifica o estado atual da curtida
 
         });
+
+        holder.shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //decidir oq vai colocar no compartilhar
+                String postContent = "Aqui está o conteúdo do post que quero compartilhar!";
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+
+                shareIntent.putExtra(Intent.EXTRA_TEXT, postContent);
+
+                v.getContext().startActivity(Intent.createChooser(shareIntent, "Compartilhar post via"));
+            }
+        });
+
+
+
 
 
 
@@ -181,7 +226,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         TextView petsInPhoto;
         TextView days;
         ImageView photo, curtida;
-        ImageButton shareButton, commentButton, likeButton;
+        ImageButton shareButton, likeButton;
         TextView likedBy;
         TextView description;
         CardView entrarContato;
@@ -194,12 +239,12 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             petsInPhoto = itemView.findViewById(R.id.petsInPhoto);
             days = itemView.findViewById(R.id.days);
             photo = itemView.findViewById(R.id.photo);
-            commentButton = itemView.findViewById(R.id.commentButton);
             likeButton = itemView.findViewById(R.id.likeButton);
             likedBy = itemView.findViewById(R.id.liked_by);
             description = itemView.findViewById(R.id.decription);
             entrarContato = itemView.findViewById(R.id.entrarContato);
             curtida = itemView.findViewById(R.id.imagem);
+            shareButton = itemView.findViewById(R.id.shareButton);
 
 
 
