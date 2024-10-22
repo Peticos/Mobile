@@ -24,7 +24,7 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
-import com.mobile.peticos.Padrao.Camera;
+import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;

@@ -6,9 +6,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-
-
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
@@ -25,6 +22,7 @@
         android:required="false" />
 
     <application
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -35,6 +33,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
+
+
 
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -60,7 +60,7 @@
             android:name=".Local.WebViewActivity"
             android:exported="false" />
         <activity
-            android:name=".Padrao.Camera"
+            android:name=".Padrao.Upload.Camera"
             android:exported="false" />
         <activity
             android:name=".Perfil.Pet.EditarPerfilPet"

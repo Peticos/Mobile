@@ -112,11 +112,21 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 // Configure as informações do perfil no holder, por exemplo:
                 holder.username.setText(perfil.getFullName());
                 // Adicione outros campos conforme necessário
-                Glide.with(holder.userPhoto.getContext())
-                        .load(Uri.parse(perfil.getProfilePicture()))
-                        .error(R.drawable.fotogenerica)
-                        .into(holder.userPhoto);
-            }
+                if (perfil.getProfilePicture() != null){
+
+                    Glide.with(holder.userPhoto.getContext())
+                            .load(Uri.parse(perfil.getProfilePicture()))
+                            .error(R.drawable.fotogenerica)
+                            .into(holder.userPhoto);
+                }else {
+                    Glide.with(holder.userPhoto.getContext())
+                            .load(R.drawable.fotogenerica)
+                            .error(R.drawable.fotogenerica)
+                            .into(holder.userPhoto);
+                }
+        }
+
+
 
             @Override
             public void onError(String errorMessage) {
@@ -193,17 +203,23 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //decidir oq vai colocar no compartilhar
-                String postContent = "Aqui está o conteúdo do post que quero compartilhar!";
+                // URL da imagem armazenada no Firebase
+                String imageUrl = "https://firebase_storage_link_para_imagem.jpg";
+
+                // Conteúdo do post que será compartilhado
+                String postContent = "Aqui está o conteúdo do post que quero compartilhar junto com a imagem: " + imageUrl;
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-
+                shareIntent.setType("text/plain"); // Tipo de conteúdo ajustado para compartilhar texto e URL
                 shareIntent.putExtra(Intent.EXTRA_TEXT, postContent);
 
-                v.getContext().startActivity(Intent.createChooser(shareIntent, "Compartilhar post via"));
+                // Verifica se há algum aplicativo capaz de compartilhar o conteúdo
+                if (shareIntent.resolveActivity(v.getContext().getPackageManager()) != null) {
+                    v.getContext().startActivity(Intent.createChooser(shareIntent, "Compartilhar post via"));
+                }
             }
         });
+
 
 
 
