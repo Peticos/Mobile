@@ -118,7 +118,6 @@ public class PerdidoFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     List<PetPerdido> PerdidosList = response.body();
                     updateRecyclerView(PerdidosList);
-                    //updateRecyclerView(PerdidosList);
                 } else {
                     Toast.makeText( getActivity(), "Nenhum perdido perdido", Toast.LENGTH_SHORT).show();
                 }

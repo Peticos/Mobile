@@ -20,7 +20,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobile.peticos.Perdidos.PerdidoFragment;
@@ -46,6 +48,8 @@ import com.mobile.peticos.Padrao.ModelRetorno;
 public class AdicionarAoFeedTriste extends Fragment {
     Button bntSair;
     ImageButton btn_voltar_publicacoes;
+    EditText descricao, bairro, data;
+    ImageView upload;
     TextView publicacoes;
 
     private static final String CHANNEL_ID = "channel_id";
@@ -63,6 +67,11 @@ public class AdicionarAoFeedTriste extends Fragment {
         btnPublicar.setOnClickListener(v -> {
             RegistrarPetPerdido(v);
         });
+
+        upload = view.findViewById(R.id.upload);
+        descricao = view.findViewById(R.id.descricao);
+        bairro = view.findViewById(R.id.bairro);
+        data = view.findViewById(R.id.data);
 
         bntSair = view.findViewById(R.id.btnSair);
         btn_voltar_publicacoes = view.findViewById(R.id.btn_voltar_publicacoes);
@@ -114,14 +123,14 @@ public class AdicionarAoFeedTriste extends Fragment {
         PetPerdido petPerdido = new PetPerdido(
                 18,
                 id,
-                "Lapa",
+                bairro.getText().toString(),
                 "OIIIIIIII",
-                "teste.",
+                descricao.getText().toString(),
                 dataFormatada,
                 "https://firebasestorage.googleapis.com/v0/b/peticos-b4633.appspot.com/o/17589433.548cad5c026f1.jpg?alt=media&token=59237338-3f7b-4d0d-b656-f1d0f27d150a",
                 "Rua das Flores",
                 789,
-                "2024-10-21"
+                data.getText().toString()
         );
 
 
