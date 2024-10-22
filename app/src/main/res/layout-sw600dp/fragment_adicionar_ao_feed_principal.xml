@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/beige"
-    tools:context=".Perfil.Profissional.AdicionarProduto">
+    android:backgroundTint="@color/beige"
+    tools:context=".Home.AdicionarAoFeedPrincipal" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/fundo">
+        android:background="@drawable/fundo_marrom">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -19,21 +19,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/voltar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_gravity="start"
-                    android:layout_weight="1"
                     android:layout_marginTop="16dp"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:foregroundGravity="left"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageButton
@@ -41,7 +41,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginStart="20dp"
-                        android:layout_weight="1"
                         android:background="#00FFFFFF"
                         android:src="@drawable/baseline_arrow_left_24" />
 
@@ -51,8 +50,8 @@
                         android:layout_height="30dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/lilita_one"
-                        android:text="Produtos"
                         android:gravity="center"
+                        android:text="Publicações"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -61,114 +60,93 @@
                     android:id="@+id/upload"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="24dp"
                     android:backgroundTint="@color/wood_brown"
-                    app:srcCompat="@drawable/upload_foto" />
+                    app:srcCompat="@drawable/adicionar_imagem_marrom" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout7"
+                    android:id="@+id/linearLayout6"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="610dp"
                     android:background="@color/beige"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="70dp">
+                    android:paddingBottom="180dp">
 
                     <TextView
-                        android:id="@+id/textView41"
+                        android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/lilita_one"
-                        android:text="Escreva a legenda da publicação"
-                        android:textColor="@color/is_it_green" />
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Escreva a descrição da foto: "
+                        android:textColor="@color/wood_brown"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/legenda"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="64dp"
                         android:background="@drawable/rounded_edit_text"
+                        android:elevation="5dp"
                         android:ems="10"
-                        android:hint="Descreva os seus produtos"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="top"
+                        android:hint="Escreva uma desrição para a sua foto"
                         android:inputType="text"
                         android:paddingLeft="10dp"
-                        android:textSize="14dp" />
+                        android:paddingTop="10dp"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/textView36"
+                        android:id="@+id/textView6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/lilita_one"
-                        android:text="Nome do produto"
-                        android:textColor="@color/is_it_green" />
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="Qual (ais) amiguinho(s) estão na foto?"
+                        android:textColor="@color/wood_brown"
+                        android:textSize="16sp" />
 
-                    <EditText
-                        android:id="@+id/NomeProduto"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:ems="10"
-                        android:hint="Digite o nome do produto"
-                        android:inputType="text"
-                        android:paddingLeft="10dp"
-                        android:textSize="14dp" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/textView37"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/lilita_one"
-                        android:text="Valor unitário"
-                        android:textColor="@color/is_it_green" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/valor"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:ems="10"
-                        android:hint="Valor unitário"
-                        android:inputType="number"
-                        android:paddingLeft="10dp"
-                        android:textSize="14dp" />
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/amiguinhos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="80dp"
+                                android:orientation="horizontal"
+                                android:padding="16dp"
+                                android:paddingHorizontal="10dp" />
 
-                    <TextView
-                        android:id="@+id/textView39"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/lilita_one"
-                        android:text="Telefone de contato"
-                        android:textColor="@color/is_it_green" />
-
-                    <EditText
-                        android:id="@+id/telefone"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:ems="10"
-                        android:hint="11 962125000"
-                        android:inputType="phone"
-                        android:paddingLeft="10dp"
-                        android:textSize="14dp" />
+                            <ImageView
+                                android:id="@+id/btn_cadastrarpet"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/ic_cadastrar_pet" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
 
                     <Button
                         android:id="@+id/btnPublicar"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/water_blue"
+                        android:backgroundTint="@color/wood_brown"
                         android:fontFamily="@font/lilita_one"
                         android:text="Publicar"
-                        android:textSize="24dp" />
+                        android:textSize="24sp" />
 
                     <Button
                         android:id="@+id/btnSair"
@@ -184,5 +162,4 @@
         </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

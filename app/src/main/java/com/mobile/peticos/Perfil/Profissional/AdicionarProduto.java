@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mobile.peticos.Home.ApiHome;
@@ -38,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class AdicionarProduto extends Fragment {
     Button btnPublicar, btnSair;
-
+    LinearLayout voltar;
     EditText legenda, nomeProduto, valor, telefone;
     ImageView upload;
 
@@ -66,6 +67,8 @@ public class AdicionarProduto extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_adicionar_produto, container, false);
 
+        voltar = view.findViewById(R.id.voltar);
+        btnSair = view.findViewById(R.id.btnSair);
         legenda = view.findViewById(R.id.legenda);
         nomeProduto = view.findViewById(R.id.NomeProduto);
         valor = view.findViewById(R.id.valor);
@@ -76,6 +79,26 @@ public class AdicionarProduto extends Fragment {
             @Override
             public void onClick(View v) {
                 PublicarProduto();
+            }
+        });
+
+        btnSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainerView, HomeFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragmentContainerView, HomeFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
