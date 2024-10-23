@@ -123,7 +123,7 @@
                             android:orientation="horizontal">
 
                             <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/amiguinhos"
+                                android:id="@+id/recyclepets"
                                 android:layout_width="wrap_content"
                                 android:layout_height="80dp"
                                 android:orientation="horizontal"

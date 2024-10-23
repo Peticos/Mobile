@@ -1,8 +1,6 @@
 
 package com.mobile.peticos.Perfil.Profissional;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +9,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +22,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 
+import com.mobile.peticos.Home.AdicionarProduto;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
-import com.mobile.peticos.Perfil.Tutor.EditarPerfil;
 import com.mobile.peticos.R;
 
 public class PerfilProfissional extends Fragment {

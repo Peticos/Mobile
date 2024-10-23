@@ -11,9 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,7 +18,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,10 +25,6 @@ import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Home.HomeDica.AdapterCuriosidadesDiarias;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
-import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
-import com.mobile.peticos.Perfil.Profissional.AdicionarProduto;
-import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
-import com.mobile.peticos.Perdidos.AdicionarAoFeedTriste;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -98,8 +90,13 @@ public class HomeFragment extends Fragment {
                                 .commit();
                     } else {
                         // Adicionar ao feed
+//                        getParentFragmentManager().beginTransaction()
+//                                .replace(R.id.fragmentContainerView, AdicionarAoFeedPrincipal.newInstance())
+//                                .addToBackStack(null)
+//                                .commit();
+                        // Adicionar produto
                         getParentFragmentManager().beginTransaction()
-                                .replace(R.id.fragmentContainerView, AdicionarAoFeedPrincipal.newInstance())
+                                .replace(R.id.fragmentContainerView, AdicionarProduto.newInstance())
                                 .addToBackStack(null)
                                 .commit();
                     }

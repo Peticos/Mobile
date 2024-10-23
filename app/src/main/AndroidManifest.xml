@@ -72,7 +72,7 @@
             android:name=".Perfil.Tutor.EditarPerfil"
             android:exported="false" />
         <activity
-            android:name=".Perfil.Profissional.AdicionarProduto"
+            android:name=".Home.AdicionarProduto"
             android:exported="false" />
         <activity
             android:name=".Perdidos.PrimeirosCuidados"

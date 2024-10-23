@@ -29,7 +29,7 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.PetViewHolder> {
     @NonNull
     @Override
     public PetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pet_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pet, parent, false);
         return new PetViewHolder(view);
     }
 

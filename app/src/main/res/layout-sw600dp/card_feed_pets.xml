@@ -90,12 +90,13 @@
             <ImageView
                 android:id="@+id/curtida"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="90dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/ic_like" />
+                tools:srcCompat="@drawable/like" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/entrarContato"
