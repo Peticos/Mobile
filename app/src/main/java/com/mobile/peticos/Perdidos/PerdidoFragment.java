@@ -129,7 +129,7 @@ public class PerdidoFragment extends Fragment {
             @Override
             public void onFailure(Call<List<PetPerdido>> call, Throwable throwable) {
                 cardErroPerdidos.setVisibility(View.VISIBLE);
-                Toast.makeText( getActivity(), "Erro ao carregar perdidos", Toast.LENGTH_SHORT).show();            }
+            }
         });
     }
     private void updateRecyclerView(List<PetPerdido> PetlList) {
