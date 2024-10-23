@@ -49,6 +49,26 @@ public class Login extends AppCompatActivity {
 
 
 
+        SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Recupera o e-mail armazenado no SharedPreferences
+        String emailLogin = sharedPreferences.getString("email", "");
+
+        // Verifica se o e-mail tem mais de um caractere
+        if (emailLogin.length() > 1) {
+            // Se o e-mail for válido, exibe uma mensagem de sucesso e navega para a MainActivity
+            Toast.makeText(Login.this, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+
+
+
+
 
         btnCadastrar.setOnClickListener(v -> {
             Intent intent = new Intent(Login.this, Tutor_ou_Profissional.class);
@@ -151,6 +171,10 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+
+
+
     public void TutorOuPeofissional(View view) {
         Intent intent = new Intent(this, Tutor_ou_Profissional.class);
         startActivity(intent);

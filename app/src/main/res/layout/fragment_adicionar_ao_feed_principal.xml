@@ -118,14 +118,14 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
                             <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/amiguinhos"
+                                android:id="@+id/recyclepets"
                                 android:layout_width="wrap_content"
-                                android:layout_height="80dp"
+                                android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:padding="16dp"
                                 android:paddingHorizontal="10dp" />

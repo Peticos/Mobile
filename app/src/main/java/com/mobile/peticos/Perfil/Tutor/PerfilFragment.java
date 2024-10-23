@@ -1,5 +1,7 @@
 package com.mobile.peticos.Perfil.Tutor;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -203,6 +205,22 @@ public class PerfilFragment extends Fragment {
     }
 
     public void logout(View view) {
+
+
+        // Recupera o SharedPreferences
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("nome", "");
+        editor.putString("nome_usuario", "");
+        editor.putString("email","");
+        editor.putString("bairro", "");
+        editor.putBoolean("mei", false);
+        editor.putString("telefone", "");
+        editor.putString("url", "");
+        editor.putString("genero", "");
+        editor.putInt("id", 0);
+        editor.apply(); // Aplica as alterações
 
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);
