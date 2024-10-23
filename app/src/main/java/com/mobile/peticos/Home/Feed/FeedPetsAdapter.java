@@ -52,67 +52,71 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         return new FeedPetsViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull FeedPetsViewHolder holder, int position) {
-        FeedPet feedPet = feedList.get(position);
-        MetodosBanco metodosBanco = new MetodosBanco();
-        //data OU PREÇO
-        if(!feedPet.isIs_mei()){
-            holder.entrarContato.setVisibility(View.GONE);
-            // Parseando a data da foto para um OffsetDateTime e depois pegando a data (LocalDate)
-            OffsetDateTime dateTime = OffsetDateTime.parse(feedPet.getPostDate());
-            LocalDate dataAnterior = dateTime.toLocalDate();
+    public void ConfigTutor( FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco){
+        holder.entrarContato.setVisibility(View.GONE);
+        // Parseando a data da foto para um OffsetDateTime e depois pegando a data (LocalDate)
+        OffsetDateTime dateTime = OffsetDateTime.parse(feedPet.getPostDate());
+        LocalDate dataAnterior = dateTime.toLocalDate();
 
-            // Obtendo a data atual
-            LocalDate dataAtual = LocalDate.now();
+        // Obtendo a data atual
+        LocalDate dataAtual = LocalDate.now();
 
-            // Calculando a diferença em dias
-            long dias = ChronoUnit.DAYS.between(dataAnterior, dataAtual);
+        // Calculando a diferença em dias
+        long dias = ChronoUnit.DAYS.between(dataAnterior, dataAtual);
 
-            // Configurando o texto com o número de dias + " dias atrás"
-            if(dias == 0){
-                holder.days.setText("Hoje");
-            }else if(dias == 1){
-                holder.days.setText("Ontem");
+        // Configurando o texto com o número de dias + " dias atrás"
+        if(dias == 0){
+            holder.days.setText("Hoje");
+        }else if(dias == 1){
+            holder.days.setText("Ontem");
 
-            }else{
-                holder.days.setText("Há "+dias + " dias atrás");
-
-            }
-            metodosBanco.getPets( feedPet.getPets(), new MetodosBanco.PetsCallBack() {
-                @Override
-                public void onSuccess(List<String> pets) {
-
-                    // Supondo que pets é uma lista de strings
-                    String petsConcatenados = TextUtils.join(", ", pets);
-                    holder.petsInPhoto.setText(petsConcatenados);
-
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    // Trate o erro se você deseja, por exemplo:
-                    Log.e("Erro", errorMessage);
-                    holder.petsInPhoto.setText("Erro ao buscar pets");
-                }
-
-            });
-        } if(feedPet.isIs_mei()){
-            holder.days.setText( "R$ "+feedPet.getPrice());
-            holder.entrarContato.setVisibility(View.VISIBLE);
-            holder.entrarContato.setOnClickListener(v -> {
-                String phoneNumber = feedPet.getTelephone();
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse(phoneNumber));
-                v.getContext().startActivity(intent);
-            });
-            holder.petsInPhoto.setText(feedPet.getProductName());
+        }else{
+            holder.days.setText("Há "+dias + " dias atrás");
 
         }
+        metodosBanco.getPets( feedPet.getPets(), new MetodosBanco.PetsCallBack() {
+            @Override
+            public void onSuccess(List<String> pets) {
 
+                // Supondo que pets é uma lista de strings
+                String petsConcatenados = TextUtils.join(", ", pets);
+                holder.petsInPhoto.setText(petsConcatenados);
 
-        // Buscando o perfil do usuário e atualizando a UI após obter os dados
+            }
 
+            @Override
+            public void onError(String errorMessage) {
+                // Trate o erro se você deseja, por exemplo:
+                Log.e("Erro", errorMessage);
+                holder.petsInPhoto.setText("Erro ao buscar pets");
+            }
+
+        });
+    }
+    public void ConfigMei(FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco){
+        holder.days.setText( "R$ "+feedPet.getPrice());
+        holder.entrarContato.setVisibility(View.VISIBLE);
+        holder.entrarContato.setOnClickListener(v -> {
+            String phoneNumber = feedPet.getTelephone();
+            if (TextUtils.isEmpty(phoneNumber)) {
+                Toast.makeText(v.getContext(), "Contato indisponível", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Adicione o prefixo "tel:" ao número de telefone
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phoneNumber)); // Corrigido para incluir "tel:"
+            if (intent.resolveActivity(v.getContext().getPackageManager()) != null) {
+                v.getContext().startActivity(intent);
+            } else {
+                Toast.makeText(v.getContext(), "Aplicativo de telefone não encontrado", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.petsInPhoto.setText(feedPet.getProductName());
+
+    }
+
+    public void ConfigPerfilUserPost (FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco){
         metodosBanco.getPerfil(feedPet.userId, holder.itemView.getContext(), new MetodosBanco.PerfilCallback() {
             @Override
             public void onSuccess(ModelPerfil perfil) {
@@ -131,7 +135,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                             .error(R.drawable.fotogenerica)
                             .into(holder.userPhoto);
                 }
-        }
+            }
 
 
 
@@ -146,14 +150,120 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                         .into(holder.userPhoto);
             }
         });
+    }
 
-        // Bind data to views
+    public void CurtidoPor(FeedPetsViewHolder holder, FeedPet feedPet, boolean inicio, boolean descurtir, String username) {
+        List<String> curtidasList = feedPet.getLikes();
+        int totalCurtidas = curtidasList.size();
 
+        if (descurtir) {
+            // Lógica para descurtir
+            // Remover o nome do usuário da lista de curtidas
+            curtidasList.removeIf(nomeCurtidor -> nomeCurtidor.trim().equalsIgnoreCase(username));
+            totalCurtidas = curtidasList.size(); // Atualiza o total de curtidas
+
+            // Verifica se há curtidas
+            if (totalCurtidas == 0) {
+                holder.likedBy.setText("Publicação sem curtidas");
+            } else if (totalCurtidas == 1) {
+                holder.likedBy.setText("Curtido por: " + curtidasList.get(0));
+            } else {
+                String ultimaPessoa = curtidasList.get(totalCurtidas - 1);
+                holder.likedBy.setText("Curtido por " + ultimaPessoa + " e outras " + (totalCurtidas - 1) + " pessoas");
+            }
+        } else {
+            // Lógica para curtir
+            if (inicio) {
+                // Quando é a primeira vez que estamos lidando com a lista do banco
+                curtidasList.add(username); // Adiciona o usuário à lista
+                totalCurtidas = curtidasList.size(); // Atualiza o total de curtidas
+
+                // Verifica se há curtidas
+                if (totalCurtidas == 0) {
+                    holder.likedBy.setText("Publicação sem curtidas");
+                } else if (totalCurtidas == 1) {
+                    holder.likedBy.setText("Curtido por: " + username);
+                } else {
+                    String ultimaPessoa = curtidasList.get(totalCurtidas - 1);
+                    holder.likedBy.setText("Curtido por " + ultimaPessoa + " e outras " + (totalCurtidas - 1) + " pessoas");
+                }
+            } else {
+                // Quando o username não está no banco
+                // Se o usuário já curtiu
+                if (totalCurtidas == 0) {
+                    holder.likedBy.setText("Curtido por: " + username);
+                } else if (totalCurtidas == 1) {
+                    holder.likedBy.setText("Curtido por: " + username);
+                } else {
+                    String ultimaPessoa = curtidasList.get(totalCurtidas - 1);
+                    holder.likedBy.setText("Curtido por " + ultimaPessoa + " e outras " + (totalCurtidas) + " pessoas");
+                }
+            }
+        }
+    }
+
+    public void Curtir(FeedPetsViewHolder holder){
+        holder.likeButton.setImageResource(R.drawable.like); // Alterar ícone para curtido
+        holder.liked = true; // Marca como curtido
+        holder.curtida.setVisibility(View.VISIBLE);
+        // Remove a curtida após 3 segundos
+        new Handler().postDelayed(() -> {
+            holder.curtida.setVisibility(View.GONE);
+        }, 1000); // 3000 milliseconds = 3 segundos
+    }
+    public void DesCurtir(FeedPetsViewHolder holder){
+        holder.likeButton.setImageResource(R.drawable.ic_like);
+        holder.liked = false;
+    }
+
+    public void CurtirBanco(FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco, String username) {
+        metodosBanco.curtir(feedPet.getId(), username, new MetodosBanco.CurtirCallback() {
+            @Override
+            public void onSuccess(String modelRetorno) {
+                Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("Erro", errorMessage);
+            }
+        });
+    }
+    public void DesCurtirBanco(FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco, String username) {
+        metodosBanco.descurtir(feedPet.getId(),username, new MetodosBanco.CurtirCallback() {
+            @Override
+            public void onSuccess(String modelRetorno) {
+                Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("Erro", errorMessage);
+            }
+        });
+    }
+
+
+
+    @Override
+    public void onBindViewHolder(@NonNull FeedPetsViewHolder holder, int position) {
+        FeedPet feedPet = feedList.get(position);
+        MetodosBanco metodosBanco = new MetodosBanco();
+        //tutor
+        if(!feedPet.isIs_mei()){
+            ConfigTutor(holder, feedPet, metodosBanco);
+
+        }
+        //mei
+        if(feedPet.isIs_mei()){
+            ConfigMei(holder, feedPet, metodosBanco);
+        }
+        //nome e foto do user
+        ConfigPerfilUserPost(holder, feedPet, metodosBanco);
+
+        //descricao
         holder.description.setText(feedPet.getCaption());
-
-
-        //holder.likedBy.setText(feedPet.getLikes()); // Ajuste conforme a sua lógica
-
 
         // foto do produto
         Glide.with(holder.photo.getContext())
@@ -161,16 +271,22 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 .into(holder.photo);
 
 
+        //curtido por
+        List<String> curtidasList = feedPet.getLikes();
+        int totalCurtidas = curtidasList.size();
 
         SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
+        totalCurtidas = curtidasList.size(); // Atualiza o total de curtidas
 
-        //curtido por
-        String curtidas = TextUtils.join(", ", feedPet.getLikes()).trim();
-        if(curtidas.equals("")){
+        // Verifica se há curtidas
+        if (totalCurtidas == 0) {
             holder.likedBy.setText("Publicação sem curtidas");
-        }else{
-            holder.likedBy.setText("Curtido por: " + curtidas);
+        } else if (totalCurtidas == 1) {
+            holder.likedBy.setText("Curtido por: " + curtidasList.get(0));
+        } else {
+            String ultimaPessoa = curtidasList.get(totalCurtidas - 1);
+            holder.likedBy.setText("Curtido por " + ultimaPessoa + " e outras " + (totalCurtidas - 1) + " pessoas");
         }
 
         // se ja curtiu banco
@@ -181,6 +297,11 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             holder.likeButton.setImageResource(R.drawable.ic_like);
             holder.liked = false;
         }
+
+
+
+
+
         //curtir e descurtir
         holder.photo.setOnClickListener(v -> {
             long clickTime = System.currentTimeMillis();
@@ -188,64 +309,22 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             // Verifica se é um double click (menos de 300ms entre os cliques)
             if (clickTime - holder.lastClickTime < 300) {
                 if (holder.liked) {
-                    holder.liked = true; // Marcar como curtido
-
-                    holder.curtida.setVisibility(View.VISIBLE);
-                    // Remove a curtida após 3 segundos
-                    new Handler().postDelayed(() -> {
-                        holder.curtida.setVisibility(View.GONE);
-                    }, 1000); // 3000 milliseconds = 3 segundos
-
+                    Curtir(holder);
                 }
                 else {
-                    //curtido por
-
                     List<String> likesList = new ArrayList<>(feedPet.getLikes());
-
                     String nomeUsuario = sharedPreferences.getString("nome_usuario", "nome do tutor");
-
-                    // Adiciona o nome do usuário à lista, se ainda não estiver presente
-                    if (!likesList.contains(nomeUsuario)) {
-                        likesList.add(nomeUsuario);
-
-                        // Atualizar a visualização para mostrar a nova lista de curtidas
-                        String curtidasAtualizadas = TextUtils.join(", ", likesList).trim();
-                        holder.likedBy.setText("Curtido por: " + curtidasAtualizadas);
+                    if (likesList.contains(nomeUsuario)) {
+                        //lista de curtido por ja esta certa e o banco nao precisa ser chamado.
+                        Curtir(holder);
+                        return;
                     } else {
-                        holder.liked = true; // Marcar como curtido
-                        holder.curtida.setVisibility(View.VISIBLE);
-                        // Remove a curtida após 3 segundos
-                        new Handler().postDelayed(() -> {
-                            holder.curtida.setVisibility(View.GONE);
-                        }, 1000); // 3000 milliseconds = 3 segundos
-                        holder.likeButton.setImageResource(R.drawable.like); // Alterar ícone para curtido
-
+                        Curtir(holder);
+                        CurtidoPor( holder,  feedPet,  false,false, nomeUsuario);
+                        // Se não está curtido, vamos curtir
+                        CurtirBanco(holder, feedPet, metodosBanco, nomeUsuario);
                         return;
                     }
-
-
-
-                    holder.curtida.setVisibility(View.VISIBLE); // Mostrar ícone de curtida
-                    holder.likeButton.setImageResource(R.drawable.like); // Alterar ícone para curtido
-                    holder.liked = true; // Marcar como curtido
-
-                    // Remove a curtida após 3 segundos
-                    new Handler().postDelayed(() -> {
-                        holder.curtida.setVisibility(View.GONE);
-                    }, 1000); // 3000 milliseconds = 3 segundos
-
-                    // Se não está curtido, vamos curtir
-                    metodosBanco.curtir(feedPet.getId(), sharedPreferences.getString("nome_usuario", "nome do tutor"), new MetodosBanco.CurtirCallback() {
-                        @Override
-                        public void onSuccess(String modelRetorno) {
-                            Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onError(String errorMessage) {
-                            Log.e("Erro", errorMessage);
-                        }
-                    });
                 }
             }
 
@@ -256,93 +335,37 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
 
         holder.likeButton.setOnClickListener(v -> {
             if (!holder.liked) {
-                holder.curtida.setVisibility(View.VISIBLE);
-                holder.likeButton.setImageResource(R.drawable.like);
-                // Remove a curtida após 3 segundos
-                new Handler().postDelayed(() -> {
-                    holder.curtida.setVisibility(View.GONE);
-                }, 3000); // 3000 milliseconds = 3 segundos
-                holder.liked = true; // Marca como curtido
+                Curtir(holder);
 
                 //curtido por
-
                 List<String> likesList = new ArrayList<>(feedPet.getLikes());
-
                 String nomeUsuario = sharedPreferences.getString("nome_usuario", "nome do tutor");
-
                 // Adiciona o nome do usuário à lista, se ainda não estiver presente
                 if (!likesList.contains(nomeUsuario)) {
-                    likesList.add(nomeUsuario);
-
-                    // Atualizar a visualização para mostrar a nova lista de curtidas
-                    String curtidasAtualizadas = TextUtils.join(", ", likesList).trim();
-                    holder.likedBy.setText("Curtido por: " + curtidasAtualizadas);
+                    CurtidoPor(holder, feedPet, false, false, nomeUsuario);
                 } else {
-                    Toast.makeText(holder.itemView.getContext(), "Você já curtiu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-
-
-                holder.curtida.setVisibility(View.VISIBLE); // Mostrar ícone de curtida
-                holder.likeButton.setImageResource(R.drawable.like); // Alterar ícone para curtido
-                holder.liked = true; // Marcar como curtido
-
-                // Remove a curtida após 3 segundos
-                new Handler().postDelayed(() -> {
-                    holder.curtida.setVisibility(View.GONE);
-                }, 3000); // 3000 milliseconds = 3 segundos
-
                 // Se não está curtido, vamos curtir
-                metodosBanco.curtir(feedPet.getId(), sharedPreferences.getString("nome_usuario", "nome do tutor"), new MetodosBanco.CurtirCallback() {
-                    @Override
-                    public void onSuccess(String modelRetorno) {
-                        Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(String errorMessage) {
-                        Log.e("Erro", errorMessage);
-                    }
-                });
-
+                CurtirBanco(holder, feedPet, metodosBanco, nomeUsuario);
 
 
             } else {
-                holder.likeButton.setImageResource(R.drawable.ic_like);
-                holder.liked = false; // Marca como não curtido
-                //curtido por
-                List<String> likesList = new ArrayList<>(feedPet.getLikes());
-
+                DesCurtir(holder);
                 String nomeUsuario = sharedPreferences.getString("nome_usuario", "nome do tutor");
-
-                // Remover o nome do usuário da lista de curtidas
-                likesList.removeIf(nomeCurtidor -> nomeCurtidor.trim().equalsIgnoreCase(nomeUsuario));
-
-                // Recombinar a lista de volta em uma string, separados por vírgulas
-                String semNome = TextUtils.join(", ", likesList).trim();
-
-                // Exibir os nomes restantes ou ocultar se não houver nenhum nome
-                if (!semNome.isEmpty()) {
-                    holder.likedBy.setText("Curtido por: " + semNome);
+                List<String> likesList = new ArrayList<>(feedPet.getLikes());
+                if (!likesList.contains(nomeUsuario)) {
+                    CurtidoPor(holder,  feedPet,  false, true, nomeUsuario);
                 } else {
-                    holder.likedBy.setText("Publicação sem curtidas");
+                    CurtidoPor(holder,  feedPet,  true, true, nomeUsuario);
                 }
 
-                holder.likeButton.setImageResource(R.drawable.ic_like); // Voltar ícone de não curtido
-                holder.liked = false; // Marcar como não curtido
-                metodosBanco.descurtir(feedPet.getId(), sharedPreferences.getString("nome_usuario", "nome do tutor"), new MetodosBanco.CurtirCallback() {
-                    @Override
-                    public void onSuccess(String modelRetorno) {
-                        Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
+                DesCurtirBanco(holder, feedPet, metodosBanco, nomeUsuario);
 
-                    }
 
-                    @Override
-                    public void onError(String errorMessage) {
-                        Log.e("Erro", errorMessage);
-                    }
-                });
+
+
             }
 
         });
