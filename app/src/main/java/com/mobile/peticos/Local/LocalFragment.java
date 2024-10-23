@@ -98,7 +98,6 @@ public class LocalFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Local>> call, Throwable throwable) {
                 cardErroLocal.setVisibility(View.VISIBLE);
-                showToast("Erro ao carregar Locais");
             }
         });
     }

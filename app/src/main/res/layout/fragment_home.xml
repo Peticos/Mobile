@@ -112,6 +112,54 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFeedSemPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:backgroundTint="@color/beige"
+            android:visibility="gone"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView41"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="30dp"
+                    android:src="@drawable/modolinho_triste" />
+
+                <TextView
+                    android:id="@+id/textView83"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:text="Ops! Ainda não há publicações aqui..."
+                    android:textColor="@color/wood_brown"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/textView95"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp"
+                    android:text="Que tal ser o primeiro a compartilhar algo ou dar uma olhada nas novidades mais tarde? Estamos ansiosos para ver suas contribuições!"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardDicasErro"
@@ -119,7 +167,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="580dp"
+            android:layout_marginBottom="570dp"
             android:visibility="gone"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
