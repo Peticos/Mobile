@@ -32,7 +32,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="68dp"
                     android:layout_height="68dp"
-                    android:backgroundTint="@color/water_blue"
+                    android:backgroundTint="@color/red_or_orange"
                     app:cardCornerRadius="600dp">
 
                     <androidx.cardview.widget.CardView
@@ -59,9 +59,20 @@
                     android:fontFamily="@font/lilita_one"
                     android:gravity="center_horizontal"
                     android:text="TextView"
-                    android:textColor="@color/water_blue"
+                    android:textColor="@color/red_or_orange"
                     android:textSize="10sp" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/cancelarPet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"
+                android:src="@drawable/cancelar_pet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout9" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
