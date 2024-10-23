@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
 
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
-    CardView cardFeedErro, cardDicasErro;
+    CardView cardFeedErro, cardDicasErro, cardFeedSemPost;
 
     static {
         List<String> requiredPermissions = new ArrayList<>();
@@ -78,6 +78,7 @@ public class HomeFragment extends Fragment {
 
         cardFeedErro = view.findViewById(R.id.cardFeedErro);
         cardDicasErro = view.findViewById(R.id.cardDicasErro);
+        cardFeedSemPost = view.findViewById(R.id.cardFeedSemPost);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
@@ -153,6 +154,7 @@ public class HomeFragment extends Fragment {
                     updateRecyclerViewFeed(feedList, v);
                 } else {
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
+                    cardFeedSemPost.setVisibility(View.VISIBLE);
                     //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -163,7 +165,6 @@ public class HomeFragment extends Fragment {
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
                 cardFeedErro.setVisibility(View.VISIBLE);
-                Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
             }
         });
     }
