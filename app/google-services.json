@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "433538220523",
-    "project_id": "peticos-b4633",
-    "storage_bucket": "peticos-b4633.appspot.com"
+    "project_number": "353273066165",
+    "project_id": "peticos-bhava",
+    "storage_bucket": "peticos-bhava.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:433538220523:android:044ffb640ef54031aa99ae",
+        "mobilesdk_app_id": "1:353273066165:android:0f1ef3d4eca6fe8695c4fc",
         "android_client_info": {
           "package_name": "com.mobile.peticos"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDaRu2YTXgyL2IFW5nh4GAi_3g89z_EBDc"
+          "current_key": "AIzaSyB161xLNTOKbto9QVkB7OAMY7g8W_VwLUE"
         }
       ],
       "services": {

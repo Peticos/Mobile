@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
-import com.mobile.peticos.Perfil.Pet.Apis.Personalizacao;
+
+import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
 import com.mobile.peticos.R;
 
 import retrofit2.Call;
@@ -18,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 
 public class EditarPerfilPet extends AppCompatActivity {
     ImageView btnVoltarEditar, btnEdit, petzao, cabeca, oculos_dog, oculos_cat, brinquedo, especie;
@@ -45,13 +46,13 @@ public class EditarPerfilPet extends AppCompatActivity {
 
 
         btnEdit = findViewById(R.id.btnEdit);
-         btnEdit.setOnClickListener(v -> {
-             Intent intent = new Intent(v.getContext(), PersonalizarPets.class);
-             Bundle bundleeditar = new Bundle();
-             bundleeditar.putInt("id", id);
-             intent.putExtras(bundleeditar);
-             v.getContext().startActivity(intent);
-         });
+        btnEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), PersonalizarPets.class);
+            Bundle bundleeditar = new Bundle();
+            bundleeditar.putInt("id", id);
+            intent.putExtras(bundleeditar);
+            v.getContext().startActivity(intent);
+        });
 
         btnVoltarEditar = findViewById(R.id.btn_voltar_perfil);
         btnVoltarEditar.setOnClickListener(v -> {
@@ -223,4 +224,3 @@ public class EditarPerfilPet extends AppCompatActivity {
     }
 
 }
-

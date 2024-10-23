@@ -2,32 +2,36 @@ package com.mobile.peticos.Cadastros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+
+import com.mobile.peticos.Cadastros.APIs.APIPerfil;
+import com.mobile.peticos.Cadastros.Bairros.APIBairro;
+import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.MainActivity;
-import com.mobile.peticos.ModelRetorno;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
-import com.mobile.peticos.Perfil.Pet.Apis.Cor;
-import com.mobile.peticos.Perfil.Pet.Apis.ModelPetBanco;
-import com.mobile.peticos.Perfil.Pet.Apis.Personalizacao;
-import com.mobile.peticos.Perfil.Pet.Apis.Raca;
-import com.mobile.peticos.Perfil.Pet.EditarPerfilPet;
-import com.mobile.peticos.Perfil.Pet.PersonalizarPets;
+
+import com.mobile.peticos.Padrao.CallBack.AuthCallback;
+import com.mobile.peticos.Padrao.Metodos;
+import com.mobile.peticos.Padrao.ModelRetorno;
+import com.mobile.peticos.Perfil.Pet.API.Cor;
+import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
+import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
+import com.mobile.peticos.Perfil.Pet.API.Raca;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,9 +40,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CadastrarPet extends AppCompatActivity {
     Button btnCadastrar;
     AutoCompleteTextView especie, raca, cor, porte, genero;
-    EditText idade, nome;
-
+    TextView nome, idade;
     Retrofit retrofit;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +55,11 @@ public class CadastrarPet extends AppCompatActivity {
         cor = findViewById(R.id.cor);
         porte = findViewById(R.id.porte);
         genero = findViewById(R.id.genero);
-        idade = findViewById(R.id.idade);
         nome = findViewById(R.id.nome);
+        idade = findViewById(R.id.idade);
 
-
+        SharedPreferences sharedPreferences = getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        id = sharedPreferences.getInt("id", 0);
 
 
 
@@ -67,7 +72,9 @@ public class CadastrarPet extends AppCompatActivity {
         setarDropDowns();
 
         btnCadastrar.setOnClickListener(v -> {
-            Cadastrar(v);
+            Intent intent = new Intent(CadastrarPet.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
@@ -76,48 +83,79 @@ public class CadastrarPet extends AppCompatActivity {
         if(especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
             Toast.makeText(CadastrarPet.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;}
-        FirebaseAuth auth = FirebaseAuth.getInstance();
 
+        //    {
+        //  "idUser": 0,
+        //  "nickname": "string",
+        //  "age": 0,
+        //  "sex": "string",
+        //  "specie": "string",
+        //  "race": "string",
+        //  "size": "string",
+        //  "color": "string",
+        //  "user": "string"
+        //}
         APIPets api = retrofit.create(APIPets.class);
-        if(genero.getText().toString().equals("Macho")) {
-            genero.setText("M");
-        } else {
-            genero.setText("F");
-        }
+        ModelPetBanco pet = new ModelPetBanco(
+                String.valueOf(id),
+                nome.getText().toString(),
+                Integer.parseInt(idade.getText().toString()),
+                genero.getText().toString(),
+                especie.getText().toString(),
+                raca.getText().toString(),
+                porte.getText().toString(),
+                cor.getText().toString()
+        );
+        Call<Integer> call = api.insertPet(pet);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.code() == 200) {
 
-        if ( auth.getCurrentUser().getDisplayName() != null) {
-            ModelPetBanco pet = new ModelPetBanco(
-                    auth.getCurrentUser().getDisplayName(),
-                    nome.getText().toString(),
-                    Integer.parseInt(idade.getText().toString()),
-                    genero.getText().toString(),
-                    especie.getText().toString(),
-                    raca.getText().toString(),
-                    porte.getText().toString(),
-                    cor.getText().toString()
-            );
-            Call<ModelRetorno> call = api.insertPet(pet);
-            call.enqueue(new Callback<ModelRetorno>() {
-                @Override
-                public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
-                    if(response.isSuccessful()) {
-                        Toast.makeText(CadastrarPet.this, "Pet Cadastrado", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CadastrarPet.this, MainActivity.class);
-                        startActivity(intent);
-                    }
+                    int id = response.body();
+                    Personalizacao petPersonalizado = new Personalizacao(
+                            id,
+                            "Cachorro",
+                            0,
+                            0,
+                            0,
+                            0
+
+                    );
+                    Call <ModelRetorno> callPersonalizacao = api.personalizarPet(petPersonalizado);
+                    callPersonalizacao.enqueue(new Callback<ModelRetorno>() {
+                        @Override
+                        public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+                            if (response.code() == 200) {
+                                Toast.makeText(CadastrarPet.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            else {
+                                Toast.makeText(CadastrarPet.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ModelRetorno> call, Throwable t) {
+                            Log.e("CadastroTutor", "Erro: " + t.getMessage());
+                            Toast.makeText(CadastrarPet.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-                @Override
-                public void onFailure(Call<ModelRetorno> call, Throwable t) {
-                    Toast.makeText(CadastrarPet.this, "Erro ao Cadastrar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                else {
+                    Toast.makeText(CadastrarPet.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
-            });
-        } else {
-            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show();
-        }
+            }
 
-
-
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.e("CadastroTutor", "Erro: " + t.getMessage());
+                Toast.makeText(CadastrarPet.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
     //setar dropdowns
     public void setarDropDowns() {
@@ -219,42 +257,4 @@ public class CadastrarPet extends AppCompatActivity {
         genero.setAdapter(adapterGenero);
         genero.setThreshold(1);
     }
-
-//    public void cadastrarFoto(){
-//        String API = "https://apimongo-ghjh.onrender.com";
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(API)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        Personalizacao pet = new Personalizacao(
-//                id,
-//                species,
-//                hatId,
-//                hairId,
-//                toyId,
-//                glassesId
-//        );
-//
-//        APIPets apiPets = retrofit.create(APIPets.class);
-//        Call<ModelRetorno> call = apiPets.personalizarPet(pet);
-//        call.enqueue(new Callback<ModelRetorno>() {
-//            @Override
-//            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
-//                if (response.isSuccessful()) {
-//                    Toast.makeText(PersonalizarPets.this, "Pet personalizado", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(PersonalizarPets.this, EditarPerfilPet.class);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    Toast.makeText(PersonalizarPets.this, "Erro: " + response.message(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ModelRetorno> call, Throwable t) {
-//                Toast.makeText(PersonalizarPets.this, "Erro ao Cadastrar: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 }

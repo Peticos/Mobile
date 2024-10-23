@@ -26,13 +26,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="17dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/nome_local"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -52,12 +52,13 @@
                 android:foregroundGravity="center"
                 app:cardCornerRadius="12dp">
 
+
                 <ImageView
-                    android:id="@+id/fotoPerfil"
+                    android:id="@+id/fotoLocal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                     />
-
+                    android:scaleType="fitXY"
+                    android:src="@drawable/fotogenerica" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
@@ -70,12 +71,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView14"
+                    android:id="@+id/btnLocalizacao"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
                     android:src="@drawable/location"
-                    app:tint="@color/water_blue"/>
+                    app:tint="@color/water_blue" />
 
                 <ImageView
                     android:id="@+id/imageView15"
@@ -107,20 +108,18 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lilita_one"
-                        android:text="TextView"
-                        android:textColor="@color/water_blue"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/textView32"
+                        android:id="@+id/descricao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/varela_round"
                         android:text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem expedita id similique recusand" />
+
+                    <TextView
+                        android:id="@+id/btnSaibaMais"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Saiba Mais" />
                 </LinearLayout>
 
             </LinearLayout>

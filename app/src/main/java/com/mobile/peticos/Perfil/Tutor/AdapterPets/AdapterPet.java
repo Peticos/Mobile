@@ -1,6 +1,11 @@
 package com.mobile.peticos.Perfil.Tutor.AdapterPets;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +17,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mobile.peticos.Perfil.Pet.Apis.ModelPetBanco;
+import com.mobile.peticos.Login;
+import com.mobile.peticos.MainActivity;
+import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 
 import com.mobile.peticos.Perfil.Pet.PerfilPet;
 import com.mobile.peticos.R;
@@ -39,25 +46,24 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.PetViewHolder> {
         holder.textViewNome.setText(Pet.getNickname());
         // Configurar o clique
         holder.itemView.setOnClickListener(v -> {
-
-            Intent intent = new Intent(v.getContext(), PerfilPet.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("nickname", Pet.getNickname());
-            bundle.putInt("idade", Pet.getAge());
-            bundle.putString("especie", Pet.getSpecie());
-            bundle.putString("raca", Pet.getRace());
-            bundle.putString("cor", Pet.getColorpet());
-            bundle.putString("porte", Pet.getSize());
-            bundle.putString("genero", Pet.getSex());
-            bundle.putInt("id", Pet.getIdPet());
-            intent.putExtras(bundle);
+            SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("Pet", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            // Armazenar todas as informações no SharedPreferences
+            editor.putString("nickname", Pet.getNickname());
+            editor.putInt("idade", Pet.getAge());
+            editor.putString("especie", Pet.getSpecie());
+            editor.putString("raca", Pet.getRace());
+            editor.putString("cor", Pet.getColorpet());
+            editor.putString("porte", Pet.getSize());
+            editor.putString("genero", Pet.getSex());
+            editor.putInt("id", Pet.getIdPet());
+            editor.apply();
+            Toast.makeText(v.getContext(), "Pet", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent( v.getContext(), PerfilPet.class);
             v.getContext().startActivity(intent);
-
         });
 
 
-//        holder.textViewDescricao.setText(local.getDescricao());
-//        holder.imageView.setImageResource(local.getImagem());
     }
 
     @Override
@@ -74,8 +80,7 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.PetViewHolder> {
             textViewNome = itemView.findViewById(R.id.nomepet);
             imageView = itemView.findViewById(R.id.fotopet);
 
-//            textViewDescricao = itemView.findViewById(R.id.textView32);
-//            imageView = itemView.findViewById(R.id.fotoPerfil);
+
         }
     }
 }

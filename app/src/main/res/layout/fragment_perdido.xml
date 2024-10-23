@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -59,22 +59,29 @@
 
             <TextView
                 android:id="@+id/textView30"
-                android:layout_width="wrap_content"
+                android:layout_width="96dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/lilita_one"
                 android:paddingLeft="24dp"
-                android:paddingRight="8dp"
                 android:text="Pets Perdidos"
                 android:textColor="@color/red_or_orange"
                 android:textSize="20sp" />
 
+            <ImageView
+                android:id="@+id/infoPerdidos"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_alert"
+                app:tint="@color/red_or_orange" />
+
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/btnSos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingLeft="40dp"
+                android:paddingLeft="120dp"
                 android:background="#00FFFFFF"
                 android:src="@drawable/sos" />
 
@@ -89,5 +96,203 @@
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardInfoPerdido"
+            android:layout_width="380dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="12dp"
+            android:visibility="gone"
+            android:backgroundTint="@color/red_or_orange"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Header do card com o ícone de alerta, título e botão fechar -->
+                <LinearLayout
+                    android:id="@+id/linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:src="@drawable/ic_alert"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/lilita_one"
+                        android:textSize="24sp"
+                        android:paddingRight="150dp"
+                        android:text="Pets Perdidos"
+                        android:layout_gravity="center"/>
+
+                    <ImageView
+                        android:id="@+id/fechar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="16dp"
+                        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+                </LinearLayout>
+
+                <!-- Conteúdo do card interno -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="366dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:backgroundTint="@color/beige"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linear">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:id="@+id/textView24"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lilita_one"
+                            android:text="1. Avalie a situação"
+                            android:textColor="@color/red_or_orange"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/textView25"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/varela_round"
+                            android:text=" * Segurança Primeiro: Antes de se aproximar do animal, certifique-se de que o local é seguro tanto para você quanto para o animal. Evite áreas com muito tráfego ou perigos potenciais."
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/varela_round"
+                            android:text=" * Calma e Paciência: Aproximar-se lentamente e com calma. Evite movimentos bruscos e barulhos altos que possam assustar o animal."
+                            android:textSize="12dp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardErroPerdidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="90dp"
+            android:backgroundTint="@color/beige"
+            android:visibility="gone"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="30dp"
+                    android:src="@drawable/modolinho_triste" />
+
+                <TextView
+                    android:id="@+id/textView53"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:text="Ops! Parece que algo deu errado..."
+                    android:textColor="@color/red_or_orange"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/textView55"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp"
+                    android:text="Nosso feed de pets perdidos não conseguiu carregar.  Mas não se preocupe, estamos tentando consertar! Enquanto isso, que tal dar uma olhada nas outras funcionalidades do app?"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardPerdidosSemPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="90dp"
+            android:backgroundTint="@color/beige"
+            android:visibility="gone"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView41"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="30dp"
+                    android:src="@drawable/gatinha" />
+
+                <TextView
+                    android:id="@+id/textView63"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:text="Uhuu! Nenhum pet está perdido no momento!"
+                    android:textColor="@color/red_or_orange"
+                    android:textSize="36sp" />
+
+                <TextView
+                    android:id="@+id/textView65"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp"
+                    android:text="Todos os nossos amigos peludos estão em casa, seguros e felizes.  Seu pet esta desaparecido? Publique aqui algumas informações para que outros tutores possam te ajudar a encontra-lo."
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

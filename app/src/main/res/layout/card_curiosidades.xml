@@ -4,7 +4,9 @@
     android:id="@+id/CardViewCuriosidade"
     android:layout_width="350dp"
     android:layout_height="80dp"
+    android:layout_gravity="center_horizontal"
     android:layout_marginHorizontal="26dp"
+    android:foregroundGravity="center_horizontal"
     app:cardCornerRadius="12dp">
 
     <TextView

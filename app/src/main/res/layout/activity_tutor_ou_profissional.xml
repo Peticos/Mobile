@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/beige"
     android:backgroundTint="@color/beige"
-    tools:context=".Tutor_ou_Profissional">
+    tools:context=".Cadastros.Tutor_ou_Profissional">
 
     <ImageView
         android:id="@+id/imageView3"

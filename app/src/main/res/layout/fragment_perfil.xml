@@ -7,32 +7,28 @@
     android:background="@color/beige"
     tools:context=".Perfil.Tutor.PerfilFragment">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/fundo">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/perfil"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingVertical="24dp"
                     android:orientation="vertical">
 
                     <com.google.android.material.imageview.ShapeableImageView
@@ -68,23 +64,15 @@
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/lembretesLista"
-                        android:layout_width="336dp"
-                        android:layout_height="72dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="16dp" />
+                </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView16"
-                        android:layout_width="334dp"
-                        android:layout_height="104dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/seja_premium" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/beige">
                     <TextView
-                        android:id="@+id/textView31"
+                        android:id="@+id/nomepet2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -97,111 +85,182 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardCalendar"
-                            android:layout_width="152dp"
-                            android:layout_height="100dp"
-                            android:layout_marginEnd="20dp"
-                            android:background="@drawable/perfil"
-                            android:backgroundTint="@color/water_blue"
-                            android:clickable="true"
-                            app:cardCornerRadius="12dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="25dp"
-                                    android:foregroundGravity="center"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:id="@+id/imageView17"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        app:srcCompat="@drawable/ic_calendar"
-                                        app:tint="@color/white" />
-
-                                    <TextView
-                                        android:id="@+id/textView32"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/lilita_one"
-                                        android:text="Calendario"
-                                        android:textColor="@color/white" />
-
-                                </LinearLayout>
-
-                                <TextView
-                                    android:id="@+id/textView29"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/varela_round"
-                                    android:paddingLeft="8dp"
-                                    android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardPost"
-                            android:layout_width="152dp"
-                            android:layout_height="100dp"
-                            android:background="@drawable/perfil"
-                            android:backgroundTint="@color/water_blue"
-                            android:clickable="true"
-                            app:cardCornerRadius="12dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardPost"
+                                android:layout_width="152dp"
+                                android:layout_height="100dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/perfil"
+                                android:backgroundTint="@color/water_blue"
+                                android:clickable="true"
+                                app:cardCornerRadius="12dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="25dp"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
 
-                                    <ImageView
-                                        android:id="@+id/imageView18"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="20dp"
-                                        android:layout_weight="1"
-                                        app:srcCompat="@drawable/ic_vetor_post" />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="25dp"
+                                        android:foregroundGravity="center"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:id="@+id/imageView17"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="20dp"
+                                            android:layout_weight="1"
+                                            app:srcCompat="@drawable/ic_vetor_post" />
+
+                                        <TextView
+                                            android:id="@+id/textView32"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/lilita_one"
+                                            android:text="Posts"
+                                            android:textColor="@color/white" />
+
+                                    </LinearLayout>
 
                                     <TextView
-                                        android:id="@+id/textView34"
+                                        android:id="@+id/textView29"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/lilita_one"
-                                        android:text="Posts"
-                                        android:textColor="@color/white" />
+                                        android:fontFamily="@font/varela_round"
+                                        android:paddingLeft="8dp"
+                                        android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                                        android:textColor="@color/white"
+                                        android:textSize="10sp" />
                                 </LinearLayout>
+                            </androidx.cardview.widget.CardView>
 
-                                <TextView
-                                    android:id="@+id/textView33"
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardPerdidos"
+                                android:layout_width="152dp"
+                                android:layout_height="100dp"
+                                android:background="@drawable/perfil"
+                                android:backgroundTint="@color/water_blue"
+                                android:clickable="true"
+                                app:cardCornerRadius="12dp">
+
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/varela_round"
-                                    android:paddingLeft="8dp"
-                                    android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
-                                    android:textColor="@color/white"
-                                    android:textSize="10sp" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="25dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:id="@+id/imageView18"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="20dp"
+                                            android:layout_weight="1"
+                                            app:srcCompat="@drawable/ic_vetor_post" />
+
+                                        <TextView
+                                            android:id="@+id/textView34"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/lilita_one"
+                                            android:text="Perdidos"
+                                            android:textColor="@color/white" />
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:id="@+id/textView33"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/varela_round"
+                                        android:paddingLeft="8dp"
+                                        android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                                        android:textColor="@color/white"
+                                        android:textSize="10sp" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardVakinhas"
+                                android:layout_width="152dp"
+                                android:layout_height="100dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@drawable/perfil"
+                                android:backgroundTint="@color/water_blue"
+                                android:clickable="true"
+                                app:cardCornerRadius="12dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="25dp"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:id="@+id/imageView78"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="20dp"
+                                            android:layout_weight="1"
+                                            app:srcCompat="@drawable/ic_vetor_post" />
+
+                                        <TextView
+                                            android:id="@+id/textView79"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/lilita_one"
+                                            android:text="Vakinhas"
+                                            android:textColor="@color/white" />
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:id="@+id/textView80"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/varela_round"
+                                        android:paddingLeft="8dp"
+                                        android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                                        android:textColor="@color/white"
+                                        android:textSize="10sp" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardVazio"
+                                android:layout_width="152dp"
+                                android:layout_height="100dp"
+                                android:background="@drawable/perfil"
+                                android:backgroundTint="@color/beige">
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <TextView
@@ -217,11 +276,11 @@
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal">
 
@@ -238,160 +297,154 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                app:srcCompat="@drawable/ic_mais_pet" />
+                                app:srcCompat="@drawable/ic_cadastrar_pet_perfil" />
 
                         </LinearLayout>
                     </HorizontalScrollView>
 
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/water_blue" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView25"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                app:srcCompat="@drawable/ic_configuracao_azul" />
+
+                            <TextView
+                                android:id="@+id/textView54"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lilita_one"
+                                android:text="Configurações"
+                                android:textColor="@color/water_blue"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center|center_horizontal|center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:scaleType="center"
+                                app:srcCompat="@drawable/ic_cadeado_azul" />
+
+                            <TextView
+                                android:id="@+id/trocarSenha"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/varela_round"
+                                android:text="Trocar Senha"
+                                android:textColor="@color/water_blue"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layoutEditar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center|center_horizontal|center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:scaleType="center"
+                                app:srcCompat="@drawable/ic_editar_azul" />
+
+                            <TextView
+                                android:id="@+id/editarPerfil"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/varela_round"
+                                android:text="Editar Perfil"
+                                android:textColor="@color/water_blue"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center|center_horizontal|center_vertical"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="1"
+                                android:scaleType="center"
+                                app:srcCompat="@drawable/ic_meuplano" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/varela_round"
+                                android:text="Meu Plano"
+                                android:textColor="@color/water_blue"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnSair"
+                            android:layout_width="300dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="28dp"
+                            android:layout_marginBottom="20dp"
+                            android:backgroundTint="@color/red_or_orange"
+                            android:fontFamily="@font/lilita_one"
+                            android:gravity="center"
+                            android:text="Sair"
+                            android:textSize="22sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                    </LinearLayout>
                 </LinearLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/water_blue" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/imageView25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_configuracao_azul" />
-
-                    <TextView
-                        android:id="@+id/textView54"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/lilita_one"
-                        android:text="Configurações"
-                        android:textColor="@color/water_blue"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ic_cadeado_azul" />
-
-                    <TextView
-                        android:id="@+id/trocarSenha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/varela_round"
-                        android:text="Trocar Senha"
-                        android:textColor="@color/water_blue"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutEditar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ic_editar_azul" />
-
-                    <TextView
-                        android:id="@+id/editarPerfil"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/varela_round"
-                        android:text="Editar Perfil"
-                        android:textColor="@color/water_blue"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_gravity="center|center_horizontal|center_vertical"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/ic_meuplano" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/varela_round"
-                        android:text="Meu Plano"
-                        android:textColor="@color/water_blue"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnSair"
-                    android:layout_width="300dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/red_or_orange"
-                    android:fontFamily="@font/lilita_one"
-                    android:gravity="center"
-                    android:text="Sair"
-                    android:textSize="22sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
             </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

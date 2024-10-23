@@ -1,8 +1,9 @@
 package com.mobile.peticos;
 
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -10,15 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
-import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.Local.LocalFragment;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 import com.mobile.peticos.Perfil.Profissional.PerfilProfissional;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
+
 import com.mobile.peticos.Vakinhas.VakinhasFragment;
 import com.mobile.peticos.databinding.ActivityMainBinding;
 
@@ -37,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
     APIPerfil api;
     Boolean perfilbool = null;
 
-    int idPet = 9;
-
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,45 +46,21 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        FirebaseAuth auth = FirebaseAuth.getInstance();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos.onrender.com/")
+                .baseUrl("https://apipeticos.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);
 
-        Call<ModelPerfil> call = api.getById(auth.getCurrentUser().getDisplayName());
-        Toast.makeText(this, auth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
-        call.enqueue(new Callback<ModelPerfil>() {
-            @Override
-            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ModelPerfil perfil = response.body();
 
-                    // Aqui, continue com a lógica para abrir o fragment correto
-                    if (perfil.getCnpj().equals("Tutor")) {
-                        perfilbool = true;
-                    } else {
-                        perfilbool = false;
+        SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+        Boolean mei = sharedPreferences.getBoolean("mei", true);
+        int id = sharedPreferences.getInt("id", 278);
 
-                    }
-                }else{
-                    perfilbool = true;
-                    Intent intent = new Intent(MainActivity.this, Login.class);
-                    startActivity(intent);
 
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ModelPerfil> call, Throwable t) {
-                // Trate a falha da chamada à API aqui
-                perfilbool = true;
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
 
-            }
-        });
+
 
         openFragment(HomeFragment.newInstance());
 
@@ -104,18 +80,11 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-
-                        if (perfilbool != null) {
-                            if (perfilbool) {
-                                openFragment(PerfilFragment.newInstance());
-                            } else {
-                                openFragment(PerfilProfissional.newInstance());
-                            }
+                        if (!mei) {
+                            openFragment(PerfilFragment.newInstance());
                         } else {
-                            // Se o perfil ainda não foi carregado, exibe uma mensagem ou faz algo
-                            showLoadingMessage();
+                            openFragment(PerfilProfissional.newInstance());
                         }
-
 
                     }
                     return true;

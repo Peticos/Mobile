@@ -3,16 +3,14 @@ package com.mobile.peticos.Perfil.Pet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mobile.peticos.ModelRetorno;
-import com.mobile.peticos.Perfil.Pet.Apis.APIPets;
-import com.mobile.peticos.Perfil.Pet.Apis.ModelPetBanco;
-import com.mobile.peticos.Perfil.Pet.Apis.Personalizacao;
+
+import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
 import com.mobile.peticos.R;
 
 import retrofit2.Call;
@@ -20,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 
 public class PerfilPet extends AppCompatActivity {
     TextView NomePet, sexoPet, idadePet, especiePet, racaPet, corPet, portePet, NomePet2;
@@ -30,9 +29,6 @@ public class PerfilPet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_pet);
-        Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("id");
-
 
         NomePet = findViewById(R.id.NomePetDois);
         NomePet2 = findViewById(R.id.NomePet);
@@ -58,14 +54,24 @@ public class PerfilPet extends AppCompatActivity {
         petzao.setVisibility(View.INVISIBLE);
         cabeca.setVisibility(View.INVISIBLE);
 
-        NomePet.setText(bundle.getString("nickname"));
-        NomePet2.setText(bundle.getString("nickname"));
-        sexoPet.setText(bundle.getString("genero"));
-        idadePet.setText(String.valueOf(bundle.getInt("idade")));
-        racaPet.setText(bundle.getString("raca"));
-        corPet.setText(bundle.getString("cor"));
-        portePet.setText(bundle.getString("porte"));
-        avatarPet();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Pet", MODE_PRIVATE);
+        //editor.putString("nickname", Pet.getNickname());
+        //            editor.putInt("idade", Pet.getAge());
+        //            editor.putString("especie", Pet.getSpecie());
+        //            editor.putString("raca", Pet.getRace());
+        //            editor.putString("cor", Pet.getColorpet());
+        //            editor.putString("porte", Pet.getSize());
+        //            editor.putString("genero", Pet.getSex());
+        //            editor.putInt("id", Pet.getIdPet());
+        NomePet.setText(sharedPreferences.getString("nickname", "nome do pet"));
+        NomePet2.setText(sharedPreferences.getString("nickname", "nome do pet"));
+        sexoPet.setText(sharedPreferences.getString("genero", "genero"));
+        idadePet.setText(sharedPreferences.getInt("idade", 0) + " anos");
+        racaPet.setText(sharedPreferences.getString("raca", "raca"));
+        corPet.setText(sharedPreferences.getString("cor", "cor"));
+        portePet.setText(sharedPreferences.getString("porte", "porte"));
+        //avatarPet();
 
 
 
@@ -74,13 +80,13 @@ public class PerfilPet extends AppCompatActivity {
         btnvoltar.setOnClickListener(v -> {
             finish();
         });
-        btn_editar.setOnClickListener(v->{
-            Intent intent = new Intent(v.getContext(), EditarPerfilPet.class);
-            Bundle bundleeditar = new Bundle();
-            bundleeditar.putInt("id", bundle.getInt("id"));
-            intent.putExtras(bundleeditar);
-            v.getContext().startActivity(intent);
-        });
+//        btn_editar.setOnClickListener(v->{
+//            Intent intent = new Intent(v.getContext(), EditarPerfilPet.class);
+//            Bundle bundleeditar = new Bundle();
+//            bundleeditar.putInt("id", sharedPreferences.getInt("id", 0));
+//            intent.putExtras(bundleeditar);
+//            v.getContext().startActivity(intent);
+//        });
 
 
     }

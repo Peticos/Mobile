@@ -1,6 +1,6 @@
 package com.mobile.peticos.Cadastros.APIs;
 
-import com.mobile.peticos.ModelRetorno;
+import com.mobile.peticos.Padrao.ModelRetorno;
 
 import java.util.List;
 
@@ -18,21 +18,33 @@ public interface APIPerfil {
     Call<List<ModelPerfil>> getAll();
 
     @GET("/api/user/getbyusername/{username}")
-    Call<ModelPerfil> getById(@Path("username") String username);
+    Call<ModelPerfil> getByUsername(@Path("username") String username);
+
+    @GET("/api/user/getbyusername/{username}")
+    Call<ModelPerfil> getById(@Path("username") int id);
 
     @Headers("Content-Type: application/json")
     @POST("/api/user/inserttutor")
-    Call<ModelRetorno> insertTutor(@Body ModelPerfil model);
+    Call<Integer> insertTutor(@Body ModelPerfil model);
+
     @Headers("Content-Type: application/json")
     @POST("/api/user/insertprofissional")
-    Call<ModelRetorno> insertProfissional(@Body ModelPerfil model);
-
+    Call<Integer> insertProfissional(@Body ModelPerfil model);
 
     @PUT("/api/user/update/{id}")
     Call<ModelPerfil> update(@Path("id") int id, @Body ModelPerfil model);
 
     @DELETE("/api/user/delete/{id}")
     Call<ModelPerfil> delete(@Path("id") int id);
+
+    @GET("/api/user/findbyid/{id}")
+    Call<ModelPerfil> findById(@Path("id") int id);
+
+    @POST("/api/auth/register")
+    Call<ModelRetorno> register(@Body ModelPerfilAuth model);
+
+    @POST("/api/auth/login")
+    Call<Integer> login(@Body ModelPerfilAuth model);
 
 
 

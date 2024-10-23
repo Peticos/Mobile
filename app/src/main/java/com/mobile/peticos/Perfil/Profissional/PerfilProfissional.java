@@ -1,13 +1,16 @@
 
 package com.mobile.peticos.Perfil.Profissional;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +22,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
+
+
+import com.mobile.peticos.Home.AdicionarProduto;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
-import com.mobile.peticos.Perfil.Tutor.EditarPerfil;
 import com.mobile.peticos.R;
 
 public class PerfilProfissional extends Fragment {
@@ -45,7 +48,9 @@ public class PerfilProfissional extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
 
 
     }
@@ -53,6 +58,7 @@ public class PerfilProfissional extends Fragment {
     ImageView fotoPerfil;
     TextView nome;
     TextView email;
+    Button novo_produto_button;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,32 +77,29 @@ public class PerfilProfissional extends Fragment {
         email = view.findViewById(R.id.email);
 
 
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
-        if(autenticator.getCurrentUser().getPhotoUrl() != null){
-            RequestOptions options = new RequestOptions()
+        // Acesso ao SharedPreferences
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
+
+        // Recuperar os dados
+
+        int id = sharedPreferences.getInt("id", 278);
+        String url = sharedPreferences.getString("url", "https://firebasestorage.googleapis.com/v0/b/apipeticos.appspot.com/o/Imagens%2Fdefault.png?alt=media&token=5d7a6aaf-0d4f-4b3e-9f4b-0e2e9f1c9a0c");
+
+        RequestOptions options = new RequestOptions()
                     .centerCrop() // Garante que a imagem preencha o espaço
                     .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
 
-            Glide.with(this)
-                    .load(autenticator.getCurrentUser().getPhotoUrl())
+        Glide.with(this)
+                    .load(url)
                     .apply(options)
+                    .error(R.drawable.fotogenerica) // Imagem que aparece em caso de erro
                     .into(fotoPerfil);
-        }
-        if(autenticator.getCurrentUser().getDisplayName() != null){
 
-            nome.setText(autenticator.getCurrentUser().getDisplayName());
-        }
-        if(autenticator.getCurrentUser().getEmail() != null){
+        String username = sharedPreferences.getString("nome_usuario", "nome_usuario");
+        nome.setText(username);
 
-            email.setText(autenticator.getCurrentUser().getEmail());
-        }
-
-
-
-
-
-
-
+        String emailUser = sharedPreferences.getString("email", "email");
+        email.setText(emailUser);
 
 
         editar.setOnClickListener(new View.OnClickListener() {
@@ -137,10 +140,10 @@ public class PerfilProfissional extends Fragment {
     }
 
     private void goToNewProduct(View view) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainerView, AdicionarProduto.newInstance());
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainerView, AdicionarProduto.newInstance())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void goToGraphic(View view) {
@@ -151,9 +154,24 @@ public class PerfilProfissional extends Fragment {
         transaction.commit();
     }
     public void logout(View view) {
-        FirebaseAuth autenticator = FirebaseAuth.getInstance();
 
-        autenticator.signOut();
+        // Recupera o SharedPreferences
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("nome", "");
+        editor.putString("nome_usuario", "");
+        editor.putString("email","");
+        editor.putString("bairro", "");
+        editor.putBoolean("mei", false);
+        editor.putString("telefone", "");
+        editor.putString("url", "");
+        editor.putString("genero", "");
+        editor.putInt("id", 0);
+        editor.apply(); // Aplica as alterações
+
+
+
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);
 
