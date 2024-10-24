@@ -247,6 +247,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
 
         List<String> likes = Arrays.asList();
+        List<String> shares = Arrays.asList();
 
         if(url == null){
             Toast.makeText(getContext(), "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
@@ -263,7 +264,8 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
                 sharedPreferences.getInt("id", 284), // userId
-                likes, // likes
+                likes,
+                shares,// likes
                 url, // picture
                 legenda.getText().toString(), // caption
                 selectedPetsList, // pets

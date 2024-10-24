@@ -168,10 +168,12 @@ public class AdicionarProduto extends Fragment {
         String postDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         List<String> likes = Arrays.asList();
+        List<String> shares = Arrays.asList();
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
                 sharedPreferences.getInt("id", 284), // userId
                 likes,
+                shares,
                 url, // picture
                 legenda.getText().toString(), // caption
                 postDate, // postDate

@@ -1,8 +1,5 @@
 package com.mobile.peticos.Home.Feed;
 
-import static androidx.core.content.ContextCompat.startActivity;
-import static java.security.AccessController.getContext;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,20 +17,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
-import com.mobile.peticos.MetodosBanco;
-import com.mobile.peticos.Padrao.ModelRetorno;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.R;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPetsViewHolder> {
@@ -190,17 +184,21 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             } else {
                 // Quando o username não está no banco
                 // Se o usuário já curtiu
-                if (totalCurtidas == 0) {
-                    holder.likedBy.setText("Curtido por: " + username);
-                } else if (totalCurtidas == 1) {
+                if (!curtidasList.contains(username)) {
+                    curtidasList.add(username); // Adiciona o usuário se não estiver na lista
+                }
+
+                totalCurtidas = curtidasList.size(); // Atualiza o total de curtidas
+                if (totalCurtidas == 1) {
                     holder.likedBy.setText("Curtido por: " + username);
                 } else {
                     String ultimaPessoa = curtidasList.get(totalCurtidas - 1);
-                    holder.likedBy.setText("Curtido por " + ultimaPessoa + " e outras " + (totalCurtidas) + " pessoas");
+                    holder.likedBy.setText("Curtido por " + ultimaPessoa + " e outras " + (totalCurtidas - 1) + " pessoas");
                 }
             }
         }
     }
+
 
     public void Curtir(FeedPetsViewHolder holder){
         holder.likeButton.setImageResource(R.drawable.like); // Alterar ícone para curtido
@@ -244,6 +242,19 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         });
     }
 
+    public void CompartilharBanco(FeedPetsViewHolder holder, FeedPet feedPet,MetodosBanco metodosBanco, String username) {
+        metodosBanco.share(feedPet.getId(),username, new MetodosBanco.CurtirCallback() {
+            @Override
+            public void onSuccess(String modelRetorno) {
+                Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("Erro", errorMessage);
+            }
+        });
+    }
 
 
     @Override
@@ -374,6 +385,10 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String nomeUsuario = sharedPreferences.getString("nome_usuario", "nome do tutor");
+
+                CompartilharBanco( holder,  feedPet,  metodosBanco,  nomeUsuario);
+
                 // URL da imagem armazenada no Firebase
                 String imageUrl = "https://firebase_storage_link_para_imagem.jpg";
 
