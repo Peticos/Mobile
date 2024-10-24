@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="460dp"
-    android:layout_height="580dp"
+    android:layout_height="590dp"
     android:layout_marginBottom="20dp"
     android:backgroundTint="@color/white"
     app:cardCornerRadius="12dp">
@@ -31,6 +31,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingStart="19dp"
+                android:layout_marginTop="20dp"
                 android:paddingEnd="20dp"
                 android:textAlignment="center">
 
@@ -46,14 +47,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp">
 
                     <TextView
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lilita_one"
-                        android:text="geogeo43"
+                        android:text=""
                         android:textColor="@color/wood_brown"
                         android:textSize="20sp" />
 

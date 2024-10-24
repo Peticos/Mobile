@@ -101,7 +101,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         publicacoes = view.findViewById(R.id.publicacoes);
         btnUpload = view.findViewById(R.id.upload);
         legenda = view.findViewById(R.id.legenda);
-        recyclerPets = view.findViewById(R.id.recyclepets);
+        recyclerPets = view.findViewById(R.id.amiguinhos);
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override

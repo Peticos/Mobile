@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
-import com.mobile.peticos.MetodosBanco;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.R;
 
 import java.time.LocalDate;
