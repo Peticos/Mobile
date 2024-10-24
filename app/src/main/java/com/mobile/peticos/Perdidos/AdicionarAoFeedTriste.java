@@ -1,5 +1,8 @@
 package com.mobile.peticos.Perdidos;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,11 +13,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,17 +32,26 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.mobile.peticos.Home.AdapterPetFeedPrincipal;
+import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 
 import com.mobile.peticos.Padrao.NotificationReciver;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.R;
 
 import android.widget.Toast;
 
 import com.mobile.peticos.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -48,11 +64,15 @@ import com.mobile.peticos.Padrao.ModelRetorno;
 public class AdicionarAoFeedTriste extends Fragment {
     Button bntSair;
     ImageButton btn_voltar_publicacoes;
-    EditText descricao, bairro, data;
+    EditText descricao, bairro, data, referencia;
+
     ImageView upload;
     TextView publicacoes;
+    RecyclerView amiguinhos;
+    private ActivityResultLauncher<Intent> cameraLauncher;
 
     private static final String CHANNEL_ID = "channel_id";
+    String url;
 
     public static AdicionarAoFeedTriste newInstance() {
         return new AdicionarAoFeedTriste();
@@ -72,7 +92,14 @@ public class AdicionarAoFeedTriste extends Fragment {
         descricao = view.findViewById(R.id.descricao);
         bairro = view.findViewById(R.id.bairro);
         data = view.findViewById(R.id.data);
+        amiguinhos = view.findViewById(R.id.amiguinhos);
+        referencia = view.findViewById(R.id.referencia);
 
+        SharedPreferences limparCache = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = limparCache.edit();
+        editor.putString("selectedPet", null); // Corrigido: usar 'selectedPet' como chave
+        editor.putString("nome",null);
+        editor.apply();
         bntSair = view.findViewById(R.id.btnSair);
         btn_voltar_publicacoes = view.findViewById(R.id.btn_voltar_publicacoes);
         publicacoes = view.findViewById(R.id.publicacoes);
@@ -88,6 +115,79 @@ public class AdicionarAoFeedTriste extends Fragment {
         // Criar canal de notificação
         createNotificationChannel();
         setupRetrofit();
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), Camera.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tipo", "tutor");
+                intent.putExtras(bundle);
+                cameraLauncher.launch(intent); // Apenas lance o Intent sem o código de solicitação
+
+            }
+        });
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            url = data.getStringExtra("url"); // Obter a URL do Intent
+                            if(url != null){
+                                url.replace("\"", "");
+                                url.replace(" ", "");
+                                RequestOptions options = new RequestOptions()
+                                        .centerCrop() // Garante que a imagem preencha o espaço
+                                        .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
+
+                                Glide.with(this)
+                                        .load(url)
+                                        .apply(options)
+                                        .into(upload);
+
+                            }
+
+                        }
+                    }
+                }
+        );
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        amiguinhos.setLayoutManager(layoutManager);
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://apipeticos.onrender.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIPets apiPets = retrofit.create(APIPets.class);
+
+        Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "modolo"));
+        call.enqueue(new Callback<List<ModelPetBanco>>() {
+            @Override
+            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<ModelPetBanco> listaPets = response.body();
+                    AdapterPetFeedTriste adapterPet = new AdapterPetFeedTriste(listaPets);
+
+                    amiguinhos.setAdapter(adapterPet);
+                } else {
+                    Log.e("API_ERROR", "Erro: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                Log.e("API_ERROR", "Falha na chamada", t);
+                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return view;
     }
@@ -112,25 +212,41 @@ public class AdicionarAoFeedTriste extends Fragment {
 
     public void RegistrarPetPerdido(View view) {
 
+
         Date dataAtual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-        String dataFormatada = formato.format(dataAtual);
+        String dataFormatada = formato.format(dataAtual); // postTime formatada
+        // Tratamento da data de perda
+        String dataa = data.getText().toString(); // Entrada do campo de texto
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()); // Formato de entrada MM-dd-yyyy
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
+        Date lostDate = null;
+        try {
+            lostDate = inputFormat.parse(dataa); // Convertendo a entrada de texto para Date
+        } catch (ParseException e) {
+            e.printStackTrace(); // Tratando erro de parsing
+        }
+
+        String dataPerdaFormatada = lostDate != null ? outputFormat.format(lostDate) : dataFormatada; // Se a data de perda for válida, formatar
+
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
-        int id = sharedPreferences.getInt("id", 278);
 
+        SharedPreferences pet = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
+        String idPet = pet.getString("selectedPet", "112");
+        int idPetInt = Integer.parseInt(idPet);
 
         PetPerdido petPerdido = new PetPerdido(
-                18,
-                id,
+                idPetInt,
+                sharedPreferences.getInt("id", 278),
                 bairro.getText().toString(),
-                "OIIIIIIII",
+                pet.getString("nome", "pet perdido"),
                 descricao.getText().toString(),
                 dataFormatada,
-                "https://firebasestorage.googleapis.com/v0/b/peticos-b4633.appspot.com/o/17589433.548cad5c026f1.jpg?alt=media&token=59237338-3f7b-4d0d-b656-f1d0f27d150a",
-                "Rua das Flores",
-                789,
-                data.getText().toString()
+                url,
+                referencia.getText().toString(),
+                dataPerdaFormatada
         );
 
 
@@ -143,6 +259,7 @@ public class AdicionarAoFeedTriste extends Fragment {
                     Log.d("Perfil", "perdido: " + perdido);
 
                     Toast.makeText(getContext(), "Post publicado", Toast.LENGTH_SHORT).show();
+                    notificar();
 
 
 
@@ -154,6 +271,9 @@ public class AdicionarAoFeedTriste extends Fragment {
 
                 } else {
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
+                    Log.e("FeedPet", "Erro código: " + response.code());
+                    Log.e("FeedPet", "Erro mensagem: " + response.message());
+
                     Toast.makeText(getContext(), "Erro ao publicar o post", Toast.LENGTH_SHORT).show();
 
                 }
@@ -170,7 +290,7 @@ public class AdicionarAoFeedTriste extends Fragment {
 
 
 
-        notificar();
+
     }
 
     private void notificar() {

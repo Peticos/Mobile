@@ -2,6 +2,7 @@ package com.mobile.peticos.Perfil;
 
 
 import com.mobile.peticos.Home.Feed.FeedPet;
+import com.mobile.peticos.Perdidos.PetPerdido;
 
 import java.util.List;
 
@@ -13,4 +14,7 @@ public interface APIPerfil {
 
     @GET("/api/posts/findbyuserid/{id}")
     Call<List<FeedPet>> getPostByid(@Path("id") String id);
+
+    @GET("/api/rescuedlost/findbyid/{id}")
+    Call<List<PetPerdido>> getRescuedLostByid(@Path("id") Integer id);
 }

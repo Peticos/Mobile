@@ -3,6 +3,7 @@ package com.mobile.peticos.Perdidos;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
+import com.mobile.peticos.Home.Feed.FeedPet;
+import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
+import com.mobile.peticos.MetodosBanco;
 import com.mobile.peticos.R;
 
 import java.time.LocalDate;
@@ -34,12 +39,47 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_perdidos, parent, false);
         return new ViewHolder(view);
     }
+    public void ConfigPerfilUserPost (ViewHolder holder, PetPerdido feedPet, MetodosBanco metodosBanco){
+        metodosBanco.getPerfil(feedPet.idUser, holder.itemView.getContext(), new MetodosBanco.PerfilCallback() {
+            @Override
+            public void onSuccess(ModelPerfil perfil) {
+                // Configure as informações do perfil no holder, por exemplo:
+                holder.username.setText(perfil.getFullName());
+                // Adicione outros campos conforme necessário
+                if (perfil.getProfilePicture() != null){
+
+                    Glide.with(holder.userPhoto.getContext())
+                            .load(Uri.parse(perfil.getProfilePicture()))
+                            .error(R.drawable.fotogenerica)
+                            .into(holder.userPhoto);
+                }else {
+                    Glide.with(holder.userPhoto.getContext())
+                            .load(R.drawable.fotogenerica)
+                            .error(R.drawable.fotogenerica)
+                            .into(holder.userPhoto);
+                }
+            }
+
+
+
+            @Override
+            public void onError(String errorMessage) {
+                // Trate o erro se necessário, por exemplo:
+                Log.e("Erro", errorMessage);
+                holder.username.setText(String.format("Erro: %s", feedPet.getIdUser()));
+                Glide.with(holder.userPhoto.getContext())
+                        .load(R.drawable.fotogenerica)
+                        .error(R.drawable.fotogenerica)
+                        .into(holder.userPhoto);
+            }
+        });
+    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PetPerdido pet = petList.get(position);
 
-
+        ConfigPerfilUserPost(holder, pet, new MetodosBanco()) ;
             // Imagem principal do pet
             Glide.with(holder.fotoPrincipal.getContext())
                     .load(pet.getPicture())
@@ -60,12 +100,15 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                 holder.days.setText("Há " + dias + " dias atrás");
             }
 
+            holder.nomepet.setText(pet.getTitle());
+            holder.petsInPhoto.setText(pet.getTitle());
+
 
             // Descrição do pet
             holder.descricao.setText(pet.getDescription());
 
             // Configurar o telefone
-            String numero = "123456789"; // Substitua com o número do pet
+            String numero = pet.getPhone(); // Substitua com o número do pet
             holder.ic_telefone.setOnClickListener(v -> {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + numero));

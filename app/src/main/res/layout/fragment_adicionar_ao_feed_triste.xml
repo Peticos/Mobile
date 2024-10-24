@@ -198,7 +198,7 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/amiguinhos"
                                 android:layout_width="wrap_content"
-                                android:layout_height="80dp"
+                                android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:padding="16dp"
                                 android:paddingHorizontal="10dp" />

@@ -1,7 +1,5 @@
 package com.mobile.peticos.Perfil.Tutor;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +31,7 @@ import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 
 import com.mobile.peticos.Perfil.Tutor.Posts.FeedDoPet;
+import com.mobile.peticos.Perfil.Tutor.Posts.PerdidosTutor;
 import com.mobile.peticos.R;
 
 import org.jetbrains.annotations.Nullable;
@@ -172,7 +171,7 @@ public class PerfilFragment extends Fragment {
         cardPerdidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToPost(view);
+                goToPerdidos(view);
             }
         });
 
@@ -194,6 +193,14 @@ public class PerfilFragment extends Fragment {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainerView, FeedDoPet.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    public void goToPerdidos(View view) {
+
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainerView, PerdidosTutor.newInstance());
         transaction.addToBackStack(null);
         transaction.commit();
     }

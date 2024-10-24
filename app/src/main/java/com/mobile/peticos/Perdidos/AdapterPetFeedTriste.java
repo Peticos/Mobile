@@ -1,6 +1,7 @@
 package com.mobile.peticos.Perdidos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,11 +22,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AdapterPetFeedVakinha extends RecyclerView.Adapter<AdapterPetFeedVakinha.PetViewHolder> {
+public class AdapterPetFeedTriste extends RecyclerView.Adapter<AdapterPetFeedTriste.PetViewHolder> {
 
     private List<ModelPetBanco> petsList;
 
-    public AdapterPetFeedVakinha(List<ModelPetBanco> petsList) {
+
+    public AdapterPetFeedTriste(List<ModelPetBanco> petsList) {
         this.petsList = petsList;
     }
 
@@ -35,62 +38,47 @@ public class AdapterPetFeedVakinha extends RecyclerView.Adapter<AdapterPetFeedVa
         return new PetViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         ModelPetBanco Pet = petsList.get(position);
         holder.nome.setText(Pet.getNickname());
-        holder.tudo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Supondo que você tenha um método getId() em seu modelo
-                String idPet = String.valueOf(Pet.getIdPet());
 
-                // Recupera o SharedPreferences
-                SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+        // Recupera o SharedPreferences
+        SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                // Recupera a lista atual de IDs, ou cria uma nova se não existir
-                Set<String> selectedPets = sharedPreferences.getStringSet("selectedPets", new HashSet<>());
+        // Certifique-se de usar a mesma chave 'selectedPet'
+        String id = sharedPreferences.getString("selectedPet", null);
+        if (id != null && id.equals(String.valueOf(Pet.getIdPet()))) {
+            holder.cancelarPet.setVisibility(View.VISIBLE);
+        } else {
+            holder.cancelarPet.setVisibility(View.INVISIBLE);
+        }
 
-                // Verifica se o ID já existe na lista
-                if (!selectedPets.contains(idPet)) {
-                    // Adiciona o ID do pet à lista
-                    selectedPets.add(idPet);
 
-                    // Armazena a lista de volta
-                    editor.putStringSet("selectedPets", selectedPets);
-                    editor.apply();
+        // Evento de clique para selecionar o pet
+        holder.tudo.setOnClickListener(v -> {
+            String idPet = String.valueOf(Pet.getIdPet());
+            editor.putString("selectedPet", idPet); // Corrigido: usar 'selectedPet' como chave
+            editor.putString("nome",Pet.getNickname() );
+            editor.apply();
 
-                    holder.cancelarPet.setVisibility(View.VISIBLE);
-                    Toast.makeText(v.getContext(), "Pet " + idPet + " selecionado!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Se o ID já existe, você pode mostrar uma mensagem
-                    Toast.makeText(v.getContext(), "Pet " + idPet + " já está selecionado!", Toast.LENGTH_SHORT).show();
-                }
-            }
+            // Atualizar a exibição após selecionar o pet
+            notifyDataSetChanged();
         });
 
-        holder.cancelarPet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idPet = String.valueOf(Pet.getIdPet());
-                SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Set<String> selectedPets = sharedPreferences.getStringSet("selectedPets", new HashSet<>());
-                selectedPets.remove(idPet); // Remove se já estiver na lista
-                Toast.makeText(v.getContext(), "Pet " + idPet + " removido!", Toast.LENGTH_SHORT).show();
-                editor.putStringSet("selectedPets", selectedPets);
-                editor.apply();
-                holder.cancelarPet.setVisibility(View.INVISIBLE);
+        // Evento de clique para cancelar a seleção do pet
+        holder.cancelarPet.setOnClickListener(v -> {
+            editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
+            editor.apply();
 
-            }
+            // Atualizar a exibição após desmarcar o pet
+            holder.cancelarPet.setVisibility(View.INVISIBLE);
+            notifyDataSetChanged();
         });
-
-
-
-
-
     }
+
 
     @Override
     public int getItemCount() {
@@ -101,6 +89,7 @@ public class AdapterPetFeedVakinha extends RecyclerView.Adapter<AdapterPetFeedVa
         TextView nome;
         ImageView imagem, cancelarPet;
         LinearLayout tudo;
+        String perdido;
 
 
 
