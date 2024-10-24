@@ -75,115 +75,121 @@
                     android:background="@color/beige"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingHorizontal="30dp"
                     android:paddingVertical="16dp">
 
-                    <TextView
-                        android:id="@+id/textView"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lilita_one"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="Descreva o ocorrido: "
-                        android:textColor="@color/red_or_orange"
-                        android:textSize="16sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="30dp">
 
-                    <EditText
-                        android:id="@+id/descricao"
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:elevation="5dp"
-                        android:ems="10"
-                        android:fontFamily="@font/varela_round"
-                        android:gravity="top"
-                        android:hint="Escreva uma desrição do ocorrido"
-                        android:inputType="text"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lilita_one"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Descreva o ocorrido: "
+                            android:textColor="@color/red_or_orange"
+                            android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lilita_one"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="Bairro"
-                        android:textColor="@color/red_or_orange"
-                        android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/descricao"
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:background="@drawable/rounded_edit_text"
+                            android:elevation="5dp"
+                            android:ems="10"
+                            android:fontFamily="@font/varela_round"
+                            android:gravity="top"
+                            android:hint="Escreva uma desrição do ocorrido"
+                            android:inputType="text"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textSize="16sp" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/bairro"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:ems="10"
-                        android:hint="Selecione o bairro"
-                        android:inputType="text"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lilita_one"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Bairro"
+                            android:textColor="@color/red_or_orange"
+                            android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lilita_one"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="Data que perdeu o pet:"
-                        android:textColor="@color/red_or_orange"
-                        android:textSize="16sp" />
+                        <AutoCompleteTextView
+                            android:id="@+id/bairro"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rounded_edit_text"
+                            android:ems="10"
+                            android:hint="Selecione o bairro"
+                            android:inputType="text"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="14sp" />
 
-                    <EditText
-                        android:id="@+id/data"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:ems="10"
-                        android:hint="Indique a data em que perdeu o pet"
-                        android:inputType="date"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lilita_one"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Data que perdeu o pet:"
+                            android:textColor="@color/red_or_orange"
+                            android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lilita_one"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="Referência de local:"
-                        android:textColor="@color/red_or_orange"
-                        android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/data"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rounded_edit_text"
+                            android:ems="10"
+                            android:hint="Indique a data em que perdeu o pet"
+                            android:inputType="date"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="14sp" />
 
-                    <EditText
-                        android:id="@+id/referencia"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/rounded_edit_text"
-                        android:ems="10"
-                        android:hint="Digite uma referência do local do ocorrido"
-                        android:inputType="text"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lilita_one"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Referência de local:"
+                            android:textColor="@color/red_or_orange"
+                            android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lilita_one"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="Qual amiguinho desapareceu?"
-                        android:textColor="@color/red_or_orange"
-                        android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/referencia"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/rounded_edit_text"
+                            android:ems="10"
+                            android:hint="Digite uma referência do local do ocorrido"
+                            android:inputType="text"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/lilita_one"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Qual amiguinho desapareceu?"
+                            android:textColor="@color/red_or_orange"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
@@ -203,12 +209,6 @@
                                 android:padding="16dp"
                                 android:paddingHorizontal="10dp" />
 
-                            <ImageView
-                                android:id="@+id/btn_cadastrarpet"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/ic_cadastrar_pet_perdido" />
                         </LinearLayout>
                     </HorizontalScrollView>
 

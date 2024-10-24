@@ -393,7 +393,13 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 String imageUrl = "https://firebase_storage_link_para_imagem.jpg";
 
                 // Conteúdo do post que será compartilhado
-                String postContent = "Aqui está o conteúdo do post que quero compartilhar junto com a imagem: " + imageUrl;
+                String postContent = "\uD83E\uDDB4 Ei, amigo(a) que ama pets! \uD83D\uDC3E\n" +
+                        "\n" +
+                        "Eu acabei de descobrir um app incrível para quem tem um pet em casa! No Peticos, você encontra dicas, histórias e muita ajuda sobre cuidados, saúde e diversão para nossos amigos de quatro patas! \uD83D\uDC36\uD83D\uDC31\n" +
+                        "\n" +
+                        "Além disso, você pode acompanhar um feed cheio de conteúdo feito para a gente e até participar da nossa comunidade de pais de pets!\n" +
+                        "\n" +
+                        "\uD83D\uDCF2 Baixe o app e venha fazer parte dessa rede! Seu pet vai adorar. \uD83D\uDC3E\uD83D\uDC96";
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain"); // Tipo de conteúdo ajustado para compartilhar texto e URL

@@ -2,8 +2,6 @@ package com.mobile.peticos.Perdidos;
 
 public class PetPerdido {
 //    {
-
-//
 //  "idPet": 0,
 //  "idUser": 0,
 //  "bairro": "string",
