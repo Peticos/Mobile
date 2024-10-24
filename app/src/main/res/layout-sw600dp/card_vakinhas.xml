@@ -53,7 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lilita_one"
-                        android:text="geogeo43"
+                        android:text=""
                         android:textColor="@color/asereje_yellow"
                         android:textSize="20sp" />
 
@@ -90,6 +90,7 @@
             <LinearLayout
                 android:layout_width="80dp"
                 android:layout_height="28dp"
+                android:layout_marginVertical="8dp"
                 android:layout_marginLeft="20dp"
                 android:orientation="horizontal">
 
@@ -100,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_share"
-                    app:tint="@color/asereje_yellow"/>
+                    app:tint="@color/asereje_yellow" />
 
                 <ImageView
                     android:id="@+id/imageView10"

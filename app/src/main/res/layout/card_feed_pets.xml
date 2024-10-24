@@ -46,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lilita_one"
-                    android:text="geogeo43"
+                    android:text=""
                     android:textColor="@color/wood_brown"
                     android:textSize="20sp" />
 
