@@ -41,7 +41,7 @@ public class CadastrarPet extends AppCompatActivity {
     Button btnCadastrar;
     AutoCompleteTextView especie, raca, cor, porte, genero;
     TextView nome, idade;
-    Retrofit retrofit;
+    Retrofit retrofit1, retrofit2;
     int id;
     String username;
 
@@ -66,12 +66,23 @@ public class CadastrarPet extends AppCompatActivity {
 
 
         // Chamar API para setar os drops downs
-        String API = "https://apipeticos.onrender.com";
-        retrofit = new Retrofit.Builder()
-                .baseUrl(API)
+        String APISQL = "https://apipeticos.onrender.com";
+        retrofit1 = new Retrofit.Builder()
+                .baseUrl(APISQL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+
+        String APIMONGO = "https://apimongo-ghjh.onrender.com/";
+        retrofit2 = new Retrofit.Builder()
+                .baseUrl(APIMONGO)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
         setarDropDowns();
+
+
 
         btnCadastrar.setOnClickListener(v -> {
             Cadastrar(v);
@@ -81,37 +92,58 @@ public class CadastrarPet extends AppCompatActivity {
     //cadastrar pet
     public void Cadastrar(View view) {
         // Verifica se todos os campos obrigatórios estão preenchidos
-        if (especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
-            Toast.makeText(CadastrarPet.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
-            return;
+//        if (especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
+//            Toast.makeText(CadastrarPet.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+        APIPets api1 = retrofit1.create(APIPets.class);
+        APIPets api2 = retrofit2.create(APIPets.class);
+
+        if(genero.getText().toString().equals("Masculino")){
+            genero.setText("M");
+        }else if(genero.getText().toString().equals("Feminino")){
+            genero.setText("F");
         }
 
 
 
         // Cria o objeto do pet com os dados fornecidos
         ModelPetBanco pet = new ModelPetBanco(
-                id,
-                nome.getText().toString(),
-                Integer.parseInt(idade.getText().toString()),
-                genero.getText().toString(),
-                especie.getText().toString(),
-                raca.getText().toString(),
-                porte.getText().toString(),
-                cor.getText().toString(),
-                username
+             nome.getText().toString(),
+            Integer.parseInt(idade.getText().toString()),
+            "F",
+            especie.getText().toString(),
+            raca.getText().toString(),
+            porte.getText().toString(),
+            cor.getText().toString(),
+            username
         );
+//        ModelPetBanco pet = new ModelPetBanco(
+//                nome.getText().toString(),
+//                1,
+//               "F",
+//                "Cachorro",
+//                "Shih Tzu",
+//                "Pequeno",
+//                "Branco e Marrom",
+//                username
+//        );
 
         // Faz a chamada à API para inserir o pet
-        APIPets api = retrofit.create(APIPets.class);
-        Call<Integer> call = api.insertPet(pet);
+        // Chamar API para setar os drops downs
+
+        setarDropDowns();
+
+        Call<Integer> call = api1.insertPet(pet);
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 // Verifica se a resposta da API é bem-sucedida
                 if (response.isSuccessful() && response.body() != null) {
+
                     int id = response.body();
                     Personalizacao petPersonalizado = new Personalizacao(
-                            id,
+                            34,
                             "Cachorro",  // Pode ser modificado conforme a lógica do seu app
                             0,
                             0,
@@ -120,12 +152,13 @@ public class CadastrarPet extends AppCompatActivity {
                     );
 
                     // Chama a API para personalizar o pet
-                    Call<ModelRetorno> callPersonalizacao = api.personalizarPet(petPersonalizado);
+                    Call<ModelRetorno> callPersonalizacao = api2.personalizarPet(petPersonalizado);
                     callPersonalizacao.enqueue(new Callback<ModelRetorno>() {
                         @Override
                         public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(CadastrarPet.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                                finish();
                             } else {
                                 Log.e("Personalizacao", "Falha ao personalizar pet: " + response.code() + " - " + response.message());
                                 Toast.makeText(CadastrarPet.this, "Falha ao personalizar o pet, tente novamente.", Toast.LENGTH_SHORT).show();
@@ -182,7 +215,7 @@ public class CadastrarPet extends AppCompatActivity {
         porte.setThreshold(1);
 
         // Cor
-        APIPets apiPets = retrofit.create(APIPets.class);
+        APIPets apiPets = retrofit1.create(APIPets.class);
         Call<List<Cor>> call = apiPets.getAllColors();
         call.enqueue(new Callback<List<Cor>>() {
             @Override

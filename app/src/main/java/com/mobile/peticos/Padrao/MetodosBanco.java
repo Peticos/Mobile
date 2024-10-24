@@ -1,4 +1,4 @@
-package com.mobile.peticos;
+package com.mobile.peticos.Padrao;
 
 import android.content.Context;
 import android.util.Log;
@@ -116,6 +116,36 @@ public class MetodosBanco {
             @Override
             public void onFailure(Call<String> call, Throwable throwable) {
                 Log.e("Curtir error onFailure", "Falha ao curtir: " + throwable.getMessage());
+                callback.onError(throwable.getMessage());
+            }
+        });
+    }
+    public void share(String id, String username, CurtirCallback callback) {
+        String API = "https://apimongo-ghjh.onrender.com/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiHome api = retrofit.create(ApiHome.class);
+
+        Call<String> call = api.share(id, username);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Share response code", "SHare: " + response.code());
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError("Erro ao compartilhar");
+                }
+                Log.d("Response", response.toString());
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable throwable) {
+                Log.e("Curtir error onFailure", "Falha ao compartilhar: " + throwable.getMessage());
                 callback.onError(throwable.getMessage());
             }
         });
