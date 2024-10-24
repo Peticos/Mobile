@@ -88,9 +88,6 @@ public class CadastroProfissional extends AppCompatActivity {
         // Listener para o upload da imagem
         btnUpload.setOnClickListener(v -> {
             Intent intent = new Intent(CadastroProfissional.this, Camera.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("tipo", "Profissional");
-            intent.putExtras(bundle);
             cameraLauncher.launch(intent);
         });
     }

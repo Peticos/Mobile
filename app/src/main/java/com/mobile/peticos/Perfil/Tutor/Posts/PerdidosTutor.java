@@ -1,14 +1,10 @@
 package com.mobile.peticos.Perfil.Tutor.Posts;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
+import com.mobile.peticos.Perdidos.AdapterPerdidos;
+import com.mobile.peticos.Perdidos.PetPerdido;
 import com.mobile.peticos.Perfil.APIPerfil;
 import com.mobile.peticos.Perfil.Tutor.PerfilFragment;
 import com.mobile.peticos.R;
@@ -30,18 +33,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FeedDoPet extends Fragment {
+public class PerdidosTutor extends Fragment {
 
-    private static final String BASE_URL = "https://apimongo-ghjh.onrender.com";
-    private static final String PREFS_NAME = "Perfil";
-    private static final String KEY_ID = "id";
-    private static final int DEFAULT_ID = 2;
+    private static final String BASE_URL = "https://apipeticos.onrender.com/";
 
     private APIPerfil apiPerfil;
     private RecyclerView recyclerView;
 
-    public static FeedDoPet newInstance() {
-        return new FeedDoPet();
+    public static PerdidosTutor newInstance() {
+        return new PerdidosTutor();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FeedDoPet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_feed_do_pet, container, false);
+        View view = inflater.inflate(R.layout.fragment_perdidos_pett, container, false);
         recyclerView = view.findViewById(R.id.recycler);
         ImageButton voltar = view.findViewById(R.id.goBack);
 
@@ -84,17 +84,17 @@ public class FeedDoPet extends Fragment {
 
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed() {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String id = String.valueOf(sharedPreferences.getInt(KEY_ID, DEFAULT_ID));
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
+        int id = sharedPreferences.getInt("id",10);
 
-        Call<List<FeedPet>> call = apiPerfil.getPostByid(id); // Use o ID do sharedPreferences
-        call.enqueue(new Callback<List<FeedPet>>() {
+        Call<List<PetPerdido>> call = apiPerfil.getRescuedLostByid(281); // Use o ID do sharedPreferences
+        call.enqueue(new Callback<List<PetPerdido>>() {
             @Override
-            public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
+            public void onResponse(Call<List<PetPerdido>> call, Response<List<PetPerdido>> response) {
                 Log.d("FeedDoPet", "Resposta da API recebida. Código: " + response.code()); // Logando o código de resposta
 
                 if (response.isSuccessful() && response.body() != null) {
-                    List<FeedPet> feedList = response.body();
+                    List<PetPerdido> feedList = response.body();
 
                     Log.d("FeedDoPet", "Dados recebidos: " + feedList.toString()); // Logando os dados recebidos
 
@@ -106,19 +106,19 @@ public class FeedDoPet extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+            public void onFailure(Call<List<PetPerdido>> call, Throwable throwable) {
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
                 Toast.makeText(getContext(), "Erro ao carregar posts: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void updateRecyclerViewFeed(List<FeedPet> feedList) {
+    private void updateRecyclerViewFeed(List<PetPerdido> feedList) {
         // Configuração do RecyclerView para o feed de pets
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Configuração do Adapter para o RecyclerView
-        FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(feedList);
+        AdapterPerdidos feedPetsAdapter = new AdapterPerdidos(feedList);
         recyclerView.setAdapter(feedPetsAdapter);  // Aqui, finalmente vinculando o Adapter
     }
 }

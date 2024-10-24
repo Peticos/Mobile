@@ -31,6 +31,7 @@ import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 
 import com.mobile.peticos.Perfil.Tutor.Posts.FeedDoPet;
+import com.mobile.peticos.Perfil.Tutor.Posts.PerdidosTutor;
 import com.mobile.peticos.R;
 
 import org.jetbrains.annotations.Nullable;
@@ -170,7 +171,7 @@ public class PerfilFragment extends Fragment {
         cardPerdidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToPost(view);
+                goToPerdidos(view);
             }
         });
 
@@ -195,6 +196,14 @@ public class PerfilFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+    public void goToPerdidos(View view) {
+
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainerView, PerdidosTutor.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 
     public void openEditor(View view) {
@@ -203,6 +212,22 @@ public class PerfilFragment extends Fragment {
     }
 
     public void logout(View view) {
+
+
+        // Recupera o SharedPreferences
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("nome", "");
+        editor.putString("nome_usuario", "");
+        editor.putString("email","");
+        editor.putString("bairro", "");
+        editor.putBoolean("mei", false);
+        editor.putString("telefone", "");
+        editor.putString("url", "");
+        editor.putString("genero", "");
+        editor.putInt("id", 0);
+        editor.apply(); // Aplica as alterações
 
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);

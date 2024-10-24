@@ -11,7 +11,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +24,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 
+import com.mobile.peticos.Home.AdicionarProduto;
 import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
-import com.mobile.peticos.Perfil.Tutor.EditarPerfil;
 import com.mobile.peticos.R;
 
 public class PerfilProfissional extends Fragment {
@@ -79,7 +78,7 @@ public class PerfilProfissional extends Fragment {
 
 
         // Acesso ao SharedPreferences
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
 
         // Recuperar os dados
 
@@ -155,6 +154,23 @@ public class PerfilProfissional extends Fragment {
         transaction.commit();
     }
     public void logout(View view) {
+
+        // Recupera o SharedPreferences
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("nome", "");
+        editor.putString("nome_usuario", "");
+        editor.putString("email","");
+        editor.putString("bairro", "");
+        editor.putBoolean("mei", false);
+        editor.putString("telefone", "");
+        editor.putString("url", "");
+        editor.putString("genero", "");
+        editor.putInt("id", 0);
+        editor.apply(); // Aplica as alterações
+
+
 
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);

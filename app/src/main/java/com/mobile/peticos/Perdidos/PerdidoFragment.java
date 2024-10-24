@@ -132,6 +132,19 @@ public class PerdidoFragment extends Fragment {
             }
         });
     }
+    //public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String location, String lostDate, String phone, String rescuedDate) {
+    //        this.idPet = idPet;
+    //        this.idUser = idUser;
+    //        this.bairro = bairro;
+    //        this.title = title;
+    //        this.description = description;
+    //        this.postTime = postTime;
+    //        this.picture = picture;
+    //        this.location = location;
+    //        this.lostDate = lostDate;
+    //        this.phone = phone;
+    //        this.rescuedDate = rescuedDate;a
+    //    }
     private void updateRecyclerView(List<PetPerdido> PetlList) {
         List<PetPerdido> PerdidosModels = new ArrayList<>();
         for (PetPerdido pet : PetlList) {
@@ -144,10 +157,10 @@ public class PerdidoFragment extends Fragment {
                     pet.getDescription(),
                     pet.getPostTime(),
                     pet.getPicture(),
-                    pet.getStreet(),
-                    pet.getStreetNum(),
-                    pet.getLostDate()
-
+                    pet.getLocation(),
+                    pet.getLostDate(),
+                    pet.getPhone(),
+                    pet.getRescuedDate()
             ));
         }
         recyclerView.setAdapter(new AdapterPerdidos(PerdidosModels));

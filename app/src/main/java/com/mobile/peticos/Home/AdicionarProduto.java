@@ -1,7 +1,14 @@
-package com.mobile.peticos.Perfil.Profissional;
+package com.mobile.peticos.Home;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -11,14 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.mobile.peticos.Home.ApiHome;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Home.Feed.FeedPet;
-import com.mobile.peticos.Home.HomeFragment;
+import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.R;
 
 import java.text.SimpleDateFormat;
@@ -41,6 +49,9 @@ public class AdicionarProduto extends Fragment {
     Button btnPublicar, btnSair;
     LinearLayout voltar;
     EditText legenda, nomeProduto, valor, telefone;
+    private ActivityResultLauncher<Intent> cameraLauncher;
+    String url;
+
     ImageView upload;
 
 
@@ -75,6 +86,47 @@ public class AdicionarProduto extends Fragment {
         telefone = view.findViewById(R.id.telefone);
         btnPublicar = view.findViewById(R.id.btnPublicar);
         upload = view.findViewById(R.id.upload);
+
+
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), Camera.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tipo", "tutor");
+                intent.putExtras(bundle);
+                cameraLauncher.launch(intent); // Apenas lance o Intent sem o código de solicitação
+
+            }
+        });
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            url = data.getStringExtra("url"); // Obter a URL do Intent
+                            if(url != null){
+                                url.replace("\"", "");
+                                url.replace(" ", "");
+                                RequestOptions options = new RequestOptions()
+                                        .centerCrop() // Garante que a imagem preencha o espaço
+                                        .transform(new RoundedCorners(30)); // Aplica a transformação de cantos arredondados
+
+                                Glide.with(this)
+                                        .load(url)
+                                        .apply(options)
+                                        .into(upload);
+
+                            }
+
+                        }
+                    }
+                }
+        );
+
+
         btnPublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,22 +159,25 @@ public class AdicionarProduto extends Fragment {
         return view;
     }
     private void PublicarProduto() {
-        //mudar quando a camera tiver funcionando
-        String url = "https://firebasestorage.googleapis.com/v0/b/peticos-b4633.appspot.com/o/720403.png?alt=media&token=2429fb00-920b-4979-a004-9d6c2034bda9"; // Exemplo de URL da imagem
 
-        //mudar quando o cache funcionar
-        int userId = 2;
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
+
+
 
         // Obter a data atual formatada
         String postDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
+        List<String> likes = Arrays.asList();
+        List<String> shares = Arrays.asList();
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
-                userId, // userId
+                sharedPreferences.getInt("id", 284), // userId
+                likes,
+                shares,
                 url, // picture
                 legenda.getText().toString(), // caption
                 postDate, // postDate
-                true, // isMei
+                true, // isMeis
                 Double.parseDouble(valor.getText().toString()), // price
                 telefone.getText().toString(), // telephone
                 nomeProduto.getText().toString() // productName

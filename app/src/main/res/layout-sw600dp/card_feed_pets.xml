@@ -89,6 +89,7 @@
                 tools:srcCompat="@drawable/fotogenerica" />
 
             <ImageView
+<<<<<<< HEAD
                 android:id="@+id/imagem"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -98,6 +99,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/photo"
                 app:srcCompat="@drawable/like" />
+=======
+                android:id="@+id/curtida"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/like" />
+>>>>>>> 0ced0b2808ef34b1c361fb869eeb0fa677665ab9
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/entrarContato"

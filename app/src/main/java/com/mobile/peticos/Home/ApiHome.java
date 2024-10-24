@@ -29,6 +29,9 @@ public interface ApiHome {
     @PUT("/api/posts/{id}/dislike")
     Call<String> dislike(@Path("id") String id, @Query("username")String username);
 
+    @PUT("/api/posts/{id}/share")
+    Call<String> share(@Path("id") String id, @Query("username")String username);
+
     @POST("/api/posts/insert")
     Call<FeedPet> insert(@Body FeedPet feedPet);
 

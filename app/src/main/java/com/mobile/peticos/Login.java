@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfilAuth;
-import com.mobile.peticos.Cadastros.CadastroTutor;
-import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
 import com.mobile.peticos.Cadastros.Tutor_ou_Profissional;
-import com.mobile.peticos.Padrao.ModelRetorno;
+import com.mobile.peticos.Padrao.MetodosBanco;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +39,26 @@ public class Login extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnentrar);
         btnCadastrar = findViewById(R.id.btnRegistrar);
         senhainvalida = findViewById(R.id.senhainalida);
+
+
+
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Recupera o e-mail armazenado no SharedPreferences
+        String emailLogin = sharedPreferences.getString("email", "");
+
+        // Verifica se o e-mail tem mais de um caractere
+        if (emailLogin.length() > 1) {
+            // Se o e-mail for válido, exibe uma mensagem de sucesso e navega para a MainActivity
+            Toast.makeText(Login.this, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
 
 
 
