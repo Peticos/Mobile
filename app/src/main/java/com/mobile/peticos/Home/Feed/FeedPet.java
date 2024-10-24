@@ -24,7 +24,7 @@ public class FeedPet {
     public String id;
     public int userId;
     public List<String> likes;
-    public int shares;
+    public List<String> shares;
     public String picture;
     public String caption;
     public List<Integer> pets;
@@ -35,9 +35,10 @@ public class FeedPet {
     public String productName;
 
 
-    public FeedPet(int userId,List<String> likes, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
+    public FeedPet(int userId,List<String> likes, List<String> shares, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
         this.userId = userId;
         this.likes = likes;
+        this.shares = shares;
         this.picture = picture;
         this.caption = caption;
         this.pets = pets;
@@ -46,9 +47,10 @@ public class FeedPet {
     }
 
 
-    public FeedPet(int userId,List<String> likes, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
+    public FeedPet(int userId,List<String> likes, List<String> shares, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
         this.userId = userId;
         this.likes = likes;
+        this.shares = shares;
         this.picture = picture;
         this.caption = caption;
         this.postDate = postDate;
@@ -82,13 +84,14 @@ public class FeedPet {
         this.likes = likes;
     }
 
-    public int getShares() {
+    public List<String> getShares() {
         return shares;
     }
 
-    public void setShares(int shares) {
+    public void setShares(List<String> shares) {
         this.shares = shares;
     }
+
 
     public String getPicture() {
         return picture;
@@ -154,7 +157,7 @@ public class FeedPet {
         this.productName = productName;
     }
 
-    public FeedPet(String id, int userId, List<String> likes, int shares, String picture, String caption, List<Integer> pets, String postDate, boolean is_mei, double price, String telephone, String productName) {
+    public FeedPet(String id, int userId, List<String> likes, List<String> shares, String picture, String caption, List<Integer> pets, String postDate, boolean is_mei, double price, String telephone, String productName) {
         this.id = id;
         this.userId = userId;
         this.likes = likes;

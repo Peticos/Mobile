@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfilAuth;
-import com.mobile.peticos.Cadastros.CadastroTutor;
-import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
 import com.mobile.peticos.Cadastros.Tutor_ou_Profissional;
-import com.mobile.peticos.Padrao.ModelRetorno;
+import com.mobile.peticos.Padrao.MetodosBanco;
 
 import retrofit2.Call;
 import retrofit2.Callback;
