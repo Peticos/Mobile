@@ -175,7 +175,6 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
 
-        SharedPreferences sharedPreferencesPet = getActivity().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
 
 
 
