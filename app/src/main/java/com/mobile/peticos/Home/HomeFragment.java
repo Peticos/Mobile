@@ -30,7 +30,7 @@ import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Home.HomeDica.AdapterCuriosidadesDiarias;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
 import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
-import com.mobile.peticos.Perfil.Profissional.AdicionarProduto;
+import com.mobile.peticos.Home.AdicionarProduto;
 import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
 import com.mobile.peticos.Perdidos.AdicionarAoFeedTriste;
 import com.mobile.peticos.R;

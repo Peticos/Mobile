@@ -1,7 +1,9 @@
 package com.mobile.peticos.Home;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -33,9 +36,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +49,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
+import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
+import com.mobile.peticos.Perfil.Tutor.AdapterPet;
 import com.mobile.peticos.R;
 
 /**
@@ -78,7 +87,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
     private ActivityResultLauncher<Intent> cameraLauncher;
     String url;
     EditText legenda;
-    RecyclerView amiguinhos;
+    RecyclerView recyclerPets;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +101,8 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         publicacoes = view.findViewById(R.id.publicacoes);
         btnUpload = view.findViewById(R.id.upload);
         legenda = view.findViewById(R.id.legenda);
-        amiguinhos = view.findViewById(R.id.amiguinhos);
+        recyclerPets = view.findViewById(R.id.amiguinhos);
+
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,30 +170,105 @@ public class AdicionarAoFeedPrincipal extends Fragment {
             }
         });
 
+
+
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
+
+
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerPets.setLayoutManager(layoutManager);
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://apipeticos.onrender.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIPets apiPets = retrofit.create(APIPets.class);
+
+        Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "modolo"));
+        call.enqueue(new Callback<List<ModelPetBanco>>() {
+            @Override
+            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<ModelPetBanco> listaPets = response.body();
+                    AdapterPetFeedPrincipal adapterPet = new AdapterPetFeedPrincipal(listaPets);
+
+                    recyclerPets.setAdapter(adapterPet);
+                } else {
+                    Log.e("API_ERROR", "Erro: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                Log.e("API_ERROR", "Falha na chamada", t);
+                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         return view;
     }
 
     private void PublicarPost() {
 
 
+
         // Obter a data atual formatada
         String postDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         // mudar para os pets
-        List<Integer> pets = Arrays.asList(1,3,6); // Usando Arrays.asList para criar a lista
+
+        SharedPreferences sharedPreferencesPet = getActivity().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
+        Set<String> selectedPets = sharedPreferencesPet.getStringSet("selectedPets", new HashSet<>());
+
+        List<Integer> selectedPetsList = new ArrayList<>();
+
+        // Convertendo os valores de String para int e adicionando à lista
+        for (String petId : selectedPets) {
+            try {
+                // Tenta converter o ID do pet para int
+                int id = Integer.parseInt(petId);
+                selectedPetsList.add(id);
+            } catch (NumberFormatException e) {
+                // Trate a exceção se a conversão falhar
+                e.printStackTrace(); // Ou log a falha
+            }
+        }
 
         //mudar para o id do user quando funcionar
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", MODE_PRIVATE);
+
 
 
         List<String> likes = Arrays.asList();
+        List<String> shares = Arrays.asList();
+
+        if(url == null){
+            Toast.makeText(getContext(), "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(selectedPetsList.size() == 0){
+            Toast.makeText(getContext(), "Selecione pelo menos um pet!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(legenda.getText().toString().isEmpty()){
+            Toast.makeText(getContext(), "Legenda Obrigatória", Toast.LENGTH_SHORT).show();
+            return;
+        }
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
                 sharedPreferences.getInt("id", 284), // userId
-                likes, // likes
+                likes,
+                shares,// likes
                 url, // picture
                 legenda.getText().toString(), // caption
-                pets, // pets
+                selectedPetsList, // pets
                 postDate, // postDate
                 false // isMei
         );
@@ -207,6 +292,14 @@ public class AdicionarAoFeedPrincipal extends Fragment {
                     Log.d("Perfil", "Perfil: " + post);
 
                     Toast.makeText(getContext(), "Post publicado", Toast.LENGTH_SHORT).show();
+                    // Recupera o SharedPreferences
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    // Remove o campo "selectedPets"
+                    editor.remove("selectedPets");
+                    editor.apply(); // Aplica as alterações
+
 
 
 
@@ -243,30 +336,5 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
 
 
-    public void configurarPets(){
-        //Call<List<ModelPetBanco>> call = apiPets.getPets();
-
-//        call.enqueue(new Callback<List<ModelPetBanco>>() {
-//            @Override
-//            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
-//                if (response.isSuccessful()) {
-//                    List<ModelPetBanco> ListaPets = response.body(); // Lista recebida da API
-//                    if (ListaPets != null) {
-//                        AdapterPet adapterPet = new AdapterPet(ListaPets); // Passa a lista para o Adapter
-//                        recyclerPets.setAdapter(adapterPet); // Configura o RecyclerView
-//                        adapterPet.notifyDataSetChanged();
-//
-//                    }
-//                } else {
-//                    // Tratar caso não seja bem-sucedido
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
-//                // Tratar falha
-//            }
-//        });
-    }
 
 }
