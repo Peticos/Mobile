@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ModelPetBanco {
     //{
-    //  {
-    //  {
-    //  "idPet": 0,
+    //   "idPet": 0,
     //  "idUser": 0,
     //  "nickname": "string",
     //  "age": 0,
@@ -22,8 +20,8 @@ public class ModelPetBanco {
 
     @SerializedName("idPet")
     private int idPet;
-    @SerializedName("user")
-    private String user;
+    @SerializedName("idUser")
+    private int idUser;
     @SerializedName("nickname")
     private String nickname;
     @SerializedName("age")
@@ -39,8 +37,12 @@ public class ModelPetBanco {
     @SerializedName("color")
     private String colorpet;
 
-    public ModelPetBanco(String user, String nickname, int age, String sex, String specie, String race, String size, String colorpet) {
-        this.user = user;
+    @SerializedName("user")
+    private String user;
+
+    public ModelPetBanco(int idPet, String nickname, int age, String sex, String specie, String race, String size, String colorpet, String user) {
+        this.idPet = idPet;
+
         this.nickname = nickname;
         this.age = age;
         this.sex = sex;
@@ -48,6 +50,7 @@ public class ModelPetBanco {
         this.race = race;
         this.size = size;
         this.colorpet = colorpet;
+        this.user = user;
     }
 
     public int getIdPet() {

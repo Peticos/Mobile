@@ -43,6 +43,7 @@ public class CadastrarPet extends AppCompatActivity {
     TextView nome, idade;
     Retrofit retrofit;
     int id;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class CadastrarPet extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("Perfil", Context.MODE_PRIVATE);
         id = sharedPreferences.getInt("id", 0);
+        username = sharedPreferences.getString("nome_usuario", "null");
 
 
 
@@ -72,86 +74,80 @@ public class CadastrarPet extends AppCompatActivity {
         setarDropDowns();
 
         btnCadastrar.setOnClickListener(v -> {
-            Intent intent = new Intent(CadastrarPet.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            Cadastrar(v);
         });
     }
 
     //cadastrar pet
     public void Cadastrar(View view) {
-        if(especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
+        // Verifica se todos os campos obrigatórios estão preenchidos
+        if (especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
             Toast.makeText(CadastrarPet.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
-            return;}
+            return;
+        }
 
-        //    {
-        //  "idUser": 0,
-        //  "nickname": "string",
-        //  "age": 0,
-        //  "sex": "string",
-        //  "specie": "string",
-        //  "race": "string",
-        //  "size": "string",
-        //  "color": "string",
-        //  "user": "string"
-        //}
-        APIPets api = retrofit.create(APIPets.class);
+
+
+        // Cria o objeto do pet com os dados fornecidos
         ModelPetBanco pet = new ModelPetBanco(
-                String.valueOf(id),
+                id,
                 nome.getText().toString(),
                 Integer.parseInt(idade.getText().toString()),
                 genero.getText().toString(),
                 especie.getText().toString(),
                 raca.getText().toString(),
                 porte.getText().toString(),
-                cor.getText().toString()
+                cor.getText().toString(),
+                username
         );
+
+        // Faz a chamada à API para inserir o pet
+        APIPets api = retrofit.create(APIPets.class);
         Call<Integer> call = api.insertPet(pet);
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                if (response.code() == 200) {
-
+                // Verifica se a resposta da API é bem-sucedida
+                if (response.isSuccessful() && response.body() != null) {
                     int id = response.body();
                     Personalizacao petPersonalizado = new Personalizacao(
                             id,
-                            "Cachorro",
+                            "Cachorro",  // Pode ser modificado conforme a lógica do seu app
                             0,
                             0,
                             0,
                             0
-
                     );
-                    Call <ModelRetorno> callPersonalizacao = api.personalizarPet(petPersonalizado);
+
+                    // Chama a API para personalizar o pet
+                    Call<ModelRetorno> callPersonalizacao = api.personalizarPet(petPersonalizado);
                     callPersonalizacao.enqueue(new Callback<ModelRetorno>() {
                         @Override
                         public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
-                            if (response.code() == 200) {
+                            if (response.isSuccessful()) {
                                 Toast.makeText(CadastrarPet.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                            }
-
-                            else {
-                                Toast.makeText(CadastrarPet.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e("Personalizacao", "Falha ao personalizar pet: " + response.code() + " - " + response.message());
+                                Toast.makeText(CadastrarPet.this, "Falha ao personalizar o pet, tente novamente.", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ModelRetorno> call, Throwable t) {
-                            Log.e("CadastroTutor", "Erro: " + t.getMessage());
-                            Toast.makeText(CadastrarPet.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
+                            Log.e("Personalizacao", "Erro: " + t.getMessage());
+                            Toast.makeText(CadastrarPet.this, "Erro ao tentar personalizar o pet.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-
-                else {
+                } else {
+                    Log.e("Cadastro", "Falha no cadastro: " + response.code() + " - " + response.message());
                     Toast.makeText(CadastrarPet.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
-                Log.e("CadastroTutor", "Erro: " + t.getMessage());
-                Toast.makeText(CadastrarPet.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
+                Log.e("Cadastro", "Erro: " + t.getMessage());
+                Toast.makeText(CadastrarPet.this, "Erro ao tentar cadastrar o pet.", Toast.LENGTH_SHORT).show();
             }
         });
     }

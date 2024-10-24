@@ -158,7 +158,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
-                Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
                 cardFeedErro.setVisibility(View.VISIBLE);
