@@ -265,8 +265,8 @@
                         android:layout_height="wrap_content"
 
                         app:endIconMode="password_toggle"
-
-                        app:passwordToggleTint="@color/black">
+                        app:hintEnabled="false"
+                        app:passwordToggleTint="#A39DA1">
 
                         <com.google.android.material.textfield.TextInputEditText
 
@@ -335,8 +335,8 @@
                         android:layout_height="wrap_content"
 
                         app:endIconMode="password_toggle"
-
-                        app:passwordToggleTint="@color/black">
+                        app:hintEnabled="false"
+                        app:passwordToggleTint="#A39DA1">
 
                         <com.google.android.material.textfield.TextInputEditText
 

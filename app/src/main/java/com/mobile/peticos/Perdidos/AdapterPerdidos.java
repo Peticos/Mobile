@@ -44,7 +44,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             @Override
             public void onSuccess(ModelPerfil perfil) {
                 // Configure as informações do perfil no holder, por exemplo:
-                holder.username.setText(perfil.getFullName());
+                holder.username.setText("@"+perfil.getUsername());
                 // Adicione outros campos conforme necessário
                 if (perfil.getProfilePicture() != null){
 

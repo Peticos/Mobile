@@ -66,7 +66,8 @@
                 android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textColor="#252525"
+                android:textColor="#A39DA1"
+                android:textColorHint="#A39DA1"
                 android:textSize="12sp" />
 
             <TextView
@@ -86,27 +87,23 @@
                 android:layout_height="wrap_content"
 
                 app:endIconMode="password_toggle"
-
-                app:passwordToggleTint="@color/black">
+                app:hintEnabled="false"
+                app:passwordToggleTint="#A39DA1">
 
                 <com.google.android.material.textfield.TextInputEditText
-
                     android:id="@+id/senha"
-
                     android:layout_width="match_parent"
-
                     android:layout_height="48dp"
-
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/rounded_edit_text"
-
+                    android:backgroundTint="@color/white"
                     android:ems="10"
-
+                    android:hint="Senha"
                     android:inputType="textPassword"
-
                     android:paddingLeft="10dp"
-
                     android:paddingRight="10dp"
-                    android:textSize="14dp" />
+                    android:textColorHint="#A39DA1"
+                    android:textSize="12sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

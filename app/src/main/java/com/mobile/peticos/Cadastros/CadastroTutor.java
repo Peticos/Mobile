@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -62,6 +64,7 @@ public class CadastroTutor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_tutor);
         inicializarComponentes();
+        configurarMascaraTelefone();
         configurarCameraLauncher();
         configurarGenero();
         carregarBairros();
@@ -86,13 +89,14 @@ public class CadastroTutor extends AppCompatActivity {
                 .build();
 
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
+        String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
         ModelPerfil perfil = new ModelPerfil(
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
                 emailCadastro.getText().toString(),
                 bairro.getText().toString(),
                 "Sem Plano",
-                telefone.getText().toString(),
+                telefoneFormatado,
                 null,
                 url,
                 genero.getText().toString(),
@@ -286,6 +290,7 @@ public class CadastroTutor extends AppCompatActivity {
     // Método para validar os campos antes de cadastrar
     private void validarCampos(View view) {
         boolean erro = false;
+        String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
 
         if (nomeCompleto.getText().toString().isEmpty()) {
             nomeCompleto.setError("Nome completo é obrigatório");
@@ -308,7 +313,7 @@ public class CadastroTutor extends AppCompatActivity {
             erro = true;
         }
 
-        if (telefone.getText().toString().isEmpty() || !validarTelefone(telefone.getText().toString())) {
+        if (telefone.getText().toString().isEmpty() || !validarTelefone(telefoneFormatado)) {
             telefone.setError("Telefone inválido");
             erro = true;
         }
@@ -333,6 +338,49 @@ public class CadastroTutor extends AppCompatActivity {
 
     // Método para validar o formato do telefone
     private boolean validarTelefone(String telefone) {
-        return android.util.Patterns.PHONE.matcher(telefone).matches() && telefone.length() <= 15;
+        return android.util.Patterns.PHONE.matcher(telefone).matches() && telefone.length() == 11;
     }
+
+    private void configurarMascaraTelefone() {
+        telefone.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private final String mask = "(##) #####-####";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdating) {
+                    isUpdating = false;
+                    return;
+                }
+
+                String unmasked = s.toString().replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m == '#') {
+                        if (i < unmasked.length()) {
+                            formatted.append(unmasked.charAt(i));
+                            i++;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        formatted.append(m);
+                    }
+                }
+
+                isUpdating = true;
+                telefone.setText(formatted.toString());
+                telefone.setSelection(formatted.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
 }
