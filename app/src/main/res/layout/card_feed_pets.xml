@@ -24,14 +24,23 @@
             android:orientation="horizontal"
             android:paddingStart="19dp"
             android:paddingEnd="20dp"
-            android:textAlignment="center">
+            android:textAlignment="center"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/userPhoto"
-                android:layout_width="77dp"
-                android:layout_height="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:layout_width="32dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                tools:srcCompat="@null" />
+                app:cardCornerRadius="32dp">
+
+                <ImageView
+                    android:id="@+id/userPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@null" />
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="207dp"
@@ -60,7 +69,7 @@
 
             <TextView
                 android:id="@+id/days"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -75,13 +84,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="274dp">
+            android:layout_height="320dp">
 
             <ImageView
                 android:id="@+id/photo"
                 android:layout_width="match_parent"
-                android:layout_height="274dp"
+                android:layout_height="320dp"
                 android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,16 +155,14 @@
                     android:id="@+id/shareButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="233dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="300dp"
                     android:background="@color/white"
                     app:srcCompat="@drawable/ic_share" />
 
                 <ImageButton
                     android:id="@+id/likeButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:background="@color/white"
                     app:srcCompat="@drawable/ic_like" />
 
