@@ -23,7 +23,7 @@ public interface APIPets {
    Call<List<Raca>> getAllRaces();
 
    @POST("/api/petregister/insert")
-   Call<ModelRetorno> insertPet(@Body ModelPetBanco pet);
+   Call<Integer> insertPet(@Body ModelPetBanco pet);
 
    @GET("/api/petregister/getbyusername/{username}")
    Call<List<ModelPetBanco>> getPets(@Path("username") String username);
@@ -34,8 +34,11 @@ public interface APIPets {
    @GET("/personalizations/getbyid/{id}")
    Call<Personalizacao> getPersonalizacao(@Path("id") int id);
 
-   @POST("/personalizations/update/{id}")
-   Call<ModelRetorno> updatePersonalizacao(@Path("id") int id, @Body Personalizacao personalizacao);
+   @POST("/api/petregister/update")
+   Call<ModelRetorno> updatePet(@Body ModelPetBanco modelPetBanco);
+
+
+
 
 
 

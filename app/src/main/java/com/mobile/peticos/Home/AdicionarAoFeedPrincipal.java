@@ -3,7 +3,6 @@ package com.mobile.peticos.Home;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -51,7 +50,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
-import com.mobile.peticos.Perfil.Tutor.AdapterPet;
 import com.mobile.peticos.R;
 
 /**
@@ -279,7 +277,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiHome api = retrofit.create(ApiHome.class);
+        APIHome api = retrofit.create(APIHome.class);
 
 
         Call<FeedPet> call = api.insert(post);

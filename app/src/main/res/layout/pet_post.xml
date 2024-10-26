@@ -41,17 +41,75 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:background="@color/wood_brown"
+                        app:cardBackgroundColor="@color/wood_brown_light_version"
                         app:cardCornerRadius="600dp">
 
-                        <ImageView
-                            android:id="@+id/fotopet"
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:scaleType="fitXY"
-                            android:background="@drawable/fundo_redondo_marrom"
-                            app:srcCompat="@drawable/dog_personalizado_1" />
+                            android:layout_height="match_parent">
 
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/petzao"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/dog_personalizado_1" />
+
+                                <ImageView
+                                    android:id="@+id/oculosao_dog"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginStart="15dp"
+                                    android:layout_marginBottom="30dp"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:srcCompat="@drawable/oculos_personalizado_1" />
+
+                                <ImageView
+                                    android:id="@+id/oculosao_cat"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginStart="17dp"
+                                    android:layout_marginBottom="31dp"
+                                    android:rotation="-8"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:srcCompat="@drawable/oculos_personalizado_6" />
+
+                                <ImageView
+                                    android:id="@+id/brinquedao"
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginBottom="6dp"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:srcCompat="@drawable/brinquedo_personalizado_1" />
+
+                                <ImageView
+                                    android:id="@+id/cabecao"
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:layout_marginStart="28dp"
+                                    android:layout_marginBottom="48dp"
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:srcCompat="@drawable/cabeca_personalizado_2" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </FrameLayout>
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
 

@@ -81,6 +81,9 @@
             android:name=".Perfil.Pet.PersonalizarPets"
             android:exported="false" />
         <activity
+            android:name=".Perfil.Pet.PerfilPet"
+            android:exported="false" />
+        <activity
             android:name=".Perfil.Pet.Vacinas.itemCadastroVacina"
             android:exported="false" />
         <activity

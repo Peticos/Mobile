@@ -30,6 +30,7 @@ import com.mobile.peticos.Login;
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 
+import com.mobile.peticos.Perfil.Tutor.AdapterPets.AdapterPet;
 import com.mobile.peticos.Perfil.Tutor.Posts.FeedDoPet;
 import com.mobile.peticos.Perfil.Tutor.Posts.PerdidosTutor;
 import com.mobile.peticos.R;
@@ -121,20 +122,23 @@ public class PerfilFragment extends Fragment {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos.onrender.com")
+                .baseUrl("https://apipeticos-ltwk.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         APIPets apiPets = retrofit.create(APIPets.class);
 
-        Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "modolo"));
+        Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "oi"));
         call.enqueue(new Callback<List<ModelPetBanco>>() {
             @Override
             public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<ModelPetBanco> listaPets = response.body();
-                    AdapterPet adapterPet = new AdapterPet(listaPets);
-                    recyclerPets.setAdapter(adapterPet);
+                    if(listaPets.size()!=0){
+                        AdapterPet adapterPet = new AdapterPet(listaPets);
+                        recyclerPets.setAdapter(adapterPet);
+                    }
+
                 } else {
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
                 }

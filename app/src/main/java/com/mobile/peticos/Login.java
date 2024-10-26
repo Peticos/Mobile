@@ -129,7 +129,13 @@ public class Login extends AppCompatActivity {
                                         editor.putString("nome_usuario", perfil.getUserName());
                                         editor.putString("email", perfil.getEmail());
                                         editor.putString("bairro", perfil.getBairro());
-                                        editor.putBoolean("mei", false);
+                                        if(perfil.getCnpj().equals("Tutor")){
+                                            editor.putBoolean("mei", false);
+                                        }else{
+                                            editor.putBoolean("mei", true);
+                                        }
+                                        Toast.makeText(Login.this, "mei!" + sharedPreferences.getBoolean("mei", true), Toast.LENGTH_SHORT).show();
+
                                         editor.putString("telefone", perfil.getTelefone());
                                         editor.putString("url", perfil.getProfilePicture());
                                         editor.putString("genero", perfil.getGender());

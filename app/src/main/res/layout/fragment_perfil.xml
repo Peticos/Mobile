@@ -291,7 +291,8 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:padding="16dp"
-                                android:paddingHorizontal="10dp" />
+                                android:paddingHorizontal="10dp"
+                                />
 
                             <ImageView
                                 android:id="@+id/btn_cadastrarpet"
