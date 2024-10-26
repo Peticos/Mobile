@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MetodosBanco {
 
     public void getPerfil(int id, Context context, PerfilCallback callback) {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -60,7 +60,7 @@ public class MetodosBanco {
     }
 
     public void curtir(String id, String username, CurtirCallback callback) {
-        String API = "https://apimongo-ghjh.onrender.com/";
+        String API = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -90,7 +90,7 @@ public class MetodosBanco {
         });
     }
     public void descurtir(String id, String username, CurtirCallback callback) {
-        String API = "https://apimongo-ghjh.onrender.com/";
+        String API = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -121,7 +121,7 @@ public class MetodosBanco {
         });
     }
     public void share(String id, String username, CurtirCallback callback) {
-        String API = "https://apimongo-ghjh.onrender.com/";
+        String API = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -156,7 +156,7 @@ public class MetodosBanco {
     }
 
     public void getPets(List<Integer> ids, PetsCallBack callback) {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

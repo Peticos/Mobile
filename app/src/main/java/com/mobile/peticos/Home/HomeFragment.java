@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment {
     Retrofit retrofit;
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
-        String API = "https://apimongo-ghjh.onrender.com";
+        String API = "https://api-mongo-i1jq.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -200,7 +200,7 @@ public class HomeFragment extends Fragment {
 
     // Curiosidades
     private void setupRetrofiAdapter() {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
