@@ -2,6 +2,7 @@ package com.mobile.peticos.Perdidos;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,12 +22,22 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Padrao.MetodosBanco;
+import com.mobile.peticos.Padrao.ModelRetorno;
+import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.R;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHolder> {
 
@@ -39,7 +53,46 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_perdidos, parent, false);
         return new ViewHolder(view);
     }
+
+    public void acharPet (int id, ViewHolder holder){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://apipeticos-ltwk.onrender.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiPerdidos apiPets = retrofit.create(ApiPerdidos.class);
+
+        String data = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date());
+
+
+        Call<ModelRetorno> call = apiPets.acharPet(id, data);
+        call.enqueue(new Callback<ModelRetorno>() {
+            @Override
+            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ModelRetorno perdido = response.body();
+                    Log.d("Perfil", "perdido: " + perdido);
+
+                } else {
+                    Log.e("FeedPet", "Erro: " + response.errorBody().toString());
+                    Log.e("FeedPet", "Erro código: " + response.code());
+                    Log.e("FeedPet", "Erro mensagem: " + response.message());
+                    Toast.makeText(holder.itemView.getContext(), "erro em achar", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
+                Toast.makeText(holder.itemView.getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
+                Log.e("FeedPet", "Erro: " + throwable.getMessage());
+
+            }
+        });
+    }
+
     public void ConfigPerfilUserPost (ViewHolder holder, PetPerdido feedPet, MetodosBanco metodosBanco){
+
         metodosBanco.getPerfil(feedPet.idUser, holder.itemView.getContext(), new MetodosBanco.PerfilCallback() {
             @Override
             public void onSuccess(ModelPerfil perfil) {
@@ -52,6 +105,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                             .load(Uri.parse(perfil.getProfilePicture()))
                             .error(R.drawable.fotogenerica)
                             .into(holder.userPhoto);
+
                 }else {
                     Glide.with(holder.userPhoto.getContext())
                             .load(R.drawable.fotogenerica)
@@ -102,9 +156,21 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
 
             holder.nomepet.setText(pet.getTitle());
             holder.petsInPhoto.setText(pet.getTitle());
+            SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+            int id = sharedPreferences.getInt("id", 0);
+            if(id == pet.getIdUser()){
+                holder.acharPet.setVisibility(View.VISIBLE);
+                holder.acharPet.setOnClickListener(v->{
+                    acharPet(id,holder);
+                });
+            }else{
+                holder.acharPet.setVisibility(View.GONE);
+
+            }
 
 
-            // Descrição do pet
+
+        // Descrição do pet
             holder.descricao.setText(pet.getDescription());
 
             // Configurar o telefone
@@ -129,13 +195,12 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             }
         });
 
-            // Atribuição de outros campos, como nome do pet e foto do usuário (se disponível)
-            // holder.username.setText(pet.getUsername());
-            // Glide.with(holder.userPhoto.getContext()).load(pet.getUserPhoto()).into(holder.userPhoto);
-            // holder.petsInPhoto.setText(pet.getPetsInPhoto());
-            // holder.nomepet.setText(pet.getNomePet());
+
+
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -151,6 +216,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
          TextView descricao;
          TextView nomepet;
          ImageView ic_telefone, shareButton;
+         CardView acharPet;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -163,6 +229,8 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             nomepet = itemView.findViewById(R.id.nomepet2);
             ic_telefone = itemView.findViewById(R.id.ic_telefone);
             shareButton = itemView.findViewById(R.id.btn_compartilhar);
+            acharPet = itemView.findViewById(R.id.encontrarpet);
+
         }
     }
 }
