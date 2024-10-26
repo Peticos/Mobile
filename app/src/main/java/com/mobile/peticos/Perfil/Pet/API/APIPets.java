@@ -34,8 +34,11 @@ public interface APIPets {
    @GET("/personalizations/getbyid/{id}")
    Call<Personalizacao> getPersonalizacao(@Path("id") int id);
 
-   @POST("/personalizations/update/{id}")
-   Call<ModelRetorno> updatePersonalizacao(@Path("id") int id, @Body Personalizacao personalizacao);
+   @POST("/api/petregister/update")
+   Call<ModelRetorno> updatePet(@Body ModelPetBanco modelPetBanco);
+
+
+
 
 
 

@@ -79,7 +79,7 @@ public class CadastroTutor extends AppCompatActivity {
             return;
         }
 
-        String urlAPI = "https://apipeticos.onrender.com";
+        String urlAPI = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -214,9 +214,6 @@ public class CadastroTutor extends AppCompatActivity {
 
         btnUpload.setOnClickListener(v -> {
             Intent intent = new Intent(CadastroTutor.this, Camera.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("tipo", "tutor");
-            intent.putExtras(bundle);
             cameraLauncher.launch(intent);
         });
     }
@@ -238,7 +235,7 @@ public class CadastroTutor extends AppCompatActivity {
 
     // Carrega os bairros usando a API
     private void carregarBairros() {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

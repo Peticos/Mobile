@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
-import com.mobile.peticos.Home.ApiHome;
+import com.mobile.peticos.Home.APIHome;
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
 import com.mobile.peticos.Padrao.ModelRetorno;
@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MetodosBanco {
 
     public void getPerfil(int id, Context context, PerfilCallback callback) {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -60,13 +60,13 @@ public class MetodosBanco {
     }
 
     public void curtir(String id, String username, CurtirCallback callback) {
-        String API = "https://apimongo-ghjh.onrender.com/";
+        String API = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiHome api = retrofit.create(ApiHome.class);
+        APIHome api = retrofit.create(APIHome.class);
 
         Call<String> call = api.like(id, username);
         call.enqueue(new Callback<String>() {
@@ -90,13 +90,13 @@ public class MetodosBanco {
         });
     }
     public void descurtir(String id, String username, CurtirCallback callback) {
-        String API = "https://apimongo-ghjh.onrender.com/";
+        String API = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiHome api = retrofit.create(ApiHome.class);
+        APIHome api = retrofit.create(APIHome.class);
 
         Call<String> call = api.dislike(id, username);
         call.enqueue(new Callback<String>() {
@@ -121,13 +121,13 @@ public class MetodosBanco {
         });
     }
     public void share(String id, String username, CurtirCallback callback) {
-        String API = "https://apimongo-ghjh.onrender.com/";
+        String API = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiHome api = retrofit.create(ApiHome.class);
+        APIHome api = retrofit.create(APIHome.class);
 
         Call<String> call = api.share(id, username);
         call.enqueue(new Callback<String>() {
@@ -156,13 +156,13 @@ public class MetodosBanco {
     }
 
     public void getPets(List<Integer> ids, PetsCallBack callback) {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiHome api = retrofit.create(ApiHome.class);
+        APIHome api = retrofit.create(APIHome.class);
 
         Call<List<String>> call = api.getPetNicknames(ids);
         call.enqueue(new Callback<List<String>>() {

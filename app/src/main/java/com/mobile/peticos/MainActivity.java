@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos.onrender.com")
+                .baseUrl("https://apipeticos-ltwk.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);
@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-                        if (!mei) {
-                            openFragment(PerfilFragment.newInstance());
-                        } else {
+                        if (mei) {
                             openFragment(PerfilProfissional.newInstance());
+                        } else {
+                            openFragment(PerfilFragment.newInstance());
                         }
 
                     }

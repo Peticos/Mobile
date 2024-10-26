@@ -66,14 +66,14 @@ public class CadastrarPet extends AppCompatActivity {
 
 
         // Chamar API para setar os drops downs
-        String APISQL = "https://apipeticos.onrender.com";
+        String APISQL = "https://apipeticos-ltwk.onrender.com";
         retrofit1 = new Retrofit.Builder()
                 .baseUrl(APISQL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
-        String APIMONGO = "https://apimongo-ghjh.onrender.com/";
+        String APIMONGO = "https://api-mongo-i1jq.onrender.com/";
         retrofit2 = new Retrofit.Builder()
                 .baseUrl(APIMONGO)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -99,10 +99,11 @@ public class CadastrarPet extends AppCompatActivity {
         APIPets api1 = retrofit1.create(APIPets.class);
         APIPets api2 = retrofit2.create(APIPets.class);
 
+        String g = "F";
         if(genero.getText().toString().equals("Masculino")){
-            genero.setText("M");
+            g = "M";
         }else if(genero.getText().toString().equals("Feminino")){
-            genero.setText("F");
+            g = "F";
         }
 
 
@@ -111,23 +112,13 @@ public class CadastrarPet extends AppCompatActivity {
         ModelPetBanco pet = new ModelPetBanco(
              nome.getText().toString(),
             Integer.parseInt(idade.getText().toString()),
-            "F",
+            g,
             especie.getText().toString(),
             raca.getText().toString(),
             porte.getText().toString(),
             cor.getText().toString(),
             username
         );
-//        ModelPetBanco pet = new ModelPetBanco(
-//                nome.getText().toString(),
-//                1,
-//               "F",
-//                "Cachorro",
-//                "Shih Tzu",
-//                "Pequeno",
-//                "Branco e Marrom",
-//                username
-//        );
 
         // Faz a chamada à API para inserir o pet
         // Chamar API para setar os drops downs
@@ -143,8 +134,8 @@ public class CadastrarPet extends AppCompatActivity {
 
                     int id = response.body();
                     Personalizacao petPersonalizado = new Personalizacao(
-                            34,
-                            "Cachorro",  // Pode ser modificado conforme a lógica do seu app
+                            id,
+                            especie.getText().toString(),  // Pode ser modificado conforme a lógica do seu app
                             0,
                             0,
                             0,
@@ -169,8 +160,7 @@ public class CadastrarPet extends AppCompatActivity {
                         public void onFailure(Call<ModelRetorno> call, Throwable t) {
                             Log.e("Personalizacao", "Erro: " + t.getMessage());
                             Toast.makeText(CadastrarPet.this, "Erro ao tentar personalizar o pet.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        }                    });
                 } else {
                     Log.e("Cadastro", "Falha no cadastro: " + response.code() + " - " + response.message());
                     Toast.makeText(CadastrarPet.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();

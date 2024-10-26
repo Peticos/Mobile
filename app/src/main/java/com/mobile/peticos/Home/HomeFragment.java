@@ -132,16 +132,16 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-    ApiHome apiHome;
+    APIHome apiHome;
     Retrofit retrofit;
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
-        String API = "https://apimongo-ghjh.onrender.com";
+        String API = "https://api-mongo-i1jq.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiHome = retrofit.create(ApiHome.class);
+        apiHome = retrofit.create(APIHome.class);
     }
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed(View v) {
@@ -200,12 +200,12 @@ public class HomeFragment extends Fragment {
 
     // Curiosidades
     private void setupRetrofiAdapter() {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiHome = retrofit.create(ApiHome.class);
+        apiHome = retrofit.create(APIHome.class);
     }
     private void initRecyclerViewDicas(View v) {
         Call<List<DicasDoDia>> call = apiHome.getDayHint();

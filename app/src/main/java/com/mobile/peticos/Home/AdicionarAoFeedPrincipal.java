@@ -181,7 +181,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos.onrender.com")
+                .baseUrl("https://apipeticos-ltwk.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -271,13 +271,13 @@ public class AdicionarAoFeedPrincipal extends Fragment {
                 false // isMei
         );
 
-        String API = "https://apimongo-ghjh.onrender.com/";
+        String API = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiHome api = retrofit.create(ApiHome.class);
+        APIHome api = retrofit.create(APIHome.class);
 
 
         Call<FeedPet> call = api.insert(post);

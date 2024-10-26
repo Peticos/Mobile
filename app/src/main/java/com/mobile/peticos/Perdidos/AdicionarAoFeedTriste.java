@@ -161,7 +161,7 @@ public class AdicionarAoFeedTriste extends Fragment {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos.onrender.com")
+                .baseUrl("https://apipeticos-ltwk.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -194,7 +194,7 @@ public class AdicionarAoFeedTriste extends Fragment {
 
     private ApiPerdidos apiPerdidos;
     private void setupRetrofit() {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
