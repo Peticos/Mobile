@@ -120,7 +120,7 @@ public class CadastroProfissional extends AppCompatActivity {
 
     // Método para configurar a chamada da API dos bairros
     private void configurarBairros() {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -268,7 +268,7 @@ public class CadastroProfissional extends AppCompatActivity {
             return;
         }
 
-        String urlAPI = "https://apipeticos.onrender.com";
+        String urlAPI = "https://apipeticos-ltwk.onrender.com";
 
 
 

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos.onrender.com")
+                .baseUrl("https://apipeticos-ltwk.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(APIPerfil.class);

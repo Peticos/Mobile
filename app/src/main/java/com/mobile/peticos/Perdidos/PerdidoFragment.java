@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import com.mobile.peticos.Local.ApiLocais;
 import com.mobile.peticos.Local.LocaisAdapter;
 import com.mobile.peticos.Local.Local;
+import com.mobile.peticos.PrimeiroCuidadosAchados;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -75,8 +76,10 @@ public class PerdidoFragment extends Fragment {
         });
         btnSos = view.findViewById(R.id.btnSos);
         btnSos.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), PrimeirosCuidados.class);
-            startActivity(intent);
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, PrimeiroCuidadosAchados.newInstance());
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
         setupRetrofit();
         initRecyclerView();
@@ -105,7 +108,7 @@ public class PerdidoFragment extends Fragment {
     }
     ApiPerdidos apiPerdidos;
     private void setupRetrofit() {
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
