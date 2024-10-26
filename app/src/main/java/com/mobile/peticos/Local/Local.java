@@ -10,6 +10,10 @@ public class Local {
 //            "streetNum": 0,
 //            "description": "string",
 //            "linkKnowMore": "string"
+//    "street": "Av. dos Livros",
+//            "city": "São Paulo",
+//            "neighborhood": "Água Fria",
+//            "streetNum": 234,
 //    }
 
     private int idLocal;
@@ -17,11 +21,15 @@ public class Local {
     private String localName;
     private String localPicture;
     private String street;
+
     private int streetNum;
+    private String city;
+    private String neighborhood;
     private String description;
     private String linkKnowMore;
+    private String phone;
 
-    public Local(int idLocal, int idLocalType, String localName, String localPicture, String street, int streetNum, String description, String linkKnowMore) {
+    public Local(int idLocal, int idLocalType, String localName, String localPicture, String street, int streetNum, String description, String linkKnowMore, String phone, String neighborhood,String city) {
         this.idLocal = idLocal;
         this.idLocalType = idLocalType;
         this.localName = localName;
@@ -30,14 +38,45 @@ public class Local {
         this.streetNum = streetNum;
         this.description = description;
         this.linkKnowMore = linkKnowMore;
+        this.phone = phone;
+        this.neighborhood = neighborhood;
+        this.city = city;
     }
 
-    public Local(String description, String localPicture, String linkKnowMore, String localName, String street) {
+    public Local(String description, String localPicture, String linkKnowMore, String localName,int streetNum, String street, String phone, String neighborhood,String city) {
         this.description = description;
         this.localPicture = localPicture;
         this.linkKnowMore = linkKnowMore;
         this.localName = localName;
         this.street = street;
+        this.streetNum = streetNum;
+        this.phone = phone;
+        this.neighborhood = neighborhood;
+        this.city = city;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getIdLocal() {

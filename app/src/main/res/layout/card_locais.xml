@@ -79,12 +79,12 @@
                     app:tint="@color/water_blue" />
 
                 <ImageView
-                    android:id="@+id/imageView15"
+                    android:id="@+id/ic_telefone"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
                     android:src="@drawable/ic_call"
-                    app:tint="@color/water_blue"/>
+                    app:tint="@color/water_blue" />
             </LinearLayout>
 
             <LinearLayout

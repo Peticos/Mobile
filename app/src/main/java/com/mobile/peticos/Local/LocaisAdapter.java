@@ -1,11 +1,15 @@
 package com.mobile.peticos.Local;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +40,7 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
         // Carrega a imagem a partir da URL usando Glide
         Glide.with(holder.imageView.getContext())
                 .load(local.getLocalPicture()) // Certifique-se de que 'local.getLocalPicture()' retorna uma URL válida
+                .error(R.drawable.fotogenerica)
                 .into(holder.imageView);
         // Configura o clique do botão "Saiba mais"
         holder.btnSaibaMais.setOnClickListener(v -> {
@@ -43,13 +48,23 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
             intent.putExtra("url", local.getLinkKnowMore());
             holder.itemView.getContext().startActivity(intent);
         });
+        //Configurar localizacao
+        int streetNum = local.getStreetNum();
+
+        String localizacao = local.getStreet() + " " + streetNum + " " + local.getNeighborhood() + " " + local.getCity();
         holder.btnLocalizacao.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), MapsActivity.class);
-            intent.putExtra("local", "Av. Raimundo Pereira de Magalhães, 1465 - Jardim Iris, São Paulo - SP, 05145-000");
+            intent.putExtra("local", localizacao);
             holder.itemView.getContext().startActivity(intent);
         });
+        // Configurar o telefone
+        String numero = local.getPhone(); // Substitua com o número do pet
+        holder.ic_telefone.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + numero));
+            v.getContext().startActivity(intent);
+        });
 
-        //holder.imageView.setImageResource(local.getLocalPicture());
     }
 
     @Override
@@ -59,7 +74,7 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
 
     public static class LocalViewHolder extends RecyclerView.ViewHolder {
         TextView textViewNome, textViewDescricao;
-        ImageView imageView, btnLocalizacao;
+        ImageView imageView, btnLocalizacao, ic_telefone;
         TextView btnSaibaMais;
 
         public LocalViewHolder(@NonNull View itemView) {
@@ -70,6 +85,7 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
             imageView = itemView.findViewById(R.id.fotoLocal);
             btnSaibaMais = itemView.findViewById(R.id.btnSaibaMais);
             btnLocalizacao = itemView.findViewById(R.id.btnLocalizacao);
+            ic_telefone =  itemView.findViewById(R.id.ic_telefone);
 
 
 
