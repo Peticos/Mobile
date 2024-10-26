@@ -316,8 +316,8 @@
                         android:layout_height="wrap_content"
 
                         app:endIconMode="password_toggle"
-
-                        app:passwordToggleTint="@color/black">
+                        app:hintEnabled="false"
+                        app:passwordToggleTint="#A39DA1">
 
                         <com.google.android.material.textfield.TextInputEditText
 
@@ -339,7 +339,7 @@
 
                             android:paddingRight="10dp"
 
-                            android:textSize="14dp" />
+                            android:textSize="12dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -385,8 +385,8 @@
                         android:layout_height="wrap_content"
 
                         app:endIconMode="password_toggle"
-
-                        app:passwordToggleTint="@color/black">
+                        app:hintEnabled="false"
+                        app:passwordToggleTint="#A39DA1">
 
                         <com.google.android.material.textfield.TextInputEditText
 
@@ -406,7 +406,7 @@
 
                             android:paddingLeft="10dp"
 
-                            android:textSize="14dp" />
+                            android:textSize="12dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView

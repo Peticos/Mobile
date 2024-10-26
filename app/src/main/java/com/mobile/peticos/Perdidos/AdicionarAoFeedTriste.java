@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,6 +37,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.mobile.peticos.Cadastros.Bairros.APIBairro;
+import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
+import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Home.AdapterPetFeedPrincipal;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
@@ -50,6 +55,7 @@ import com.mobile.peticos.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -62,10 +68,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import com.mobile.peticos.Padrao.ModelRetorno;
 
 public class AdicionarAoFeedTriste extends Fragment {
-    Button bntSair;
+    Button bntSair, btnPublicar;
     ImageButton btn_voltar_publicacoes;
-    EditText descricao, bairro, data, referencia;
-
+    EditText descricao, data, referencia;
+    AutoCompleteTextView bairro;
+    private Retrofit retrofit;
     ImageView upload;
     TextView publicacoes;
     RecyclerView amiguinhos;
@@ -83,7 +90,7 @@ public class AdicionarAoFeedTriste extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adicionar_ao_feed_triste, container, false);
 
-        Button btnPublicar = view.findViewById(R.id.btnPublicar);
+        btnPublicar = view.findViewById(R.id.btnPublicar);
         btnPublicar.setOnClickListener(v -> {
             RegistrarPetPerdido(v);
         });
@@ -94,6 +101,8 @@ public class AdicionarAoFeedTriste extends Fragment {
         data = view.findViewById(R.id.data);
         amiguinhos = view.findViewById(R.id.amiguinhos);
         referencia = view.findViewById(R.id.referencia);
+
+        carregarBairros();
 
         SharedPreferences limparCache = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = limparCache.edit();
@@ -327,5 +336,44 @@ public class AdicionarAoFeedTriste extends Fragment {
         }
     }
 
+    // Carrega os bairros usando a API
+    private void carregarBairros() {
+        String API = "https://apipeticos-ltwk.onrender.com";
+        retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIBairro apiBairro = retrofit.create(APIBairro.class);
+        Call<List<ModelBairro>> call = apiBairro.getAll();
+
+        // Executar chamada para pegar os bairros
+        call.enqueue(new Callback<List<ModelBairro>>() {
+            @Override
+            public void onResponse(Call<List<ModelBairro>> call, Response<List<ModelBairro>> response) {
+                List<ModelBairro> bairrosList = response.body();
+                List<String> bairrosNomes = new ArrayList<>();
+                if (bairrosList != null) {
+                    for (ModelBairro bairro : bairrosList) {
+                        bairrosNomes.add(bairro.getNeighborhood());
+                    }
+                    ArrayAdapter<String> adapterBairro = new ArrayAdapter<>(
+                            requireContext(),
+                            android.R.layout.simple_dropdown_item_1line,
+                            bairrosNomes
+                    );
+                    bairro.setAdapter(adapterBairro);
+                    bairro.setThreshold(1);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
+                Toast.makeText(AdicionarAoFeedTriste.newInstance().getContext(), "Erro ao carregar bairros", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnPublicar.setOnClickListener(this::RegistrarPetPerdido);
+    }
 
 }
