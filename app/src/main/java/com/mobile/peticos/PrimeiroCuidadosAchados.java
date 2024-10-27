@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mobile.peticos.Local.LocalFragment;
-import com.mobile.peticos.Perdidos.AdicionarAoFeedTriste;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 
 /**

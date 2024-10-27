@@ -1,4 +1,4 @@
-package com.mobile.peticos.Perdidos;
+package com.mobile.peticos.Perdidos.Adcionar;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
@@ -37,21 +37,24 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+<<<<<<< HEAD:app/src/main/java/com/mobile/peticos/Perdidos/AdicionarAoFeedTriste.java
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Home.AdapterPetFeedPrincipal;
+=======
+>>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db:app/src/main/java/com/mobile/peticos/Perdidos/Adcionar/AdicionarAoFeedTriste.java
 import com.mobile.peticos.Padrao.Upload.Camera;
+import com.mobile.peticos.Perdidos.ApiPerdidos;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
 
 import com.mobile.peticos.Padrao.NotificationReciver;
+import com.mobile.peticos.Perdidos.PetPerdido;
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.R;
 
 import android.widget.Toast;
-
-import com.mobile.peticos.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -223,9 +226,7 @@ public class AdicionarAoFeedTriste extends Fragment {
     }
 
     public void RegistrarPetPerdido(View view) {
-
-
-        Date dataAtual = new Date();
+                Date dataAtual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
         String dataFormatada = formato.format(dataAtual); // postTime formatada
         // Tratamento da data de perda
@@ -263,6 +264,8 @@ public class AdicionarAoFeedTriste extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
         SharedPreferences pet = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
+
+
         String idPet = pet.getString("selectedPet", "112");
         int idPetInt = Integer.parseInt(idPet);
 
@@ -330,6 +333,10 @@ public class AdicionarAoFeedTriste extends Fragment {
                     SharedPreferences.Editor editor = pet.edit();
                     editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
                     editor.apply();
+<<<<<<< HEAD:app/src/main/java/com/mobile/peticos/Perdidos/AdicionarAoFeedTriste.java
+=======
+
+>>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db:app/src/main/java/com/mobile/peticos/Perdidos/Adcionar/AdicionarAoFeedTriste.java
 
 
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

@@ -1,9 +1,6 @@
 package com.mobile.peticos.Perdidos;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -20,9 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ImageView;
 
-import com.mobile.peticos.Local.ApiLocais;
-import com.mobile.peticos.Local.LocaisAdapter;
-import com.mobile.peticos.Local.Local;
+import com.mobile.peticos.Perdidos.Adcionar.AdicionarAoFeedTriste;
 import com.mobile.peticos.PrimeiroCuidadosAchados;
 import com.mobile.peticos.R;
 

@@ -87,7 +87,7 @@ public class PerdidosTutor extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
         int id = sharedPreferences.getInt("id",10);
 
-        Call<List<PetPerdido>> call = apiPerfil.getRescuedLostByid(281); // Use o ID do sharedPreferences
+        Call<List<PetPerdido>> call = apiPerfil.getRescuedLostByid(id); // Use o ID do sharedPreferences
         call.enqueue(new Callback<List<PetPerdido>>() {
             @Override
             public void onResponse(Call<List<PetPerdido>> call, Response<List<PetPerdido>> response) {
