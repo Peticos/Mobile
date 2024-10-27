@@ -389,6 +389,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/Peso"
                     android:layout_width="152dp"
                     android:layout_height="100dp"
                     android:layout_marginLeft="20dp"

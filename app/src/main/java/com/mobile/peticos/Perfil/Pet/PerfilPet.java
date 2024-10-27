@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
 import com.mobile.peticos.Perfil.Pet.Vacinas.VacinasPets;
+import com.mobile.peticos.PesoPets;
 import com.mobile.peticos.R;
 
 import retrofit2.Call;
@@ -48,6 +48,7 @@ public class PerfilPet extends AppCompatActivity {
         btn_editar = findViewById(R.id.btn_editar);
         btn_personalizar = findViewById(R.id.btn_personalizar);
         Vacinas = findViewById(R.id.Vacinas);
+        Peso = findViewById(R.id.Peso);
 
         brinquedo = findViewById(R.id.brinquedao);
         oculos_dog = findViewById(R.id.oculosao_dog);
@@ -98,6 +99,11 @@ public class PerfilPet extends AppCompatActivity {
             v.getContext().startActivity(intent);
             finish();
 
+        });
+        Peso.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), PesoPets.class);
+            v.getContext().startActivity(intent);
+            finish();
         });
 
 
