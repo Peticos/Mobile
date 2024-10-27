@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fundo_marrom"
     android:backgroundTint="@color/beige"
-    tools:context=".Perdidos.AdicionarAoFeedTriste">
+    tools:context=".Perdidos.Adcionar.AdicionarAoFeedTriste">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

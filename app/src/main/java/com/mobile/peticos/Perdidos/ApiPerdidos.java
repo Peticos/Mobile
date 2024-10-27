@@ -19,6 +19,6 @@ public interface ApiPerdidos {
     @POST("/api/rescuedlost/insert")
     Call<ModelRetorno> isertPerdido(@Body PetPerdido perdido);
     @PUT("/api/rescuedlost/findpet/{id}")
-    Call<ModelRetorno> acharPet(@Path("id") Integer id, @Query("Data") String data);
+    Call<ModelRetorno> acharPet(@Path("id") Integer id, @Query("rescuedDate") String data);
 
 }

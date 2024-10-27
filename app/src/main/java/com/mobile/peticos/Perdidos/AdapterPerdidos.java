@@ -14,16 +14,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
-import com.mobile.peticos.Home.Feed.FeedPet;
-import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.Padrao.ModelRetorno;
-import com.mobile.peticos.Perfil.Pet.API.APIPets;
+import com.mobile.peticos.Perdidos.Achar.PetFoundDialogFragment;
 import com.mobile.peticos.R;
 
 import java.text.SimpleDateFormat;
@@ -61,8 +59,9 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                 .build();
 
         ApiPerdidos apiPets = retrofit.create(ApiPerdidos.class);
+        //2024-10-23
 
-        String data = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date());
+        String data = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 
         Call<ModelRetorno> call = apiPets.acharPet(id, data);
@@ -72,6 +71,13 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                 if (response.isSuccessful() && response.body() != null) {
                     ModelRetorno perdido = response.body();
                     Log.d("Perfil", "perdido: " + perdido);
+                    Toast.makeText(holder.itemView.getContext(), "Achou", Toast.LENGTH_SHORT).show();
+                    // Exibir o modal com os detalhes do pet encontrado
+                    PetFoundDialogFragment dialog = PetFoundDialogFragment.newInstance(
+                            "Ebaa!!! Mais um amiguinho encontrado!",
+                            "Nós da Peticos ficamos feliz que você tenha encontrado seu Pet! Que tal fazer uma publicação em comemoração?"
+                    );
+                    dialog.show(((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager(), "PetFoundDialog");
 
                 } else {
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
