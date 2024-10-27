@@ -70,7 +70,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         });
 
         // Chamar API de bairros
-        String API = "https://apipeticos.onrender.com";
+        String API = "https://apipeticos-ltwk.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -112,7 +112,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         btAtualizar.setOnClickListener(v -> validarCampos(v));
     }
     private void carregarDadosDoPerfil(){
-        String urlAPI = "https://apipeticos.onrender.com";
+        String urlAPI = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -201,7 +201,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
 
     private void atualizarTutorBanco(View view) {
 
-        String urlAPI = "https://apipeticos.onrender.com";
+        String urlAPI = "https://apipeticos-ltwk.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -267,7 +267,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
 
     //private void verificarBairro(CadastroTutor.BairroCallback callback) {
 //        // URL da API
-//        String API = "https://apipeticos.onrender.com";
+//        String API = "https://apipeticos-ltwk.onrender.com";
 //        retrofit = new Retrofit.Builder()
 //                .baseUrl(API)
 //                .addConverterFactory(GsonConverterFactory.create())

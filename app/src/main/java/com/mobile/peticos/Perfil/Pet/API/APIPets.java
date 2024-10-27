@@ -5,6 +5,8 @@ import com.mobile.peticos.Perfil.Pet.API.Cor;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
 import com.mobile.peticos.Perfil.Pet.API.Raca;
+import com.mobile.peticos.Perfil.Pet.Vacinas.ModelVacina;
+import com.mobile.peticos.Perfil.Pet.Vacinas.VacinasPets;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public interface APIPets {
    Call<List<Raca>> getAllRaces();
 
    @POST("/api/petregister/insert")
-   Call<ModelRetorno> insertPet(@Body ModelPetBanco pet);
+   Call<Integer> insertPet(@Body ModelPetBanco pet);
 
    @GET("/api/petregister/getbyusername/{username}")
    Call<List<ModelPetBanco>> getPets(@Path("username") String username);
@@ -34,8 +36,20 @@ public interface APIPets {
    @GET("/personalizations/getbyid/{id}")
    Call<Personalizacao> getPersonalizacao(@Path("id") int id);
 
-   @POST("/personalizations/update/{id}")
-   Call<ModelRetorno> updatePersonalizacao(@Path("id") int id, @Body Personalizacao personalizacao);
+   @POST("/api/petregister/update")
+   Call<ModelRetorno> updatePet(@Body ModelPetBanco modelPetBanco);
+
+   @GET("/api/vaccine/findbyid/{id}")
+   Call <List<ModelVacina>> getallVacina(@Path("id") int id);
+
+   @POST("/api/vaccine/insert")
+   Call<Integer> insertVacina (@Body ModelVacina vacina);
+
+   @POST("/api/doses/insert")
+   Call<ModelRetorno> insertDose (@Body ModelVacina vacina);
+
+
+
 
 
 

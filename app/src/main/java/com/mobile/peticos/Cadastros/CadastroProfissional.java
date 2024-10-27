@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -25,6 +26,7 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
+import com.mobile.peticos.MainActivity;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
@@ -271,7 +273,6 @@ public class CadastroProfissional extends AppCompatActivity {
         String urlAPI = "https://apipeticos-ltwk.onrender.com";
 
 
-
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -287,19 +288,14 @@ public class CadastroProfissional extends AppCompatActivity {
                 telefone.getText().toString(),
                 null,
                 url,
-                null,
                 cnpj.getText().toString()
         );
 
-
         Call<Integer> call = aPIPerfil.insertProfissional(perfil);
-
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                if (response.isSuccessful()) {
-                    int id = response.body();
-
+                if (response.code() == 200) {
                     SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     // Armazenar todas as informações no SharedPreferences
@@ -314,9 +310,7 @@ public class CadastroProfissional extends AppCompatActivity {
                     editor.putInt("id", response.body());
 
                     editor.apply();
-
-
-
+                    int id = response.body();
                     Metodos metodos = new Metodos();
                     metodos.Authentication(
                             view,
@@ -328,10 +322,7 @@ public class CadastroProfissional extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(ModelRetorno perfil) {
                                     Toast.makeText(CadastroProfissional.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(CadastroProfissional.this, DesejaCadastrarUmPet.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("id", id);
-                                    intent.putExtras(bundle);
+                                    Intent intent = new Intent(CadastroProfissional.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -343,30 +334,19 @@ public class CadastroProfissional extends AppCompatActivity {
                                 }
                             }
                     );
+
                 } else {
-                    String errorMessage;
-                    switch (response.code()) {
-                        case 400:
-                            errorMessage = "Erro 400: Requisição inválida. Verifique os dados.";
-                            break;
-                        case 404:
-                            errorMessage = "Erro 404: Servidor não encontrado.";
-                            break;
-                        case 500:
-                            errorMessage = "Erro 500: Erro no servidor.";
-                            break;
-                        default:
-                            errorMessage = "Erro ao cadastrar: " + response.code();
-                            break;
-                    }
-                    Toast.makeText(CadastroProfissional.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CadastroProfissional.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
-                Toast.makeText(CadastroProfissional.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("CadastroTutor", "Erro: " + t.getMessage());
+                Toast.makeText(CadastroProfissional.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 }

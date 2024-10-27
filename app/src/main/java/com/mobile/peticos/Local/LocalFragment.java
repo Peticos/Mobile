@@ -142,7 +142,11 @@ public class LocalFragment extends Fragment {
                     local.getLocalPicture(),
                     local.getLinkKnowMore(),
                     local.getLocalName(),
-                    local.getStreet()
+                    local.getStreetNum(),
+                    local.getStreet(),
+                    local.getPhone(),
+                    local.getNeighborhood(),
+                    local.getCity()
             ));
         }
         recyclerView.setAdapter(new LocaisAdapter(localModels));

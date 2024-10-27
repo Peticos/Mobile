@@ -68,8 +68,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/dog_personalizado_1" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/oculosao_dog"
@@ -77,7 +76,7 @@
                     android:layout_height="41dp"
                     android:layout_marginStart="84dp"
                     android:layout_marginBottom="148dp"
-                    android:visibility="visible"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/oculos_personalizado_1" />
@@ -100,19 +99,10 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/brinquedo_personalizado_1" />
-
-                <ImageView
-                    android:id="@+id/btnEdit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_editar_iconpet" />
 
                 <ImageView
                     android:id="@+id/cabecao"
@@ -120,6 +110,7 @@
                     android:layout_height="37dp"
                     android:layout_marginStart="136dp"
                     android:layout_marginBottom="195dp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/cabeca_personalizado_2" />
@@ -137,18 +128,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="100dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:paddingTop="20dp"
-                android:paddingBottom="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -157,7 +140,7 @@
                     android:textColor="@color/water_blue" />
 
                 <EditText
-                    android:id="@+id/nomeCompleto"
+                    android:id="@+id/nome"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginBottom="10dp"
@@ -198,17 +181,64 @@
                     android:text="Espécie"
                     android:textColor="@color/water_blue" />
 
-                <EditText
-                    android:id="@+id/Telefone"
+                <AutoCompleteTextView
+
+                    android:id="@+id/especie"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="48dp"
+
                     android:layout_marginBottom="10dp"
+
                     android:background="@drawable/rounded_edit_text"
+
                     android:ems="10"
-                    android:hint="Espécie"
+
+                    android:hint="Selecione a especie"
+
                     android:inputType="text"
+
                     android:paddingLeft="10dp"
-                    android:textSize="14dp" />
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/varela_round"
+                    android:text="Gênero"
+                    android:textColor="@color/water_blue" />
+
+                <AutoCompleteTextView
+
+                    android:id="@+id/genero"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="48dp"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:background="@drawable/rounded_edit_text"
+
+                    android:ems="10"
+
+                    android:hint="Selecione o gênero"
+
+                    android:inputType="text"
+
+                    android:paddingLeft="10dp"
+
+                    android:paddingRight="10dp"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -219,17 +249,32 @@
                     android:text="Raça"
                     android:textColor="@color/water_blue" />
 
-                <EditText
-                    android:id="@+id/NomeProduto"
+                <AutoCompleteTextView
+
+                    android:id="@+id/raca"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="48dp"
+
                     android:layout_marginBottom="10dp"
+
                     android:background="@drawable/rounded_edit_text"
+
                     android:ems="10"
-                    android:hint="Raça"
+
+                    android:hint="Selecione a raça"
+
                     android:inputType="text"
+
                     android:paddingLeft="10dp"
-                    android:textSize="14dp" />
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
 
                 <TextView
                     android:id="@+id/textView15"
@@ -240,17 +285,32 @@
                     android:text="Cor"
                     android:textColor="@color/water_blue" />
 
-                <EditText
-                    android:id="@+id/editTextText7"
+                <AutoCompleteTextView
+
+                    android:id="@+id/cor"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="48dp"
+
                     android:layout_marginBottom="10dp"
+
                     android:background="@drawable/rounded_edit_text"
+
                     android:ems="10"
-                    android:hint="Cor"
+
+                    android:hint="Selecione o gênero"
+
                     android:inputType="text"
+
                     android:paddingLeft="10dp"
-                    android:textSize="14dp" />
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
 
                 <TextView
                     android:id="@+id/textView16"
@@ -261,27 +321,42 @@
                     android:text="Porte"
                     android:textColor="@color/water_blue" />
 
-                <EditText
-                    android:id="@+id/editTextText8"
+                <AutoCompleteTextView
+
+                    android:id="@+id/porte"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="48dp"
-                    android:layout_marginBottom="10dp"
+
+                    android:layout_marginBottom="20dp"
+
                     android:background="@drawable/rounded_edit_text"
+
                     android:ems="10"
-                    android:hint="Porte"
+
+                    android:hint="Selecione o porte"
+
                     android:inputType="text"
+
                     android:paddingLeft="10dp"
-                    android:textSize="14dp" />
+
+                    android:paddingRight="10dp"
+
+                    android:textSize="14sp"
+
+                    />
+
 
                 <Button
-                    android:id="@+id/btAtualizar"
-                    android:layout_width="250dp"
+                    android:id="@+id/btnCadastrar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/principal_button"
                     android:fontFamily="@font/lilita_one"
                     android:onClick="CadastraPet"
-                    android:text="Cadastrar"
+                    android:text="Salvar"
                     android:textSize="26dp" />
 
                 <Button

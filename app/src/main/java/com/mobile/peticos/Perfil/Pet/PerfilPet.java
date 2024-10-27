@@ -1,15 +1,19 @@
 package com.mobile.peticos.Perfil.Pet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
+import com.mobile.peticos.Perfil.Pet.Vacinas.VacinasPets;
 import com.mobile.peticos.R;
 
 import retrofit2.Call;
@@ -21,16 +25,15 @@ import com.mobile.peticos.Perfil.Pet.API.APIPets;
 
 public class PerfilPet extends AppCompatActivity {
     TextView NomePet, sexoPet, idadePet, especiePet, racaPet, corPet, portePet, NomePet2;
-    ImageView btnvoltar, btn_editar, petzao, cabeca, oculos_dog, oculos_cat, brinquedo, especie;
+    ImageView btnvoltar, btn_editar, petzao, cabeca, oculos_dog, oculos_cat, brinquedo, especie, btn_personalizar;
     int id;
+    CardView Vacinas, Peso;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_pet);
-        Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("id");
-
 
         NomePet = findViewById(R.id.NomePetDois);
         NomePet2 = findViewById(R.id.NomePet);
@@ -43,6 +46,8 @@ public class PerfilPet extends AppCompatActivity {
         idadePet = findViewById(R.id.IdadePet);
         btnvoltar = findViewById(R.id.btnvoltar);
         btn_editar = findViewById(R.id.btn_editar);
+        btn_personalizar = findViewById(R.id.btn_personalizar);
+        Vacinas = findViewById(R.id.Vacinas);
 
         brinquedo = findViewById(R.id.brinquedao);
         oculos_dog = findViewById(R.id.oculosao_dog);
@@ -56,14 +61,18 @@ public class PerfilPet extends AppCompatActivity {
         petzao.setVisibility(View.INVISIBLE);
         cabeca.setVisibility(View.INVISIBLE);
 
-        NomePet.setText(bundle.getString("nickname"));
-        NomePet2.setText(bundle.getString("nickname"));
-        sexoPet.setText(bundle.getString("genero"));
-        idadePet.setText(String.valueOf(bundle.getInt("idade")));
-        racaPet.setText(bundle.getString("raca"));
-        corPet.setText(bundle.getString("cor"));
-        portePet.setText(bundle.getString("porte"));
-        avatarPet();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("Pet", MODE_PRIVATE);
+
+        NomePet.setText(sharedPreferences.getString("nickname", "nome do pet"));
+        NomePet2.setText(sharedPreferences.getString("nickname", "nome do pet"));
+        sexoPet.setText(sharedPreferences.getString("genero", "genero"));
+        idadePet.setText(sharedPreferences.getInt("idade", 0) + " anos");
+        racaPet.setText(sharedPreferences.getString("raca", "raca"));
+        corPet.setText(sharedPreferences.getString("cor", "cor"));
+        portePet.setText(sharedPreferences.getString("porte", "porte"));
+        id = sharedPreferences.getInt("id", 0);
+        avatarPet(sharedPreferences);
 
 
 
@@ -74,15 +83,26 @@ public class PerfilPet extends AppCompatActivity {
         });
         btn_editar.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), EditarPerfilPet.class);
-            Bundle bundleeditar = new Bundle();
-            bundleeditar.putInt("id", bundle.getInt("id"));
-            intent.putExtras(bundleeditar);
             v.getContext().startActivity(intent);
+            finish();
+
+        });
+        btn_personalizar.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), PersonalizarPets.class);
+            v.getContext().startActivity(intent);
+            finish();
+
+        });
+        Vacinas.setOnClickListener(v->{
+            Intent intent = new Intent(v.getContext(), VacinasPets.class);
+            v.getContext().startActivity(intent);
+            finish();
+
         });
 
 
     }
-    private void avatarPet() {
+    private void avatarPet(SharedPreferences sharedPreferences) {
 
         String API = "https://api-mongo-i1jq.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
@@ -98,82 +118,93 @@ public class PerfilPet extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if(response.body() != null) {
                         Personalizacao pet = response.body();
-                        if(pet.getSpecies()!=null) {
 
-                        }
-                        if(pet.getSpecies().equals("CACHORRO")) {
-                            oculos_dog.setVisibility(View.VISIBLE);
+                        if(pet.getSpecies().equals("Cachorro")) {
+
                             if(pet.getGlassesId() == 1) {
+                                oculos_dog.setVisibility(View.VISIBLE);
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_1);
                             } else if (pet.getGlassesId()==2) {
+                                oculos_dog.setVisibility(View.VISIBLE);
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_2);
                             }  else if (pet.getGlassesId()==3) {
+                                oculos_dog.setVisibility(View.VISIBLE);
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_3);
                             } else if (pet.getGlassesId()==4) {
+                                oculos_dog.setVisibility(View.VISIBLE);
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_4);
                             } else if (pet.getGlassesId()==5) {
+                                oculos_dog.setVisibility(View.VISIBLE);
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_5);
                             } else if (pet.getGlassesId()==6) {
+                                oculos_dog.setVisibility(View.VISIBLE);
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_6);
                             } else if (pet.getGlassesId()==7) {
+                                oculos_dog.setVisibility(View.VISIBLE);
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_7);
                             }
                             petzao.setVisibility(View.VISIBLE);
-                            if(pet.getHatId() == 1) {
+                            if(pet.getHairId() == 1) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_1);
-                            }else if (pet.getHatId()==2) {
+                            }else if (pet.getHairId()==2) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_2);
-                            }else if (pet.getHatId()==3) {
+                            }else if (pet.getHairId()==3) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_3);
-                            }else if (pet.getHatId()==4) {
+                            }else if (pet.getHairId()==4) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_4);
-                            }else if (pet.getHatId()==5) {
+                            }else if (pet.getHairId()==5) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_5);
-                            }else if (pet.getHatId()==6) {
+                            }else if (pet.getHairId()==6) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_6);
-                            }else if (pet.getHatId()==7) {
+                            }else if (pet.getHairId()==7) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_7);
-                            }else if(pet.getHatId()==8) {
+                            }else if(pet.getHairId()==8) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_8);
-                            }else if(pet.getHatId()==9) {
+                            }else if(pet.getHairId()==9) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_9);
                             }
 
-                        } else if(pet.getSpecies().equals("GATO")) {
-                            oculos_cat.setVisibility(View.VISIBLE);
+                        } else if(pet.getSpecies().equals("Gato")) {
                             if(pet.getGlassesId() == 1) {
-                                oculos_dog.setImageResource(R.drawable.oculos_personalizado_1);
+                                oculos_cat.setVisibility(View.VISIBLE);
+                                oculos_cat.setImageResource(R.drawable.oculos_personalizado_1);
                             } else if (pet.getGlassesId()==2) {
-                                oculos_dog.setImageResource(R.drawable.oculos_personalizado_2);
+                                oculos_cat.setVisibility(View.VISIBLE);
+                                oculos_cat.setImageResource(R.drawable.oculos_personalizado_2);
                             }  else if (pet.getGlassesId()==3) {
-                                oculos_dog.setImageResource(R.drawable.oculos_personalizado_3);
+                                oculos_cat.setVisibility(View.VISIBLE);
+                                oculos_cat.setImageResource(R.drawable.oculos_personalizado_3);
                             } else if (pet.getGlassesId()==4) {
-                                oculos_dog.setImageResource(R.drawable.oculos_personalizado_4);
+                                oculos_cat.setVisibility(View.VISIBLE);
+                                oculos_cat.setImageResource(R.drawable.oculos_personalizado_4);
                             } else if (pet.getGlassesId()==5) {
-                                oculos_dog.setImageResource(R.drawable.oculos_personalizado_5);
+                                oculos_cat.setVisibility(View.VISIBLE);
+                                oculos_cat.setImageResource(R.drawable.oculos_personalizado_5);
                             } else if (pet.getGlassesId()==6) {
-                                oculos_dog.setImageResource(R.drawable.oculos_personalizado_6);
+                                oculos_cat.setVisibility(View.VISIBLE);
+                                oculos_cat.setImageResource(R.drawable.oculos_personalizado_6);
                             } else if (pet.getGlassesId()==7) {
-                                oculos_dog.setImageResource(R.drawable.oculos_personalizado_7);
+                                oculos_cat.setVisibility(View.VISIBLE);
+                                oculos_cat.setImageResource(R.drawable.oculos_personalizado_7);
                             }
                             petzao.setVisibility(View.VISIBLE);
-                            if(pet.getHatId() == 1) {
+                            if(pet.getHairId() == 1 || pet.getHatId() == 0) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_1);
-                            }else if (pet.getHatId()==2) {
+                            }else if (pet.getHairId()==2) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_2);
-                            }else if (pet.getHatId()==3) {
+                            }else if (pet.getHairId()==3) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_3);
-                            }else if (pet.getHatId()==4) {
+                            }else if (pet.getHairId()==4) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_4);
-                            }else if (pet.getHatId()==5) {
+                            }else if (pet.getHairId()==5) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_5);
-                            }else if (pet.getHatId()==6) {
+                            }else if (pet.getHairId()==6) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_6);
-                            }else if (pet.getHatId()==7) {
+                            }else if (pet.getHairId()==7) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_7);
-                            }else if(pet.getHatId()==8) {
+                            }else if(pet.getHairId()==8) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_8);
-                            }else if(pet.getHatId()==9) {
+                            }else if(pet.getHairId()==9) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_9);
                             }
 
@@ -206,31 +237,31 @@ public class PerfilPet extends AppCompatActivity {
                             brinquedo.setVisibility(View.VISIBLE);
                             brinquedo.setImageResource(R.drawable.brinquedo_personalizado_9);
                         }
-                        if(pet.getHairId() == 1) {
+                        if(pet.getHatId() == 1) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_1);
-                        } else if(pet.getHairId() == 2) {
+                        } else if(pet.getHatId() == 2) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_2);
-                        } else if(pet.getHairId() == 3) {
+                        } else if(pet.getHatId() == 3) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_3);
-                        } else if(pet.getHairId() == 4) {
+                        } else if(pet.getHatId() == 4) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_4);
-                        } else if(pet.getHairId() == 5) {
+                        } else if(pet.getHatId() == 5) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_5);
-                        } else if(pet.getHairId() == 6) {
+                        } else if(pet.getHatId() == 6) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_6);
-                        } else if(pet.getHairId() == 7) {
+                        } else if(pet.getHatId() == 7) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_7);
-                        } else if(pet.getHairId() == 8) {
+                        } else if(pet.getHatId() == 8) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_8);
-                        } else if(pet.getHairId() == 9) {
+                        } else if(pet.getHatId() == 9) {
                             cabeca.setVisibility(View.VISIBLE);
                             cabeca.setImageResource(R.drawable.cabeca_personalizado_9);
                         }}

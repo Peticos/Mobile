@@ -159,6 +159,17 @@ public class ModelPerfil {
         this.gender = gender;
         this.cnpj = cnpj;
     }
+    public ModelPerfil(String fullName, String username, String email, String bairro, String plan, String phone, String usernameId, String profilePicture, String cnpj) {
+        this.fullName = fullName;
+        this.username = username;
+        this.email = email;
+        this.bairro = bairro;
+        this.plan = plan;
+        this.phone = phone;
+        this.usernameId = usernameId;
+        this.profilePicture = profilePicture;
+        this.cnpj = cnpj;
+    }
     public ModelPerfil(int id, String fullName, String username, String email, String bairro, String plan, String phone, String usernameId, String profilePicture, String gender, String cnpj) {
         this.idUser = id;
         this.fullName = fullName;

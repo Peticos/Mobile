@@ -218,9 +218,6 @@ public class CadastroTutor extends AppCompatActivity {
 
         btnUpload.setOnClickListener(v -> {
             Intent intent = new Intent(CadastroTutor.this, Camera.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("tipo", "tutor");
-            intent.putExtras(bundle);
             cameraLauncher.launch(intent);
         });
     }

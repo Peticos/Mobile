@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
                         Fragment homeFragment = LocalFragment.newInstance();
                         openFragment(homeFragment);
                     } else if (item.getItemId() == R.id.navPerfil) {
-                        if (!mei) {
-                            openFragment(PerfilFragment.newInstance());
-                        } else {
+                        if (mei) {
                             openFragment(PerfilProfissional.newInstance());
+                        } else {
+                            openFragment(PerfilFragment.newInstance());
                         }
 
                     }

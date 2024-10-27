@@ -1,28 +1,31 @@
-package com.mobile.peticos.Perdidos;
+package com.mobile.peticos.Perfil.Tutor.AdapterPets;
 
-import android.content.Context;
+import static android.content.Context.MODE_PRIVATE;
+
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobile.peticos.Login;
+import com.mobile.peticos.MainActivity;
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
-import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
-import com.mobile.peticos.R;
 
-import java.util.HashSet;
+import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
+import com.mobile.peticos.Perfil.Pet.PerfilPet;
+import com.mobile.peticos.R;
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,19 +33,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AdapterPetFeedTriste extends RecyclerView.Adapter<AdapterPetFeedTriste.PetViewHolder> {
+public class AdapterPet extends RecyclerView.Adapter<AdapterPet.PetViewHolder> {
 
     private List<ModelPetBanco> petsList;
 
-
-    public AdapterPetFeedTriste(List<ModelPetBanco> petsList) {
+    public AdapterPet(List<ModelPetBanco> petsList) {
         this.petsList = petsList;
     }
 
     @NonNull
     @Override
     public PetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pet_perdido, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pet, parent, false);
         return new PetViewHolder(view);
     }
 
@@ -50,49 +52,36 @@ public class AdapterPetFeedTriste extends RecyclerView.Adapter<AdapterPetFeedTri
     @Override
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         ModelPetBanco Pet = petsList.get(position);
-        holder.nome.setText(Pet.getNickname());
-
-        // Recupera o SharedPreferences
-        SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        // Certifique-se de usar a mesma chave 'selectedPet'
-        String id = sharedPreferences.getString("selectedPet", null);
-        if (id != null && id.equals(String.valueOf(Pet.getIdPet()))) {
-            holder.cancelarPet.setVisibility(View.VISIBLE);
-        } else {
-            holder.cancelarPet.setVisibility(View.INVISIBLE);
-        }
-
-
-        // Evento de clique para selecionar o pet
-        holder.tudo.setOnClickListener(v -> {
-            String idPet = String.valueOf(Pet.getIdPet());
-            editor.putString("selectedPet", idPet); // Corrigido: usar 'selectedPet' como chave
-            editor.putString("nome",Pet.getNickname() );
+        holder.textViewNome.setText(Pet.getNickname());
+        // Configurar o clique
+        holder.itemView.setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("Pet", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            // Armazenar todas as informações no SharedPreferences
+            editor.putString("nickname", Pet.getNickname());
+            editor.putInt("idade", Pet.getAge());
+            editor.putString("especie", Pet.getSpecie());
+            editor.putString("raca", Pet.getRace());
+            editor.putString("cor", Pet.getColorpet());
+            editor.putString("porte", Pet.getSize());
+            editor.putString("genero", Pet.getSex());
+            editor.putInt("id", Pet.getIdPet());
             editor.apply();
-
-            // Atualizar a exibição após selecionar o pet
-            notifyDataSetChanged();
+            Toast.makeText(v.getContext(), "Pet", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent( v.getContext(), PerfilPet.class);
+            v.getContext().startActivity(intent);
         });
 
-        // Evento de clique para cancelar a seleção do pet
-        holder.cancelarPet.setOnClickListener(v -> {
-            editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
-            editor.apply();
 
-            // Atualizar a exibição após desmarcar o pet
-            holder.cancelarPet.setVisibility(View.INVISIBLE);
-            notifyDataSetChanged();
-        });
-        String API = "https://api-mongo-i1jq.onrender.com";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(API)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        APIPets apiPets = retrofit.create(APIPets.class);
-        Call<Personalizacao> call = apiPets.getPersonalizacao(Pet.getIdPet());
+            String API = "https://api-mongo-i1jq.onrender.com";
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(API)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            APIPets apiPets = retrofit.create(APIPets.class);
+            Call<Personalizacao> call = apiPets.getPersonalizacao(Pet.getIdPet());
         call.enqueue(new Callback<Personalizacao>() {
             @Override
             public void onResponse(Call<Personalizacao> call, Response<Personalizacao> response) {
@@ -251,34 +240,28 @@ public class AdapterPetFeedTriste extends RecyclerView.Adapter<AdapterPetFeedTri
                 holder.petzao.setVisibility(View.VISIBLE);
             }
         });
-    }
+        }
+
 
 
     @Override
     public int getItemCount() {
-        return petsList.size();
+       return petsList.size();
     }
 
     public static class PetViewHolder extends RecyclerView.ViewHolder {
-        TextView nome;
-        ImageView imagem, cancelarPet;
-        LinearLayout tudo;
-        String perdido;
+        TextView textViewNome;
         ImageView petzao, cabecao, brinquedao, oculosao_dog, oculosao_cat;
-
-
 
         public PetViewHolder(@NonNull View itemView) {
             super(itemView);
-            nome = itemView.findViewById(R.id.nomepet);
-
-            tudo = itemView.findViewById(R.id.tudo);
-            cancelarPet = itemView.findViewById(R.id.cancelarPet);
+            textViewNome = itemView.findViewById(R.id.nomepet);
             petzao = itemView.findViewById(R.id.petzao);
             cabecao =  itemView.findViewById(R.id.cabecao);
             brinquedao =  itemView.findViewById(R.id.brinquedao);
             oculosao_dog =  itemView.findViewById(R.id.oculosao_dog);
             oculosao_cat =  itemView.findViewById(R.id.oculosao_cat);
+
 
 
         }
