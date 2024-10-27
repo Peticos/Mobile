@@ -365,7 +365,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:fontFamily="@font/varela_round"
-                        android:text="Qual amiguinho precisa soação?"
+                        android:text="Qual amiguinho precisa doação?"
                         android:textColor="@color/asereje_yellow" />
 
 
