@@ -134,9 +134,6 @@ public class AdicionarAoFeedTriste extends Fragment {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getActivity(), Camera.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("tipo", "tutor");
-                intent.putExtras(bundle);
                 cameraLauncher.launch(intent); // Apenas lance o Intent sem o código de solicitação
 
             }
