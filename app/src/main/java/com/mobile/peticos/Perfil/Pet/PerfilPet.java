@@ -67,7 +67,11 @@ public class PerfilPet extends AppCompatActivity {
 
         NomePet.setText(sharedPreferences.getString("nickname", "nome do pet"));
         NomePet2.setText(sharedPreferences.getString("nickname", "nome do pet"));
-        sexoPet.setText(sharedPreferences.getString("genero", "genero"));
+        if(sharedPreferences.getString("genero", "genero").equals("M")){
+            sexoPet.setText("Macho");
+        } else if (sharedPreferences.getString("genero", "genero").equals("F")) {
+            sexoPet.setText("Fêmea");
+        }
         idadePet.setText(sharedPreferences.getInt("idade", 0) + " anos");
         racaPet.setText(sharedPreferences.getString("raca", "raca"));
         corPet.setText(sharedPreferences.getString("cor", "cor"));
