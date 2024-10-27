@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -63,7 +64,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
     Button btnPublicar, btnSair;
     ImageButton btn_voltar_publicacoes;
-    TextView publicacoes;
+    TextView publicacoes, petsInvalidos;
 
     public AdicionarAoFeedPrincipal() {
         // Required empty public constructor
@@ -102,6 +103,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         btnUpload = view.findViewById(R.id.upload);
         legenda = view.findViewById(R.id.legenda);
         recyclerPets = view.findViewById(R.id.amiguinhos);
+        petsInvalidos = view.findViewById(R.id.petsInvalidos);
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,14 +253,22 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
         if(url == null){
             Toast.makeText(getContext(), "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(selectedPetsList.size() == 0){
-            Toast.makeText(getContext(), "Selecione pelo menos um pet!", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop();
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_amarelo)
+                    .apply(options)
+                    .into(btnUpload);
             return;
         }
         if(legenda.getText().toString().isEmpty()){
             Toast.makeText(getContext(), "Legenda Obrigatória", Toast.LENGTH_SHORT).show();
+            legenda.setError("Legenda é obrigatória");
+            return;
+        }
+        if(selectedPetsList.size() == 0){
+            Toast.makeText(getContext(), "Selecione pelo menos um pet!", Toast.LENGTH_SHORT).show();
+            petsInvalidos.setVisibility(View.VISIBLE);
             return;
         }
         // Criar uma nova instância de FeedPet

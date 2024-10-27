@@ -57,8 +57,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,7 +76,7 @@ public class AdicionarAoFeedTriste extends Fragment {
     AutoCompleteTextView bairro;
     private Retrofit retrofit;
     ImageView upload;
-    TextView publicacoes;
+    TextView publicacoes, petsInvalidos;
     RecyclerView amiguinhos;
     private ActivityResultLauncher<Intent> cameraLauncher;
 
@@ -101,6 +103,7 @@ public class AdicionarAoFeedTriste extends Fragment {
         data = view.findViewById(R.id.data);
         amiguinhos = view.findViewById(R.id.amiguinhos);
         referencia = view.findViewById(R.id.referencia);
+        petsInvalidos = view.findViewById(R.id.petsInvalidos);
 
         carregarBairros();
 
@@ -230,6 +233,23 @@ public class AdicionarAoFeedTriste extends Fragment {
         SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()); // Formato de entrada MM-dd-yyyy
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
+        SharedPreferences sharedPreferencesPet = getActivity().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
+        Set<String> selectedPets = sharedPreferencesPet.getStringSet("selectedPets", new HashSet<>());
+
+        List<Integer> selectedPetsList = new ArrayList<>();
+
+        // Convertendo os valores de String para int e adicionando à lista
+        for (String petId : selectedPets) {
+            try {
+                // Tenta converter o ID do pet para int
+                int id = Integer.parseInt(petId);
+                selectedPetsList.add(id);
+            } catch (NumberFormatException e) {
+                // Trate a exceção se a conversão falhar
+                e.printStackTrace(); // Ou log a falha
+            }
+        }
+
         Date lostDate = null;
         try {
             lostDate = inputFormat.parse(dataa); // Convertendo a entrada de texto para Date
@@ -245,6 +265,44 @@ public class AdicionarAoFeedTriste extends Fragment {
         SharedPreferences pet = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
         String idPet = pet.getString("selectedPet", "112");
         int idPetInt = Integer.parseInt(idPet);
+
+        //Validando campos
+        if(url == null){
+            Toast.makeText(getContext(), "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .transform(new RoundedCorners(30));
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(upload);
+            return;
+        }
+        if(descricao.getText().toString().isEmpty()){
+            Toast.makeText(getContext(), "Legenda Obrigatória", Toast.LENGTH_SHORT).show();
+            descricao.setError("Descrição é obrigatória");
+            return;
+        }
+        if(bairro.getText().toString().isEmpty()){
+            Toast.makeText(getContext(), "Bairro Obrigatório", Toast.LENGTH_SHORT).show();
+            bairro.setError("Bairro é obrigatório");
+            return;
+        }
+        if(dataa.isEmpty()){
+            Toast.makeText(getContext(), "Data Obrigatória", Toast.LENGTH_SHORT).show();
+            data.setError("Data é obrigatória");
+            return;
+        }
+        if(referencia.getText().toString().isEmpty()){
+            Toast.makeText(getContext(), "Referência Obrigatória", Toast.LENGTH_SHORT).show();
+            referencia.setError("Referência é obrigatória");
+            return;
+        }
+        if(selectedPetsList.size() == 0){
+            Toast.makeText(getContext(), "Selecione pelo menos um pet!", Toast.LENGTH_SHORT).show();
+            petsInvalidos.setVisibility(View.VISIBLE);
+            return;
+        }
 
         PetPerdido petPerdido = new PetPerdido(
                 idPetInt,

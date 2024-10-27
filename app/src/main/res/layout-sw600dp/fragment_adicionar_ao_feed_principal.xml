@@ -96,7 +96,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="64dp"
                             android:background="@drawable/rounded_edit_text"
-                            android:elevation="5dp"
+                            android:elevation="0dp"
                             android:ems="10"
                             android:fontFamily="@font/varela_round"
                             android:gravity="top"
@@ -123,10 +123,9 @@
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/amiguinhos"
@@ -136,6 +135,17 @@
                                 android:padding="16dp"
                                 android:paddingHorizontal="10dp" />
 
+                            <TextView
+                                android:id="@+id/petsInvalidos"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/varela_round"
+                                android:visibility="invisible"
+                                android:text="É obrigatório selecionar um pet!"
+                                android:textColor="@color/red_or_orange"
+                                android:textSize="14dp"/>
                         </LinearLayout>
                     </HorizontalScrollView>
 
