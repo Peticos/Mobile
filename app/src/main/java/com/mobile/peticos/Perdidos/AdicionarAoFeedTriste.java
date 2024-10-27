@@ -273,7 +273,7 @@ public class AdicionarAoFeedTriste extends Fragment {
                     .centerCrop()
                     .transform(new RoundedCorners(30));
             Glide.with(this)
-                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .load(R.drawable.adicionar_imagem_amarelo)
                     .apply(options)
                     .into(upload);
             return;
@@ -298,7 +298,7 @@ public class AdicionarAoFeedTriste extends Fragment {
             referencia.setError("Referência é obrigatória");
             return;
         }
-        if(selectedPetsList.size() == 0){
+        if(idPetInt == 0){
             Toast.makeText(getContext(), "Selecione pelo menos um pet!", Toast.LENGTH_SHORT).show();
             petsInvalidos.setVisibility(View.VISIBLE);
             return;
@@ -327,7 +327,9 @@ public class AdicionarAoFeedTriste extends Fragment {
 
                     Toast.makeText(getContext(), "Post publicado", Toast.LENGTH_SHORT).show();
                     notificar();
-
+                    SharedPreferences.Editor editor = pet.edit();
+                    editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
+                    editor.apply();
 
 
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
