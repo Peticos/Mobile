@@ -37,13 +37,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-<<<<<<< HEAD:app/src/main/java/com/mobile/peticos/Perdidos/AdicionarAoFeedTriste.java
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Home.AdapterPetFeedPrincipal;
-=======
->>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db:app/src/main/java/com/mobile/peticos/Perdidos/Adcionar/AdicionarAoFeedTriste.java
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Perdidos.ApiPerdidos;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
@@ -333,10 +330,6 @@ public class AdicionarAoFeedTriste extends Fragment {
                     SharedPreferences.Editor editor = pet.edit();
                     editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
                     editor.apply();
-<<<<<<< HEAD:app/src/main/java/com/mobile/peticos/Perdidos/AdicionarAoFeedTriste.java
-=======
-
->>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db:app/src/main/java/com/mobile/peticos/Perdidos/Adcionar/AdicionarAoFeedTriste.java
 
 
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

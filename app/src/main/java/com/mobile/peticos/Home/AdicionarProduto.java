@@ -225,11 +225,6 @@ public class AdicionarProduto extends Fragment {
                 .build();
 
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db
 
         Call<FeedPet> call = api.insert(post);
 

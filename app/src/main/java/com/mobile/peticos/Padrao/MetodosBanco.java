@@ -6,10 +6,6 @@ import android.util.Log;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
-<<<<<<< HEAD
-=======
-
->>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db
 
 import java.util.List;
 
@@ -64,13 +60,7 @@ public class MetodosBanco {
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-<<<<<<< HEAD
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-=======
-
-        AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-
->>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db
 
         Call<String> call = api.like(id, username);
         call.enqueue(new Callback<String>() {
@@ -101,10 +91,6 @@ public class MetodosBanco {
                 .build();
 
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-<<<<<<< HEAD
-=======
-
->>>>>>> 9523dd6e27e2787e8dd5c2eabd9a3f5d7aa935db
 
         Call<String> call = api.dislike(id, username);
         call.enqueue(new Callback<String>() {
