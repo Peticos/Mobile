@@ -11,8 +11,8 @@ public class Personalizacao {
     public Personalizacao(int id, String species, int hatId, int hairId, int toyId, int glassesId) {
         this.id = id;
         this.species = species;
-        this.hatId = hatId;
-        this.hairId = hairId;
+        this.hatId = hatId; //chapeu
+        this.hairId = hairId; //cor
         this.toyId = toyId;
         this.glassesId = glassesId;
     }

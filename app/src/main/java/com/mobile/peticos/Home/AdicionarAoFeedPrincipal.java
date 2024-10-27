@@ -28,6 +28,8 @@ import com.mobile.peticos.Home.Feed.FeedPet;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.mobile.peticos.Home.HomeDica.DicasDoDia;
 import com.mobile.peticos.Padrao.Upload.Camera;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +49,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
@@ -333,6 +341,32 @@ public class AdicionarAoFeedPrincipal extends Fragment {
     }
 
 
+    public static interface APIHome {
+
+        //mudar para alternado
+        @GET("/api/posts/all")
+        Call<List<FeedPet>> getAll();
+
+        @GET("/api/dayhint/random")
+        Call <List<DicasDoDia>> getDayHint();
+
+        @PUT("/api/posts/{id}/like")
+        Call<String> like(@Path("id") String id, @Query("username")String username);
+
+        @PUT("/api/posts/{id}/dislike")
+        Call<String> dislike(@Path("id") String id, @Query("username")String username);
+
+        @PUT("/api/posts/{id}/share")
+        Call<String> share(@Path("id") String id, @Query("username")String username);
+
+        @POST("/api/posts/insert")
+        Call<FeedPet> insert(@Body FeedPet feedPet);
+
+        @GET("/api/petregister/nicknames")
+        Call<List<String>> getPetNicknames( @Query("ids") List<Integer> ids);
 
 
+
+
+    }
 }
