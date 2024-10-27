@@ -72,8 +72,7 @@
                     android:layout_marginStart="77dp"
                     android:layout_marginBottom="185dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/oculos_personalizado_1" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
                     android:id="@+id/oculosao_cat"
@@ -83,8 +82,7 @@
                     android:layout_marginBottom="184dp"
                     android:rotation="-5"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/oculos_personalizado_6" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
                     android:id="@+id/brinquedao"
@@ -93,8 +91,7 @@
                     android:layout_marginEnd="52dp"
                     android:layout_marginBottom="28dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/brinquedo_personalizado_1" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageView
                     android:id="@+id/cabecao"
@@ -103,8 +100,7 @@
                     android:layout_marginStart="132dp"
                     android:layout_marginBottom="240dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:srcCompat="@drawable/cabeca_personalizado_2" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
