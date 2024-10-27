@@ -263,7 +263,6 @@ public class AdapterPetFeedTriste extends RecyclerView.Adapter<AdapterPetFeedTri
 
 
 
-
         public PetViewHolder(@NonNull View itemView) {
             super(itemView);
             nome = itemView.findViewById(R.id.nomepet);
@@ -275,7 +274,6 @@ public class AdapterPetFeedTriste extends RecyclerView.Adapter<AdapterPetFeedTri
             brinquedao =  itemView.findViewById(R.id.brinquedao);
             oculosao_dog =  itemView.findViewById(R.id.oculosao_dog);
             oculosao_cat =  itemView.findViewById(R.id.oculosao_cat);
-
 
 
         }

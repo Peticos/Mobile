@@ -134,7 +134,6 @@ public class HomeFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-
     }
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed(View v) {
@@ -199,7 +198,6 @@ public class HomeFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-
     }
     private void initRecyclerViewDicas(View v) {
         Call<List<DicasDoDia>> call = apiHome.getDayHint();

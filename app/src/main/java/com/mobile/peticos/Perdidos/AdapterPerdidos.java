@@ -111,7 +111,6 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                             .load(Uri.parse(perfil.getProfilePicture()))
                             .error(R.drawable.fotogenerica)
                             .into(holder.userPhoto);
-
                 }else {
                     Glide.with(holder.userPhoto.getContext())
                             .load(R.drawable.fotogenerica)
@@ -205,8 +204,6 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
 
 
     }
-
-
 
     @Override
     public int getItemCount() {

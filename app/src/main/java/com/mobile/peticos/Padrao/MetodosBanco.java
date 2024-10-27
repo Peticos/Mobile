@@ -7,7 +7,6 @@ import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
 
-
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,9 +60,7 @@ public class MetodosBanco {
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-
 
         Call<String> call = api.like(id, username);
         call.enqueue(new Callback<String>() {
@@ -94,7 +91,6 @@ public class MetodosBanco {
                 .build();
 
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
-
 
         Call<String> call = api.dislike(id, username);
         call.enqueue(new Callback<String>() {

@@ -12,6 +12,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +89,7 @@ public class AdicionarProduto extends Fragment {
         btnPublicar = view.findViewById(R.id.btnPublicar);
         upload = view.findViewById(R.id.upload);
 
+        configurarMascaraTelefone(telefone);
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,12 +166,44 @@ public class AdicionarProduto extends Fragment {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
 
 
-
         // Obter a data atual formatada
         String postDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         List<String> likes = Arrays.asList();
         List<String> shares = Arrays.asList();
+
+        String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
+
+        if (url == null) {
+            Toast.makeText(getContext(), "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop();
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(upload);
+            return;
+        }
+        if (legenda.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Legenda Obrigatória", Toast.LENGTH_SHORT).show();
+            legenda.setError("Legenda é obrigatória");
+            return;
+        }
+        if (nomeProduto.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Nome do Produto Obrigatório", Toast.LENGTH_SHORT).show();
+            nomeProduto.setError("Nome do Produto é obrigatório");
+            return;
+        }
+        if (valor.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Valor Obrigatório", Toast.LENGTH_SHORT).show();
+            valor.setError("Valor é obrigatório");
+            return;
+        }
+        if (telefone.getText().toString().isEmpty() || telefoneFormatado.length() != 11) {
+            Toast.makeText(getContext(), "Telefone Invalido", Toast.LENGTH_SHORT).show();
+            telefone.setError("Telefone Invalido");
+            return;
+        }
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
                 sharedPreferences.getInt("id", 284), // userId
@@ -179,7 +214,7 @@ public class AdicionarProduto extends Fragment {
                 postDate, // postDate
                 true, // isMeis
                 Double.parseDouble(valor.getText().toString()), // price
-                telefone.getText().toString(), // telephone
+                telefoneFormatado, // telephone
                 nomeProduto.getText().toString() // productName
         );
 
@@ -191,8 +226,6 @@ public class AdicionarProduto extends Fragment {
 
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
 
-
-
         Call<FeedPet> call = api.insert(post);
 
         call.enqueue(new Callback<FeedPet>() {
@@ -203,7 +236,6 @@ public class AdicionarProduto extends Fragment {
                     Log.d("Produto", "Produto: " + post);
 
                     Toast.makeText(getContext(), "Produto publicado", Toast.LENGTH_SHORT).show();
-
 
 
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -228,6 +260,48 @@ public class AdicionarProduto extends Fragment {
         });
 
 
+    }
+
+    private void configurarMascaraTelefone(EditText telefone) {
+        telefone.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private final String mask = "(##) #####-####";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdating) {
+                    isUpdating = false;
+                    return;
+                }
+
+                String unmasked = s.toString().replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m == '#') {
+                        if (i < unmasked.length()) {
+                            formatted.append(unmasked.charAt(i));
+                            i++;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        formatted.append(m);
+                    }
+                }
+
+                isUpdating = true;
+                telefone.setText(formatted.toString());
+                telefone.setSelection(formatted.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
 }
