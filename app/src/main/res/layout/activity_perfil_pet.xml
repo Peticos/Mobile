@@ -337,7 +337,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/Peso"
+                    android:id="@+id/Vacinas"
                     android:layout_width="152dp"
                     android:layout_height="100dp"
                     android:layout_marginRight="20dp"
@@ -389,7 +389,6 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/Vacinas"
                     android:layout_width="152dp"
                     android:layout_height="100dp"
                     android:layout_marginLeft="20dp"

@@ -37,10 +37,12 @@ import java.util.List;
 public class EditarPerfilPet extends AppCompatActivity {
     ImageView btnVoltarEditar, petzao, cabeca, oculos_dog, oculos_cat, brinquedo;
     int id;
+    int idTutor;
     Button btnCadastrar;
     AutoCompleteTextView especie, raca, cor, porte, genero;
     TextView nome, idade;
     Retrofit retrofit1, retrofit2;
+    int cor_pet, cabeca_pet, brinquedo_pet, oculos_pet;
     String username;
 
 
@@ -70,7 +72,7 @@ public class EditarPerfilPet extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         setarDropDowns();
-        String APIMONGO = "https://api-mongo-i1jq.onrender.com/";
+        String APIMONGO = "https://api-mongo-i1jq.onrender.com";
         retrofit2 = new Retrofit.Builder()
                 .baseUrl(APIMONGO)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -81,6 +83,8 @@ public class EditarPerfilPet extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("Pet", MODE_PRIVATE);
         SharedPreferences pets = getSharedPreferences("pets", MODE_PRIVATE);
+        SharedPreferences sharedPreferencesPerfil = getSharedPreferences("Perfil", MODE_PRIVATE);
+        idTutor = sharedPreferencesPerfil.getInt("id", 0);
 
         nome.setText(sharedPreferences.getString("nickname", "nome do pet"));
         especie.setText(sharedPreferences.getString("especie", "nome do pet"));
@@ -143,6 +147,12 @@ public class EditarPerfilPet extends AppCompatActivity {
                             editor.putInt("cabeca", pet.getHairId());
                             editor.apply(); // ou editor.commit();
 
+                            cabeca_pet = pet.getHatId();
+                            brinquedo_pet = pet.getToyId();
+                            oculos_pet = pet.getGlassesId();
+
+
+
 
                             if (pet.getSpecies().equals("Cachorro")) {
 
@@ -169,23 +179,23 @@ public class EditarPerfilPet extends AppCompatActivity {
                                     oculos_dog.setImageResource(R.drawable.oculos_personalizado_7);
                                 }
                                 petzao.setVisibility(View.VISIBLE);
-                                if (pet.getHatId() == 1) {
+                                if (pet.getHairId() == 1) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_1);
-                                } else if (pet.getHatId() == 2) {
+                                } else if (pet.getHairId() == 2) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_2);
-                                } else if (pet.getHatId() == 3) {
+                                } else if (pet.getHairId() == 3) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_3);
-                                } else if (pet.getHatId() == 4) {
+                                } else if (pet.getHairId() == 4) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_4);
-                                } else if (pet.getHatId() == 5) {
+                                } else if (pet.getHairId() == 5) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_5);
-                                } else if (pet.getHatId() == 6) {
+                                } else if (pet.getHairId() == 6) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_6);
-                                } else if (pet.getHatId() == 7) {
+                                } else if (pet.getHairId() == 7) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_7);
-                                } else if (pet.getHatId() == 8) {
+                                } else if (pet.getHairId() == 8) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_8);
-                                } else if (pet.getHatId() == 9) {
+                                } else if (pet.getHairId() == 9) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_9);
                                 }
 
@@ -213,23 +223,23 @@ public class EditarPerfilPet extends AppCompatActivity {
                                     oculos_cat.setImageResource(R.drawable.oculos_personalizado_7);
                                 }
                                 petzao.setVisibility(View.VISIBLE);
-                                if (pet.getHatId() == 1 || pet.getHatId() == 0) {
+                                if (pet.getHairId() == 1 || pet.getHatId() == 0) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_1);
-                                } else if (pet.getHatId() == 2) {
+                                } else if (pet.getHairId() == 2) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_2);
-                                } else if (pet.getHatId() == 3) {
+                                } else if (pet.getHairId() == 3) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_3);
-                                } else if (pet.getHatId() == 4) {
+                                } else if (pet.getHairId() == 4) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_4);
-                                } else if (pet.getHatId() == 5) {
+                                } else if (pet.getHairId() == 5) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_5);
-                                } else if (pet.getHatId() == 6) {
+                                } else if (pet.getHairId() == 6) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_6);
-                                } else if (pet.getHatId() == 7) {
+                                } else if (pet.getHairId() == 7) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_7);
-                                } else if (pet.getHatId() == 8) {
+                                } else if (pet.getHairId() == 8) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_8);
-                                } else if (pet.getHatId() == 9) {
+                                } else if (pet.getHairId() == 9) {
                                     petzao.setImageResource(R.drawable.cat_personalizado_9);
                                 }
 
@@ -262,31 +272,31 @@ public class EditarPerfilPet extends AppCompatActivity {
                                 brinquedo.setVisibility(View.VISIBLE);
                                 brinquedo.setImageResource(R.drawable.brinquedo_personalizado_9);
                             }
-                            if (pet.getHairId() == 1) {
+                            if (pet.getHatId() == 1) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_1);
-                            } else if (pet.getHairId() == 2) {
+                            } else if (pet.getHatId() == 2) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_2);
-                            } else if (pet.getHairId() == 3) {
+                            } else if (pet.getHatId() == 3) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_3);
-                            } else if (pet.getHairId() == 4) {
+                            } else if (pet.getHatId() == 4) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_4);
-                            } else if (pet.getHairId() == 5) {
+                            } else if (pet.getHatId() == 5) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_5);
-                            } else if (pet.getHairId() == 6) {
+                            } else if (pet.getHatId() == 6) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_6);
-                            } else if (pet.getHairId() == 7) {
+                            } else if (pet.getHatId() == 7) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_7);
-                            } else if (pet.getHairId() == 8) {
+                            } else if (pet.getHatId() == 8) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_8);
-                            } else if (pet.getHairId() == 9) {
+                            } else if (pet.getHatId() == 9) {
                                 cabeca.setVisibility(View.VISIBLE);
                                 cabeca.setImageResource(R.drawable.cabeca_personalizado_9);
                             }
@@ -421,6 +431,16 @@ public class EditarPerfilPet extends AppCompatActivity {
             }
 
 
+//            {
+//                "idPet":146,
+//                    "nickname": "TESTE2",
+//                    "age": 3,
+//                    "sex": "M",
+//                    "specie": "Cachorro",
+//                    "race": "Shih Tzu",
+//                    "size": "Pequeno",
+//                    "color": "Branco e Marrom"
+//            }
             // Cria o objeto do pet com os dados fornecidos
             ModelPetBanco pet = new ModelPetBanco(
                     nome.getText().toString(),
@@ -430,7 +450,7 @@ public class EditarPerfilPet extends AppCompatActivity {
                     raca.getText().toString(),
                     porte.getText().toString(),
                     cor.getText().toString(),
-                    username
+                    id
             );
 
             // Faz a chamada à API para inserir o pet
@@ -444,13 +464,14 @@ public class EditarPerfilPet extends AppCompatActivity {
                 public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                     // Verifica se a resposta da API é bem-sucedida
                     if (response.isSuccessful() && response.body() != null) {
+
                         Personalizacao petPersonalizado = new Personalizacao(
                                 id,
                                 especie.getText().toString(),  // Pode ser modificado conforme a lógica do seu app
+                                cabeca_pet,
                                 0,
-                                0,
-                                0,
-                                0
+                                brinquedo_pet,
+                                oculos_pet
                         );
 
                         // Chama a API para personalizar o pet

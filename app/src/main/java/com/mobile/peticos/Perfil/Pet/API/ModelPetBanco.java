@@ -48,6 +48,17 @@ public class ModelPetBanco {
         this.colorpet = colorpet;
         this.user = user;
     }
+    public ModelPetBanco( String nickname, int age, String sex, String specie, String race, String size, String colorpet, int id) {
+
+        this.nickname = nickname;
+        this.age = age;
+        this.sex = sex;
+        this.specie = specie;
+        this.race = race;
+        this.size = size;
+        this.colorpet = colorpet;
+        this.idPet = id;
+    }
 
     public int getIdPet() {
         return idPet;
