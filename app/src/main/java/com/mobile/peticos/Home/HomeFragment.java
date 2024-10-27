@@ -124,7 +124,11 @@ public class HomeFragment extends Fragment {
             }
         }
     }
+<<<<<<< HEAD
     AdicionarAoFeedPrincipal.APIHome apiHome;
+=======
+    ApiHome ApiHome;
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
     Retrofit retrofit;
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
@@ -133,11 +137,15 @@ public class HomeFragment extends Fragment {
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+<<<<<<< HEAD
         apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+=======
+        ApiHome = retrofit.create(ApiHome.class);
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
     }
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed(View v) {
-        Call<List<FeedPet>> call = apiHome.getAll();
+        Call<List<FeedPet>> call = ApiHome.getAll();
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
@@ -197,10 +205,14 @@ public class HomeFragment extends Fragment {
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+<<<<<<< HEAD
         apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+=======
+        ApiHome = retrofit.create(ApiHome.class);
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
     }
     private void initRecyclerViewDicas(View v) {
-        Call<List<DicasDoDia>> call = apiHome.getDayHint();
+        Call<List<DicasDoDia>> call = ApiHome.getDayHint();
         call.enqueue(new Callback<List<DicasDoDia>>() {
             @Override
             public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {

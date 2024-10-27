@@ -65,9 +65,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Endereço específico a ser convertido em coordenadas
-        //Intent intent = getIntent();
-        //String location = intent.getStringExtra("local");
-        String location = "Av. Raimundo Pereira de Magalhães, 1465 - Jardim Iris, São Paulo - SP, 05145-000";
+        Intent intent = getIntent();
+        String location = intent.getStringExtra("local");
+        //String location = "Av. Raimundo Pereira de Magalhães, 1465 - Jardim Iris, São Paulo - SP, 05145-000";
 
         if (location != null && !location.isEmpty()) {
             // Aqui você pode usar o Geocoder para converter o endereço em coordenadas e exibir no mapa

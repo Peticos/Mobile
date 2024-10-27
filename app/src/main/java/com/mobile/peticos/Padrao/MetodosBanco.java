@@ -5,7 +5,14 @@ import android.util.Log;
 
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
+<<<<<<< HEAD
 import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
+=======
+import com.mobile.peticos.Home.ApiHome;
+import com.mobile.peticos.Home.Feed.FeedPet;
+import com.mobile.peticos.Home.HomeDica.DicasDoDia;
+import com.mobile.peticos.Padrao.ModelRetorno;
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
 
 import java.util.List;
 
@@ -61,7 +68,11 @@ public class MetodosBanco {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+<<<<<<< HEAD
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+=======
+        ApiHome api = retrofit.create(ApiHome.class);
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
 
         Call<String> call = api.like(id, username);
         call.enqueue(new Callback<String>() {
@@ -91,7 +102,11 @@ public class MetodosBanco {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+<<<<<<< HEAD
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+=======
+        ApiHome api = retrofit.create(ApiHome.class);
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
 
         Call<String> call = api.dislike(id, username);
         call.enqueue(new Callback<String>() {
@@ -122,7 +137,11 @@ public class MetodosBanco {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+<<<<<<< HEAD
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+=======
+        ApiHome api = retrofit.create(ApiHome.class);
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
 
         Call<String> call = api.share(id, username);
         call.enqueue(new Callback<String>() {
@@ -157,7 +176,11 @@ public class MetodosBanco {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+<<<<<<< HEAD
         AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+=======
+        ApiHome api = retrofit.create(ApiHome.class);
+>>>>>>> 34a2e41f4c9c68318314c9ff57d7dde46d29b033
 
         Call<List<String>> call = api.getPetNicknames(ids);
         call.enqueue(new Callback<List<String>>() {

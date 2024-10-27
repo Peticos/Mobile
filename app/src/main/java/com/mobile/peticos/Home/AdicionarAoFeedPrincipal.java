@@ -285,7 +285,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        APIHome api = retrofit.create(APIHome.class);
+        ApiHome api = retrofit.create(ApiHome.class);
 
 
         Call<FeedPet> call = api.insert(post);
