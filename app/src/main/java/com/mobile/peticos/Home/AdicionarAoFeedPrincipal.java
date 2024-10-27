@@ -256,7 +256,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
             RequestOptions options = new RequestOptions()
                     .centerCrop();
             Glide.with(this)
-                    .load(R.drawable.adicionar_imagem_amarelo)
+                    .load(R.drawable.adicionar_imagem_vermelho)
                     .apply(options)
                     .into(btnUpload);
             return;

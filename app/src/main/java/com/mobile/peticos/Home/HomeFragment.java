@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
                     } else {
                         // Adicionar ao feed
                         getParentFragmentManager().beginTransaction()
-                                .replace(R.id.fragmentContainerView, AdicionarAoFeedPrincipal.newInstance())
+                                .replace(R.id.fragmentContainerView, AdicionarProduto.newInstance())
                                 .addToBackStack(null)
                                 .commit();
                     }
