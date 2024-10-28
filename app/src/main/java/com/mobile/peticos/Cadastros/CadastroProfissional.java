@@ -14,6 +14,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class CadastroProfissional extends AppCompatActivity {
     private TextView senhaInvalida1, senhaInvalida2;
     private ImageView btnUpload;
     private String url;
+    private ProgressBar progressBar;
     private ActivityResultLauncher<Intent> cameraLauncher;
 
     @Override
@@ -79,6 +81,7 @@ public class CadastroProfissional extends AppCompatActivity {
         senhaInvalida1 = findViewById(R.id.senhainalida);
         senhaInvalida2 = findViewById(R.id.senhainalida1);
         btnUpload = findViewById(R.id.upload);
+        progressBar = findViewById(R.id.progressBar2);
 
         // Esconder as mensagens de erro de senha inicialmente
         senhaInvalida1.setVisibility(View.INVISIBLE);
@@ -129,6 +132,7 @@ public class CadastroProfissional extends AppCompatActivity {
                 .build();
 
         APIBairro apiBairro = retrofit.create(APIBairro.class);
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelBairro>> call = apiBairro.getAll();
 
         call.enqueue(new Callback<List<ModelBairro>>() {
@@ -149,11 +153,14 @@ public class CadastroProfissional extends AppCompatActivity {
                     );
                     bairro.setAdapter(adapterBairro);
                     bairro.setThreshold(1);
+                    progressBar.setVisibility(View.GONE);
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(CadastroProfissional.this, "Erro ao carregar bairros", Toast.LENGTH_SHORT).show();
             }
         });
@@ -273,6 +280,7 @@ public class CadastroProfissional extends AppCompatActivity {
         String urlAPI = "https://apipeticos-ltwk.onrender.com";
 
 
+        progressBar.setVisibility(View.VISIBLE);
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -324,18 +332,23 @@ public class CadastroProfissional extends AppCompatActivity {
                                     Toast.makeText(CadastroProfissional.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CadastroProfissional.this, MainActivity.class);
                                     startActivity(intent);
+                                    progressBar.setVisibility(View.GONE);
                                     finish();
                                 }
 
                                 @Override
                                 public void onError(String errorMessage) {
+                                    progressBar.setVisibility(View.GONE);
                                     // Lide com o erro, se necessário
                                     Toast.makeText(CadastroProfissional.this, "Erro ao autenticar: " + errorMessage, Toast.LENGTH_SHORT).show();
                                 }
                             }
                     );
 
+                    progressBar.setVisibility(View.GONE);
+
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(CadastroProfissional.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
