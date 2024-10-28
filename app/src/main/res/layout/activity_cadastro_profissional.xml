@@ -73,7 +73,7 @@
                         android:ems="10"
                         android:hint=" Nome completo"
                         android:inputType="text"
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
                         android:textSize="14dp" />
 
                     <TextView
@@ -95,7 +95,7 @@
                         android:ems="10"
                         android:hint="Nome do usuário"
                         android:inputType="text"
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
                         android:textSize="14dp" />
 
                     <TextView
@@ -134,7 +134,7 @@
 
                         android:inputType="phone"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
                         android:textSize="14dp" />
 
                     <TextView
@@ -155,7 +155,7 @@
                         android:ems="10"
                         android:hint="Cnpj"
                         android:inputType="phone"
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
                         android:textSize="14dp" />
 
                     <TextView
@@ -194,9 +194,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
-
-                        android:paddingRight="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14sp" />
 
@@ -236,7 +234,7 @@
 
                         android:inputType="textEmailAddress"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
                         android:textSize="14dp" />
 
                     <TextView

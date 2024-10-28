@@ -71,7 +71,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/beige"
                     android:orientation="vertical"
-                    android:paddingBottom="120dp">
+                    android:paddingBottom="160dp">
 
                     <TextView
                         android:id="@+id/nomepet2"
