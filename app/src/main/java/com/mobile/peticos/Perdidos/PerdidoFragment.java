@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.ImageView;
 
@@ -37,7 +38,8 @@ public class PerdidoFragment extends Fragment {
     private ImageButton btAdicionar, btnSos;
     private ImageView infoPerdidos, fechar;
     private View cardInfoPerdido;
-    CardView cardErroPerdidos;
+    CardView cardErroPerdidos, cardPerdidosSemPost;
+    private ProgressBar progressBar;
 
     public PerdidoFragment() {
         // Required empty public constructor
@@ -59,6 +61,8 @@ public class PerdidoFragment extends Fragment {
         recyclerView = view.findViewById(R.id.RecyclerViewPetsPerdidos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         cardErroPerdidos = view.findViewById(R.id.cardErroPerdidos);
+        progressBar = view.findViewById(R.id.progressBar2);
+        cardPerdidosSemPost = view.findViewById(R.id.cardPerdidosSemPost);
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
         Boolean mei = sharedPreferences.getBoolean("mei", true);
@@ -112,20 +116,25 @@ public class PerdidoFragment extends Fragment {
     }
 
     private void initRecyclerView() {
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<PetPerdido>> call = apiPerdidos.getPerdidos();
         call.enqueue(new Callback<List<PetPerdido>>() {
             @Override
             public void onResponse(Call<List<PetPerdido>> call, Response<List<PetPerdido>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
                     List<PetPerdido> PerdidosList = response.body();
                     updateRecyclerView(PerdidosList);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText( getActivity(), "Nenhum perdido perdido", Toast.LENGTH_SHORT).show();
+                    cardPerdidosSemPost.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<List<PetPerdido>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 cardErroPerdidos.setVisibility(View.VISIBLE);
             }
         });
