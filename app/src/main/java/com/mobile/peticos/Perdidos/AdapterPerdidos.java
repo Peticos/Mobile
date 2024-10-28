@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.Perdidos.Achar.PetFoundDialogFragment;
 import com.mobile.peticos.R;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -180,16 +184,30 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
 
             // Configurar o telefone
             String numero = pet.getPhone(); // Substitua com o número do pet
+            // Configurar o botão de telefone
             holder.ic_telefone.setOnClickListener(v -> {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + numero));
                 v.getContext().startActivity(intent);
             });
+            String bairro = pet.getBairro();
+            String date = pet.getLostDate();
             holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //decidir oq vai colocar no compartilhar
-                String postContent = "Venha perder seu pet!";
+                String postContent = "Alerta de pet perdido! \uD83D\uDC3E\n" +
+                        "\n" +
+                        "Nome do pet: "+ holder.nomepet.getText().toString()+"\n" +
+                        "Data: "+formatarData(date)+"\n" +
+                        "Telefone: "+formatarTelefone(numero)+"\n" +
+                        "Bairro: "+bairro+"\n" +
+                        "\n" +
+                        "Ajude-nos a encontrar esse pet querido que está perdido! Ele(a) foi visto(a) pela última vez em "+bairro+" e seu(sua) dono(a) está muito preocupado(a).\n" +
+                        "\n" +
+                        "Por favor, compartilhe com seus amigos e fique atento(a) caso o veja. Qualquer informação pode ajudar! Entre em contato com "+ holder.username.getText().toString()+".\n" +
+                        "\n" +
+                        "Vamos juntos trazer "+ holder.nomepet.getText().toString()+" para casa! ❤\uFE0F\uD83D\uDC3E";
 
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
@@ -219,6 +237,8 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
          TextView descricao;
          TextView nomepet;
          ImageView ic_telefone, shareButton;
+         TextView bairro;
+         TextView telefone;
          CardView acharPet;
 
         public ViewHolder(@NonNull View itemView) {
@@ -233,8 +253,53 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             ic_telefone = itemView.findViewById(R.id.ic_telefone);
             shareButton = itemView.findViewById(R.id.btn_compartilhar);
             acharPet = itemView.findViewById(R.id.encontrarpet);
+            telefone = itemView.findViewById(R.id.telefone);
 
         }
     }
+
+    public static String formatarData(String data) {
+        if (data == null || data.length() != 10) {
+            return ""; // Retorna vazio se a data for nula ou estiver em um formato inesperado
+        }
+
+        // Divide a string de entrada com base no formato yyyy-MM-dd
+        String[] partes = data.split("-");
+        if (partes.length != 3) {
+            return ""; // Retorna vazio se a data não estiver no formato esperado
+        }
+
+        String ano = partes[0];
+        String mes = partes[1];
+        String dia = partes[2];
+
+        // Monta a data no formato dd/MM/yyyy
+        return dia + "/" + mes + "/" + ano;
+    }
+    public static String formatarTelefone(String telefone) {
+        String mask = "(##) #####-####";
+
+        // Remove todos os caracteres não numéricos
+        String unmasked = telefone.replaceAll("[^\\d]", "");
+        StringBuilder formatted = new StringBuilder();
+
+        int i = 0;
+        for (char m : mask.toCharArray()) {
+            if (m == '#') {
+                if (i < unmasked.length()) {
+                    formatted.append(unmasked.charAt(i));
+                    i++;
+                } else {
+                    break; // Para quando não há mais dígitos
+                }
+            } else {
+                formatted.append(m); // Adiciona caracteres da máscara
+            }
+        }
+
+        return formatted.toString();
+    }
+
+
 }
 

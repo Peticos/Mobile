@@ -121,6 +121,9 @@ public class AdicionarAoFeedTriste extends Fragment {
         btn_voltar_publicacoes.setOnClickListener(v -> {
             navigateToPerdidoFragment();
         });
+        bntSair.setOnClickListener(v -> {
+            navigateToPerdidoFragment();
+        });
 
         publicacoes.setOnClickListener(v -> {
             navigateToPerdidoFragment();
