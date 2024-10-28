@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.mobile.peticos.Home.AdcionarFoto.AdicionarAoFeedPrincipal;
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.R;

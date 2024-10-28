@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/beige"
-    android:backgroundTint="@color/beige"
-    tools:context=".Perfil.Pet.PesoPets">
+    tools:context=".Perfil.Pet.Vacinas.cadastrar_dose"
+    android:background="@android:color/transparent">
+
 
     <androidx.cardview.widget.CardView
 
-        android:id="@+id/cardCadastrarPeso"
+        android:id="@+id/cardCadastrarDose"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/beige"
         android:backgroundTint="@color/beige"
-        android:visibility="gone"
-        app:cardCornerRadius="10dp"
+        android:visibility="visible"
+        app:cardCornerRadius="5dp"
         app:cardElevation="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout2">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/lilita_one"
-                    android:text="Novo peso"
+                    android:text="Nova dose"
                     android:textColor="@color/beige"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/view"
@@ -65,36 +65,16 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/varela_round"
-                    android:text="Peso atual"
+                    android:text="Data da pirmeira dose"
                     android:textColor="@color/water_blue" />
 
                 <EditText
-                    android:id="@+id/pesoAtual"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/rounded_edit_text"
-                    android:ems="10"
-                    android:hint="Peso"
-                    android:inputType="text"
-                    android:paddingLeft="10dp"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/varela_round"
-                    android:text="Data de hoje"
-                    android:textColor="@color/water_blue" />
-
-                <EditText
-                    android:id="@+id/data"
+                    android:id="@+id/data_dose"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_marginRight="15dp"
@@ -102,7 +82,6 @@
                     android:background="@drawable/rounded_edit_text"
                     android:ems="10"
                     android:hint="Data"
-                    android:inputType="date"
                     android:paddingLeft="10dp"
                     android:textSize="14dp" />
 
@@ -113,7 +92,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btn_sair"
+                        android:id="@+id/btn_sair_dose"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_margin="10dp"
@@ -124,7 +103,7 @@
                         android:textSize="20dp" />
 
                     <Button
-                        android:id="@+id/btn_salvar"
+                        android:id="@+id/btn_salvar_dose"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_margin="10dp"
@@ -140,62 +119,4 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnadd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/water_blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:background="@drawable/fundo_perfil"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btn_voltar"
-                android:layout_width="30dp"
-                android:layout_height="37dp"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:src="@drawable/baseline_arrow_left_24" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="160dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/lilita_one"
-                android:text="Peso"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="58dp"
-                android:layout_height="58dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/gato_feliz" />
-        </LinearLayout>
-
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
