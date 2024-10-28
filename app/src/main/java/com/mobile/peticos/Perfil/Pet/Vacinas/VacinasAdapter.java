@@ -21,8 +21,10 @@ import com.mobile.peticos.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +47,7 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
         return new VacinaViewHolder(view);
     }
 
-    private APIPets apiPets;
+    APIPets apiPets;
 
     private void setupRetrofitFeed() {
         String API = "https://apipeticos-ltwk.onrender.com";
@@ -55,6 +57,8 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
                 .build();
         apiPets = retrofit.create(APIPets.class);
     }
+
+
 
     public  void criarDose ( VacinaViewHolder holder, View view, String data, ModelVacina vacina) {
 
@@ -78,9 +82,12 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
 
         int id = vacina.getIdVaccine();
         int num = vacina.getDosesTaked() + 1;
+        if(vacina.getNumDoses() == 0){
+            num = 1;
+        }
 
         ModelDose dose = new ModelDose(
-                id,
+                holder.id,
                 dataFormatada,
                 num
         );
@@ -106,25 +113,8 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
         });
     }
 
-    public void chamarDoses (VacinaViewHolder holder, View view, ModelVacina vacina) {
-
-        int id = vacina.getIdVaccine();
-        Call<List<ModelDose>> call = apiPets.getDoses(id);
-        call.enqueue(new Callback<List<ModelDose>>() {
-            @Override
-            public void onResponse(Call<List<ModelDose>> call, Response<List<ModelDose>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-
-                } else {
-                    Log.e("FeedPet", "Erro: " + response.errorBody().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ModelDose>> call, Throwable throwable) {
-                Log.e("FeedPet", "Erro: " + throwable.getMessage());
-            }
-        });
+    List<ModelDose> dosesList = new ArrayList<>();
+    public void chamarDoses(VacinaViewHolder holder, ModelVacina vacina) {
 
     }
 
@@ -188,18 +178,51 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
                 chamarCadastrarDose(holder, view, vacina);
             }
         });
-
-
-
+        setupRetrofitFeed();
 
         holder.nomeVacina.setText(vacina.getName());
         int doses_tomadas = vacina.getDosesTaked();
+        int id = vacina.getIdVaccine();
+
+        ;
+        Call<List<ModelDose>> call = apiPets.getDoses(id);
+        call.enqueue(new Callback<List<ModelDose>>() {
+            @Override
+            public void onResponse(Call<List<ModelDose>> call, Response<List<ModelDose>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    dosesList = response.body();
+
+                } else {
+                    Log.e("Cadastrar Vacina", "Erro: " + response.errorBody().toString());
+                    Log.e("Cadastrar Vacina", "Erro: " + response.code());
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelDose>> call, Throwable throwable) {
+                Log.e("Cadastrar vacina", "Erro: " + throwable.getMessage());
+            }
+        });
+
+
 
         if(vacina.getNumDoses() == 1){
             if(doses_tomadas != 1){
                 holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
-            }else{
+            }else{if (dosesList != null && !dosesList.isEmpty()) {
+                // Formate a data corretamente
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String dataFormatada = sdf.format(dosesList.get(0).getDateDose());
+                holder.data5.setText(dataFormatada);
                 holder.data5.setVisibility(View.VISIBLE);
+            } else {
+                // Caso a lista esteja vazia, esconda o TextView ou defina um texto padrão
+                holder.data5.setVisibility(View.GONE); // Ou use holder.data5.setText("Sem dados");
+            }
+
             }
             holder.circulo5.setVisibility(View.VISIBLE);
 
@@ -207,6 +230,20 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
         else if(vacina.getNumDoses() == 2){
             holder.circulo3.setVisibility(View.VISIBLE);
             holder.circulo7.setVisibility(View.VISIBLE);
+            if(doses_tomadas < 1){
+                holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo3.setImageResource(R.drawable.ic_doze_n_tomada);
+            }else if(doses_tomadas == 1){
+                holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
+                if(holder.doses != null && !holder.doses.isEmpty()){
+                holder.data3.setText(dosesList.get(0).getDateDose());}
+            }else{
+                if(dosesList != null && !dosesList.isEmpty()){
+                holder.data3.setText(dosesList.get(0).getDateDose());
+                holder.data7.setText(dosesList.get(1).getDateDose());}
+
+            }
+
             holder.data3.setVisibility(View.VISIBLE);
             holder.data7.setVisibility(View.VISIBLE);
         }
@@ -214,11 +251,37 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             holder.circulo1.setVisibility(View.VISIBLE);
             holder.circulo5.setVisibility(View.VISIBLE);
             holder.circulo9.setVisibility(View.VISIBLE);
+            if(doses_tomadas < 1){
+                holder.circulo1.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            }else if(doses_tomadas == 1){
+                holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            } else if (doses_tomadas == 2) {
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            }
+
             holder.data1.setVisibility(View.VISIBLE);
             holder.data5.setVisibility(View.VISIBLE);
             holder.data9.setVisibility(View.VISIBLE);
         }
         else if(vacina.getNumDoses() == 4){
+            if(doses_tomadas < 1){
+                holder.circulo2.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo4.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo6.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo8.setImageResource(R.drawable.ic_doze_n_tomada);
+            }else if(doses_tomadas == 1){
+                holder.circulo4.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo6.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo8.setImageResource(R.drawable.ic_doze_n_tomada);
+            } else if (doses_tomadas == 2) {
+                holder.circulo6.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo8.setImageResource(R.drawable.ic_doze_n_tomada);
+            } else if (doses_tomadas == 3) {
+                holder.circulo8.setImageResource(R.drawable.ic_doze_n_tomada);
+            }
             holder.circulo2.setVisibility(View.VISIBLE);
             holder.circulo4.setVisibility(View.VISIBLE);
             holder.circulo6.setVisibility(View.VISIBLE);
@@ -229,6 +292,27 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             holder.data8.setVisibility(View.VISIBLE);
         }
         else if(vacina.getNumDoses() == 5){
+            if(doses_tomadas < 1){
+                holder.circulo1.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo3.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            }else if(doses_tomadas == 1){
+                holder.circulo3.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            } else if (doses_tomadas == 2) {
+                holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            } else if (doses_tomadas == 3) {
+                holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            } else if (doses_tomadas == 4) {
+                holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
+            }
             holder.circulo1.setVisibility(View.VISIBLE);
             holder.circulo3.setVisibility(View.VISIBLE);
             holder.circulo5.setVisibility(View.VISIBLE);
@@ -251,8 +335,10 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
         TextView nomeVacina;
         ImageView circulo1, circulo2, circulo3, circulo4,circulo5, circulo6, circulo7, circulo8, circulo9;
         TextView data1,data2, data3, data4, data5, data6, data7,data8, data9;
-
+        List<ModelDose> doses = new ArrayList<>();
         CardView tudo;
+        int id;
+
 
 
 
