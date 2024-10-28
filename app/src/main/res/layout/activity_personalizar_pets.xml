@@ -186,6 +186,7 @@
                             android:id="@+id/gatos_cores"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="200dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -359,6 +360,7 @@
                             android:id="@+id/oculos"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="200dp"
                             android:orientation="vertical">
 
                             <LinearLayout
@@ -526,6 +528,7 @@
                             android:id="@+id/cachorros_cores"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="200dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -702,6 +705,7 @@
                             android:id="@+id/brinquedos"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="200dp"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -875,6 +879,7 @@
                             android:id="@+id/cabeca"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="200dp"
                             android:gravity="center"
                             android:orientation="vertical">
 

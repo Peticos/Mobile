@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +43,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class CadastrarPet extends AppCompatActivity {
     Button btnCadastrar;
-    AutoCompleteTextView especie, raca, cor, porte, genero;
-    TextView nome, idade;
+    AutoCompleteTextView especie, raca, cor;
+    TextView nome, idade, porteobrigatorio, generoobrigatorio;
     Retrofit retrofit1, retrofit2;
     int id;
     String username;
     ProgressBar progressBar;
+    Spinner genero_drop, porte_drop;
+    Button btnSair;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +61,18 @@ public class CadastrarPet extends AppCompatActivity {
         especie = findViewById(R.id.especie);
         raca = findViewById(R.id.raca);
         cor = findViewById(R.id.cor);
-        porte = findViewById(R.id.porte);
-        genero = findViewById(R.id.genero);
+        porte_drop = findViewById(R.id.porte);
+        genero_drop = findViewById(R.id.genero);
         nome = findViewById(R.id.nome);
         idade = findViewById(R.id.idade);
         progressBar = findViewById(R.id.progressBar2);
+        porteobrigatorio = findViewById(R.id.porteobrigatorio);
+        generoobrigatorio = findViewById(R.id.generoobrigatorio);
+        btnSair = findViewById(R.id.btnSair);
+        btnSair.setOnClickListener(v->{
+            finish();
+        });
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("Perfil", Context.MODE_PRIVATE);
         id = sharedPreferences.getInt("id", 0);
@@ -84,6 +96,8 @@ public class CadastrarPet extends AppCompatActivity {
 
 
         setarDropDowns();
+        configurargenero();
+        configurarporte();
 
 
 
@@ -103,9 +117,9 @@ public class CadastrarPet extends AppCompatActivity {
         APIPets api2 = retrofit2.create(APIPets.class);
 
         String g = "F";
-        if(genero.getText().toString().equals("Masculino")){
+        if(genero_drop.getSelectedItem().toString().equals("Masculino")){
             g = "M";
-        }else if(genero.getText().toString().equals("Feminino")){
+        }else if(genero_drop.getSelectedItem().toString().equals("Feminino")){
             g = "F";
         }
 
@@ -118,7 +132,7 @@ public class CadastrarPet extends AppCompatActivity {
             g,
             especie.getText().toString(),
             raca.getText().toString(),
-            porte.getText().toString(),
+            porte_drop.getSelectedItem().toString(),
             cor.getText().toString(),
             username
         );
@@ -184,6 +198,87 @@ public class CadastrarPet extends AppCompatActivity {
         });
     }
 
+    //genero
+    private void configurargenero(){
+        String[] doseOptions = {"Selecione o genero do seu pet", "Fêmea", "Macho"};
+
+        // Criação do ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, doseOptions) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Desabilita o primeiro item para não ser clicável
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Define o texto do hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Define os itens selecionáveis em preto
+                }
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Itens selecionáveis em preto
+                }
+                return view;
+            }
+        };
+
+        // Configura o layout dos itens na lista suspensa
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        genero_drop.setAdapter(adapter);
+
+    }
+    private void configurarporte(){
+        String[] doseOptions = {"Selecione o porte do pet", "Pequeno", "Médio", "Grande"};
+
+        // Criação do ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, doseOptions) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Desabilita o primeiro item para não ser clicável
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Define o texto do hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Define os itens selecionáveis em preto
+                }
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Itens selecionáveis em preto
+                }
+                return view;
+            }
+        };
+
+        // Configura o layout dos itens na lista suspensa
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        porte_drop.setAdapter(adapter);
+
+    }
 
     //setar dropdowns
     public void setarDropDowns() {
@@ -199,19 +294,6 @@ public class CadastrarPet extends AppCompatActivity {
         especie.setAdapter(adapterEspecie);
         especie.setThreshold(1);
 
-        // Porte
-        List<String> porteList = new ArrayList<>();
-        porteList.add("Grande");
-        porteList.add("Médio");
-        porteList.add("Pequeno");
-
-        ArrayAdapter<String> adapterPorte = new ArrayAdapter<>(
-                CadastrarPet.this,
-                android.R.layout.simple_dropdown_item_1line,
-                porteList
-        );
-        porte.setAdapter(adapterPorte);
-        porte.setThreshold(1);
 
         // Cor
         APIPets apiPets = retrofit1.create(APIPets.class);
@@ -281,16 +363,6 @@ public class CadastrarPet extends AppCompatActivity {
                 Log.e("CadastrarPet", "Erro ao carregar Raças", throwable);
             }
         });
-        //genero
-        List<String> generoList = new ArrayList<>();
-        generoList.add("Macho");
-        generoList.add("Fêmea");
-        ArrayAdapter<String> adapterGenero = new ArrayAdapter<>(
-                CadastrarPet.this,
-                android.R.layout.simple_dropdown_item_1line,
-                generoList
-        );
-        genero.setAdapter(adapterGenero);
-        genero.setThreshold(1);
+
     }
 }

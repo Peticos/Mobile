@@ -88,25 +88,25 @@ public class PerfilPet extends AppCompatActivity {
         btn_editar.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), EditarPerfilPet.class);
             v.getContext().startActivity(intent);
-            finish();
+
 
         });
         btn_personalizar.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), PersonalizarPets.class);
             v.getContext().startActivity(intent);
-            finish();
+
 
         });
         Vacinas.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), VacinasPets.class);
             v.getContext().startActivity(intent);
-            finish();
+
 
         });
         Peso.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), PesoPets.class);
             v.getContext().startActivity(intent);
-            finish();
+
         });
 
 

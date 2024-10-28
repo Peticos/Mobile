@@ -137,28 +137,31 @@
                     android:text="Gênero"
                     android:textColor="@color/water_blue" />
 
-                <AutoCompleteTextView
-
+                <Spinner
                     android:id="@+id/genero"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:popupBackground="@color/white" />
+
+                <TextView
+
+                    android:id="@+id/generoobrigatorio"
 
                     android:layout_width="match_parent"
 
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="10dp"
 
                     android:layout_marginBottom="10dp"
 
-                    android:background="@drawable/rounded_edit_text"
+                    android:fontFamily="@font/varela_round"
 
-                    android:ems="10"
+                    android:text="Gênero obrigatório"
 
-                    android:hint="Selecione o gênero"
-
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
-                    android:textSize="14sp" />
+                    android:textColor="@color/red_or_orange"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -219,7 +222,7 @@
 
                     android:ems="10"
 
-                    android:hint="Selecione o gênero"
+                    android:hint="Selecione a cor"
 
                     android:inputType="text"
 
@@ -241,32 +244,31 @@
                     android:text="Porte"
                     android:textColor="@color/water_blue" />
 
-                <AutoCompleteTextView
-
+                <Spinner
                     android:id="@+id/porte"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/rounded_edit_text"
+                    android:popupBackground="@color/white" />
+
+                <TextView
+
+                    android:id="@+id/porteobrigatorio"
 
                     android:layout_width="match_parent"
 
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
 
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="10dp"
 
-                    android:background="@drawable/rounded_edit_text"
+                    android:layout_marginBottom="10dp"
 
-                    android:ems="10"
+                    android:fontFamily="@font/varela_round"
 
-                    android:hint="Selecione o porte"
+                    android:text="Gênero obrigatório"
 
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
-
-                    android:textSize="14sp"
-
-                    />
-
+                    android:textColor="@color/red_or_orange"
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/btnCadastrar"
@@ -280,7 +282,7 @@
                     android:textSize="26dp" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/btnSair"
                     android:layout_width="154dp"
                     android:layout_height="48dp"
                     android:backgroundTint="#2C4D4B"
