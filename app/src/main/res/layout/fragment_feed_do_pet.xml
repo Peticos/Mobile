@@ -47,8 +47,9 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:scaleType="fitXY"
-                app:shapeAppearance="@style/RoundedImage"
-                android:src="@drawable/fotogenerica" />
+                android:src="@drawable/fotogenerica"
+                android:visibility="invisible"
+                app:shapeAppearance="@style/RoundedImage" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

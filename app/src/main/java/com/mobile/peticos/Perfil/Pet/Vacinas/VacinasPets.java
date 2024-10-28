@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -79,6 +80,7 @@ public class VacinasPets extends AppCompatActivity {
         });
         btnsalvar.setOnClickListener(v ->{
             criarVacina();
+
         });
 
         btnsair.setOnClickListener(v->{
@@ -131,6 +133,7 @@ public class VacinasPets extends AppCompatActivity {
                     cardCadastrarVacina.setVisibility(View.GONE);
                     nome.setText("");
                     doses.setSelection(0);
+                    recreate();
                 } else {
                     Log.e("Cadastrar Vacina", "Erro: " + response.errorBody().toString());
                     Log.e("Cadastrar Vacina", "Erro: " + response.code());
