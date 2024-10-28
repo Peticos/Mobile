@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class CadastrarPet extends AppCompatActivity {
     Retrofit retrofit1, retrofit2;
     int id;
     String username;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class CadastrarPet extends AppCompatActivity {
         genero = findViewById(R.id.genero);
         nome = findViewById(R.id.nome);
         idade = findViewById(R.id.idade);
+        progressBar = findViewById(R.id.progressBar2);
 
         SharedPreferences sharedPreferences = getSharedPreferences("Perfil", Context.MODE_PRIVATE);
         id = sharedPreferences.getInt("id", 0);
@@ -124,6 +127,7 @@ public class CadastrarPet extends AppCompatActivity {
         // Chamar API para setar os drops downs
 
         setarDropDowns();
+        progressBar.setVisibility(View.VISIBLE);
 
         Call<Integer> call = api1.insertPet(pet);
         call.enqueue(new Callback<Integer>() {
@@ -148,9 +152,11 @@ public class CadastrarPet extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                             if (response.isSuccessful()) {
+                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(CadastrarPet.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
+                                progressBar.setVisibility(View.GONE);
                                 Log.e("Personalizacao", "Falha ao personalizar pet: " + response.code() + " - " + response.message());
                                 Toast.makeText(CadastrarPet.this, "Falha ao personalizar o pet, tente novamente.", Toast.LENGTH_SHORT).show();
                             }
@@ -158,10 +164,12 @@ public class CadastrarPet extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ModelRetorno> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
                             Log.e("Personalizacao", "Erro: " + t.getMessage());
                             Toast.makeText(CadastrarPet.this, "Erro ao tentar personalizar o pet.", Toast.LENGTH_SHORT).show();
                         }                    });
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e("Cadastro", "Falha no cadastro: " + response.code() + " - " + response.message());
                     Toast.makeText(CadastrarPet.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
@@ -169,6 +177,7 @@ public class CadastrarPet extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Log.e("Cadastro", "Erro: " + t.getMessage());
                 Toast.makeText(CadastrarPet.this, "Erro ao tentar cadastrar o pet.", Toast.LENGTH_SHORT).show();
             }
@@ -206,6 +215,7 @@ public class CadastrarPet extends AppCompatActivity {
 
         // Cor
         APIPets apiPets = retrofit1.create(APIPets.class);
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<Cor>> call = apiPets.getAllColors();
         call.enqueue(new Callback<List<Cor>>() {
             @Override
@@ -225,16 +235,20 @@ public class CadastrarPet extends AppCompatActivity {
                     );
                     cor.setAdapter(adapterCor);
                     cor.setThreshold(1);
+                    progressBar.setVisibility(View.GONE);
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<Cor>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(CadastrarPet.this, "Erro ao carregar Cores", Toast.LENGTH_SHORT).show();
                 Log.e("CadastrarPet", "Erro ao carregar Cores", throwable);
             }
         });
 
+        progressBar.setVisibility(View.VISIBLE);
         // Raça
         Call<List<Raca>> callRaca = apiPets.getAllRaces();
         callRaca.enqueue(new Callback<List<Raca>>() {
@@ -255,11 +269,14 @@ public class CadastrarPet extends AppCompatActivity {
                     );
                     raca.setAdapter(adapterRaca);
                     raca.setThreshold(1);
+                    progressBar.setVisibility(View.GONE);
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<Raca>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(CadastrarPet.this, "Erro ao carregar Raças", Toast.LENGTH_SHORT).show();
                 Log.e("CadastrarPet", "Erro ao carregar Raças", throwable);
             }

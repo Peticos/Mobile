@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -58,6 +59,7 @@ public class CadastroTutor extends AppCompatActivity {
     private Retrofit retrofit;
     private ActivityResultLauncher<Intent> cameraLauncher;
     private List<String> generoList = new ArrayList<>();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class CadastroTutor extends AppCompatActivity {
         }
 
         String urlAPI = "https://apipeticos-ltwk.onrender.com";
+
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -108,7 +111,7 @@ public class CadastroTutor extends AppCompatActivity {
 
 
 
-
+        progressBar.setVisibility(View.VISIBLE);
         Call<Integer> call = aPIPerfil.insertTutor(perfil);
         call.enqueue(new Callback<Integer>() {
             @Override
@@ -141,12 +144,14 @@ public class CadastroTutor extends AppCompatActivity {
                                 public void onSuccess(ModelRetorno perfil) {
                                     Toast.makeText(CadastroTutor.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
+                                    progressBar.setVisibility(View.GONE);
                                     startActivity(intent);
                                     finish();
                                 }
 
                                 @Override
                                 public void onError(String errorMessage) {
+                                    progressBar.setVisibility(View.GONE);
                                     // Lide com o erro, se necessário
                                     Toast.makeText(CadastroTutor.this, "Erro ao autenticar: " + errorMessage, Toast.LENGTH_SHORT).show();
                                 }
@@ -156,12 +161,14 @@ public class CadastroTutor extends AppCompatActivity {
                 }
 
                 else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(CadastroTutor.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Log.e("CadastroTutor", "Erro: " + t.getMessage());
                 Toast.makeText(CadastroTutor.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
             }
@@ -185,6 +192,8 @@ public class CadastroTutor extends AppCompatActivity {
         senha1 = findViewById(R.id.senhainalida1);
         senha2 = findViewById(R.id.senhainalida);
         btnUpload = findViewById(R.id.upload);
+
+        progressBar = findViewById(R.id.progressBar2);
         url = null;
 
         senha1.setVisibility(View.INVISIBLE);
@@ -246,6 +255,7 @@ public class CadastroTutor extends AppCompatActivity {
                 .build();
 
         APIBairro apiBairro = retrofit.create(APIBairro.class);
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelBairro>> call = apiBairro.getAll();
 
         // Executar chamada para pegar os bairros
@@ -266,10 +276,12 @@ public class CadastroTutor extends AppCompatActivity {
                     bairro.setAdapter(adapterBairro);
                     bairro.setThreshold(1);
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(CadastroTutor.this, "Erro ao carregar bairros", Toast.LENGTH_SHORT).show();
             }
         });
