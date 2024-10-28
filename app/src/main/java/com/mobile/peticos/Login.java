@@ -76,8 +76,8 @@ public class Login extends AppCompatActivity {
             // Recuperar os campos de texto
             txtEmail = findViewById(R.id.email);
             txtSenha = findViewById(R.id.senha);
-            String email = txtEmail.getText().toString().trim();
-            String senha = txtSenha.getText().toString().trim();
+            String email = txtEmail.getText().toString().replaceAll("\\s+", "");
+            String senha = txtSenha.getText().toString().replaceAll("\\s+", "");
 
             // Validar os campos antes de autenticar
             if (email.isEmpty()) {
@@ -88,10 +88,7 @@ public class Login extends AppCompatActivity {
             if (senha.isEmpty()) {
                 senhainvalida.setVisibility(View.VISIBLE);
                 Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
-            }
-            if (email.isEmpty()||senha.isEmpty()) {
-                return;
-            }else{
+            } else{
                 Authentication(v);
             }
 
@@ -110,8 +107,8 @@ public class Login extends AppCompatActivity {
 
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
         ModelPerfilAuth perfil = new ModelPerfilAuth(
-                txtEmail.getText().toString(),
-                txtSenha.getText().toString()
+                txtEmail.getText().toString().replaceAll("\\s+", ""),
+                txtSenha.getText().toString().replaceAll("\\s+", "")
         );
 
         Call<Integer> call = aPIPerfil.login(perfil);

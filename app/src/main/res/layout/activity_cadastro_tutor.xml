@@ -88,7 +88,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 
@@ -126,7 +126,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 
@@ -164,7 +164,7 @@
 
                         android:inputType="phone"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 
@@ -202,9 +202,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
-
-                        android:paddingRight="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14sp"
 
@@ -244,9 +242,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
-
-                        android:paddingRight="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14sp"
 
@@ -286,7 +282,7 @@
 
                         android:inputType="textEmailAddress"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 

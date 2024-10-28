@@ -67,7 +67,7 @@
                     android:ems="10"
                     android:hint="Nome/Apelido"
                     android:inputType="text"
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
                     android:textSize="14dp" />
 
                 <TextView
@@ -88,7 +88,7 @@
                     android:ems="10"
                     android:hint="Idade"
                     android:inputType="number"
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
                     android:textSize="14dp" />
 
                 <TextView
@@ -118,9 +118,7 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -154,9 +152,8 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
 
-                    android:paddingRight="10dp"
                     android:textSize="14sp" />
 
                 <TextView
@@ -186,9 +183,7 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -218,13 +213,11 @@
 
                     android:ems="10"
 
-                    android:hint="Selecione o gênero"
+                    android:hint="Selecione a cor"
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -258,9 +251,7 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -272,7 +263,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/principal_button"
                     android:fontFamily="@font/lilita_one"
                     android:onClick="CadastraPet"
                     android:text="Cadastrar"

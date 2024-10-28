@@ -189,8 +189,8 @@ public class CadastroTutor extends AppCompatActivity {
         senhaCadastro = findViewById(R.id.senha_cadastro);
         senhaRepetida = findViewById(R.id.senharepetida_cadastro);
         btnCadastrar = findViewById(R.id.cadastrar);
-        senha1 = findViewById(R.id.senhainalida1);
-        senha2 = findViewById(R.id.senhainalida);
+        senha1 = findViewById(R.id.senhainalida);
+        senha2 = findViewById(R.id.senhainalida1);
         btnUpload = findViewById(R.id.upload);
 
         progressBar = findViewById(R.id.progressBar2);
@@ -301,6 +301,17 @@ public class CadastroTutor extends AppCompatActivity {
         boolean erro = false;
         String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
 
+        if(url == null){
+            Toast.makeText(this, "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .transform(new RoundedCorners(30));
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(btnUpload);
+            erro = true;
+        }
         if (nomeCompleto.getText().toString().isEmpty()) {
             nomeCompleto.setError("Nome completo é obrigatório");
             erro = true;
@@ -336,6 +347,14 @@ public class CadastroTutor extends AppCompatActivity {
 
         if (bairro.getText().toString().isEmpty()) {
             bairro.setError("Selecione um bairro");
+            erro = true;
+        }
+        if(senhaCadastro.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senha1.setVisibility(view.VISIBLE);
+            erro = true;
+        }
+        if(!senhaRepetida.getText().toString().replaceAll("\\s+", "").equals(senhaCadastro.getText().toString().replaceAll("\\s+", "")) || senhaRepetida.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senha2.setVisibility(view.VISIBLE);
             erro = true;
         }
 
