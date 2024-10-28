@@ -42,7 +42,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Camera extends AppCompatActivity {
     private static final String[] REQUIRED_PERMISSIONS = {
-            Manifest.permission.RECORD_AUDIO,
+
             Manifest.permission.CAMERA
             //Manifest.permission.WRITE_EXTERNAL_STORAGE
     };

@@ -70,10 +70,6 @@ public class AdapterPetFeedPrincipal extends RecyclerView.Adapter<AdapterPetFeed
                     editor.apply();
 
                     holder.cancelarPet.setVisibility(View.VISIBLE);
-                    Toast.makeText(v.getContext(), "Pet " + idPet + " selecionado!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Se o ID já existe, você pode mostrar uma mensagem
-                    Toast.makeText(v.getContext(), "Pet " + idPet + " já está selecionado!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -86,7 +82,6 @@ public class AdapterPetFeedPrincipal extends RecyclerView.Adapter<AdapterPetFeed
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 Set<String> selectedPets = sharedPreferences.getStringSet("selectedPets", new HashSet<>());
                 selectedPets.remove(idPet); // Remove se já estiver na lista
-                Toast.makeText(v.getContext(), "Pet " + idPet + " removido!", Toast.LENGTH_SHORT).show();
                 editor.putStringSet("selectedPets", selectedPets);
                 editor.apply();
                 holder.cancelarPet.setVisibility(View.INVISIBLE);

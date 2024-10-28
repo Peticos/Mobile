@@ -5,17 +5,21 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -49,17 +53,18 @@ public class CadastroTutor extends AppCompatActivity {
     private ImageView btnUpload;
     private Button btnCadastrar;
     private EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
-    private AutoCompleteTextView bairro, genero;
-    private View senha1, senha2;
+    private AutoCompleteTextView bairro;
+    private TextView senha1, senha2;
 
-    // Variáveis de configuração
+
     private String url = null;
     private Metodos metodos = new Metodos();
     private AuthCallback callback;
     private Retrofit retrofit;
     private ActivityResultLauncher<Intent> cameraLauncher;
-    private List<String> generoList = new ArrayList<>();
+    private TextView generoobrigatorio;
     private ProgressBar progressBar;
+    private Spinner genero_drop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,18 +73,21 @@ public class CadastroTutor extends AppCompatActivity {
         inicializarComponentes();
         configurarMascaraTelefone();
         configurarCameraLauncher();
-        configurarGenero();
         carregarBairros();
         configurarCadastro();
+        configurargenero();
+
     }
     // Método para cadastrar o tutor no banco de dados
     private void cadastrarTutorBanco(View view) {
+
+
         if (nomeCompleto.getText().toString().isEmpty() ||
                 nomeUsuario.getText().toString().isEmpty() ||
                 emailCadastro.getText().toString().isEmpty() ||
                 bairro.getText().toString().isEmpty() ||
                 telefone.getText().toString().isEmpty() ||
-                genero.getText().toString().isEmpty()) {
+                genero_drop.getSelectedItem().toString().isEmpty()) {
             Toast.makeText(this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -102,7 +110,7 @@ public class CadastroTutor extends AppCompatActivity {
                 telefoneFormatado,
                 null,
                 url,
-                genero.getText().toString(),
+                genero_drop.getSelectedItem().toString(),
                 null
         );
 
@@ -176,6 +184,50 @@ public class CadastroTutor extends AppCompatActivity {
     }
 
 
+    private void configurargenero(){
+        String[] doseOptions = {"Selecione o seu genero", "Feminino", "Masculino", "Prefiro não dizer", "Outros"};
+
+        // Criação do ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, doseOptions) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Desabilita o primeiro item para não ser clicável
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Define o texto do hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Define os itens selecionáveis em preto
+                }
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Itens selecionáveis em preto
+                }
+                return view;
+            }
+        };
+
+        // Configura o layout dos itens na lista suspensa
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        genero_drop.setAdapter(adapter);
+
+
+
+    }
+
+
 
 
     // Inicializa os componentes de interface
@@ -184,7 +236,7 @@ public class CadastroTutor extends AppCompatActivity {
         nomeUsuario = findViewById(R.id.nomeUsuario);
         telefone = findViewById(R.id.telefone);
         bairro = findViewById(R.id.bairro);
-        genero = findViewById(R.id.genero);
+        genero_drop = findViewById(R.id.genero);
         emailCadastro = findViewById(R.id.email_cadastro);
         senhaCadastro = findViewById(R.id.senha_cadastro);
         senhaRepetida = findViewById(R.id.senharepetida_cadastro);
@@ -192,6 +244,9 @@ public class CadastroTutor extends AppCompatActivity {
         senha1 = findViewById(R.id.senhainalida);
         senha2 = findViewById(R.id.senhainalida1);
         btnUpload = findViewById(R.id.upload);
+        generoobrigatorio = findViewById(R.id.generoobrigatorio);
+        generoobrigatorio.setVisibility(View.GONE);
+
 
         progressBar = findViewById(R.id.progressBar2);
         url = null;
@@ -231,20 +286,6 @@ public class CadastroTutor extends AppCompatActivity {
         });
     }
 
-    // Configura o AutoCompleteTextView para gênero
-    private void configurarGenero() {
-        generoList.add("Masculino");
-        generoList.add("Feminino");
-        generoList.add("Não Binário");
-        generoList.add("Prefiro não dizer");
-
-        ArrayAdapter<String> adapterGenero = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                generoList
-        );
-        genero.setAdapter(adapterGenero);
-    }
 
     // Carrega os bairros usando a API
     private void carregarBairros() {
@@ -328,9 +369,12 @@ public class CadastroTutor extends AppCompatActivity {
             erro = true;
         }
 
-        if (genero.getText().toString().isEmpty() || !generoList.contains(genero.getText().toString())) {
-            genero.setError("Genero inválido");
+        String generoSelecionado = genero_drop.getSelectedItem().toString().trim();
+        if (generoSelecionado.equals("Selecione o seu genero") || generoSelecionado.isEmpty()) {
+            generoobrigatorio.setVisibility(View.VISIBLE);
             erro = true;
+        } else {
+            generoobrigatorio.setVisibility(View.GONE);
         }
 
         if (telefone.getText().toString().isEmpty() || !validarTelefone(telefoneFormatado)) {
@@ -355,13 +399,30 @@ public class CadastroTutor extends AppCompatActivity {
         }
         if(!senhaRepetida.getText().toString().replaceAll("\\s+", "").equals(senhaCadastro.getText().toString().replaceAll("\\s+", "")) || senhaRepetida.getText().toString().replaceAll("\\s+", "").isEmpty()){
             senha2.setVisibility(view.VISIBLE);
+            senha1.setVisibility(view.VISIBLE);
+            senha2.setText("As senhas nao se coicidem.");
+            senha1.setText("As senhas nao se coicidem.");
             erro = true;
         }
+
+        else if (!isStrongPassword(senhaCadastro.getText().toString())) {
+            senha2.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senha2.setVisibility(View.VISIBLE);
+            senha1.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senha1.setVisibility(View.VISIBLE);
+        }
+
 
         if (!erro) {
             cadastrarTutorBanco(view);
         }
     }
+    // Método para verificar se a senha é forte
+    private boolean isStrongPassword(String password) {
+        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+        return password != null && password.matches(passwordPattern);
+    }
+
 
 
     // Método para validar o formato do telefone

@@ -5,17 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
@@ -40,12 +46,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class CadastrarPet extends AppCompatActivity {
     Button btnCadastrar;
-    AutoCompleteTextView especie, raca, cor, porte, genero;
-    TextView nome, idade;
+    AutoCompleteTextView  raca, cor;
+    TextView nome, idade, porteobrigatorio, generoobrigatorio, especieobrigatorio;
     Retrofit retrofit1, retrofit2;
     int id;
     String username;
     ProgressBar progressBar;
+    Spinner genero_drop, porte_drop, especie_drop;
+    Button btnSair;
+    List<String> racaNomes, corNomes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +62,26 @@ public class CadastrarPet extends AppCompatActivity {
         setContentView(R.layout.activity_cadastrar_pet);
 
         btnCadastrar = findViewById(R.id.btnCadastrar);
-        especie = findViewById(R.id.especie);
+        especie_drop = findViewById(R.id.especie);
         raca = findViewById(R.id.raca);
         cor = findViewById(R.id.cor);
-        porte = findViewById(R.id.porte);
-        genero = findViewById(R.id.genero);
-        nome = findViewById(R.id.nome);
+        porte_drop = findViewById(R.id.porte);
+        genero_drop = findViewById(R.id.genero);
+        nome = findViewById(R.id.nomeCompleto);
         idade = findViewById(R.id.idade);
         progressBar = findViewById(R.id.progressBar2);
+        porteobrigatorio = findViewById(R.id.porteobrigatorio);
+        generoobrigatorio = findViewById(R.id.generoobrigatorio);
+        especie_drop = findViewById(R.id.especie);
+        especieobrigatorio = findViewById(R.id.especiebrigatorio);
+        generoobrigatorio.setVisibility(View.GONE);
+        porteobrigatorio.setVisibility(View.GONE);
+        especieobrigatorio.setVisibility(View.GONE);
+        btnSair = findViewById(R.id.btnSair);
+        btnSair.setOnClickListener(v->{
+            finish();
+        });
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("Perfil", Context.MODE_PRIVATE);
         id = sharedPreferences.getInt("id", 0);
@@ -84,13 +105,84 @@ public class CadastrarPet extends AppCompatActivity {
 
 
         setarDropDowns();
+        configurargenero();
+        configurarporte();
+        configurarespecie();
 
 
 
         btnCadastrar.setOnClickListener(v -> {
-            Cadastrar(v);
+            validarCampos(v);
         });
     }
+
+    //validar campos
+    public void validarCampos(View v){
+        boolean erro = false;
+
+        if (nome.getText().toString().isEmpty()) {
+            nome.setError("Campo obrigatório");
+            erro = true;
+        } else if (nome.getText().toString().length() > 255) {
+            nome.setError("Excesso de caracteres. Max. 255");
+            erro = true;
+        }
+
+
+        String generoSelecionado = genero_drop.getSelectedItem().toString().trim();
+        if (generoSelecionado.equals("Selecione o genero do pet") || generoSelecionado.isEmpty()) {
+            generoobrigatorio.setVisibility(View.VISIBLE);
+            erro = true;
+        } else {
+            generoobrigatorio.setVisibility(View.GONE);
+        }
+
+        if (idade.getText().toString().isEmpty())  {
+            idade.setError("Campo obrigatório");
+            erro = true;
+        }else if (Integer.parseInt(idade.getText().toString())>30){
+            idade.setError("Idade inválida");
+            erro = true;
+        }
+
+        String porteselecionada = porte_drop.getSelectedItem().toString().trim();
+        if (porteselecionada.equals("Selecione o porte do pet")) {
+            porteobrigatorio.setVisibility(View.VISIBLE);
+            erro = true;
+        }else{
+            porteobrigatorio.setVisibility(View.GONE);
+        }
+
+        String especieselecionada = especie_drop.getSelectedItem().toString().trim();
+        if (especieselecionada.equals("Selecione a espécie do pet")) {
+            especieobrigatorio.setVisibility(View.VISIBLE);
+            erro = true;
+        }else{
+            especieobrigatorio.setVisibility(View.GONE);
+        }
+
+
+        if (raca.getText().toString().isEmpty()) {
+            raca.setError("Selecione uma raça");
+            erro = true;
+        }else if (!racaNomes.contains(raca.getText().toString())){
+            raca.setError("Selecione uma raça válida");
+            erro = true;
+        }
+
+        if (cor.getText().toString().isEmpty()) {
+            cor.setError("Selecione uma cor");
+            erro = true;
+        } else if(!corNomes.contains(cor.getText().toString())){
+            cor.setError("Selecione uma cor válida");
+            erro = true;
+        }
+
+        if (!erro) {
+            Cadastrar(v);
+        }
+    }
+
 
     //cadastrar pet
     public void Cadastrar(View view) {
@@ -103,9 +195,9 @@ public class CadastrarPet extends AppCompatActivity {
         APIPets api2 = retrofit2.create(APIPets.class);
 
         String g = "F";
-        if(genero.getText().toString().equals("Masculino")){
+        if(genero_drop.getSelectedItem().toString().equals("Masculino")){
             g = "M";
-        }else if(genero.getText().toString().equals("Feminino")){
+        }else if(genero_drop.getSelectedItem().toString().equals("Feminino")){
             g = "F";
         }
 
@@ -116,9 +208,9 @@ public class CadastrarPet extends AppCompatActivity {
              nome.getText().toString(),
             Integer.parseInt(idade.getText().toString()),
             g,
-            especie.getText().toString(),
+            especie_drop.getSelectedItem().toString(),
             raca.getText().toString(),
-            porte.getText().toString(),
+            porte_drop.getSelectedItem().toString(),
             cor.getText().toString(),
             username
         );
@@ -139,7 +231,7 @@ public class CadastrarPet extends AppCompatActivity {
                     int id = response.body();
                     Personalizacao petPersonalizado = new Personalizacao(
                             id,
-                            especie.getText().toString(),  // Pode ser modificado conforme a lógica do seu app
+                            especie_drop.getSelectedItem().toString(),  // Pode ser modificado conforme a lógica do seu app
                             0,
                             0,
                             0,
@@ -155,6 +247,8 @@ public class CadastrarPet extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 Toast.makeText(CadastrarPet.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                                 finish();
+
+
                             } else {
                                 progressBar.setVisibility(View.GONE);
                                 Log.e("Personalizacao", "Falha ao personalizar pet: " + response.code() + " - " + response.message());
@@ -183,35 +277,134 @@ public class CadastrarPet extends AppCompatActivity {
             }
         });
     }
+    //genero
+    private void configurargenero(){
+        String[] doseOptions = {"Selecione o genero do pet", "Fêmea", "Macho"};
 
+        // Criação do ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, doseOptions) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Desabilita o primeiro item para não ser clicável
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Define o texto do hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Define os itens selecionáveis em preto
+                }
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Itens selecionáveis em preto
+                }
+                return view;
+            }
+        };
+
+        // Configura o layout dos itens na lista suspensa
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        genero_drop.setAdapter(adapter);
+
+    }
+    //porte
+    private void configurarporte(){
+        String[] doseOptions = {"Selecione o porte do pet", "Pequeno", "Médio", "Grande"};
+
+        // Criação do ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, doseOptions) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Desabilita o primeiro item para não ser clicável
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Define o texto do hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Define os itens selecionáveis em preto
+                }
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Itens selecionáveis em preto
+                }
+                return view;
+            }
+        };
+
+        // Configura o layout dos itens na lista suspensa
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        porte_drop.setAdapter(adapter);
+
+    }
+    //especie
+    private void configurarespecie(){
+        String[] doseOptions = {"Selecione a espécie do pet", "Cachorro", "Gato"};
+
+        // Criação do ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, doseOptions) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Desabilita o primeiro item para não ser clicável
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Define o texto do hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Define os itens selecionáveis em preto
+                }
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Itens selecionáveis em preto
+                }
+                return view;
+            }
+        };
+
+        // Configura o layout dos itens na lista suspensa
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        especie_drop.setAdapter(adapter);
+
+    }
 
     //setar dropdowns
     public void setarDropDowns() {
-        // Espécie
-        List<String> especiesList = new ArrayList<>();
-        especiesList.add("Cachorro");
-        especiesList.add("Gato");
-        ArrayAdapter<String> adapterEspecie = new ArrayAdapter<>(
-                CadastrarPet.this,
-                android.R.layout.simple_dropdown_item_1line,
-                especiesList
-        );
-        especie.setAdapter(adapterEspecie);
-        especie.setThreshold(1);
 
-        // Porte
-        List<String> porteList = new ArrayList<>();
-        porteList.add("Grande");
-        porteList.add("Médio");
-        porteList.add("Pequeno");
 
-        ArrayAdapter<String> adapterPorte = new ArrayAdapter<>(
-                CadastrarPet.this,
-                android.R.layout.simple_dropdown_item_1line,
-                porteList
-        );
-        porte.setAdapter(adapterPorte);
-        porte.setThreshold(1);
 
         // Cor
         APIPets apiPets = retrofit1.create(APIPets.class);
@@ -222,7 +415,7 @@ public class CadastrarPet extends AppCompatActivity {
             public void onResponse(Call<List<Cor>> call, Response<List<Cor>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Cor> corList = response.body();
-                    List<String> corNomes = new ArrayList<>();
+                    corNomes = new ArrayList<>();
 
                     for (Cor cor : corList) {
                         corNomes.add(cor.color);
@@ -256,7 +449,7 @@ public class CadastrarPet extends AppCompatActivity {
             public void onResponse(Call<List<Raca>> call, Response<List<Raca>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Raca> racaList = response.body();
-                    List<String> racaNomes = new ArrayList<>();
+                     racaNomes = new ArrayList<>();
 
                     for (Raca raca : racaList) {
                         racaNomes.add(raca.race);
@@ -281,16 +474,6 @@ public class CadastrarPet extends AppCompatActivity {
                 Log.e("CadastrarPet", "Erro ao carregar Raças", throwable);
             }
         });
-        //genero
-        List<String> generoList = new ArrayList<>();
-        generoList.add("Macho");
-        generoList.add("Fêmea");
-        ArrayAdapter<String> adapterGenero = new ArrayAdapter<>(
-                CadastrarPet.this,
-                android.R.layout.simple_dropdown_item_1line,
-                generoList
-        );
-        genero.setAdapter(adapterGenero);
-        genero.setThreshold(1);
+
     }
 }
