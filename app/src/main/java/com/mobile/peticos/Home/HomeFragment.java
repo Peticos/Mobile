@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment {
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
     CardView cardFeedErro, cardDicasErro, cardFeedSemPost;
+    private ProgressBar progressBar;
 
     static {
         List<String> requiredPermissions = new ArrayList<>();
@@ -71,6 +73,7 @@ public class HomeFragment extends Fragment {
         cardFeedErro = view.findViewById(R.id.cardFeedErro);
         cardDicasErro = view.findViewById(R.id.cardDicasErro);
         cardFeedSemPost = view.findViewById(R.id.cardFeedSemPost);
+        progressBar = view.findViewById(R.id.progressBar2);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
@@ -137,14 +140,17 @@ public class HomeFragment extends Fragment {
     }
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed(View v) {
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<FeedPet>> call = apiHome.getAll();
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
                     List<FeedPet> feedList = response.body();
                     updateRecyclerViewFeed(feedList, v);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
                     cardFeedSemPost.setVisibility(View.VISIBLE);
                     //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
@@ -153,6 +159,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
@@ -191,6 +198,7 @@ public class HomeFragment extends Fragment {
     }
 
     // Curiosidades
+
     private void setupRetrofiAdapter() {
         String API = "https://apipeticos-ltwk.onrender.com";
         retrofit = new Retrofit.Builder()
@@ -200,21 +208,26 @@ public class HomeFragment extends Fragment {
         apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
     }
     private void initRecyclerViewDicas(View v) {
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<DicasDoDia>> call = apiHome.getDayHint();
         call.enqueue(new Callback<List<DicasDoDia>>() {
             @Override
             public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
                     List<DicasDoDia> dicas = response.body();
                     updateRecyclerViewDicas(dicas, v);
 
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    cardDicasErro.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(), "Nenhuma Dica encontrada", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 cardDicasErro.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
 

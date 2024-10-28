@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
@@ -32,6 +33,7 @@ public class LocalFragment extends Fragment {
     private RecyclerView recyclerView;
     private Retrofit retrofit;
     private ApiLocais apiLocais;
+    private ProgressBar progressBar;
     CardView cardErroLocal;
 
     // Construtor
@@ -52,6 +54,8 @@ public class LocalFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         cardErroLocal = view.findViewById(R.id.cardErroLugares);
+
+        progressBar = view.findViewById(R.id.progressBar2);
 
         // Configuração dos botões
         btnConsulta = view.findViewById(R.id.btnConsulta);
@@ -83,20 +87,25 @@ public class LocalFragment extends Fragment {
     }
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerView() {
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<Local>> call = apiLocais.getAll();
         call.enqueue(new Callback<List<Local>>() {
             @Override
             public void onResponse(Call<List<Local>> call, Response<List<Local>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
                     List<Local> localList = response.body();
                     updateRecyclerView(localList);
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    cardErroLocal.setVisibility(View.VISIBLE);
                     showToast("Nenhum local encontrado");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Local>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 cardErroLocal.setVisibility(View.VISIBLE);
             }
         });
@@ -114,20 +123,24 @@ public class LocalFragment extends Fragment {
 
     // Função para buscar locais filtrados
     private void LocaisFiltrado(int type) {
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<Local>> call = apiLocais.getByType(type);
         call.enqueue(new Callback<List<Local>>() {
             @Override
             public void onResponse(Call<List<Local>> call, Response<List<Local>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
                     List<Local> localList = response.body();
                     updateRecyclerView(localList);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     showToast("Nenhum local encontrado para este filtro");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Local>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 showToast("Erro ao carregar Locais");
             }
         });
