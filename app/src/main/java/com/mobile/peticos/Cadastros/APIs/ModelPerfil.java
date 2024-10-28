@@ -41,6 +41,14 @@ public class ModelPerfil {
     @SerializedName("cnpj")
     public String cnpj;
 
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
     public String getUsername() {
         return username;
     }

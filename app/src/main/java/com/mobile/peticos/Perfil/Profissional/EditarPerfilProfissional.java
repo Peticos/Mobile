@@ -19,6 +19,7 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.R;
 
@@ -223,11 +224,11 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         );
 
         Log.d("EDITAR_PERFIL", perfil.toString());
-        Call<ModelPerfil> call = api.update(userId , perfil);
+        Call<ModelRetorno> call = api.update(perfil);
 
-        call.enqueue(new Callback<ModelPerfil>() {
+        call.enqueue(new Callback<ModelRetorno>() {
             @Override
-            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
+            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     Toast.makeText(EditarPerfilProfissional.this, "Perfil Editado com sucesso!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(EditarPerfilProfissional.this, DesejaCadastrarUmPet.class);
@@ -254,7 +255,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ModelPerfil> call, Throwable throwable) {
+            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
                 Toast.makeText(EditarPerfilProfissional.this, "Erro de conexão: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

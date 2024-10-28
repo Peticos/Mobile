@@ -30,8 +30,8 @@ public interface APIPerfil {
     @POST("/api/user/insertprofissional")
     Call<Integer> insertProfissional(@Body ModelPerfil model);
 
-    @PUT("/api/user/update/{id}")
-    Call<ModelPerfil> update(@Path("id") int id, @Body ModelPerfil model);
+    @PUT("/api/user/updateuser")
+    Call<ModelRetorno> update(@Body ModelPerfil model);
 
     @DELETE("/api/user/delete/{id}")
     Call<ModelPerfil> delete(@Path("id") int id);
