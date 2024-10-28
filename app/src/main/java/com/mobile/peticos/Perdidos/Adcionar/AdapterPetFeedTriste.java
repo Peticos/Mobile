@@ -73,7 +73,7 @@ public class AdapterPetFeedTriste extends RecyclerView.Adapter<AdapterPetFeedTri
 
         // Evento de clique para cancelar a seleção do pet
         holder.cancelarPet.setOnClickListener(v -> {
-            editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
+            editor.putString("selectedPet", null); // Corrigido: limpar 'selectedPet'
             editor.apply();
 
             // Atualizar a exibição após desmarcar o pet

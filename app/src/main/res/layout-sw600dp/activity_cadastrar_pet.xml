@@ -68,7 +68,7 @@
                     android:ems="10"
                     android:hint="Nome/Apelido"
                     android:inputType="text"
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
                     android:textSize="14dp" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:textColor="@color/water_blue" />
 
                 <EditText
-                    android:id="@+id/NomeUsuario"
+                    android:id="@+id/idade"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginBottom="10dp"
@@ -89,7 +89,7 @@
                     android:ems="10"
                     android:hint="Idade"
                     android:inputType="number"
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
                     android:textSize="14dp" />
 
                 <TextView
@@ -101,31 +101,32 @@
                     android:text="Espécie"
                     android:textColor="@color/water_blue" />
 
-                <AutoCompleteTextView
-
+                <Spinner
                     android:id="@+id/especie"
 
                     android:layout_width="match_parent"
 
                     android:layout_height="48dp"
 
-                    android:layout_marginBottom="10dp"
-
                     android:background="@drawable/rounded_edit_text"
+                    android:popupBackground="@color/white" />
 
-                    android:ems="10"
+                <TextView
 
-                    android:hint="Selecione a especie"
+                    android:id="@+id/especiebrigatorio"
 
-                    android:inputType="text"
+                    android:layout_width="match_parent"
 
-                    android:paddingLeft="10dp"
+                    android:layout_height="wrap_content"
 
-                    android:paddingRight="10dp"
+                    android:fontFamily="@font/varela_round"
 
-                    android:textSize="14sp"
+                    android:paddingHorizontal="10dp"
 
-                    />
+                    android:text="Espécie obrigatório"
+
+                    android:textColor="@color/red_or_orange"
+                    android:textSize="12sp" />
 
 
                 <TextView
@@ -133,14 +134,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Gênero"
                     android:textColor="@color/water_blue" />
 
                 <Spinner
                     android:id="@+id/genero"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="48dp"
+
                     android:background="@drawable/rounded_edit_text"
                     android:popupBackground="@color/white" />
 
@@ -152,14 +157,11 @@
 
                     android:layout_height="wrap_content"
 
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_marginBottom="10dp"
-
                     android:fontFamily="@font/varela_round"
 
-                    android:text="Gênero obrigatório"
+                    android:paddingHorizontal="10dp"
 
+                    android:text="Gênero obrigatório"
                     android:textColor="@color/red_or_orange"
                     android:textSize="12sp" />
 
@@ -168,6 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/varela_round"
                     android:text="Raça"
                     android:textColor="@color/water_blue" />
@@ -190,9 +193,7 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -226,9 +227,7 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -259,14 +258,11 @@
 
                     android:layout_height="wrap_content"
 
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_marginBottom="10dp"
-
                     android:fontFamily="@font/varela_round"
 
-                    android:text="Gênero obrigatório"
+                    android:paddingHorizontal="10dp"
 
+                    android:text="Porte obrigatório"
                     android:textColor="@color/red_or_orange"
                     android:textSize="12sp" />
 
@@ -274,6 +270,7 @@
                     android:id="@+id/btnCadastrar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/principal_button"
                     android:fontFamily="@font/lilita_one"

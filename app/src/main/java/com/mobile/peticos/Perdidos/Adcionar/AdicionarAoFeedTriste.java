@@ -75,10 +75,12 @@ public class AdicionarAoFeedTriste extends Fragment {
     EditText descricao, data, referencia;
     AutoCompleteTextView bairro;
     private Retrofit retrofit;
+    List<String> bairrosNomes;
     ImageView upload;
     TextView publicacoes, petsInvalidos;
     RecyclerView amiguinhos;
     private ActivityResultLauncher<Intent> cameraLauncher;
+    Button btnSair;
 
     private static final String CHANNEL_ID = "channel_id";
     String url;
@@ -95,6 +97,10 @@ public class AdicionarAoFeedTriste extends Fragment {
         btnPublicar = view.findViewById(R.id.btnPublicar);
         btnPublicar.setOnClickListener(v -> {
             RegistrarPetPerdido(v);
+        });
+        btnSair = view.findViewById(R.id.btnSair);
+        btnSair.setOnClickListener(v ->{
+            navigateToPerdidoFragment();
         });
 
         upload = view.findViewById(R.id.upload);
@@ -221,8 +227,10 @@ public class AdicionarAoFeedTriste extends Fragment {
         transaction.commit();
     }
 
-    public void RegistrarPetPerdido(View view) {
-                Date dataAtual = new Date();
+    Boolean erro = false;
+
+    public void validarCampos (View v){
+        Date dataAtual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
         String dataFormatada = formato.format(dataAtual); // postTime formatada
         // Tratamento da data de perda
@@ -230,22 +238,8 @@ public class AdicionarAoFeedTriste extends Fragment {
         SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()); // Formato de entrada MM-dd-yyyy
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
-        SharedPreferences sharedPreferencesPet = getActivity().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
-        Set<String> selectedPets = sharedPreferencesPet.getStringSet("selectedPets", new HashSet<>());
 
-        List<Integer> selectedPetsList = new ArrayList<>();
 
-        // Convertendo os valores de String para int e adicionando à lista
-        for (String petId : selectedPets) {
-            try {
-                // Tenta converter o ID do pet para int
-                int id = Integer.parseInt(petId);
-                selectedPetsList.add(id);
-            } catch (NumberFormatException e) {
-                // Trate a exceção se a conversão falhar
-                e.printStackTrace(); // Ou log a falha
-            }
-        }
 
         Date lostDate = null;
         try {
@@ -261,10 +255,17 @@ public class AdicionarAoFeedTriste extends Fragment {
 
         SharedPreferences pet = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
 
-        String idPet = pet.getString("selectedPet", "112");
-        int idPetInt = Integer.parseInt(idPet);
+        String idPet = pet.getString("selectedPet", null);
+        if(idPet == null){
+            Toast.makeText(getContext(), "Selecione um pet!", Toast.LENGTH_SHORT).show();
+            petsInvalidos.setVisibility(View.VISIBLE);
+            erro = true;
+        }else{
+            petsInvalidos.setVisibility(View.INVISIBLE);
+        }
 
-        //Validando campos
+
+
         if(url == null){
             Toast.makeText(getContext(), "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
             RequestOptions options = new RequestOptions()
@@ -274,86 +275,117 @@ public class AdicionarAoFeedTriste extends Fragment {
                     .load(R.drawable.adicionar_imagem_amarelo)
                     .apply(options)
                     .into(upload);
-            return;
+            erro = true;
         }
         if(descricao.getText().toString().isEmpty()){
-            Toast.makeText(getContext(), "Legenda Obrigatória", Toast.LENGTH_SHORT).show();
             descricao.setError("Descrição é obrigatória");
-            return;
+            erro = true;
         }
         if(bairro.getText().toString().isEmpty()){
-            Toast.makeText(getContext(), "Bairro Obrigatório", Toast.LENGTH_SHORT).show();
             bairro.setError("Bairro é obrigatório");
-            return;
+            erro = true;
+        } else if (!bairrosNomes.contains(bairro.getText().toString())){
+            bairro.setError("Selecione um bairro obrigatório");
+            erro = true;
         }
         if(dataa.isEmpty()){
-            Toast.makeText(getContext(), dataa, Toast.LENGTH_SHORT).show();
-            Toast.makeText(getContext(), "Data Obrigatória", Toast.LENGTH_SHORT).show();
             data.setError("Data é obrigatória");
-            return;
+            erro = true;
         }
         if(referencia.getText().toString().isEmpty()){
-            Toast.makeText(getContext(), "Referência Obrigatória", Toast.LENGTH_SHORT).show();
             referencia.setError("Referência é obrigatória");
-            return;
-        }
-        if(idPetInt == 0){
-            Toast.makeText(getContext(), "Selecione pelo menos um pet!", Toast.LENGTH_SHORT).show();
-            petsInvalidos.setVisibility(View.VISIBLE);
-            return;
+            erro = true;
         }
 
-        PetPerdido petPerdido = new PetPerdido(
-                idPetInt,
-                sharedPreferences.getInt("id", 278),
-                bairro.getText().toString(),
-                pet.getString("nome", "pet perdido"),
-                descricao.getText().toString(),
-                dataFormatada,
-                url,
-                referencia.getText().toString(),
-                dataPerdaFormatada
-        );
+        if(!erro){
+            RegistrarPetPerdido(v);
+        }
+    }
+
+    public void RegistrarPetPerdido(View view) {
+                Date dataAtual = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+        String dataFormatada = formato.format(dataAtual); // postTime formatada
+        // Tratamento da data de perda
+        String dataa = data.getText().toString().replaceAll("[^\\d]", ""); // Entrada do campo de texto
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()); // Formato de entrada MM-dd-yyyy
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
 
-        Call<ModelRetorno> call = apiPerdidos.isertPerdido(petPerdido);
-        call.enqueue(new Callback<ModelRetorno>() {
-            @Override
-            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ModelRetorno perdido = response.body();
-                    Log.d("Perfil", "perdido: " + perdido);
+        Date lostDate = null;
+        try {
+            lostDate = inputFormat.parse(dataa); // Convertendo a entrada de texto para Date
+        } catch (ParseException e) {
+            e.printStackTrace(); // Tratando erro de parsing
+        }
 
-                    Toast.makeText(getContext(), "Post publicado", Toast.LENGTH_SHORT).show();
-                    notificar();
-                    SharedPreferences.Editor editor = pet.edit();
-                    editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
-                    editor.apply();
+        String dataPerdaFormatada = lostDate != null ? outputFormat.format(lostDate) : dataFormatada; // Se a data de perda for válida, formatar
 
 
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragmentContainerView, PerdidoFragment.newInstance());
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+
+        SharedPreferences pet = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
+
+        String idPet = pet.getString("selectedPet", null);
+        if(idPet != null){
+            int idPetInt = Integer.parseInt(idPet);
+            PetPerdido petPerdido = new PetPerdido(
+                    idPetInt,
+                    sharedPreferences.getInt("id", 278),
+                    bairro.getText().toString(),
+                    pet.getString("nome", "pet perdido"),
+                    descricao.getText().toString(),
+                    dataFormatada,
+                    url,
+                    referencia.getText().toString(),
+                    dataPerdaFormatada
+            );
 
 
-                } else {
-                    Log.e("FeedPet", "Erro: " + response.errorBody().toString());
-                    Log.e("FeedPet", "Erro código: " + response.code());
-                    Log.e("FeedPet", "Erro mensagem: " + response.message());
+            Call<ModelRetorno> call = apiPerdidos.isertPerdido(petPerdido);
+            call.enqueue(new Callback<ModelRetorno>() {
+                @Override
+                public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        ModelRetorno perdido = response.body();
+                        Log.d("Perfil", "perdido: " + perdido);
 
-                    Toast.makeText(getContext(), "Erro ao publicar o post", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Post publicado", Toast.LENGTH_SHORT).show();
+                        notificar();
+                        SharedPreferences.Editor editor = pet.edit();
+                        editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
+                        editor.apply();
+
+
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragmentContainerView, PerdidoFragment.newInstance());
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+
+                    } else {
+                        Log.e("FeedPet", "Erro: " + response.errorBody().toString());
+                        Log.e("FeedPet", "Erro código: " + response.code());
+                        Log.e("FeedPet", "Erro mensagem: " + response.message());
+
+                        Toast.makeText(getContext(), "Erro ao publicar o post", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
+                    Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
+                    Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
                 }
-            }
+            });
 
-            @Override
-            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
-                Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
-                Log.e("FeedPet", "Erro: " + throwable.getMessage());
+        }
 
-            }
-        });
+
+
+
 
 
 
@@ -396,6 +428,8 @@ public class AdicionarAoFeedTriste extends Fragment {
     }
 
     // Carrega os bairros usando a API
+
+
     private void carregarBairros() {
         String API = "https://apipeticos-ltwk.onrender.com";
         retrofit = new Retrofit.Builder()
@@ -411,7 +445,7 @@ public class AdicionarAoFeedTriste extends Fragment {
             @Override
             public void onResponse(Call<List<ModelBairro>> call, Response<List<ModelBairro>> response) {
                 List<ModelBairro> bairrosList = response.body();
-                List<String> bairrosNomes = new ArrayList<>();
+                bairrosNomes = new ArrayList<>();
                 if (bairrosList != null) {
                     for (ModelBairro bairro : bairrosList) {
                         bairrosNomes.add(bairro.getNeighborhood());
@@ -432,7 +466,7 @@ public class AdicionarAoFeedTriste extends Fragment {
             }
         });
 
-        btnPublicar.setOnClickListener(this::RegistrarPetPerdido);
+        btnPublicar.setOnClickListener(this::validarCampos);
     }
 
     public static void formatarData(final EditText editText) {

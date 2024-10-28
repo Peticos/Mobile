@@ -59,7 +59,7 @@
                     android:textColor="@color/water_blue" />
 
                 <EditText
-                    android:id="@+id/nome"
+                    android:id="@+id/nomeCompleto"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginBottom="10dp"
@@ -67,7 +67,7 @@
                     android:ems="10"
                     android:hint="Nome/Apelido"
                     android:inputType="text"
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
                     android:textSize="14dp" />
 
                 <TextView
@@ -88,7 +88,7 @@
                     android:ems="10"
                     android:hint="Idade"
                     android:inputType="number"
-                    android:paddingLeft="10dp"
+                    android:paddingHorizontal="10dp"
                     android:textSize="14dp" />
 
                 <TextView
@@ -100,33 +100,39 @@
                     android:text="Espécie"
                     android:textColor="@color/water_blue" />
 
-                <AutoCompleteTextView
-
+                <Spinner
                     android:id="@+id/especie"
 
                     android:layout_width="match_parent"
 
                     android:layout_height="48dp"
 
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
 
                     android:background="@drawable/rounded_edit_text"
-
-                    android:ems="10"
-
-                    android:hint="Selecione a especie"
-
-                    android:inputType="text"
-
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
-
-                    android:textSize="14sp"
-
-                    />
+                    android:popupBackground="@color/white" />
 
                 <TextView
+
+                    android:id="@+id/especiebrigatorio"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+
+                    android:paddingHorizontal="10dp"
+
+                    android:fontFamily="@font/varela_round"
+
+                    android:text="Gênero obrigatório"
+
+                    android:textColor="@color/red_or_orange"
+                    android:textSize="12sp" />
+
+
+
+                <TextView
+                    android:id="@+id/textView11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -136,8 +142,13 @@
 
                 <Spinner
                     android:id="@+id/genero"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="48dp"
+
+                    android:layout_marginBottom="10dp"
+
                     android:background="@drawable/rounded_edit_text"
                     android:popupBackground="@color/white" />
 
@@ -188,9 +199,7 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -224,9 +233,7 @@
 
                     android:inputType="text"
 
-                    android:paddingLeft="10dp"
-
-                    android:paddingRight="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:textSize="14sp"
 
@@ -234,6 +241,7 @@
 
 
                 <TextView
+                    android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -243,8 +251,13 @@
 
                 <Spinner
                     android:id="@+id/porte"
+
                     android:layout_width="match_parent"
+
                     android:layout_height="48dp"
+
+                    android:layout_marginBottom="20dp"
+
                     android:background="@drawable/rounded_edit_text"
                     android:popupBackground="@color/white" />
 
@@ -256,9 +269,7 @@
 
                     android:layout_height="wrap_content"
 
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_marginBottom="10dp"
+                    android:paddingHorizontal="10dp"
 
                     android:fontFamily="@font/varela_round"
 

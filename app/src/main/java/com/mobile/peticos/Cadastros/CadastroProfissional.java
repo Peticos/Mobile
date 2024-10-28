@@ -173,6 +173,17 @@ public class CadastroProfissional extends AppCompatActivity {
     // Método para validar os campos antes de cadastrar
     private void validarCampos(View view) {
         boolean erro = false;
+        if(url == null){
+            Toast.makeText(this, "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .transform(new RoundedCorners(30));
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(btnUpload);
+            erro = true;
+        }
 
         // Validação dos campos de entrada
         if (validarCampo(nomeCompleto, 255, "Nome completo é obrigatório")) erro = true;
@@ -182,6 +193,15 @@ public class CadastroProfissional extends AppCompatActivity {
         if (validarCampoCNPJ(cnpj)) erro = true;
         if (bairro.getText().toString().isEmpty()) {
             bairro.setError("Selecione um bairro");
+            erro = true;
+        }
+
+        if(senha1.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senhaInvalida1.setVisibility(view.VISIBLE);
+            erro = true;
+        }
+        if(!senha2.getText().toString().replaceAll("\\s+", "").equals(senha1.getText().toString().replaceAll("\\s+", "")) || senha2.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senhaInvalida2.setVisibility(view.VISIBLE);
             erro = true;
         }
 

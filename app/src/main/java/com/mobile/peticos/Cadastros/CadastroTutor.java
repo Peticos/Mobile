@@ -54,7 +54,7 @@ public class CadastroTutor extends AppCompatActivity {
     private Button btnCadastrar;
     private EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
     private AutoCompleteTextView bairro;
-    private View senha1, senha2;
+    private TextView senha1, senha2;
 
 
     private String url = null;
@@ -241,10 +241,11 @@ public class CadastroTutor extends AppCompatActivity {
         senhaCadastro = findViewById(R.id.senha_cadastro);
         senhaRepetida = findViewById(R.id.senharepetida_cadastro);
         btnCadastrar = findViewById(R.id.cadastrar);
-        senha1 = findViewById(R.id.senhainalida1);
-        senha2 = findViewById(R.id.senhainalida);
+        senha1 = findViewById(R.id.senhainalida);
+        senha2 = findViewById(R.id.senhainalida1);
         btnUpload = findViewById(R.id.upload);
         generoobrigatorio = findViewById(R.id.generoobrigatorio);
+        generoobrigatorio.setVisibility(View.GONE);
 
 
         progressBar = findViewById(R.id.progressBar2);
@@ -341,6 +342,17 @@ public class CadastroTutor extends AppCompatActivity {
         boolean erro = false;
         String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
 
+        if(url == null){
+            Toast.makeText(this, "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .transform(new RoundedCorners(30));
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(btnUpload);
+            erro = true;
+        }
         if (nomeCompleto.getText().toString().isEmpty()) {
             nomeCompleto.setError("Nome completo é obrigatório");
             erro = true;
@@ -357,9 +369,12 @@ public class CadastroTutor extends AppCompatActivity {
             erro = true;
         }
 
-        if (genero_drop.getSelectedItem().toString().isEmpty() ) {
+        String generoSelecionado = genero_drop.getSelectedItem().toString().trim();
+        if (generoSelecionado.equals("Selecione o seu genero") || generoSelecionado.isEmpty()) {
             generoobrigatorio.setVisibility(View.VISIBLE);
             erro = true;
+        } else {
+            generoobrigatorio.setVisibility(View.GONE);
         }
 
         if (telefone.getText().toString().isEmpty() || !validarTelefone(telefoneFormatado)) {
@@ -378,11 +393,36 @@ public class CadastroTutor extends AppCompatActivity {
             bairro.setError("Selecione um bairro");
             erro = true;
         }
+        if(senhaCadastro.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senha1.setVisibility(view.VISIBLE);
+            erro = true;
+        }
+        if(!senhaRepetida.getText().toString().replaceAll("\\s+", "").equals(senhaCadastro.getText().toString().replaceAll("\\s+", "")) || senhaRepetida.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senha2.setVisibility(view.VISIBLE);
+            senha1.setVisibility(view.VISIBLE);
+            senha2.setText("As senhas nao se coicidem.");
+            senha1.setText("As senhas nao se coicidem.");
+            erro = true;
+        }
+
+        else if (!isStrongPassword(senhaCadastro.getText().toString())) {
+            senha2.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senha2.setVisibility(View.VISIBLE);
+            senha1.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senha1.setVisibility(View.VISIBLE);
+        }
+
 
         if (!erro) {
             cadastrarTutorBanco(view);
         }
     }
+    // Método para verificar se a senha é forte
+    private boolean isStrongPassword(String password) {
+        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+        return password != null && password.matches(passwordPattern);
+    }
+
 
 
     // Método para validar o formato do telefone
