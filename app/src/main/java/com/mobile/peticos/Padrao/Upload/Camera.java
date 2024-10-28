@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -109,6 +110,7 @@ public class Camera extends AppCompatActivity {
         gallery.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             resultLauncherGallery.launch(intent);
+
         });
 
         Button firebase = findViewById(R.id.btnsalvar);
@@ -258,13 +260,28 @@ public class Camera extends AppCompatActivity {
 
     private final ActivityResultLauncher<Intent> resultLauncherGallery = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
-                Uri imageUri = result.getData().getData();
-                if (imageUri != null) {
-                    foto.setVisibility(View.VISIBLE);
-                    cardViewTirarFoto.setVisibility(View.INVISIBLE);
-                    layoutSalvar.setVisibility(View.VISIBLE);
-                    foto.setImageURI(imageUri);
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Uri imageUri = result.getData().getData();
+                    if (imageUri != null) {
+                        foto.setVisibility(View.VISIBLE);
+                        cardViewTirarFoto.setVisibility(View.INVISIBLE);
+                        layoutSalvar.setVisibility(View.VISIBLE);
+                        foto.setImageURI(imageUri);
+                        foto.setVisibility(View.VISIBLE);
+
+
+
+                        btnsalvar.setOnClickListener(v -> {
+                            progressBar.setVisibility(View.VISIBLE);
+                            database.uploadGallary(Camera.this, foto, docData);
+
+
+                        });
+                    }
+                } else {
+                    Log.e("GalleryError", "Nenhuma imagem foi selecionada ou o usuário cancelou a ação.");
                 }
             });
+
 
 }
