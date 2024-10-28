@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -65,6 +67,8 @@ public class CadastroProfissional extends AppCompatActivity {
         inicializarComponentes();
         configurarCameraLauncher();
         configurarBairros();
+        configurarMascaraTelefone();
+        configurarMascaraCNPJ();
     }
 
     // Método para inicializar os componentes
@@ -270,8 +274,8 @@ public class CadastroProfissional extends AppCompatActivity {
                 nomeUsuario.getText().toString().isEmpty() ||
                 email.getText().toString().isEmpty() ||
                 bairro.getText().toString().isEmpty() ||
-                telefone.getText().toString().isEmpty() ||
-                cnpj.getText().toString().isEmpty()) {
+                telefone.getText().toString().replaceAll("[^\\d]", "").isEmpty() ||
+                cnpj.getText().toString().replaceAll("[^\\d]", "").isEmpty()) {
 
             Toast.makeText(CadastroProfissional.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;
@@ -293,10 +297,10 @@ public class CadastroProfissional extends AppCompatActivity {
                 email.getText().toString(),
                 bairro.getText().toString(),
                 "Sem Plano",
-                telefone.getText().toString(),
+                telefone.getText().toString().replaceAll("[^\\d]", ""),
                 null,
                 url,
-                cnpj.getText().toString()
+                cnpj.getText().toString().replaceAll("[^\\d]", "")
         );
 
         Call<Integer> call = aPIPerfil.insertProfissional(perfil);
@@ -362,4 +366,90 @@ public class CadastroProfissional extends AppCompatActivity {
 
 
     }
+
+    private void configurarMascaraTelefone() {
+        telefone.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private final String mask = "(##) #####-####";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdating) {
+                    isUpdating = false;
+                    return;
+                }
+
+                String unmasked = s.toString().replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m == '#') {
+                        if (i < unmasked.length()) {
+                            formatted.append(unmasked.charAt(i));
+                            i++;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        formatted.append(m);
+                    }
+                }
+
+                isUpdating = true;
+                telefone.setText(formatted.toString());
+                telefone.setSelection(formatted.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void configurarMascaraCNPJ() {
+        cnpj.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private final String mask = "##.###.###/####-##";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdating) {
+                    isUpdating = false;
+                    return;
+                }
+
+                // Remove todos os caracteres que não são números
+                String unmasked = s.toString().replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m == '#') {
+                        if (i < unmasked.length()) {
+                            formatted.append(unmasked.charAt(i));
+                            i++;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        formatted.append(m);
+                    }
+                }
+
+                isUpdating = true;
+                cnpj.setText(formatted.toString());
+                cnpj.setSelection(formatted.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
 }

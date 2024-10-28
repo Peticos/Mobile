@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Perfil.Pet.Vacinas.cadastrar_dose"
-    android:background="@android:color/transparent">
+    android:background="@color/is_it_green"
+    android:backgroundTint="@color/is_it_green"
+    tools:context=".Perfil.Pet.Vacinas.cadastrar_dose">
 
 
     <androidx.cardview.widget.CardView
 
         android:id="@+id/cardCadastrarDose"
-        android:layout_width="300dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@color/beige"
@@ -81,6 +82,7 @@
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rounded_edit_text"
                     android:ems="10"
+                    android:inputType="date"
                     android:hint="Data"
                     android:paddingLeft="10dp"
                     android:textSize="14dp" />

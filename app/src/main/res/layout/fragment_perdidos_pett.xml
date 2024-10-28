@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,11 +23,11 @@
 
             <ImageButton
                 android:id="@+id/goBack"
-                android:clickable="true"
                 android:layout_width="30dp"
                 android:layout_height="37dp"
                 android:layout_weight="1"
                 android:background="#00FFFFFF"
+                android:clickable="true"
                 android:src="@drawable/baseline_arrow_left_24" />
 
             <TextView
@@ -47,14 +48,14 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:scaleType="fitXY"
-                app:shapeAppearance="@style/RoundedImage"
-                android:src="@drawable/fotogenerica" />
+                android:src="@drawable/fotogenerica"
+                app:shapeAppearance="@style/RoundedImage" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="579dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:paddingTop="20dp" />
     </LinearLayout>
 </FrameLayout>

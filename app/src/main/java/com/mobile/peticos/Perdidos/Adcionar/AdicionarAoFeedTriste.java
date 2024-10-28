@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -104,6 +106,8 @@ public class AdicionarAoFeedTriste extends Fragment {
         petsInvalidos = view.findViewById(R.id.petsInvalidos);
 
         carregarBairros();
+        formatarData(data);
+
 
         SharedPreferences limparCache = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = limparCache.edit();
@@ -222,7 +226,7 @@ public class AdicionarAoFeedTriste extends Fragment {
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
         String dataFormatada = formato.format(dataAtual); // postTime formatada
         // Tratamento da data de perda
-        String dataa = data.getText().toString(); // Entrada do campo de texto
+        String dataa = data.getText().toString().replaceAll("[^\\d]", ""); // Entrada do campo de texto
         SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault()); // Formato de entrada MM-dd-yyyy
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
@@ -257,7 +261,6 @@ public class AdicionarAoFeedTriste extends Fragment {
 
         SharedPreferences pet = getActivity().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
 
-
         String idPet = pet.getString("selectedPet", "112");
         int idPetInt = Integer.parseInt(idPet);
 
@@ -284,6 +287,7 @@ public class AdicionarAoFeedTriste extends Fragment {
             return;
         }
         if(dataa.isEmpty()){
+            Toast.makeText(getContext(), dataa, Toast.LENGTH_SHORT).show();
             Toast.makeText(getContext(), "Data Obrigatória", Toast.LENGTH_SHORT).show();
             data.setError("Data é obrigatória");
             return;
@@ -431,4 +435,53 @@ public class AdicionarAoFeedTriste extends Fragment {
         btnPublicar.setOnClickListener(this::RegistrarPetPerdido);
     }
 
+    public static void formatarData(final EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating; // Para evitar chamadas recursivas
+            private String old = ""; // Para armazenar o texto anterior
+            private final String format = "##/##/####"; // Formato da máscara (dd/MM/yyyy)
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Não precisamos de implementação aqui
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Não precisamos de implementação aqui
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isUpdating) {
+                    return; // Evita chamadas recursivas
+                }
+
+                String input = s.toString();
+                StringBuilder formatted = new StringBuilder();
+
+                // Removendo caracteres não numéricos
+                input = input.replaceAll("[^\\d]", "");
+
+                int j = 0;
+                for (int i = 0; i < format.length(); i++) {
+                    if (format.charAt(i) == '#') {
+                        if (j < input.length()) {
+                            formatted.append(input.charAt(j));
+                            j++;
+                        } else {
+                            break; // Para quando não há mais dígitos
+                        }
+                    } else {
+                        formatted.append(format.charAt(i)); // Adiciona caracteres da máscara
+                    }
+                }
+
+                isUpdating = true;
+                editText.setText(formatted.toString());
+                editText.setSelection(formatted.length()); // Manter o cursor no final
+                isUpdating = false;
+            }
+        });
+    }
 }
