@@ -50,7 +50,7 @@ public interface APIPets {
    Call<ModelRetorno> insertDose (@Body ModelDose dose);
 
    @GET ("/api/doses/getbyvaccine/{id}")
-   Call<List<ModelDose>> getDoses(@Path("id") Integer id);
+   Call<List<ModelDose>> getDoses(@Path("id") int id);
 
    @POST("/api/weight/insert")
    Call<ModelRetorno> insertWeight (@Body ModelPeso peso);

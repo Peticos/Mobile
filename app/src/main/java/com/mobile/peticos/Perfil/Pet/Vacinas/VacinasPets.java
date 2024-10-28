@@ -114,6 +114,7 @@ public class VacinasPets extends AppCompatActivity {
         }
 
         ModelVacina vacina = new ModelVacina(
+                0,
                 id,
                 nomeVacina,
                 doseSelecionada,
@@ -227,6 +228,7 @@ public class VacinasPets extends AppCompatActivity {
         List<ModelVacina> vacinas = new ArrayList<>();
         for (ModelVacina vacina : feedList) {
             vacinas.add(new ModelVacina(
+                    vacina.getIdVaccine(),
                     vacina.getIdPet(),
                     vacina.getName(),
                     vacina.getNumDoses(),

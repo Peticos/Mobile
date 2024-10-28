@@ -19,7 +19,9 @@ package com.mobile.peticos.Perfil.Pet.Vacinas;
 
 
         // Construtor
-        public ModelVacina( int idPet, String name, int numDoses, int dosesTaked) {
+
+        public ModelVacina(int idVaccine,int idPet, String name, int numDoses, int dosesTaked) {
+            this.idVaccine = idVaccine;
             this.idPet = idPet;
             this.name = name;
             this.numDoses = numDoses;
@@ -48,7 +50,7 @@ package com.mobile.peticos.Perfil.Pet.Vacinas;
 
         // Getters e Setters
         public int getIdVaccine() {
-            return idVaccine;
+            return this.idVaccine;
         }
 
         public void setIdVaccine(int idVaccine) {
