@@ -61,6 +61,8 @@ public class VacinasPets extends AppCompatActivity {
         btnsair = findViewById(R.id.btn_sair);
         btnsalvar = findViewById(R.id.btn_salvar);
 
+
+
         configurardoses();
 
 
@@ -84,6 +86,8 @@ public class VacinasPets extends AppCompatActivity {
             nome.setText("");
             doses.setSelection(0);
         });
+
+
 
         // Configuração do Retrofit
         setupRetrofitFeed();
@@ -112,8 +116,11 @@ public class VacinasPets extends AppCompatActivity {
         ModelVacina vacina = new ModelVacina(
                 id,
                 nomeVacina,
-                doseSelecionada
+                doseSelecionada,
+                0
         );
+
+
         Call<Integer> call = apiPets.insertVacina(vacina);
         call.enqueue(new Callback<Integer>() {
             @Override
@@ -222,7 +229,8 @@ public class VacinasPets extends AppCompatActivity {
             vacinas.add(new ModelVacina(
                     vacina.getIdPet(),
                     vacina.getName(),
-                    vacina.getNumDoses()
+                    vacina.getNumDoses(),
+                    vacina.getDosesTaked()
             ));
         }
         if(vacinas== null){

@@ -22,6 +22,7 @@
         android:required="false" />
 
     <application
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -33,7 +34,10 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
-            android:name=".PesoPets"
+            android:name=".Perfil.Pet.PesoPets"
+            android:exported="false" />
+        <activity
+            android:name=".Perfil.Pet.Vacinas.cadastrar_dose"
             android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
@@ -54,6 +58,7 @@
             android:name=".Local.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
+
         <activity
             android:name=".Local.WebViewActivity"
             android:exported="false" />
@@ -72,27 +77,19 @@
         <activity
             android:name=".Home.AdicionarProduto"
             android:exported="false" />
-        <activity
-            android:name=".Perdidos.PrimeirosCuidados"
-            android:exported="false" />
+
         <activity
             android:name=".Perfil.Pet.PersonalizarPets"
             android:exported="false" />
         <activity
             android:name=".Perfil.Pet.PerfilPet"
             android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.Vacinas.itemCadastroVacina"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.Vacinas.CadastroVacina"
-            android:exported="false" />
+
+
         <activity
             android:name=".Perfil.Pet.Vacinas.VacinasPets"
             android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.Vacinas.ItemVacina"
-            android:exported="false" />
+
         <activity
             android:name=".Cadastros.CadastrarPet"
             android:exported="false" />

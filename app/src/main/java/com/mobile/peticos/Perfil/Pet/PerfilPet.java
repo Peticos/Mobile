@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
 import com.mobile.peticos.Perfil.Pet.Vacinas.VacinasPets;
-import com.mobile.peticos.PesoPets;
 import com.mobile.peticos.R;
 
 import retrofit2.Call;

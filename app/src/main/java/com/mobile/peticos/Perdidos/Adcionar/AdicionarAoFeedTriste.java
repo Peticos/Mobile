@@ -39,8 +39,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
-import com.mobile.peticos.Cadastros.CadastroTutor;
-import com.mobile.peticos.Home.AdapterPetFeedPrincipal;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Perdidos.ApiPerdidos;
 import com.mobile.peticos.Perdidos.PerdidoFragment;

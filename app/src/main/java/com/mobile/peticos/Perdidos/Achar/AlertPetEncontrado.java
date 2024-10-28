@@ -1,14 +1,9 @@
 package com.mobile.peticos.Perdidos.Achar;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
-import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.R;
 
 public class AlertPetEncontrado extends AppCompatActivity {

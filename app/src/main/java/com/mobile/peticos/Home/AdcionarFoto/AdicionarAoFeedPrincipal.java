@@ -1,4 +1,4 @@
-package com.mobile.peticos.Home;
+package com.mobile.peticos.Home.AdcionarFoto;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
@@ -6,7 +6,6 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -31,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
+import com.mobile.peticos.Home.HomeFragment;
 import com.mobile.peticos.Padrao.Upload.Camera;
 
 import com.bumptech.glide.Glide;

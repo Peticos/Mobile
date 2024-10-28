@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
-import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
+import com.mobile.peticos.Home.AdcionarFoto.AdicionarAoFeedPrincipal;
 
 import java.util.List;
 
