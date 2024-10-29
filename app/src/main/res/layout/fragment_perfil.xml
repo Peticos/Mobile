@@ -140,7 +140,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/varela_round"
                                         android:paddingLeft="8dp"
-                                        android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                                        android:text="Aqui você pode conferir todas as publicações dos seus amiguinhos de patas! "
                                         android:textColor="@color/white"
                                         android:textSize="10sp" />
                                 </LinearLayout>
@@ -189,7 +189,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/varela_round"
                                         android:paddingLeft="8dp"
-                                        android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                                        android:text="Aqui você vê todos seus amiguinhos que estão perdidos :("
                                         android:textColor="@color/white"
                                         android:textSize="10sp" />
                                 </LinearLayout>
@@ -247,7 +247,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/varela_round"
                                         android:paddingLeft="8dp"
-                                        android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                                        android:text="Aqui você vê todas as suas vakinhas."
                                         android:textColor="@color/white"
                                         android:textSize="10sp" />
                                 </LinearLayout>

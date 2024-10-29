@@ -110,6 +110,11 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         legenda = view.findViewById(R.id.legenda);
         recyclerPets = view.findViewById(R.id.amiguinhos);
         petsInvalidos = view.findViewById(R.id.petsInvalidos);
+        // Remove o campo "selectedPets"
+        SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences2.edit();
+        editor.remove("selectedPets");
+        editor.apply(); // Aplica as alterações
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +158,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         btnPublicar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublicarPost();
+                validar();
             }
         });
 
@@ -223,15 +228,52 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         return view;
     }
 
+    Boolean erro = false;
+    private void validar(){
+        SharedPreferences sharedPreferencesPet = getActivity().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
+        Set<String> selectedPets = sharedPreferencesPet.getStringSet("selectedPets", new HashSet<>());
+
+        List<Integer> selectedPetsList = new ArrayList<>();
+
+        // Convertendo os valores de String para int e adicionando à lista
+        for (String petId : selectedPets) {
+            try {
+                // Tenta converter o ID do pet para int
+                int id = Integer.parseInt(petId);
+                selectedPetsList.add(id);
+            } catch (NumberFormatException e) {
+                // Trate a exceção se a conversão falhar
+                e.printStackTrace(); // Ou log a falha
+            }
+        }
+
+
+
+        if(url == null){
+            RequestOptions options = new RequestOptions()
+                    .centerCrop();
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(btnUpload);
+            erro = true;
+        }
+        if(legenda.getText().toString().isEmpty()){
+            legenda.setError("Legenda é obrigatória");
+            erro = true;
+        }
+        if(selectedPetsList.size() == 0){
+            petsInvalidos.setVisibility(View.VISIBLE);
+            erro = true;
+        }else{
+            petsInvalidos.setVisibility(View.GONE);
+
+        }
+        if(!erro){
+            PublicarPost();
+        }
+    }
     private void PublicarPost() {
-
-
-
-        // Obter a data atual formatada
-        String postDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-        // mudar para os pets
-
         SharedPreferences sharedPreferencesPet = getActivity().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
         Set<String> selectedPets = sharedPreferencesPet.getStringSet("selectedPets", new HashSet<>());
 
@@ -257,26 +299,13 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         List<String> likes = Arrays.asList();
         List<String> shares = Arrays.asList();
 
-        if(url == null){
-            Toast.makeText(getContext(), "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
-            RequestOptions options = new RequestOptions()
-                    .centerCrop();
-            Glide.with(this)
-                    .load(R.drawable.adicionar_imagem_vermelho)
-                    .apply(options)
-                    .into(btnUpload);
-            return;
-        }
-        if(legenda.getText().toString().isEmpty()){
-            Toast.makeText(getContext(), "Legenda Obrigatória", Toast.LENGTH_SHORT).show();
-            legenda.setError("Legenda é obrigatória");
-            return;
-        }
-        if(selectedPetsList.size() == 0){
-            Toast.makeText(getContext(), "Selecione pelo menos um pet!", Toast.LENGTH_SHORT).show();
-            petsInvalidos.setVisibility(View.VISIBLE);
-            return;
-        }
+
+        // Obter a data atual formatada
+        String postDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        // mudar para os pets
+
+
         // Criar uma nova instância de FeedPet
         FeedPet post = new FeedPet(
                 sharedPreferences.getInt("id", 284), // userId
@@ -354,7 +383,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
     public static interface APIHome {
 
         //mudar para alternado
-        @GET("/api/posts/all")
+        @GET("/api/posts/alternado")
         Call<List<FeedPet>> getAll();
 
         @GET("/api/dayhint/random")

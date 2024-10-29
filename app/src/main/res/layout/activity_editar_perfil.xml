@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/upload"
+            android:id="@+id/btnupload"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="52dp"
@@ -93,6 +93,15 @@
             android:inputType="text"
             android:paddingLeft="10dp"
             android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/varela_round"
+            android:text="Nome do Usuário"
+            android:textColor="@color/water_blue" />
 
         <TextView
             android:id="@+id/textView13"

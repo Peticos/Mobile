@@ -66,20 +66,9 @@ public class EditarPerfil extends AppCompatActivity {
 
         telefone = findViewById(R.id.Telefone);
         bairro = findViewById(R.id.Bairro);
-        upload = findViewById(R.id.upload);
+        upload = findViewById(R.id.btnupload);
         btAtualizar = findViewById(R.id.btAtualizar);
         genero = findViewById(R.id.Genero);
-
-        // Armazenar todas as informações no SharedPreferences
-//        editor.putString("nome", perfil.getFullName());
-//        editor.putString("nome_usuario", perfil.getUserName());
-//        editor.putString("email", perfil.getEmail());
-//        editor.putString("bairro", perfil.getBairro());
-//        editor.putBoolean("mei", false);
-//        editor.putString("telefone", perfil.getTelefone());
-//        editor.putString("url", perfil.getProfilePicture());
-//        editor.putString("genero", perfil.getGender());
-//        editor.putInt("id", response.body());
 
         voltar.setOnClickListener(v -> {
             finish();
@@ -339,19 +328,16 @@ public class EditarPerfil extends AppCompatActivity {
         APIPerfil api = retrofit.create(APIPerfil.class);
 
         ModelPerfil perfil = new ModelPerfil(
-                idUser,
                 nomeCompleto.getText().toString(),
                 username,
                 emailUser,
                 bairro.getText().toString(),
-                "Sem Plano",
                 telefone.getText().toString(),
-                null,
+                username,
                 url,
                 genero.getText().toString(),
-                "Tutor"
+                null
         );
-
         Log.d("EDITAR_PERFIL", perfil.toString());
         Call<ModelRetorno> call = api.update(perfil);
 
@@ -368,6 +354,7 @@ public class EditarPerfil extends AppCompatActivity {
                     editor.putString("telefone", telefone.getText().toString());
                     editor.putString("url", url);
                     editor.putString("genero", genero.getText().toString());
+                    editor.apply();
 
 //                    Intent intent = new Intent(EditarPerfil.this, MainActivity.class);
 //                    startActivity(intent);

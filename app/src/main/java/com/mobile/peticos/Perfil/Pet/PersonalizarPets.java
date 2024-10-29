@@ -1,6 +1,7 @@
 package com.mobile.peticos.Perfil.Pet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -37,6 +38,7 @@ public class PersonalizarPets extends AppCompatActivity {
     ImageView  btn_cor, btn_acessorio_cabeca, btn_brinquedo, petzao, btn_oculos, brinquedao;
     LinearLayout color_dog_layout, color_cat_layout, acessorio_cabeca_layout, brinquedo_layout, oculos_layout;
     Boolean initial_value_oculoes = false, dog_cat; // true = dog, false = cat
+
 
     int corpo, cabeca, brinquedo, oculos;
     ImageView btnVoltar;
@@ -372,6 +374,8 @@ public class PersonalizarPets extends AppCompatActivity {
     private void configurarCampo(){
         btAtualizar = findViewById(R.id.btAtualizar);
         btnVoltar = findViewById(R.id.btnVoltar);
+        //cards
+
         //gato opcoes
         cat_1 = findViewById(R.id.cat_1);
         cat_2 = findViewById(R.id.cat_2);
@@ -444,7 +448,7 @@ public class PersonalizarPets extends AppCompatActivity {
         color_cat_layout = findViewById(R.id.gatos_cores);
 
         //icon pre selecionado
-        btn_cor.setImageResource(R.drawable.ic_personalizar_pet_2_1);
+        btn_cor.setImageResource(R.drawable.ic_personalizar_pet_2_2);
 
         //linearlayout escondidos
 
@@ -700,6 +704,7 @@ public class PersonalizarPets extends AppCompatActivity {
             public void onClick(View view) {
                 corpo = 1;
                 petzao.setImageResource(R.drawable.cat_personalizado_1);
+
             }
         });
         cat_2.setOnClickListener(new View.OnClickListener() {

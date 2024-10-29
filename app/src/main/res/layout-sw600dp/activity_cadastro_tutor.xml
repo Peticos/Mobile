@@ -91,7 +91,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 
@@ -129,7 +129,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 
@@ -167,7 +167,7 @@
 
                         android:inputType="phone"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 
@@ -187,31 +187,31 @@
 
                         />
 
-                    <AutoCompleteTextView
-
+                    <Spinner
                         android:id="@+id/genero"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:popupBackground="@color/white" />
+
+                    <TextView
+
+                        android:id="@+id/generoobrigatorio"
 
                         android:layout_width="match_parent"
 
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginLeft="10dp"
 
                         android:layout_marginBottom="10dp"
 
-                        android:background="@drawable/rounded_edit_text"
+                        android:fontFamily="@font/varela_round"
 
-                        android:ems="10"
+                        android:text="Gênero obrigatório"
 
-                        android:hint="Selecione o gênero"
-
-                        android:inputType="text"
-
-                        android:paddingLeft="10dp"
-
-                        android:paddingRight="10dp"
-
-                        android:textSize="14sp"
-
-                        />
+                        android:textColor="@color/red_or_orange"
+                        android:textSize="12sp" />
 
                     <TextView
 
@@ -247,9 +247,7 @@
 
                         android:inputType="text"
 
-                        android:paddingLeft="10dp"
-
-                        android:paddingRight="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14sp"
 
@@ -289,7 +287,7 @@
 
                         android:inputType="textEmailAddress"
 
-                        android:paddingLeft="10dp"
+                        android:paddingHorizontal="10dp"
 
                         android:textSize="14dp" />
 

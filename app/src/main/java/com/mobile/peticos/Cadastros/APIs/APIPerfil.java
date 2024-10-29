@@ -32,6 +32,8 @@ public interface APIPerfil {
 
     @PUT("/api/user/updateuser")
     Call<ModelRetorno> update(@Body ModelPerfil model);
+    @PUT("/api/user/updateprofissional")
+    Call<ModelRetorno> updateProfissional(@Body ModelPerfil model);
 
     @DELETE("/api/user/delete/{id}")
     Call<ModelPerfil> delete(@Path("id") int id);

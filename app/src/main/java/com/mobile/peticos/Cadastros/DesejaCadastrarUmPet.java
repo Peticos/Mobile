@@ -23,31 +23,14 @@ public class DesejaCadastrarUmPet extends AppCompatActivity {
         btnSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundleCadastro = getIntent().getExtras();
-                int id = bundleCadastro.getInt("id");
-
                 Intent intent = new Intent(DesejaCadastrarUmPet.this, CadastrarPet.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", id);
-                intent.putExtras(bundle);
+
                 startActivity(intent);
                 finish();
             }
         });
     }
 
-    public void Main(View view) {
-
-        Bundle bundleCadastro = getIntent().getExtras();
-        int id = bundleCadastro.getInt("id");
-
-        Intent intent = new Intent(this, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", id);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        finish();
-    }
 
     public void Entrar(View view) {
         Intent intent = new Intent(this, MainActivity.class);

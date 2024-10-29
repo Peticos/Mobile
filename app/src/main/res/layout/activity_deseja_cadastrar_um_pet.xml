@@ -14,7 +14,7 @@
         android:fontFamily="@font/lilita_one"
         android:text="Você deseja cadastrar seu pet?"
         android:textColor="@color/water_blue"
-        android:textSize="40sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
