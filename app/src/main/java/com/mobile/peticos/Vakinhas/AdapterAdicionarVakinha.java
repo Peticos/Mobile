@@ -48,7 +48,7 @@ public class AdapterAdicionarVakinha extends RecyclerView.Adapter<AdapterAdicion
         holder.nome.setText(Pet.getNickname());
 
         // Recupera o SharedPreferences
-        SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("PetTriste", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("PetVakinha", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // Certifique-se de usar a mesma chave 'selectedPet'
@@ -74,6 +74,7 @@ public class AdapterAdicionarVakinha extends RecyclerView.Adapter<AdapterAdicion
         // Evento de clique para cancelar a seleção do pet
         holder.cancelarPet.setOnClickListener(v -> {
             editor.putString("selectedPet", "0"); // Corrigido: limpar 'selectedPet'
+
             editor.apply();
 
             // Atualizar a exibição após desmarcar o pet
