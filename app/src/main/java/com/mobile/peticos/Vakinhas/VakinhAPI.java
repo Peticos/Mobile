@@ -22,5 +22,5 @@ public interface VakinhAPI {
     @GET("/api/vakinha/getall")
     Call<List<Vakinha>> getAll();
     @GET("/api/vakinha/getByUser/{id}")
-    Call<Vakinha> getByID(@Path("id") int id);
+    Call<List<Vakinha>> getByID(@Path("id") int id);
 }
