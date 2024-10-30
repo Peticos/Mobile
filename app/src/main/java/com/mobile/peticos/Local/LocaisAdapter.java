@@ -46,6 +46,7 @@ public class LocaisAdapter extends RecyclerView.Adapter<LocaisAdapter.LocalViewH
         holder.btnSaibaMais.setOnClickListener(v -> {
             Intent intent = new Intent(holder.itemView.getContext(), WebViewActivity.class);
             intent.putExtra("url", local.getLinkKnowMore());
+            intent.putExtra("titulo", "Locais");
             holder.itemView.getContext().startActivity(intent);
         });
         //Configurar localizacao

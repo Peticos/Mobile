@@ -336,6 +336,7 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             holder.circulo8.setVisibility(View.VISIBLE);
 
         }
+
         else if(vacina.getNumDoses() == 5){
             if(doses_tomadas < 1){
                 holder.circulo1.setImageResource(R.drawable.ic_doze_n_tomada);
@@ -396,6 +397,7 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             holder.circulo9.setVisibility(View.VISIBLE);
 
         }
+        holder.data1.setVisibility(View.VISIBLE);
     }
 
     @Override
