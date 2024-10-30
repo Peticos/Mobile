@@ -33,6 +33,7 @@ import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.Perfil.Tutor.AdapterPets.AdapterPet;
 import com.mobile.peticos.Perfil.Tutor.Posts.FeedDoPet;
 import com.mobile.peticos.Perfil.Tutor.Posts.PerdidosTutor;
+import com.mobile.peticos.Perfil.Tutor.Posts.VakinhasTutor;
 import com.mobile.peticos.R;
 
 import org.jetbrains.annotations.Nullable;
@@ -169,7 +170,7 @@ public class PerfilFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                goToPost(view);
+                goToVakinhas(view);
             }
         }    );
         cardPerdidos.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +198,14 @@ public class PerfilFragment extends Fragment {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainerView, FeedDoPet.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    public void goToVakinhas(View view) {
+        Log.d("FragmentNavigation", "Navigating to Vakinha fragment");
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainerView, VakinhasTutor.newInstance());
         transaction.addToBackStack(null);
         transaction.commit();
     }

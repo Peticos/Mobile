@@ -383,7 +383,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
     public static interface APIHome {
 
         //mudar para alternado
-        @GET("/api/posts/all")
+        @GET("/api/posts/alternado")
         Call<List<FeedPet>> getAll();
 
         @GET("/api/dayhint/random")

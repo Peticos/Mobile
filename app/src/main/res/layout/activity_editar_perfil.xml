@@ -26,6 +26,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/btnupload"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="52dp"
+            android:backgroundTint="@color/is_it_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/upload_foto" />
+
+        <ImageView
             android:id="@+id/imageView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,18 +102,6 @@
             android:fontFamily="@font/varela_round"
             android:text="Nome do Usuário"
             android:textColor="@color/water_blue" />
-
-        <EditText
-            android:id="@+id/NomeUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_edit_text"
-            android:ems="10"
-            android:hint="Nome do Usuário"
-            android:inputType="number"
-            android:paddingLeft="10dp"
-            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/textView13"

@@ -66,20 +66,9 @@ public class EditarPerfil extends AppCompatActivity {
 
         telefone = findViewById(R.id.Telefone);
         bairro = findViewById(R.id.Bairro);
-        //upload = findViewById(R.id.btnupload);
+        upload = findViewById(R.id.btnupload);
         btAtualizar = findViewById(R.id.btAtualizar);
         genero = findViewById(R.id.Genero);
-
-        RequestOptions options = new RequestOptions()
-                .centerCrop()
-                .transform(new RoundedCorners(30));
-
-        Glide.with(this)
-                .load(sharedPreferences.getString("url", ""))
-                .placeholder(R.drawable.fotogenerica)
-                .error(R.drawable.fotogenerica)
-                .apply(options)
-                .into(upload);
 
         voltar.setOnClickListener(v -> {
             finish();
@@ -338,37 +327,17 @@ public class EditarPerfil extends AppCompatActivity {
                 .build();
         APIPerfil api = retrofit.create(APIPerfil.class);
 
-        //{
-        //    "fullName": "João",
-        //    "usernameId": "teste",
-        //    "username": "teste",
-        //    "email": "testeupdateall@gmail.com",
-        //    "bairro": "Americanópolis",
-        //    "phone": "11989945125",
-        //    "gender": "Feminino"
-        //}
-//        this.fullName = fullName;
-//        this.username = username;
-//        this.email = email;
-//        this.bairro = bairro;
-//        this.phone = phone;
-//        this.usernameId = usernameId;
-//        this.profilePicture = profilePicture;
-//        this.gender = gender;
-//        this.cnpj = cnpj;
         ModelPerfil perfil = new ModelPerfil(
                 nomeCompleto.getText().toString(),
                 username,
                 emailUser,
                 bairro.getText().toString(),
-                "Sem Plano",
                 telefone.getText().toString(),
                 username,
                 url,
                 genero.getText().toString(),
                 null
         );
-
         Log.d("EDITAR_PERFIL", perfil.toString());
         Call<ModelRetorno> call = api.update(perfil);
 
@@ -385,6 +354,7 @@ public class EditarPerfil extends AppCompatActivity {
                     editor.putString("telefone", telefone.getText().toString());
                     editor.putString("url", url);
                     editor.putString("genero", genero.getText().toString());
+                    editor.apply();
 
 //                    Intent intent = new Intent(EditarPerfil.this, MainActivity.class);
 //                    startActivity(intent);

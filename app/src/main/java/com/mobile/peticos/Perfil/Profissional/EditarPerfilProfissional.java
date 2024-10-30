@@ -62,7 +62,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         bairro = findViewById(R.id.Bairro);
         cnpj = findViewById(R.id.cnpj);
 
-        btUpload = findViewById(R.id.upload);
+        btUpload = findViewById(R.id.btnupload);
         btAtualizar = findViewById(R.id.btAtualizar);
 
         configurarCameraLauncher();
@@ -115,7 +115,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         });
 
         // Configurar o evento do botão de cadastro
-        btAtualizar.setOnClickListener(v -> validarCampos(v));
+        btAtualizar.setOnClickListener(v -> atualizarTutorBanco(v));
     }
     private void carregarDadosDoPerfil(){
         String urlAPI = "https://apipeticos-ltwk.onrender.com";
@@ -147,6 +147,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
 
                     Glide.with(EditarPerfilProfissional.this)
                             .load(url)
+                            .error(R.drawable.upload_foto)
                             .apply(options)
                             .into(btUpload);
 
@@ -250,9 +251,17 @@ public class EditarPerfilProfissional extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                 if(response.isSuccessful() && response.body() != null) {
+                    // Armazenar todas as informações no SharedPreferences
+                    SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("nome", nomeCompleto.getText().toString());
+                    editor.putString("bairro", bairro.getText().toString());
+                    editor.putString("telefone", telefone.getText().toString());
+                    editor.putString("url", url);
+                    editor.putString("cnpj", cnpj.getText().toString());
+                    editor.apply();
                     Toast.makeText(EditarPerfilProfissional.this, "Perfil Editado com sucesso!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(EditarPerfilProfissional.this, DesejaCadastrarUmPet.class);
-                    startActivity(intent);
+
                     finish();
                 } else{
                     String errorMessage;
