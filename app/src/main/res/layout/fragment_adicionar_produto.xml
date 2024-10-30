@@ -136,7 +136,7 @@
                         android:background="@drawable/rounded_edit_text"
                         android:ems="10"
                         android:hint="Valor unitário"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:paddingLeft="10dp"
                         android:textSize="14dp" />
 
