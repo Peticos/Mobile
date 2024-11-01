@@ -19,6 +19,7 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.R;
 
@@ -39,6 +40,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
     Retrofit retrofit;
     String emailUser, url;
     int userId, idAddress, idPlan;
+    MetodosBanco metodosBanco = new MetodosBanco();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,17 +187,20 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         }
 
         if (!erro) {
-            // Verificar se o bairro é válido antes de continuar o cadastro
-//            verificarBairro(new CadastroTutor.BairroCallback() {
-//                @Override
-//                public void onResult(boolean bairroEncontrado) {
-//                    if (bairroEncontrado) {
-//                        atualizarTutorBanco(view); // Continuar com o cadastro
-//                    } else {
-//                        bairro.setError("Selecione um bairro válido");
-//                    }
-//                }
-//            });
+//             Verificar se o bairro é válido antes de continuar o cadastro
+            metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
+                @Override
+                public void onResult(boolean bairroEncontrado) {
+                    if (bairroEncontrado) {
+                        // Se o bairro for encontrado, prossiga com o cadastro
+                        atualizarTutorBanco(view);
+                    } else {
+                        // Mostra um erro se o bairro não for válido
+                        bairro.setError("Selecione um bairro válido");
+                    }
+                }
+            }, bairro); // Passando o EditText bairro como argumento
+
         }
     }
 
@@ -265,49 +270,5 @@ public class EditarPerfilProfissional extends AppCompatActivity {
         return phoneNumber.length() == 10 || phoneNumber.length() == 11;
     }
 
-    //private void verificarBairro(CadastroTutor.BairroCallback callback) {
-//        // URL da API
-//        String API = "https://apipeticos-ltwk.onrender.com";
-//        retrofit = new Retrofit.Builder()
-//                .baseUrl(API)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        // Criar chamada
-//        APIBairro apiBairro = retrofit.create(APIBairro.class);
-//        Call<List<ModelBairro>> call = apiBairro.getAll();
-//
-//        // Defina o bairro que você deseja verificar
-//        String bairroProcurado = bairro.getText().toString();
-//
-//        // Executar chamada da API
-//        call.enqueue(new Callback<List<ModelBairro>>() {
-//            @Override
-//            public void onResponse(Call<List<ModelBairro>> call, retrofit2.Response<List<ModelBairro>> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    List<ModelBairro> bairrosList = response.body();
-//
-//                    // Verificar se o bairro está presente
-//                    boolean bairroEncontrado = false;
-//                    for (ModelBairro bairro : bairrosList) {
-//                        if (bairroProcurado.equalsIgnoreCase(bairro.getNeighborhood())) {
-//                            bairroEncontrado = true;
-//                            break;
-//                        }
-//                    }
-//
-//                    // Chamar o callback com o resultado
-//                    callback.onResult(bairroEncontrado);
-//                } else {
-//                    callback.onResult(false);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
-//                throwable.printStackTrace();
-//                callback.onResult(false);
-//            }
-//        });
-//    }
+
 }

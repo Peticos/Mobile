@@ -2,9 +2,12 @@ package com.mobile.peticos.Padrao;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
+import com.mobile.peticos.Cadastros.Bairros.APIBairro;
+import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Home.AdicionarAoFeedPrincipal;
 
 import java.util.List;
@@ -16,6 +19,57 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MetodosBanco {
+
+    public void verificarBairro(BairroCallback callback, EditText bairro) {
+        // URL da API
+        String API = "https://apipeticos-ltwk.onrender.com";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Criar chamada
+        APIBairro apiBairro = retrofit.create(APIBairro.class);
+        Call<List<ModelBairro>> call = apiBairro.getAll();
+
+        // Defina o bairro que você deseja verificar
+        String bairroProcurado = bairro.getText().toString();
+
+        // Executar chamada da API
+        call.enqueue(new Callback<List<ModelBairro>>() {
+            @Override
+            public void onResponse(Call<List<ModelBairro>> call, retrofit2.Response<List<ModelBairro>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<ModelBairro> bairrosList = response.body();
+
+                    // Verificar se o bairro está presente
+                    boolean bairroEncontrado = false;
+                    for (ModelBairro item : bairrosList) {
+                        if (bairroProcurado.equalsIgnoreCase(item.getNeighborhood())) {
+                            bairroEncontrado = true;
+                            break;
+                        }
+                    }
+
+                    // Chamar o callback com o resultado
+                    callback.onResult(bairroEncontrado);
+                } else {
+                    callback.onResult(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
+                throwable.printStackTrace();
+                callback.onResult(false);
+            }
+        });
+    }
+
+    // Defina a interface BairroCallback
+    public interface BairroCallback {
+        void onResult(boolean bairroEncontrado);
+    }
 
     public void getPerfil(int id, Context context, PerfilCallback callback) {
         String API = "https://apipeticos-ltwk.onrender.com";

@@ -166,7 +166,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             if(id == pet.getIdUser()){
                 holder.acharPet.setVisibility(View.VISIBLE);
                 holder.acharPet.setOnClickListener(v->{
-                    acharPet(id,holder);
+                    acharPet(pet.getIdUser(),holder);
                 });
             }else{
                 holder.acharPet.setVisibility(View.GONE);
