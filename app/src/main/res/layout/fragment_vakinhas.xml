@@ -12,8 +12,8 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="409dp"
-            android:layout_height="729dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,20 +32,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_logo"
-                    app:tint="@color/asereje_yellow"
                     android:paddingRight="140dp"
-                    android:contentDescription="Logo"/>
+                    android:src="@drawable/ic_logo"
+                    app:tint="@color/asereje_yellow"/>
 
                 <ImageButton
                     android:id="@+id/btnAdicionar"
-                    android:layout_width="30dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:contentDescription="Button add"
-                    android:src="@drawable/ic_add"
-                    app:tint="@color/wood_brown" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="30dp"
+                    app:srcCompat="@drawable/ic_add"
+                    android:background="@null"
+                    app:tint="@color/asereje_yellow"/>
 
             </LinearLayout>
 

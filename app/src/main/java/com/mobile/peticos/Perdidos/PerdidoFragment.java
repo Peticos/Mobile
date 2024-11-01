@@ -167,7 +167,8 @@ public class PerdidoFragment extends Fragment {
                     pet.getLocation(),
                     pet.getLostDate(),
                     pet.getPhone(),
-                    pet.getRescuedDate()
+                    pet.getRescuedDate(),
+                    pet.getId_rescued_lost()
             ));
         }
         recyclerView.setAdapter(new AdapterPerdidos(PerdidosModels));

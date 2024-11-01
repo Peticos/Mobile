@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +41,8 @@ public class PerdidosTutor extends Fragment {
 
     private APIPerfil apiPerfil;
     private RecyclerView recyclerView;
+    private CardView cardPerdidosSemPost, cardErroPerdidos;
+    private ProgressBar progressBar;
 
     public static PerdidosTutor newInstance() {
         return new PerdidosTutor();
@@ -57,6 +61,9 @@ public class PerdidosTutor extends Fragment {
         View view = inflater.inflate(R.layout.fragment_perdidos_pett, container, false);
         recyclerView = view.findViewById(R.id.recycler);
         ImageButton voltar = view.findViewById(R.id.goBack);
+        cardErroPerdidos = view.findViewById(R.id.cardErroPerdidos);
+        cardPerdidosSemPost = view.findViewById(R.id.cardPerdidosSemPost);
+        progressBar = view.findViewById(R.id.progressBar2);
 
         initRecyclerViewFeed();
 
@@ -87,19 +94,22 @@ public class PerdidosTutor extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
         int id = sharedPreferences.getInt("id",10);
 
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<PetPerdido>> call = apiPerfil.getRescuedLostByid(id); // Use o ID do sharedPreferences
         call.enqueue(new Callback<List<PetPerdido>>() {
             @Override
             public void onResponse(Call<List<PetPerdido>> call, Response<List<PetPerdido>> response) {
                 Log.d("FeedDoPet", "Resposta da API recebida. Código: " + response.code()); // Logando o código de resposta
 
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().size()!=0) {
                     List<PetPerdido> feedList = response.body();
-
+                    progressBar.setVisibility(View.GONE);
                     Log.d("FeedDoPet", "Dados recebidos: " + feedList.toString()); // Logando os dados recebidos
 
                     updateRecyclerViewFeed(feedList);
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    cardPerdidosSemPost.setVisibility(View.VISIBLE);
                     Log.e("FeedDoPet", "Erro na resposta: " + (response.errorBody() != null ? response.errorBody().toString() : "Resposta vazia"));
                     Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
@@ -107,6 +117,8 @@ public class PerdidosTutor extends Fragment {
 
             @Override
             public void onFailure(Call<List<PetPerdido>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
+                cardErroPerdidos.setVisibility(View.VISIBLE);
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
                 Toast.makeText(getContext(), "Erro ao carregar posts: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
