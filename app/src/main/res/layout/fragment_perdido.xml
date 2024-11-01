@@ -12,9 +12,10 @@
         android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,8 +24,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:gravity="center"
             android:layout_marginTop="16dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -32,20 +33,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_logo"
                 android:paddingRight="140dp"
-                app:tint="@color/red_or_orange"
-                android:contentDescription="Logo"/>
+                android:src="@drawable/ic_logo"
+                app:tint="@color/red_or_orange"/>
 
                 <ImageButton
                     android:id="@+id/btnAdicionar"
-                    android:layout_width="30dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:contentDescription="Button add"
-                    android:src="@drawable/ic_add"
-                    app:tint="@color/wood_brown" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="30dp"
+                    app:srcCompat="@drawable/ic_add"
+                    android:background="@null"
+                    app:tint="@color/red_or_orange"/>
 
         </LinearLayout>
 
@@ -59,9 +58,8 @@
 
             <TextView
                 android:id="@+id/textView30"
-                android:layout_width="96dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:fontFamily="@font/lilita_one"
                 android:paddingLeft="24dp"
                 android:text="Pets Perdidos"
@@ -70,9 +68,9 @@
 
             <ImageView
                 android:id="@+id/infoPerdidos"
-                android:layout_width="1dp"
+                android:layout_width="28dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:paddingLeft="8dp"
                 android:src="@drawable/ic_alert"
                 app:tint="@color/red_or_orange" />
 
@@ -89,9 +87,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyclerViewPetsPerdidos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="30dp">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>

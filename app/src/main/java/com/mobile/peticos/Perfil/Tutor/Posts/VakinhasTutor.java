@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +41,8 @@ public class VakinhasTutor extends Fragment {
 
     private VakinhAPI apiVakinha;
     private RecyclerView recyclerView;
+    private CardView cardVakinhasSemPost, cardErroVakinhas;
+    private ProgressBar progressBar;
 
     public static VakinhasTutor newInstance() {
         return new VakinhasTutor();
@@ -56,6 +60,9 @@ public class VakinhasTutor extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vakinhas_tutor, container, false);
         recyclerView = view.findViewById(R.id.recycler);
+        cardVakinhasSemPost = view.findViewById(R.id.cardVakinhasSemPost);
+        cardErroVakinhas = view.findViewById(R.id.cardErroVakinhas);
+        progressBar = view.findViewById(R.id.progressBar2);
         ImageButton voltar = view.findViewById(R.id.goBack);
 
         initRecyclerViewFeed();
@@ -87,19 +94,24 @@ public class VakinhasTutor extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
         int id = sharedPreferences.getInt("id",10);
 
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<Vakinha>> call = apiVakinha.getByID(id); // Use o ID do sharedPreferences
         call.enqueue(new Callback<List<Vakinha>>() {
             @Override
             public void onResponse(Call<List<Vakinha>> call, Response<List<Vakinha>> response) {
                 Log.d("FeedDoPet", "Resposta da API recebida. Código: " + response.code()); // Logando o código de resposta
 
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().size() > 0) {
                     List<Vakinha> feedList = response.body();
 
+
+                    progressBar.setVisibility(View.GONE);
                     Log.d("FeedDoPet", "Dados recebidos: " + feedList.toString()); // Logando os dados recebidos
 
                     updateRecyclerViewFeed(feedList);
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    cardVakinhasSemPost.setVisibility(View.VISIBLE);
                     Log.e("FeedDoPet", "Erro na resposta: " + (response.errorBody() != null ? response.errorBody().toString() : "Resposta vazia"));
                     Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
@@ -107,6 +119,8 @@ public class VakinhasTutor extends Fragment {
 
             @Override
             public void onFailure(Call<List<Vakinha>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
+                cardErroVakinhas.setVisibility(View.VISIBLE);
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
                 Toast.makeText(getContext(), "Erro ao carregar posts: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
