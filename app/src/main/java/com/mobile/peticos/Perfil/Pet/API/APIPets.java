@@ -5,6 +5,7 @@ import com.mobile.peticos.Perfil.Pet.API.Cor;
 import com.mobile.peticos.Perfil.Pet.API.ModelPetBanco;
 import com.mobile.peticos.Perfil.Pet.API.Personalizacao;
 import com.mobile.peticos.Perfil.Pet.API.Raca;
+import com.mobile.peticos.Perfil.Pet.Vacinas.ModelDose;
 import com.mobile.peticos.Perfil.Pet.Vacinas.ModelVacina;
 import com.mobile.peticos.Perfil.Pet.Vacinas.VacinasPets;
 
@@ -46,7 +47,13 @@ public interface APIPets {
    Call<Integer> insertVacina (@Body ModelVacina vacina);
 
    @POST("/api/doses/insert")
-   Call<ModelRetorno> insertDose (@Body ModelVacina vacina);
+   Call<ModelRetorno> insertDose (@Body ModelDose dose);
+
+   @GET ("/api/doses/getbyvaccine/{id}")
+   Call<List<ModelDose>> getDoses(@Path("id") int id);
+
+   @POST("/api/weight/insert")
+   Call<ModelRetorno> insertWeight (@Body ModelPeso peso);
 
 
 

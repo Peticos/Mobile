@@ -33,9 +33,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
-
-
-
+        <activity
+            android:name=".Perfil.Pet.PesoPets"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Perfil.Pet.Vacinas.cadastrar_dose"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -54,71 +59,81 @@
         <activity
             android:name=".Local.MapsActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".Local.WebViewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Padrao.Upload.Camera"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Perfil.Pet.EditarPerfilPet"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Perfil.Profissional.EditarPerfilProfissional"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Perfil.Tutor.EditarPerfil"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Home.AdicionarProduto"
-            android:exported="false" />
-        <activity
-            android:name=".Perdidos.PrimeirosCuidados"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".Perfil.Pet.PersonalizarPets"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Perfil.Pet.PerfilPet"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.Vacinas.itemCadastroVacina"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.Vacinas.CadastroVacina"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+
         <activity
             android:name=".Perfil.Pet.Vacinas.VacinasPets"
-            android:exported="false" />
-        <activity
-            android:name=".Perfil.Pet.Vacinas.ItemVacina"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".Cadastros.CadastrarPet"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Cadastros.DesejaCadastrarUmPet"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Cadastros.CadastroTutor"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Cadastros.CadastroProfissional"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Cadastros.Tutor_ou_Profissional"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Login"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

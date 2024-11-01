@@ -5,10 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Local.WebViewActivity">
-    <WebView
-        android:id="@+id/webView"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:background="@drawable/fundo_perfil"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnVoltar"
+                android:layout_width="30dp"
+                android:layout_height="37dp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/baseline_arrow_left_24" />
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="160dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lilita_one"
+                android:text="titulo"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

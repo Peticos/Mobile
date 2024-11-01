@@ -172,40 +172,31 @@
                     android:text="11 "
                     android:textColor="@color/is_it_green"
                     android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:fontFamily="@font/varela_round"
-                    android:text="Anos"
-                    android:textColor="@color/is_it_green"
-                    android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_gravity="center|center_vertical"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
+                android:gravity="center_horizontal|top"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/sexopet" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/varela_round"
+                        android:fontFamily="@font/lilita_one"
                         android:gravity="center"
                         android:text="Sexo"
                         android:textColor="@color/is_it_green"
@@ -213,7 +204,7 @@
 
                     <TextView
                         android:id="@+id/sexoPet"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/varela_round"
@@ -225,21 +216,21 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/raca_pet" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/varela_round"
+                        android:fontFamily="@font/lilita_one"
                         android:gravity="center"
                         android:text="Raça"
                         android:textColor="@color/is_it_green"
@@ -247,7 +238,7 @@
 
                     <TextView
                         android:id="@+id/RacaPet"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/varela_round"
@@ -259,21 +250,21 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/ic_color_pet" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/varela_round"
+                        android:fontFamily="@font/lilita_one"
                         android:gravity="center"
                         android:text="Cor"
                         android:textColor="@color/is_it_green"
@@ -281,7 +272,7 @@
 
                     <TextView
                         android:id="@+id/CorPet"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/varela_round"
@@ -293,21 +284,21 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="37dp"
-                        android:layout_height="37dp"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/porte" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/varela_round"
+                        android:fontFamily="@font/lilita_one"
                         android:gravity="center"
                         android:text="Porte"
                         android:textColor="@color/is_it_green"
@@ -315,7 +306,7 @@
 
                     <TextView
                         android:id="@+id/PortPet"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/varela_round"
@@ -339,8 +330,9 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/Vacinas"
                     android:layout_width="152dp"
-                    android:layout_height="100dp"
+                    android:layout_height="116dp"
                     android:layout_marginRight="20dp"
+                    android:paddingBottom="8dp"
                     android:background="@drawable/perfil"
                     android:backgroundTint="@color/water_blue"
                     android:clickable="true"
@@ -358,13 +350,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="25dp"
                             android:gravity="center"
+                            android:layout_marginTop="2dp"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/imageView18"
-                                android:layout_width="wrap_content"
+                                android:layout_width="30dp"
                                 android:layout_height="20dp"
-                                android:layout_weight="1"
                                 app:srcCompat="@drawable/ic_injection" />
 
                             <TextView
@@ -381,16 +373,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/varela_round"
-                            android:paddingLeft="8dp"
-                            android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                            android:paddingHorizontal="8dp"
+                            android:text="Aqui você pode deixar marcado todas as vacinas que seu pet já tomou ou precisa tomar, para poder ter um controle melhor da saúde do meu amiguinho."
                             android:textColor="@color/white"
                             android:textSize="10sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/Peso"
                     android:layout_width="152dp"
-                    android:layout_height="100dp"
+                    android:layout_height="116dp"
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/perfil"
                     android:backgroundTint="@color/water_blue"
@@ -409,12 +402,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="25dp"
                             android:gravity="center"
+                            android:layout_marginTop="2dp"
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="wrap_content"
+                                android:layout_width="30dp"
                                 android:layout_height="20dp"
-                                android:layout_weight="1"
                                 app:srcCompat="@drawable/ic_peso" />
 
                             <TextView
@@ -431,8 +424,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/varela_round"
-                            android:paddingLeft="8dp"
-                            android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria, Lorem Ipsum é simplesmente uma simulação de texto da indústria"
+                            android:paddingHorizontal="8dp"
+                            android:text="Aqui você pode adicionar todas as mudanças de peso do seu amiguinho. para poder ter um controle melhor da saúde do meu amiguinho."
                             android:textColor="@color/white"
                             android:textSize="10sp" />
                     </LinearLayout>

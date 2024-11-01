@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class Login extends AppCompatActivity {
     EditText txtEmail, txtSenha;
     TextView senhainvalida;
     MetodosBanco metodosBanco = new MetodosBanco();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class Login extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnentrar);
         btnCadastrar = findViewById(R.id.btnRegistrar);
         senhainvalida = findViewById(R.id.senhainalida);
-
+        progressBar = findViewById(R.id.progressBar2);
 
 
 
@@ -74,8 +76,8 @@ public class Login extends AppCompatActivity {
             // Recuperar os campos de texto
             txtEmail = findViewById(R.id.email);
             txtSenha = findViewById(R.id.senha);
-            String email = txtEmail.getText().toString().trim();
-            String senha = txtSenha.getText().toString().trim();
+            String email = txtEmail.getText().toString().replaceAll("\\s+", "");
+            String senha = txtSenha.getText().toString().replaceAll("\\s+", "");
 
             // Validar os campos antes de autenticar
             if (email.isEmpty()) {
@@ -86,10 +88,7 @@ public class Login extends AppCompatActivity {
             if (senha.isEmpty()) {
                 senhainvalida.setVisibility(View.VISIBLE);
                 Toast.makeText(Login.this, "Por favor, preencha o campo de Senha.", Toast.LENGTH_SHORT).show();
-            }
-            if (email.isEmpty()||senha.isEmpty()) {
-                return;
-            }else{
+            } else{
                 Authentication(v);
             }
 
@@ -99,7 +98,7 @@ public class Login extends AppCompatActivity {
 
 
     private void Authentication(View view) {
-
+        progressBar.setVisibility(View.VISIBLE);
         String urlAPI = "https://api-mongo-i1jq.onrender.com/";
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
@@ -108,8 +107,8 @@ public class Login extends AppCompatActivity {
 
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
         ModelPerfilAuth perfil = new ModelPerfilAuth(
-                txtEmail.getText().toString(),
-                txtSenha.getText().toString()
+                txtEmail.getText().toString().replaceAll("\\s+", ""),
+                txtSenha.getText().toString().replaceAll("\\s+", "")
         );
 
         Call<Integer> call = aPIPerfil.login(perfil);
@@ -144,17 +143,20 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(Login.this, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent( Login.this, MainActivity.class);
                                         startActivity(intent);
+                                        progressBar.setVisibility(View.GONE);
                                         finish();
                                     }
 
                                     @Override
                                     public void onError(String errorMessage) {
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(Login.this, "Erro ao tentar Logar.", Toast.LENGTH_SHORT).show();
                                         Log.e("Login", "Erro: " + errorMessage);
                                     }
                                 }
                         );
                     }else{
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "nao ta no mongo", Toast.LENGTH_SHORT).show();
                     }
 

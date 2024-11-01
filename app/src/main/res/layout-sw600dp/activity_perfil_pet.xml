@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundpersonalizarpet"
+    tools:context=".Perfil.Pet.PerfilPet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnvoltar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="#00472C2C"
+                app:srcCompat="@drawable/arrow" />
+
+            <TextView
+                android:id="@+id/NomePet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/lilita_one"
+                android:gravity="center"
+                android:text="Nome do Pet"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="254dp">
+
+                <ImageView
+                    android:id="@+id/petzao"
+                    android:layout_width="200dp"
+                    android:layout_height="230dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/dog_personalizado_1" />
+
+                <ImageView
+                    android:id="@+id/oculosao_dog"
+                    android:layout_width="94dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="84dp"
+                    android:layout_marginBottom="148dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/oculos_personalizado_1" />
+
+                <ImageView
+                    android:id="@+id/oculosao_cat"
+                    android:layout_width="140dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginBottom="148dp"
+                    android:rotation="-8"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/oculos_personalizado_6" />
+
+                <ImageView
+                    android:id="@+id/brinquedao"
+                    android:layout_width="66dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="52dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/brinquedo_personalizado_1" />
+
+                <ImageView
+                    android:id="@+id/cabecao"
+                    android:layout_width="43dp"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="136dp"
+                    android:layout_marginBottom="192dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/cabeca_personalizado_2" />
+
+                <ImageView
+                    android:id="@+id/btn_personalizar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_editar_iconpet" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/beige"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/NomePetDois"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/lilita_one"
+                    android:gravity="center"
+                    android:text="Nome do Pet"
+                    android:textColor="@color/is_it_green"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/btn_editar"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_editar_verde" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/IdadePet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/varela_round"
+                    android:text="11 "
+                    android:textColor="@color/is_it_green"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal|top"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/sexopet" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:text="Sexo"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/sexoPet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Feminino"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/raca_pet" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:text="Raça"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/RacaPet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Raça Pet"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_color_pet" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:text="Cor"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/CorPet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Branco"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/porte" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:text="Porte"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/PortPet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/varela_round"
+                        android:gravity="center"
+                        android:text="Médio"
+                        android:textColor="@color/is_it_green"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Vacinas"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/perfil"
+                    android:backgroundTint="@color/water_blue"
+                    android:clickable="true"
+                    android:paddingBottom="8dp"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cardCalendar"
+                    app:layout_constraintTop_toBottomOf="@+id/nomepet2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView18"
+                                android:layout_width="30dp"
+                                android:layout_height="20dp"
+                                app:srcCompat="@drawable/ic_injection" />
+
+                            <TextView
+                                android:id="@+id/textView34"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lilita_one"
+                                android:text="Vacinas"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/varela_round"
+                            android:paddingHorizontal="8dp"
+                            android:text="Aqui você pode deixar marcado todas as vacinas que seu pet já tomou ou precisa tomar, para poder ter um controle melhor da saúde do meu amiguinho."
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Peso"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/perfil"
+                    android:backgroundTint="@color/water_blue"
+                    android:clickable="true"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cardCalendar"
+                    app:layout_constraintTop_toBottomOf="@+id/nomepet2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="20dp"
+                                app:srcCompat="@drawable/ic_peso" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lilita_one"
+                                android:text="Peso"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView33"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/varela_round"
+                            android:paddingHorizontal="8dp"
+                            android:text="Aqui você pode adicionar todas as mudanças de peso do seu amiguinho. para poder ter um controle melhor da saúde do meu amiguinho."
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

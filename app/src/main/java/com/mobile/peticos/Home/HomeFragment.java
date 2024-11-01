@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
@@ -21,10 +22,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobile.peticos.Home.AdcionarFoto.AdicionarAoFeedPrincipal;
 import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Home.HomeDica.AdapterCuriosidadesDiarias;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -41,6 +44,8 @@ public class HomeFragment extends Fragment {
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
     CardView cardFeedErro, cardDicasErro, cardFeedSemPost;
+    MetodosBanco metodosBanco = new MetodosBanco();
+    private ProgressBar progressBar;
 
     static {
         List<String> requiredPermissions = new ArrayList<>();
@@ -68,9 +73,11 @@ public class HomeFragment extends Fragment {
         // Verificar e solicitar permissão de notificação ao abrir a tela
         checkNotificationPermission();
 
+
         cardFeedErro = view.findViewById(R.id.cardFeedErro);
         cardDicasErro = view.findViewById(R.id.cardDicasErro);
         cardFeedSemPost = view.findViewById(R.id.cardFeedSemPost);
+        progressBar = view.findViewById(R.id.progressBar2);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
@@ -104,16 +111,105 @@ public class HomeFragment extends Fragment {
         }
 
 
+//        metodosBanco.dicasDoDia(new MetodosBanco.DicaCallback() {
+//            @Override
+//            public void onResult(boolean isSuccess) {
+//                Log.d("DICAS_DO_DIA", "Primeira chamada de dicasDoDia retornou: " + isSuccess);
+//
+//                if (isSuccess) {
+//                    carregarDicas(view);
+//                } else {
+//                    Log.d("DICAS_DO_DIA", "Erro na primeira chamada. Tentando carregar dicas novamente.");
+//                    chamarDica(view);
+//                    carregarDicas(view);
+//                }
+//            }
+//        });
+
         setupRetrofitFeed();
         initRecyclerViewFeed(view);
 
         setupRetrofiAdapter();
-        initRecyclerViewDicas(view);
+        String APIRedis = "https://apiredis-63tq.onrender.com";
+        Retrofit retrofitRedis = new Retrofit.Builder()
+                .baseUrl(APIRedis)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ApiHome api = retrofitRedis.create(ApiHome.class);
+
+        api.getDayHint().enqueue(new Callback<List<DicasDoDia>>() {
+            @Override
+            public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {
+                if (response.isSuccessful() && response.code() == 200) {
+                    Log.d("DICA DO DIA", response.body().toString());
+                    updateRecyclerViewDicas(response.body(), view);
+                } else {
+
+                    Log.e("DICA DO DIA ERRO", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
+                Log.e("DICA DO DIA ERRO", throwable.getMessage());
+                throwable.printStackTrace();
+                String errorMessage = throwable.getMessage();
+                if (errorMessage == null || errorMessage.isEmpty()) {
+                    errorMessage = "Erro desconhecido ao carregar dicas do dia.";
+                }
+
+                Log.e("DICAS_DO_DIA_ERRO", errorMessage, throwable); // Registra o erro com detalhes
+
+            }
+        });
+//        metodosBanco.getDicasDoDia(getContext(), new MetodosBanco.DicaDoDiaCallback() {
+//            @Override
+//            public void onSuccess(List<DicasDoDia> dicas) {
+//                Log.d("DICAS_DO_DIA", "Dicas carregadas com sucesso. Atualizando RecyclerView.");
+//                updateRecyclerViewDicas(dicas, view);
+//            }
+//
+//            @Override
+//            public void onError(String errorMessage) {
+//                Log.e("DICAS_DO_DIA_ERRO", "Erro ao carregar dicas: " + errorMessage);
+//                Toast.makeText(getContext(), "Erro ao carregar dicas: " + errorMessage, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
 
         return view;
+    }
+
+    private void carregarDicas(View view) {
+        Log.d("DICAS_DO_DIA", "Carregando dicas...");
+
+        metodosBanco.dicasDoDia(new MetodosBanco.DicaCallback() {
+            @Override
+            public void onResult(boolean isSuccess) {
+                Log.d("DICAS_DO_DIA", "Segunda chamada de dicasDoDia retornou: " + isSuccess);
+
+                if (isSuccess) {
+                    metodosBanco.getDicasDoDia(getContext(), new MetodosBanco.DicaDoDiaCallback() {
+                        @Override
+                        public void onSuccess(List<DicasDoDia> dicas) {
+                            Log.d("DICAS_DO_DIA", "Dicas carregadas com sucesso. Atualizando RecyclerView.");
+                            updateRecyclerViewDicas(dicas, view);
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            Log.e("DICAS_DO_DIA_ERRO", "Erro ao carregar dicas: " + errorMessage);
+                            Toast.makeText(getContext(), "Erro ao carregar dicas: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Log.e("DICAS_DO_DIA", "Erro ao carregar dicas na segunda chamada.");
+                    Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     // Verificar e solicitar permissão de notificação
@@ -124,7 +220,7 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-    AdicionarAoFeedPrincipal.APIHome apiHome;
+    ApiHome ApiHome;
     Retrofit retrofit;
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
@@ -133,30 +229,34 @@ public class HomeFragment extends Fragment {
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+        ApiHome = retrofit.create(ApiHome.class);
     }
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed(View v) {
-        Call<List<FeedPet>> call = apiHome.getAll();
+        progressBar.setVisibility(View.VISIBLE);
+        Call<List<FeedPet>> call = ApiHome.getAll();
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
                     List<FeedPet> feedList = response.body();
                     updateRecyclerViewFeed(feedList, v);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
-                    cardFeedSemPost.setVisibility(View.VISIBLE);
+                    //cardFeedSemPost.setVisibility(View.VISIBLE);
                     //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
-                cardFeedErro.setVisibility(View.VISIBLE);
+               // cardFeedErro.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -191,44 +291,57 @@ public class HomeFragment extends Fragment {
     }
 
     // Curiosidades
+
     private void setupRetrofiAdapter() {
         String API = "https://apipeticos-ltwk.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+        ApiHome = retrofit.create(ApiHome.class);
     }
-    private void initRecyclerViewDicas(View v) {
-        Call<List<DicasDoDia>> call = apiHome.getDayHint();
+    private void chamarDica(View v) {
+
+        Call<List<DicasDoDia>> call = ApiHome.getDayHint();
         call.enqueue(new Callback<List<DicasDoDia>>() {
             @Override
             public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    progressBar.setVisibility(View.GONE);
                     List<DicasDoDia> dicas = response.body();
-                    updateRecyclerViewDicas(dicas, v);
+                    metodosBanco.insertDicaDia(dicas, new MetodosBanco.DicaCallback() {
+                        @Override
+                        public void onResult(boolean isSuccess) {
+                            if (isSuccess) {
+                                Log.d("DICA DO DIA", "Dica do dia inserida com sucesso");
+                            } else {
+                                Log.e("DICA DO DIA", "Erro ao inserir dica do dia");
+                            }
+                        }
+                    });
+
+
 
                 } else {
+//                    progressBar.setVisibility(View.GONE);
+//                    cardDicasErro.setVisibility(View.VISIBLE);
+                    Log.e("DICA DO DIA", "Erro: " + response.errorBody().toString());
                     Toast.makeText(getContext(), "Nenhuma Dica encontrada", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 cardDicasErro.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
+                Log.e("DICA DO DIA", throwable.getMessage());
 
             }
         });
     }
     private void updateRecyclerViewDicas(List<DicasDoDia> dicasdodia, View v) {
 
-//
-//        // Configuração do Adapter para o RecyclerViewDicas
-//        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas);
-//        recyclerViewDicas.setAdapter(dicasAdapter);
-//        setupRetrofitFeed();
-//        initRecyclerViewFeed(v);
 
         List<String> dicas = new ArrayList<>();
         for (DicasDoDia dica : dicasdodia) {

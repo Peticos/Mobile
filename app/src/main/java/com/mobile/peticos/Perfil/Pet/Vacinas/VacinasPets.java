@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -61,6 +62,8 @@ public class VacinasPets extends AppCompatActivity {
         btnsair = findViewById(R.id.btn_sair);
         btnsalvar = findViewById(R.id.btn_salvar);
 
+
+
         configurardoses();
 
 
@@ -77,6 +80,7 @@ public class VacinasPets extends AppCompatActivity {
         });
         btnsalvar.setOnClickListener(v ->{
             criarVacina();
+
         });
 
         btnsair.setOnClickListener(v->{
@@ -84,6 +88,8 @@ public class VacinasPets extends AppCompatActivity {
             nome.setText("");
             doses.setSelection(0);
         });
+
+
 
         // Configuração do Retrofit
         setupRetrofitFeed();
@@ -110,10 +116,14 @@ public class VacinasPets extends AppCompatActivity {
         }
 
         ModelVacina vacina = new ModelVacina(
+                0,
                 id,
                 nomeVacina,
-                doseSelecionada
+                doseSelecionada,
+                0
         );
+
+
         Call<Integer> call = apiPets.insertVacina(vacina);
         call.enqueue(new Callback<Integer>() {
             @Override
@@ -123,6 +133,7 @@ public class VacinasPets extends AppCompatActivity {
                     cardCadastrarVacina.setVisibility(View.GONE);
                     nome.setText("");
                     doses.setSelection(0);
+                    recreate();
                 } else {
                     Log.e("Cadastrar Vacina", "Erro: " + response.errorBody().toString());
                     Log.e("Cadastrar Vacina", "Erro: " + response.code());
@@ -220,9 +231,11 @@ public class VacinasPets extends AppCompatActivity {
         List<ModelVacina> vacinas = new ArrayList<>();
         for (ModelVacina vacina : feedList) {
             vacinas.add(new ModelVacina(
+                    vacina.getIdVaccine(),
                     vacina.getIdPet(),
                     vacina.getName(),
-                    vacina.getNumDoses()
+                    vacina.getNumDoses(),
+                    vacina.getDosesTaked()
             ));
         }
         if(vacinas== null){

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.MainActivity;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
@@ -51,7 +55,9 @@ public class CadastroProfissional extends AppCompatActivity {
     private TextInputEditText senha1, senha2;
     private TextView senhaInvalida1, senhaInvalida2;
     private ImageView btnUpload;
+    MetodosBanco metodosBanco = new MetodosBanco();
     private String url;
+    private ProgressBar progressBar;
     private ActivityResultLauncher<Intent> cameraLauncher;
 
     @Override
@@ -63,6 +69,8 @@ public class CadastroProfissional extends AppCompatActivity {
         inicializarComponentes();
         configurarCameraLauncher();
         configurarBairros();
+        configurarMascaraTelefone();
+        configurarMascaraCNPJ();
     }
 
     // Método para inicializar os componentes
@@ -79,6 +87,7 @@ public class CadastroProfissional extends AppCompatActivity {
         senhaInvalida1 = findViewById(R.id.senhainalida);
         senhaInvalida2 = findViewById(R.id.senhainalida1);
         btnUpload = findViewById(R.id.upload);
+        progressBar = findViewById(R.id.progressBar2);
 
         // Esconder as mensagens de erro de senha inicialmente
         senhaInvalida1.setVisibility(View.INVISIBLE);
@@ -129,6 +138,7 @@ public class CadastroProfissional extends AppCompatActivity {
                 .build();
 
         APIBairro apiBairro = retrofit.create(APIBairro.class);
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelBairro>> call = apiBairro.getAll();
 
         call.enqueue(new Callback<List<ModelBairro>>() {
@@ -149,11 +159,14 @@ public class CadastroProfissional extends AppCompatActivity {
                     );
                     bairro.setAdapter(adapterBairro);
                     bairro.setThreshold(1);
+                    progressBar.setVisibility(View.GONE);
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(CadastroProfissional.this, "Erro ao carregar bairros", Toast.LENGTH_SHORT).show();
             }
         });
@@ -162,6 +175,17 @@ public class CadastroProfissional extends AppCompatActivity {
     // Método para validar os campos antes de cadastrar
     private void validarCampos(View view) {
         boolean erro = false;
+        if(url == null){
+            Toast.makeText(this, "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .transform(new RoundedCorners(30));
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(btnUpload);
+            erro = true;
+        }
 
         // Validação dos campos de entrada
         if (validarCampo(nomeCompleto, 255, "Nome completo é obrigatório")) erro = true;
@@ -174,9 +198,31 @@ public class CadastroProfissional extends AppCompatActivity {
             erro = true;
         }
 
+        if(senha1.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senhaInvalida1.setVisibility(view.VISIBLE);
+            erro = true;
+        }
+        if(!senha2.getText().toString().replaceAll("\\s+", "").equals(senha1.getText().toString().replaceAll("\\s+", "")) || senha2.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senhaInvalida2.setVisibility(view.VISIBLE);
+            erro = true;
+        }
+
         // Se não houver erros, prosseguir com o cadastro
         if (!erro) {
-            cadastrarTutorBanco(view);
+            //             Verificar se o bairro é válido antes de continuar o cadastro
+            metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
+                @Override
+                public void onResult(boolean bairroEncontrado) {
+                    if (bairroEncontrado) {
+                        // Se o bairro for encontrado, prossiga com o cadastro
+                        cadastrarTutorBanco(view);
+                    } else {
+                        // Mostra um erro se o bairro não for válido
+                        bairro.setError("Selecione um bairro válido");
+                    }
+                }
+            }, bairro); // Passando o EditText bairro como argumento
+
         }
     }
 
@@ -263,8 +309,8 @@ public class CadastroProfissional extends AppCompatActivity {
                 nomeUsuario.getText().toString().isEmpty() ||
                 email.getText().toString().isEmpty() ||
                 bairro.getText().toString().isEmpty() ||
-                telefone.getText().toString().isEmpty() ||
-                cnpj.getText().toString().isEmpty()) {
+                telefone.getText().toString().replaceAll("[^\\d]", "").isEmpty() ||
+                cnpj.getText().toString().replaceAll("[^\\d]", "").isEmpty()) {
 
             Toast.makeText(CadastroProfissional.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;
@@ -273,6 +319,7 @@ public class CadastroProfissional extends AppCompatActivity {
         String urlAPI = "https://apipeticos-ltwk.onrender.com";
 
 
+        progressBar.setVisibility(View.VISIBLE);
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -285,10 +332,10 @@ public class CadastroProfissional extends AppCompatActivity {
                 email.getText().toString(),
                 bairro.getText().toString(),
                 "Sem Plano",
-                telefone.getText().toString(),
+                telefone.getText().toString().replaceAll("[^\\d]", ""),
                 null,
                 url,
-                cnpj.getText().toString()
+                cnpj.getText().toString().replaceAll("[^\\d]", "")
         );
 
         Call<Integer> call = aPIPerfil.insertProfissional(perfil);
@@ -324,18 +371,23 @@ public class CadastroProfissional extends AppCompatActivity {
                                     Toast.makeText(CadastroProfissional.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CadastroProfissional.this, MainActivity.class);
                                     startActivity(intent);
+                                    progressBar.setVisibility(View.GONE);
                                     finish();
                                 }
 
                                 @Override
                                 public void onError(String errorMessage) {
+                                    progressBar.setVisibility(View.GONE);
                                     // Lide com o erro, se necessário
                                     Toast.makeText(CadastroProfissional.this, "Erro ao autenticar: " + errorMessage, Toast.LENGTH_SHORT).show();
                                 }
                             }
                     );
 
+                    progressBar.setVisibility(View.GONE);
+
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(CadastroProfissional.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -349,4 +401,90 @@ public class CadastroProfissional extends AppCompatActivity {
 
 
     }
+
+    private void configurarMascaraTelefone() {
+        telefone.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private final String mask = "(##) #####-####";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdating) {
+                    isUpdating = false;
+                    return;
+                }
+
+                String unmasked = s.toString().replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m == '#') {
+                        if (i < unmasked.length()) {
+                            formatted.append(unmasked.charAt(i));
+                            i++;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        formatted.append(m);
+                    }
+                }
+
+                isUpdating = true;
+                telefone.setText(formatted.toString());
+                telefone.setSelection(formatted.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void configurarMascaraCNPJ() {
+        cnpj.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating = false;
+            private final String mask = "##.###.###/####-##";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (isUpdating) {
+                    isUpdating = false;
+                    return;
+                }
+
+                // Remove todos os caracteres que não são números
+                String unmasked = s.toString().replaceAll("[^\\d]", "");
+                StringBuilder formatted = new StringBuilder();
+
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m == '#') {
+                        if (i < unmasked.length()) {
+                            formatted.append(unmasked.charAt(i));
+                            i++;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        formatted.append(m);
+                    }
+                }
+
+                isUpdating = true;
+                cnpj.setText(formatted.toString());
+                cnpj.setSelection(formatted.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
 }

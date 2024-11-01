@@ -5,16 +5,21 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +31,7 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
@@ -48,16 +54,19 @@ public class CadastroTutor extends AppCompatActivity {
     private ImageView btnUpload;
     private Button btnCadastrar;
     private EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
-    private AutoCompleteTextView bairro, genero;
-    private View senha1, senha2;
+    private AutoCompleteTextView bairro;
+    private TextView senha1, senha2;
+    MetodosBanco metodosBanco = new MetodosBanco();
 
-    // Variáveis de configuração
+
     private String url = null;
     private Metodos metodos = new Metodos();
     private AuthCallback callback;
     private Retrofit retrofit;
     private ActivityResultLauncher<Intent> cameraLauncher;
-    private List<String> generoList = new ArrayList<>();
+    private TextView generoobrigatorio;
+    private ProgressBar progressBar;
+    private Spinner genero_drop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +75,27 @@ public class CadastroTutor extends AppCompatActivity {
         inicializarComponentes();
         configurarMascaraTelefone();
         configurarCameraLauncher();
-        configurarGenero();
         carregarBairros();
         configurarCadastro();
+        configurargenero();
+
     }
     // Método para cadastrar o tutor no banco de dados
     private void cadastrarTutorBanco(View view) {
+
+
         if (nomeCompleto.getText().toString().isEmpty() ||
                 nomeUsuario.getText().toString().isEmpty() ||
                 emailCadastro.getText().toString().isEmpty() ||
                 bairro.getText().toString().isEmpty() ||
                 telefone.getText().toString().isEmpty() ||
-                genero.getText().toString().isEmpty()) {
+                genero_drop.getSelectedItem().toString().isEmpty()) {
             Toast.makeText(this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String urlAPI = "https://apipeticos-ltwk.onrender.com";
+
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -99,7 +112,7 @@ public class CadastroTutor extends AppCompatActivity {
                 telefoneFormatado,
                 null,
                 url,
-                genero.getText().toString(),
+                genero_drop.getSelectedItem().toString(),
                 null
         );
 
@@ -108,7 +121,7 @@ public class CadastroTutor extends AppCompatActivity {
 
 
 
-
+        progressBar.setVisibility(View.VISIBLE);
         Call<Integer> call = aPIPerfil.insertTutor(perfil);
         call.enqueue(new Callback<Integer>() {
             @Override
@@ -141,12 +154,14 @@ public class CadastroTutor extends AppCompatActivity {
                                 public void onSuccess(ModelRetorno perfil) {
                                     Toast.makeText(CadastroTutor.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
+                                    progressBar.setVisibility(View.GONE);
                                     startActivity(intent);
                                     finish();
                                 }
 
                                 @Override
                                 public void onError(String errorMessage) {
+                                    progressBar.setVisibility(View.GONE);
                                     // Lide com o erro, se necessário
                                     Toast.makeText(CadastroTutor.this, "Erro ao autenticar: " + errorMessage, Toast.LENGTH_SHORT).show();
                                 }
@@ -156,12 +171,14 @@ public class CadastroTutor extends AppCompatActivity {
                 }
 
                 else {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(CadastroTutor.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Log.e("CadastroTutor", "Erro: " + t.getMessage());
                 Toast.makeText(CadastroTutor.this, "Erro ao tentar cadastrar.", Toast.LENGTH_SHORT).show();
             }
@@ -169,7 +186,48 @@ public class CadastroTutor extends AppCompatActivity {
     }
 
 
+    private void configurargenero(){
+        String[] doseOptions = {"Selecione o seu genero", "Feminino", "Masculino", "Prefiro não dizer", "Outros"};
 
+        // Criação do ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, doseOptions) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0; // Desabilita o primeiro item para não ser clicável
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Define o texto do hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Define os itens selecionáveis em preto
+                }
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (position == 0) {
+                    tv.setTextColor(Color.GRAY); // Hint em cinza
+                } else {
+                    tv.setTextColor(Color.BLACK); // Itens selecionáveis em preto
+                }
+                return view;
+            }
+        };
+
+        // Configura o layout dos itens na lista suspensa
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        genero_drop.setAdapter(adapter);
+
+
+
+    }
 
     // Inicializa os componentes de interface
     private void inicializarComponentes() {
@@ -177,14 +235,19 @@ public class CadastroTutor extends AppCompatActivity {
         nomeUsuario = findViewById(R.id.nomeUsuario);
         telefone = findViewById(R.id.telefone);
         bairro = findViewById(R.id.bairro);
-        genero = findViewById(R.id.genero);
+        genero_drop = findViewById(R.id.genero);
         emailCadastro = findViewById(R.id.email_cadastro);
         senhaCadastro = findViewById(R.id.senha_cadastro);
         senhaRepetida = findViewById(R.id.senharepetida_cadastro);
         btnCadastrar = findViewById(R.id.cadastrar);
-        senha1 = findViewById(R.id.senhainalida1);
-        senha2 = findViewById(R.id.senhainalida);
+        senha1 = findViewById(R.id.senhainalida);
+        senha2 = findViewById(R.id.senhainalida1);
         btnUpload = findViewById(R.id.upload);
+        generoobrigatorio = findViewById(R.id.generoobrigatorio);
+        generoobrigatorio.setVisibility(View.GONE);
+
+
+        progressBar = findViewById(R.id.progressBar2);
         url = null;
 
         senha1.setVisibility(View.INVISIBLE);
@@ -222,20 +285,6 @@ public class CadastroTutor extends AppCompatActivity {
         });
     }
 
-    // Configura o AutoCompleteTextView para gênero
-    private void configurarGenero() {
-        generoList.add("Masculino");
-        generoList.add("Feminino");
-        generoList.add("Não Binário");
-        generoList.add("Prefiro não dizer");
-
-        ArrayAdapter<String> adapterGenero = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                generoList
-        );
-        genero.setAdapter(adapterGenero);
-    }
 
     // Carrega os bairros usando a API
     private void carregarBairros() {
@@ -246,6 +295,7 @@ public class CadastroTutor extends AppCompatActivity {
                 .build();
 
         APIBairro apiBairro = retrofit.create(APIBairro.class);
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelBairro>> call = apiBairro.getAll();
 
         // Executar chamada para pegar os bairros
@@ -266,10 +316,12 @@ public class CadastroTutor extends AppCompatActivity {
                     bairro.setAdapter(adapterBairro);
                     bairro.setThreshold(1);
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<ModelBairro>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(CadastroTutor.this, "Erro ao carregar bairros", Toast.LENGTH_SHORT).show();
             }
         });
@@ -289,6 +341,17 @@ public class CadastroTutor extends AppCompatActivity {
         boolean erro = false;
         String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
 
+        if(url == null){
+            Toast.makeText(this, "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .transform(new RoundedCorners(30));
+            Glide.with(this)
+                    .load(R.drawable.adicionar_imagem_vermelho)
+                    .apply(options)
+                    .into(btnUpload);
+            erro = true;
+        }
         if (nomeCompleto.getText().toString().isEmpty()) {
             nomeCompleto.setError("Nome completo é obrigatório");
             erro = true;
@@ -305,9 +368,12 @@ public class CadastroTutor extends AppCompatActivity {
             erro = true;
         }
 
-        if (genero.getText().toString().isEmpty() || !generoList.contains(genero.getText().toString())) {
-            genero.setError("Genero inválido");
+        String generoSelecionado = genero_drop.getSelectedItem().toString().trim();
+        if (generoSelecionado.equals("Selecione o seu genero") || generoSelecionado.isEmpty()) {
+            generoobrigatorio.setVisibility(View.VISIBLE);
             erro = true;
+        } else {
+            generoobrigatorio.setVisibility(View.GONE);
         }
 
         if (telefone.getText().toString().isEmpty() || !validarTelefone(telefoneFormatado)) {
@@ -326,11 +392,50 @@ public class CadastroTutor extends AppCompatActivity {
             bairro.setError("Selecione um bairro");
             erro = true;
         }
+        if(senhaCadastro.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senha1.setVisibility(view.VISIBLE);
+            erro = true;
+        }
+        if(!senhaRepetida.getText().toString().replaceAll("\\s+", "").equals(senhaCadastro.getText().toString().replaceAll("\\s+", "")) || senhaRepetida.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senha2.setVisibility(view.VISIBLE);
+            senha1.setVisibility(view.VISIBLE);
+            senha2.setText("As senhas nao se coicidem.");
+            senha1.setText("As senhas nao se coicidem.");
+            erro = true;
+        }
+
+        else if (!isStrongPassword(senhaCadastro.getText().toString())) {
+            senha2.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senha2.setVisibility(View.VISIBLE);
+            senha1.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senha1.setVisibility(View.VISIBLE);
+        }
+
 
         if (!erro) {
-            cadastrarTutorBanco(view);
+            //             Verificar se o bairro é válido antes de continuar o cadastro
+            metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
+                @Override
+                public void onResult(boolean bairroEncontrado) {
+                    if (bairroEncontrado) {
+                        // Se o bairro for encontrado, prossiga com o cadastro
+                        cadastrarTutorBanco(view);
+                    } else {
+                        // Mostra um erro se o bairro não for válido
+                        bairro.setError("Selecione um bairro válido");
+                    }
+                }
+            }, bairro); // Passando o EditText bairro como argumento
+
+
         }
     }
+    // Método para verificar se a senha é forte
+    private boolean isStrongPassword(String password) {
+        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+        return password != null && password.matches(passwordPattern);
+    }
+
 
 
     // Método para validar o formato do telefone

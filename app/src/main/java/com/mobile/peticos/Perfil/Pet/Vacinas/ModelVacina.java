@@ -4,18 +4,28 @@ package com.mobile.peticos.Perfil.Pet.Vacinas;
 
     public class ModelVacina {
 
+        //{
+        //  "idPet": 146,
+        //  "name": "Rabies",
+        //  "numDoses": 2   ,
+        //  "dosesTaked":0
+        //}
+
         private int idVaccine;
         private int idPet;
         private String name;
         private int numDoses;
-        private int  dateDose;
+        private int  dosesTaked;
 
 
         // Construtor
-        public ModelVacina( int idPet, String name, int numDoses) {
+
+        public ModelVacina(int idVaccine,int idPet, String name, int numDoses, int dosesTaked) {
+            this.idVaccine = idVaccine;
             this.idPet = idPet;
             this.name = name;
             this.numDoses = numDoses;
+            this.dosesTaked = dosesTaked;
         }
 //        public ModelVacina( int idVaccine, int idPet, String name, int numDoses) {
 //            this.idVaccine = idVaccine;
@@ -30,9 +40,17 @@ package com.mobile.peticos.Perfil.Pet.Vacinas;
 //            this.numDoses = numDoses;
 //        }
 
+        public int getDosesTaked() {
+            return dosesTaked;
+        }
+
+        public void setDosesTaked(int dosesTaked) {
+            this.dosesTaked = dosesTaked;
+        }
+
         // Getters e Setters
         public int getIdVaccine() {
-            return idVaccine;
+            return this.idVaccine;
         }
 
         public void setIdVaccine(int idVaccine) {
