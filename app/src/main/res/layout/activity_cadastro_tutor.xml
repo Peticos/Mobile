@@ -204,7 +204,7 @@
                         android:layout_marginBottom="10dp"
 
                         android:fontFamily="@font/varela_round"
-
+                        android:visibility="invisible"
                         android:text="Gênero obrigatório"
 
                         android:textColor="@color/red_or_orange"
