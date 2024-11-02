@@ -360,7 +360,7 @@
                     android:textSize="26dp" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/btnSair"
                     android:layout_width="154dp"
                     android:layout_height="48dp"
                     android:backgroundTint="#2C4D4B"
