@@ -1054,7 +1054,7 @@
                 </ScrollView>
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/btnSair"
                     android:layout_width="154dp"
                     android:layout_height="48dp"
                     android:layout_marginBottom="45dp"

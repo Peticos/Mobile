@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -42,10 +43,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditarPerfil extends AppCompatActivity {
-    EditText nomeCompleto, nomeUsuario, telefone;
+    EditText nomeCompleto, telefone;
     Button btAtualizar;
     AutoCompleteTextView bairro, genero;
-    ImageView voltar, upload;
+    ImageButton voltar;
+    ImageView upload;
     Retrofit retrofit;
     List<String> generoList = new ArrayList<>();
     private ActivityResultLauncher<Intent> cameraLauncher;
@@ -69,6 +71,7 @@ public class EditarPerfil extends AppCompatActivity {
         upload = findViewById(R.id.btnupload);
         btAtualizar = findViewById(R.id.btAtualizar);
         genero = findViewById(R.id.Genero);
+
 
         voltar.setOnClickListener(v -> {
             finish();
@@ -201,6 +204,7 @@ public class EditarPerfil extends AppCompatActivity {
                             .into(upload);
                     url = model.profilePicture;
 
+
                 }else {
                     // Obter o código de erro e a mensagem de erro
                     int errorCode = response.code();
@@ -230,11 +234,6 @@ public class EditarPerfil extends AppCompatActivity {
 
         if (nomeCompleto.getText().toString().length() > 255) {
             nomeCompleto.setError("Excesso de caracteres. Max. 255");
-            erro = true;
-        }
-
-        if (nomeUsuario.getText().toString().length() > 255) {
-            nomeUsuario.setError("Excesso de caracteres. Max. 255");
             erro = true;
         }
         if(!generoList.contains(genero.getText().toString())){

@@ -4,179 +4,200 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/beige"
+    android:background="@drawable/fundo"
     tools:context=".Perfil.Profissional.EditarPerfilProfissional">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="match_parent"
-            android:layout_height="178dp"
-            android:layout_marginTop="4dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/perfil"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btnupload"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="52dp"
-            android:backgroundTint="@color/is_it_green"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/upload_foto" />
-
-        <ImageView
-            android:id="@+id/imageView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="17dp"
-            android:clickable="true"
-            android:src="@drawable/baseline_arrow_left_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="17dp"
-            android:fontFamily="@font/lilita_one"
-            android:text="Editar Perfil"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView22"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <ScrollView
-        android:layout_width="405dp"
-        android:layout_height="507dp"
-        android:layout_marginTop="7dp"
+        android:id="@+id/Scroll"
+        android:layout_width="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView11"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/varela_round"
-                android:text="Nome Completo"
-                android:textColor="@color/water_blue" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/NomeCompleto"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_edit_text"
-                android:ems="10"
-                android:hint="Nome Completo"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textSize="14dp" />
+                <ImageButton
+                    android:id="@+id/imageView22"
+                    android:layout_width="60dp"
+                    android:layout_height="37dp"
+                    android:background="#00FFFFFF"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_arrow_left_24" />
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/varela_round"
-                android:text="Telefone"
-                android:textColor="@color/water_blue" />
+                <TextView
+                    android:id="@+id/textView40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="160dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lilita_one"
+                    android:text="Editar Perfil"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/Telefone"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_edit_text"
-                android:ems="10"
-                android:hint="Telefone"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:textSize="14dp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView56"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/varela_round"
-                android:text="Bairro"
-                android:textColor="@color/water_blue" />
+                android:paddingBottom="20dp">
 
-            <AutoCompleteTextView
-                android:id="@+id/Bairro"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <ImageView
+                        android:id="@+id/btnupload"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/is_it_green"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/upload_foto" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_edit_text"
-                android:ems="10"
-                android:hint="Selecione o bairro"
-                android:inputType="text"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textSize="14sp" />
+                android:layout_height="620dp"
+                android:backgroundTint="@color/beige"
+                app:contentPaddingTop="30dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/varela_round"
-                android:text="CNPJ"
-                android:textColor="@color/water_blue" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/cnpj"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/rounded_edit_text"
-                android:backgroundTint="@color/white"
-                android:ems="10"
-                android:hint="Cnpj"
-                android:inputType="phone"
-                android:paddingLeft="10dp"
-                android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Nome completo"
+                        android:textColor="@color/water_blue" />
 
-            <Button
-                android:id="@+id/btAtualizar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/principal_button"
-                android:fontFamily="@font/lilita_one"
-                android:onClick="CadastraPet"
-                android:text="Atualizar Perfil"
-                android:textSize="26dp" />
+                    <EditText
+                        android:id="@+id/NomeCompleto"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint=" Nome completo"
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textSize="14dp" />
 
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Telefone"
+                        android:textColor="@color/water_blue" />
+
+                    <EditText
+                        android:id="@+id/Telefone"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="Telefone"
+                        android:inputType="phone"
+                        android:paddingHorizontal="10dp"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/varela_round"
+                        android:text="CNPJ"
+                        android:textColor="@color/water_blue"/>
+
+                    <EditText
+                        android:id="@+id/cnpj"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="CNPJ"
+                        android:paddingLeft="8dp"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:popupBackground="@color/white" />
+
+                    <TextView
+                        android:id="@+id/generoobrigatorio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Gênero obrigatório"
+                        android:textColor="@color/red_or_orange"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/varela_round"
+                        android:text="Bairro"
+                        android:textColor="@color/water_blue" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/Bairro"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:ems="10"
+                        android:hint="Selecione o bairro"
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textSize="14sp" />
+
+
+                    <Button
+                        android:id="@+id/btAtualizar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/principal_button"
+                        android:fontFamily="@font/lilita_one"
+                        android:onClick="CadastraPet"
+                        android:text="Atualizar Perfil"
+                        android:textSize="26dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>
