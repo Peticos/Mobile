@@ -42,7 +42,7 @@ public class PersonalizarPets extends AppCompatActivity {
 
     int corpo, cabeca, brinquedo, oculos;
     ImageView btnVoltar;
-    Button btAtualizar;
+    Button btAtualizar, btnSair;
     String especie;
     Retrofit  retrofit2;
     SharedPreferences pets;
@@ -160,6 +160,7 @@ public class PersonalizarPets extends AppCompatActivity {
             v.getContext().startActivity(intent);
             finish();
         });
+        btnSair.setOnClickListener(v -> finish());
 
 
         if (especie.equals("Gato")) {
@@ -373,6 +374,7 @@ public class PersonalizarPets extends AppCompatActivity {
 
     private void configurarCampo(){
         btAtualizar = findViewById(R.id.btAtualizar);
+        btnSair = findViewById(R.id.btnSair);
         btnVoltar = findViewById(R.id.btnVoltar);
         //cards
 

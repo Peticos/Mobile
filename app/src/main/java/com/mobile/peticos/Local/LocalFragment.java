@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LocalFragment extends Fragment {
 
     // Botões e RecyclerView
-    private Button btnVet, btnConsulta, btnLazer, btnOngs;
+    private CardView btnVet, btnConsulta, btnLazer, btnOngs;
     private ImageView btn_semfiltro;
     private RecyclerView recyclerView;
     private Retrofit retrofit;
@@ -114,11 +114,61 @@ public class LocalFragment extends Fragment {
     // Configura os botões para aplicar os filtros
     private void setupButtonListeners() {
 
-        btnVet.setOnClickListener(v -> LocaisFiltrado(1));
-        btnLazer.setOnClickListener(v -> LocaisFiltrado(2));
-        btnOngs.setOnClickListener(v -> LocaisFiltrado(3));
-        btnConsulta.setOnClickListener(v -> LocaisFiltrado(4));
-        btn_semfiltro.setOnClickListener(v -> initRecyclerView());
+        btnVet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnVet.setCardBackgroundColor(getResources().getColor(R.color.water_blue_light_version));
+                btnLazer.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnOngs.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnConsulta.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btn_semfiltro.setImageDrawable(getResources().getDrawable(R.drawable.filter_off));
+                LocaisFiltrado(1);
+            }
+        });
+        btnLazer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnLazer.setCardBackgroundColor(getResources().getColor(R.color.water_blue_light_version));
+                btnVet.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnOngs.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnConsulta.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btn_semfiltro.setImageDrawable(getResources().getDrawable(R.drawable.filter_off));
+                LocaisFiltrado(2);
+            }
+        });
+        btnOngs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnOngs.setCardBackgroundColor(getResources().getColor(R.color.water_blue_light_version));
+                btnLazer.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnVet.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnConsulta.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btn_semfiltro.setImageDrawable(getResources().getDrawable(R.drawable.filter_off));
+                LocaisFiltrado(3);
+            }
+        });
+        btnConsulta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnConsulta.setCardBackgroundColor(getResources().getColor(R.color.water_blue_light_version));
+                btnLazer.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnOngs.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnVet.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btn_semfiltro.setImageDrawable(getResources().getDrawable(R.drawable.filter_off));
+                LocaisFiltrado(4);
+            }
+        });
+        btn_semfiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_semfiltro.setImageDrawable(getResources().getDrawable(R.drawable.filter_on));
+                btnConsulta.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnLazer.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnOngs.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                btnVet.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
+                initRecyclerView();
+            }
+        });
     }
 
     // Função para buscar locais filtrados

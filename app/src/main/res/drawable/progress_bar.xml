@@ -1,0 +1,20 @@
+<!-- progress_bar_custom.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fundo branco (parte não preenchida) -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="4dp"/>
+            <solid android:color="@color/white"/>
+        </shape>
+    </item>
+
+    <!-- Cor da barra de progresso (parte preenchida) -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="4dp"/>
+                <solid android:color="@color/asereje_yellow"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

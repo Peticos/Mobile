@@ -44,7 +44,7 @@
                     android:layout_marginRight="160dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/lilita_one"
-                    android:text="Editar Perfil"
+                    android:text="Posts Pets"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -56,8 +56,8 @@
                 android:paddingBottom="20dp">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="172dp"
+                    android:layout_height="170dp"
                     app:cardCornerRadius="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="620dp"
+                android:layout_height="708dp"
                 android:backgroundTint="@color/beige"
                 app:contentPaddingTop="30dp">
 

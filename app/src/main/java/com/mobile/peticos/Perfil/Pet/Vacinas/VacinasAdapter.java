@@ -2,6 +2,8 @@ package com.mobile.peticos.Perfil.Pet.Vacinas;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,6 +138,8 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
         Button btnFechar = dialogView.findViewById(R.id.btn_sair_dose);
         EditText data = dialogView.findViewById(R.id.data_dose); // Exemplo de EditText
 
+        formatarData(data);
+
 
         // Exibe o dialog
         AlertDialog dialog = builder.create();
@@ -225,7 +229,7 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             }else{
                 if (dosesList != null && !dosesList.isEmpty()) {
                 // Formate a data corretamente
-                    holder.data5.setText(dosesList.get(0).getDateDose());
+                    holder.data5.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                     holder.data5.setVisibility(View.VISIBLE);
             } else {
                 // Caso a lista esteja vazia, esconda o TextView ou defina um texto padrão
@@ -244,13 +248,13 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
                 holder.circulo3.setImageResource(R.drawable.ic_doze_n_tomada);
             }else if(doses_tomadas == 1){
                 holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data3.setText(dosesList.get(0).getDateDose());
+                holder.data3.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data3.setVisibility(View.VISIBLE);
 
             }else{
 
-                holder.data3.setText(dosesList.get(0).getDateDose());
-                holder.data7.setText(dosesList.get(1).getDateDose());
+                holder.data3.setText(formatarDataSet(dosesList.get(0).getDateDose()));
+                holder.data7.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data3.setVisibility(View.VISIBLE);
                 holder.data7.setVisibility(View.VISIBLE);
 
@@ -268,19 +272,19 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             }else if(doses_tomadas == 1){
                 holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data1.setText(dosesList.get(0).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data1.setVisibility(View.VISIBLE);
             } else if (doses_tomadas == 2) {
                 holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.data1.setVisibility(View.VISIBLE);
                 holder.data5.setVisibility(View.VISIBLE);
-                holder.data1.setText(dosesList.get(0).getDateDose());
-                holder.data5.setText(dosesList.get(1).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
+                holder.data5.setText(formatarDataSet(dosesList.get(1).getDateDose()));
 
             }else{
-                holder.data1.setText(dosesList.get(0).getDateDose());
-                holder.data5.setText(dosesList.get(1).getDateDose());
-                holder.data9.setText(dosesList.get(2).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
+                holder.data5.setText(formatarDataSet(dosesList.get(1).getDateDose()));
+                holder.data9.setText(formatarDataSet(dosesList.get(2).getDateDose()));
                 holder.data1.setVisibility(View.VISIBLE);
                 holder.data5.setVisibility(View.VISIBLE);
                 holder.data9.setVisibility(View.VISIBLE);
@@ -298,31 +302,31 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
                 holder.circulo4.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo6.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo8.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data2.setText(dosesList.get(0).getDateDose());
+                holder.data2.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data2.setVisibility(View.VISIBLE);
             } else if (doses_tomadas == 2) {
                 holder.circulo6.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo8.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data2.setText(dosesList.get(0).getDateDose());
+                holder.data2.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data2.setVisibility(View.VISIBLE);
-                holder.data4.setText(dosesList.get(1).getDateDose());
+                holder.data4.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data4.setVisibility(View.VISIBLE);
             } else if (doses_tomadas == 3) {
                 holder.circulo8.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data2.setText(dosesList.get(0).getDateDose());
+                holder.data2.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data2.setVisibility(View.VISIBLE);
-                holder.data4.setText(dosesList.get(1).getDateDose());
+                holder.data4.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data4.setVisibility(View.VISIBLE);
-                holder.data6.setText(dosesList.get(2).getDateDose());
+                holder.data6.setText(formatarDataSet(dosesList.get(2).getDateDose()));
                 holder.data6.setVisibility(View.VISIBLE);
             }else{
-                holder.data2.setText(dosesList.get(0).getDateDose());
+                holder.data2.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data2.setVisibility(View.VISIBLE);
-                holder.data4.setText(dosesList.get(1).getDateDose());
+                holder.data4.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data4.setVisibility(View.VISIBLE);
-                holder.data6.setText(dosesList.get(2).getDateDose());
+                holder.data6.setText(formatarDataSet(dosesList.get(2).getDateDose()));
                 holder.data6.setVisibility(View.VISIBLE);
-                holder.data8.setText(dosesList.get(3).getDateDose());
+                holder.data8.setText(formatarDataSet(dosesList.get(3).getDateDose()));
                 holder.data8.setVisibility(View.VISIBLE);
             }
 
@@ -345,45 +349,45 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
                 holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data1.setText(dosesList.get(0).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data1.setVisibility(View.VISIBLE);
             } else if (doses_tomadas == 2) {
                 holder.circulo5.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data1.setText(dosesList.get(0).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data1.setVisibility(View.VISIBLE);
-                holder.data3.setText(dosesList.get(1).getDateDose());
+                holder.data3.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data3.setVisibility(View.VISIBLE);
             } else if (doses_tomadas == 3) {
                 holder.circulo7.setImageResource(R.drawable.ic_doze_n_tomada);
                 holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data1.setText(dosesList.get(0).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data1.setVisibility(View.VISIBLE);
-                holder.data3.setText(dosesList.get(1).getDateDose());
+                holder.data3.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data3.setVisibility(View.VISIBLE);
-                holder.data5.setText(dosesList.get(2).getDateDose());
+                holder.data5.setText(formatarDataSet(dosesList.get(2).getDateDose()));
                 holder.data5.setVisibility(View.VISIBLE);
             } else if (doses_tomadas == 4) {
                 holder.circulo9.setImageResource(R.drawable.ic_doze_n_tomada);
-                holder.data1.setText(dosesList.get(0).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data1.setVisibility(View.VISIBLE);
-                holder.data3.setText(dosesList.get(1).getDateDose());
+                holder.data3.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data3.setVisibility(View.VISIBLE);
-                holder.data5.setText(dosesList.get(2).getDateDose());
+                holder.data5.setText(formatarDataSet(dosesList.get(2).getDateDose()));
                 holder.data5.setVisibility(View.VISIBLE);
-                holder.data7.setText(dosesList.get(3).getDateDose());
+                holder.data7.setText(formatarDataSet(dosesList.get(3).getDateDose()));
                 holder.data7.setVisibility(View.VISIBLE);
             }else{
-                holder.data1.setText(dosesList.get(0).getDateDose());
+                holder.data1.setText(formatarDataSet(dosesList.get(0).getDateDose()));
                 holder.data1.setVisibility(View.VISIBLE);
-                holder.data3.setText(dosesList.get(1).getDateDose());
+                holder.data3.setText(formatarDataSet(dosesList.get(1).getDateDose()));
                 holder.data3.setVisibility(View.VISIBLE);
-                holder.data5.setText(dosesList.get(2).getDateDose());
+                holder.data5.setText(formatarDataSet(dosesList.get(2).getDateDose()));
                 holder.data5.setVisibility(View.VISIBLE);
-                holder.data7.setText(dosesList.get(3).getDateDose());
+                holder.data7.setText(formatarDataSet(dosesList.get(3).getDateDose()));
                 holder.data7.setVisibility(View.VISIBLE);
-                holder.data9.setText(dosesList.get(4).getDateDose());
+                holder.data9.setText(formatarDataSet(dosesList.get(4).getDateDose()));
                 holder.data9.setVisibility(View.VISIBLE);
             }
             holder.circulo1.setVisibility(View.VISIBLE);
@@ -438,6 +442,66 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
 
 
 
+        }
+    }
+    public static void formatarData(final EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            private boolean isUpdating; // Para evitar chamadas recursivas
+            private String old = ""; // Para armazenar o texto anterior
+            private final String format = "##/##/####"; // Formato da máscara (dd/MM/yyyy)
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Não precisamos de implementação aqui
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Não precisamos de implementação aqui
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isUpdating) {
+                    return; // Evita chamadas recursivas
+                }
+
+                String input = s.toString();
+                StringBuilder formatted = new StringBuilder();
+
+                // Removendo caracteres não numéricos
+                input = input.replaceAll("[^\\d]", "");
+
+                int j = 0;
+                for (int i = 0; i < format.length(); i++) {
+                    if (format.charAt(i) == '#') {
+                        if (j < input.length()) {
+                            formatted.append(input.charAt(j));
+                            j++;
+                        } else {
+                            break; // Para quando não há mais dígitos
+                        }
+                    } else {
+                        formatted.append(format.charAt(i)); // Adiciona caracteres da máscara
+                    }
+                }
+
+                isUpdating = true;
+                editText.setText(formatted.toString());
+                editText.setSelection(formatted.length()); // Manter o cursor no final
+                isUpdating = false;
+            }
+        });
+    }
+
+    public static String formatarDataSet(String data) {
+        try {
+            SimpleDateFormat formatoOriginal = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatoNovo = new SimpleDateFormat("dd/MM/yyyy");
+            return formatoNovo.format(formatoOriginal.parse(data));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null; // Retorna null em caso de erro de conversão
         }
     }
 }

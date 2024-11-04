@@ -15,6 +15,7 @@ public class PetPerdido {
 //  "rescuedDate": "2024-10-24"
 //}
 
+    int id_rescued_lost;
     int idPet;
     int idUser;
     String bairro;
@@ -115,7 +116,7 @@ public class PetPerdido {
         this.rescuedDate = rescuedDate;
     }
 
-    public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String location, String lostDate, String phone, String rescuedDate) {
+    public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String location, String lostDate, String phone, String rescuedDate, int id_rescued_lost) {
         this.idPet = idPet;
         this.idUser = idUser;
         this.bairro = bairro;
@@ -127,6 +128,7 @@ public class PetPerdido {
         this.lostDate = lostDate;
         this.phone = phone;
         this.rescuedDate = rescuedDate;
+        this.id_rescued_lost = id_rescued_lost;
     }
     public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String location, String lostDate) {
         this.idPet = idPet;
@@ -139,6 +141,14 @@ public class PetPerdido {
         this.location = location;
         this.lostDate = lostDate;
 
+    }
+
+    public int getId_rescued_lost() {
+        return id_rescued_lost;
+    }
+
+    public void setId_rescued_lost(int id_rescued_lost) {
+        this.id_rescued_lost = id_rescued_lost;
     }
     //
 }

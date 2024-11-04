@@ -116,10 +116,10 @@ public class HomeFragment extends Fragment {
             public void onResult(boolean isSuccess) {
 
                 if (isSuccess) {
-                    Toast.makeText(getContext(), "Dicas ta no redis", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
                     carregarDicas(view);
                 } else {
-                    Toast.makeText(getContext(), "Dicas nao ta  no redis", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.VISIBLE);
                     chamarDica(view);
 
                 }
@@ -153,13 +153,13 @@ public class HomeFragment extends Fragment {
                     metodosBanco.getDicasDoDia(getContext(), new MetodosBanco.DicaDoDiaCallback() {
                         @Override
                         public void onSuccess(List<DicasDoDia> dicas) {
-                            Log.d("DICAS_DO_DIA", "Dicas carregadas com sucesso. Atualizando RecyclerView.");
+                            progressBar.setVisibility(View.GONE);
                             updateRecyclerViewDicas(dicas, view);
                         }
 
                         @Override
                         public void onError(String errorMessage) {
-                            Log.e("DICAS_DO_DIA_ERRO", "Erro ao carregar dicas: " + errorMessage);
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(getContext(), "Erro ao carregar dicas: " + errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -273,6 +273,7 @@ public class HomeFragment extends Fragment {
                         public void onResult(boolean isSuccess) {
                             if (isSuccess) {
                                 Log.d("DICA DO DIA", "Dica do dia inserida com sucesso");
+                                Toast.makeText(getContext(), "carregar", Toast.LENGTH_SHORT).show();
                                 carregarDicas(v);
                             } else {
                                 Log.e("DICA DO DIA", "Erro ao inserir dica do dia");
