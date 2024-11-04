@@ -27,6 +27,7 @@ import com.mobile.peticos.Home.Feed.FeedPet;
 import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Home.HomeDica.AdapterCuriosidadesDiarias;
 import com.mobile.peticos.Home.HomeDica.DicasDoDia;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class HomeFragment extends Fragment {
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
     CardView cardFeedErro, cardDicasErro, cardFeedSemPost;
+    MetodosBanco metodosBanco = new MetodosBanco();
     private ProgressBar progressBar;
 
     static {
@@ -70,6 +72,7 @@ public class HomeFragment extends Fragment {
 
         // Verificar e solicitar permissão de notificação ao abrir a tela
         checkNotificationPermission();
+
 
         cardFeedErro = view.findViewById(R.id.cardFeedErro);
         cardDicasErro = view.findViewById(R.id.cardDicasErro);
@@ -108,16 +111,64 @@ public class HomeFragment extends Fragment {
         }
 
 
+        metodosBanco.dicasDoDia(new MetodosBanco.DicaCallback() {
+            @Override
+            public void onResult(boolean isSuccess) {
+
+                if (isSuccess) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    carregarDicas(view);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                    chamarDica(view);
+
+                }
+            }
+        });
+
         setupRetrofitFeed();
         initRecyclerViewFeed(view);
 
         setupRetrofiAdapter();
-        initRecyclerViewDicas(view);
+        String APIRedis = "https://apiredis-63tq.onrender.com";
+        Retrofit retrofitRedis = new Retrofit.Builder()
+                .baseUrl(APIRedis)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        ApiHome api = retrofitRedis.create(ApiHome.class);
 
 
 
         return view;
+    }
+
+    private void carregarDicas(View view) {
+
+        metodosBanco.dicasDoDia(new MetodosBanco.DicaCallback() {
+            @Override
+            public void onResult(boolean isSuccess) {
+
+                if (isSuccess) {
+                    metodosBanco.getDicasDoDia(getContext(), new MetodosBanco.DicaDoDiaCallback() {
+                        @Override
+                        public void onSuccess(List<DicasDoDia> dicas) {
+                            progressBar.setVisibility(View.GONE);
+                            updateRecyclerViewDicas(dicas, view);
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getContext(), "Erro ao carregar dicas: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+
+                    Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     // Verificar e solicitar permissão de notificação
@@ -128,7 +179,7 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-    AdicionarAoFeedPrincipal.APIHome apiHome;
+    ApiHome ApiHome;
     Retrofit retrofit;
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
@@ -137,12 +188,12 @@ public class HomeFragment extends Fragment {
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+        ApiHome = retrofit.create(ApiHome.class);
     }
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed(View v) {
         progressBar.setVisibility(View.VISIBLE);
-        Call<List<FeedPet>> call = apiHome.getAll();
+        Call<List<FeedPet>> call = ApiHome.getAll();
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
@@ -153,7 +204,7 @@ public class HomeFragment extends Fragment {
                 } else {
                     progressBar.setVisibility(View.GONE);
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
-                    cardFeedSemPost.setVisibility(View.VISIBLE);
+                    //cardFeedSemPost.setVisibility(View.VISIBLE);
                     //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -164,7 +215,7 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
-                cardFeedErro.setVisibility(View.VISIBLE);
+               // cardFeedErro.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -206,22 +257,36 @@ public class HomeFragment extends Fragment {
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        apiHome = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+        ApiHome = retrofit.create(ApiHome.class);
     }
-    private void initRecyclerViewDicas(View v) {
-        progressBar.setVisibility(View.VISIBLE);
-        Call<List<DicasDoDia>> call = apiHome.getDayHint();
+    private void chamarDica(View v) {
+
+        Call<List<DicasDoDia>> call = ApiHome.getDayHint();
         call.enqueue(new Callback<List<DicasDoDia>>() {
             @Override
             public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     progressBar.setVisibility(View.GONE);
                     List<DicasDoDia> dicas = response.body();
-                    updateRecyclerViewDicas(dicas, v);
+                    metodosBanco.insertDicaDia(dicas, new MetodosBanco.DicaCallback() {
+                        @Override
+                        public void onResult(boolean isSuccess) {
+                            if (isSuccess) {
+                                Log.d("DICA DO DIA", "Dica do dia inserida com sucesso");
+                                Toast.makeText(getContext(), "carregar", Toast.LENGTH_SHORT).show();
+                                carregarDicas(v);
+                            } else {
+                                Log.e("DICA DO DIA", "Erro ao inserir dica do dia");
+                            }
+                        }
+                    });
+
+
 
                 } else {
-                    progressBar.setVisibility(View.GONE);
-                    cardDicasErro.setVisibility(View.VISIBLE);
+//                    progressBar.setVisibility(View.GONE);
+//                    cardDicasErro.setVisibility(View.VISIBLE);
+                    Log.e("DICA DO DIA", "Erro: " + response.errorBody().toString());
                     Toast.makeText(getContext(), "Nenhuma Dica encontrada", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -231,18 +296,13 @@ public class HomeFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 cardDicasErro.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
+                Log.e("DICA DO DIA", throwable.getMessage());
 
             }
         });
     }
     private void updateRecyclerViewDicas(List<DicasDoDia> dicasdodia, View v) {
 
-//
-//        // Configuração do Adapter para o RecyclerViewDicas
-//        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas);
-//        recyclerViewDicas.setAdapter(dicasAdapter);
-//        setupRetrofitFeed();
-//        initRecyclerViewFeed(v);
 
         List<String> dicas = new ArrayList<>();
         for (DicasDoDia dica : dicasdodia) {
