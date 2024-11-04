@@ -40,7 +40,7 @@ public class MetodosBanco {
 
         ApiHome api = retrofitRedis.create(ApiHome.class);
 
-        api.getDayHint().enqueue(new Callback<List<DicasDoDia>>() {
+        api.getDayHintRedis().enqueue(new Callback<List<DicasDoDia>>() {
             @Override
             public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {
                 if (response.isSuccessful() && response.code() == 200) {
@@ -49,6 +49,7 @@ public class MetodosBanco {
                 } else {
                     callback.onError(response.message());
                     Log.e("DICA DO DIA ERRO", response.message());
+                    Log.e("DICA DO DIA ERRO", response.code() + " " );
                 }
             }
 
@@ -84,6 +85,8 @@ public class MetodosBanco {
                     callback.onResult(true);
                 } else {
                     callback.onResult(false);
+                    Log.e("DICA DO DIA ERRO", response.message());
+                    Log.e("DICA DO DIA ERRO", response.code() + "");
                 }
             }
 

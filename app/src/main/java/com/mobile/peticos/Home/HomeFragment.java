@@ -111,20 +111,20 @@ public class HomeFragment extends Fragment {
         }
 
 
-//        metodosBanco.dicasDoDia(new MetodosBanco.DicaCallback() {
-//            @Override
-//            public void onResult(boolean isSuccess) {
-//                Log.d("DICAS_DO_DIA", "Primeira chamada de dicasDoDia retornou: " + isSuccess);
-//
-//                if (isSuccess) {
-//                    carregarDicas(view);
-//                } else {
-//                    Log.d("DICAS_DO_DIA", "Erro na primeira chamada. Tentando carregar dicas novamente.");
-//                    chamarDica(view);
-//                    carregarDicas(view);
-//                }
-//            }
-//        });
+        metodosBanco.dicasDoDia(new MetodosBanco.DicaCallback() {
+            @Override
+            public void onResult(boolean isSuccess) {
+
+                if (isSuccess) {
+                    Toast.makeText(getContext(), "Dicas ta no redis", Toast.LENGTH_SHORT).show();
+                    carregarDicas(view);
+                } else {
+                    Toast.makeText(getContext(), "Dicas nao ta  no redis", Toast.LENGTH_SHORT).show();
+                    chamarDica(view);
+
+                }
+            }
+        });
 
         setupRetrofitFeed();
         initRecyclerViewFeed(view);
@@ -138,57 +138,16 @@ public class HomeFragment extends Fragment {
 
         ApiHome api = retrofitRedis.create(ApiHome.class);
 
-        api.getDayHint().enqueue(new Callback<List<DicasDoDia>>() {
-            @Override
-            public void onResponse(Call<List<DicasDoDia>> call, Response<List<DicasDoDia>> response) {
-                if (response.isSuccessful() && response.code() == 200) {
-                    Log.d("DICA DO DIA", response.body().toString());
-                    updateRecyclerViewDicas(response.body(), view);
-                } else {
-
-                    Log.e("DICA DO DIA ERRO", response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
-                Log.e("DICA DO DIA ERRO", throwable.getMessage());
-                throwable.printStackTrace();
-                String errorMessage = throwable.getMessage();
-                if (errorMessage == null || errorMessage.isEmpty()) {
-                    errorMessage = "Erro desconhecido ao carregar dicas do dia.";
-                }
-
-                Log.e("DICAS_DO_DIA_ERRO", errorMessage, throwable); // Registra o erro com detalhes
-
-            }
-        });
-//        metodosBanco.getDicasDoDia(getContext(), new MetodosBanco.DicaDoDiaCallback() {
-//            @Override
-//            public void onSuccess(List<DicasDoDia> dicas) {
-//                Log.d("DICAS_DO_DIA", "Dicas carregadas com sucesso. Atualizando RecyclerView.");
-//                updateRecyclerViewDicas(dicas, view);
-//            }
-//
-//            @Override
-//            public void onError(String errorMessage) {
-//                Log.e("DICAS_DO_DIA_ERRO", "Erro ao carregar dicas: " + errorMessage);
-//                Toast.makeText(getContext(), "Erro ao carregar dicas: " + errorMessage, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
 
 
         return view;
     }
 
     private void carregarDicas(View view) {
-        Log.d("DICAS_DO_DIA", "Carregando dicas...");
 
         metodosBanco.dicasDoDia(new MetodosBanco.DicaCallback() {
             @Override
             public void onResult(boolean isSuccess) {
-                Log.d("DICAS_DO_DIA", "Segunda chamada de dicasDoDia retornou: " + isSuccess);
 
                 if (isSuccess) {
                     metodosBanco.getDicasDoDia(getContext(), new MetodosBanco.DicaDoDiaCallback() {
@@ -205,7 +164,7 @@ public class HomeFragment extends Fragment {
                         }
                     });
                 } else {
-                    Log.e("DICAS_DO_DIA", "Erro ao carregar dicas na segunda chamada.");
+
                     Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -314,6 +273,7 @@ public class HomeFragment extends Fragment {
                         public void onResult(boolean isSuccess) {
                             if (isSuccess) {
                                 Log.d("DICA DO DIA", "Dica do dia inserida com sucesso");
+                                carregarDicas(v);
                             } else {
                                 Log.e("DICA DO DIA", "Erro ao inserir dica do dia");
                             }

@@ -206,6 +206,24 @@ public class CadastroProfissional extends AppCompatActivity {
             senhaInvalida2.setVisibility(view.VISIBLE);
             erro = true;
         }
+        if(senha1.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senhaInvalida1.setVisibility(view.VISIBLE);
+            erro = true;
+        }
+        if(!senha2.getText().toString().replaceAll("\\s+", "").equals(senha1.getText().toString().replaceAll("\\s+", "")) || senha2.getText().toString().replaceAll("\\s+", "").isEmpty()){
+            senhaInvalida1.setVisibility(view.VISIBLE);
+            senhaInvalida2.setVisibility(view.VISIBLE);
+            senhaInvalida2.setText("As senhas nao se coicidem.");
+            senhaInvalida1.setText("As senhas nao se coicidem.");
+            erro = true;
+        }
+
+        else if (!isStrongPassword(senha1.getText().toString())) {
+            senhaInvalida2.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senhaInvalida2.setVisibility(View.VISIBLE);
+            senhaInvalida1.setText("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+            senhaInvalida1.setVisibility(View.VISIBLE);
+        }
 
         // Se não houver erros, prosseguir com o cadastro
         if (!erro) {
@@ -224,6 +242,11 @@ public class CadastroProfissional extends AppCompatActivity {
             }, bairro); // Passando o EditText bairro como argumento
 
         }
+    }
+    // Método para verificar se a senha é forte
+    private boolean isStrongPassword(String password) {
+        String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+        return password != null && password.matches(passwordPattern);
     }
 
     // Métodos de validação dos campos
@@ -388,6 +411,8 @@ public class CadastroProfissional extends AppCompatActivity {
 
                 } else {
                     progressBar.setVisibility(View.GONE);
+                    Log.e("CadastroTutor", "Erro: " + response.code());
+                    Log.e("CadastroTutor", "Erro: " + response.errorBody().toString());
                     Toast.makeText(CadastroProfissional.this, "Falha no cadastro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
