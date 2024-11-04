@@ -8,16 +8,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -25,14 +31,28 @@ import com.bumptech.glide.request.RequestOptions;
 
 
 import com.mobile.peticos.Home.AdicionarProduto;
+import com.mobile.peticos.Home.Feed.FeedPet;
+import com.mobile.peticos.Home.Feed.FeedPetsAdapter;
 import com.mobile.peticos.Login;
+import com.mobile.peticos.Perfil.APIPerfil;
 import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
 import com.mobile.peticos.R;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PerfilProfissional extends Fragment {
 
 
-
+    private static final String BASE_URL = "https://api-mongo-i1jq.onrender.com";
+    private static final String PREFS_NAME = "Perfil";
+    private static final String KEY_ID = "id";
+    private static final int DEFAULT_ID = 2;
 
 
 
@@ -59,6 +79,10 @@ public class PerfilProfissional extends Fragment {
     TextView nome;
     TextView email;
     Button novo_produto_button;
+    private APIPerfil apiPerfil;
+    private RecyclerView recyclerView;
+    private CardView cardFeedErro, cardFeedSemPost;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +99,8 @@ public class PerfilProfissional extends Fragment {
         fotoPerfil = view.findViewById(R.id.fotoPerfil);
         nome = view.findViewById(R.id.NickName);
         email = view.findViewById(R.id.email);
+        progressBar = view.findViewById(R.id.progressBar2);
+        recyclerView = view.findViewById(R.id.recycler);
 
 
         // Acesso ao SharedPreferences
@@ -100,6 +126,9 @@ public class PerfilProfissional extends Fragment {
 
         String emailUser = sharedPreferences.getString("email", "email");
         email.setText(emailUser);
+
+        setupRetrofitFeed();
+        initRecyclerViewFeed();
 
 
         editar.setOnClickListener(new View.OnClickListener() {
@@ -175,5 +204,59 @@ public class PerfilProfissional extends Fragment {
         Intent intent = new Intent(getActivity(), Login.class);
         startActivity(intent);
 
+    }
+    // Configuração do Retrofit
+    private void setupRetrofitFeed() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiPerfil = retrofit.create(APIPerfil.class);
+    }
+
+    // Inicializa o RecyclerView com todos os locais
+    private void initRecyclerViewFeed() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String id = String.valueOf(sharedPreferences.getInt(KEY_ID, DEFAULT_ID));
+
+        progressBar.setVisibility(View.VISIBLE);
+        Call<List<FeedPet>> call = apiPerfil.getPostByid(id); // Use o ID do sharedPreferences
+        call.enqueue(new Callback<List<FeedPet>>() {
+            @Override
+            public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
+                Log.d("FeedDoPet", "Resposta da API recebida. Código: " + response.code()); // Logando o código de resposta
+
+                if (response.isSuccessful() && response.body() != null) {
+                    List<FeedPet> feedList = response.body();
+
+                    progressBar.setVisibility(View.GONE);
+                    Log.d("FeedDoPet", "Dados recebidos: " + feedList.toString()); // Logando os dados recebidos
+
+                    updateRecyclerViewFeed(feedList);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    cardFeedSemPost.setVisibility(View.VISIBLE);
+                    Log.e("FeedDoPet", "Erro na resposta: " + (response.errorBody() != null ? response.errorBody().toString() : "Resposta vazia"));
+                    Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
+                cardFeedErro.setVisibility(View.VISIBLE);
+                Log.e("FeedPet", "Erro: " + throwable.getMessage());
+                Toast.makeText(getContext(), "Erro ao carregar posts: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateRecyclerViewFeed(List<FeedPet> feedList) {
+        // Configuração do RecyclerView para o feed de pets
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Configuração do Adapter para o RecyclerView
+        FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(feedList);
+        recyclerView.setAdapter(feedPetsAdapter);  // Aqui, finalmente vinculando o Adapter
     }
 }
