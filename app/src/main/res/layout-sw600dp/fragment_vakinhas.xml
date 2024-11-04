@@ -84,107 +84,120 @@
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardInfoVakinha"
-            android:layout_width="380dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            app:cardCornerRadius="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#7E555252"
             android:visibility="gone"
-            android:backgroundTint="@color/asereje_yellow"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:layout_width="380dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/asereje_yellow"
+                android:visibility="visible"
+                app:cardCornerRadius="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
 
-                <!-- Header do card com o ícone de alerta, título e botão fechar -->
-                <LinearLayout
-                    android:id="@+id/linear"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/imageView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:src="@drawable/ic_alert"
-                        app:tint="@color/white" />
-
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:fontFamily="@font/lilita_one"
-                        android:textSize="24sp"
-                        android:paddingRight="80dp"
-                        android:text="Vaquinhas solidárias"
-                        android:layout_gravity="center"/>
-
-                    <ImageView
-                        android:id="@+id/fechar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="16dp"
-                        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-                </LinearLayout>
-
-                <!-- Conteúdo do card interno -->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="366dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:backgroundTint="@color/beige"
-                    app:cardCornerRadius="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linear">
-
+                    <!-- Header do card com o ícone de alerta, título e botão fechar -->
                     <LinearLayout
+                        android:id="@+id/linear"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="16dp"
+                            android:src="@drawable/ic_alert"
+                            app:tint="@color/white" />
 
                         <TextView
-                            android:id="@+id/textView24"
-                            android:layout_width="match_parent"
+                            android:id="@+id/textView19"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:fontFamily="@font/lilita_one"
-                            android:text="1. Avalie a situação"
-                            android:textColor="@color/asereje_yellow"
-                            android:textSize="20sp" />
+                            android:paddingRight="80dp"
+                            android:text="Vaquinhas solidárias"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
-                        <TextView
-                            android:id="@+id/textView25"
-                            android:layout_width="match_parent"
+                        <ImageView
+                            android:id="@+id/fechar"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/varela_round"
-                            android:text=" * Segurança Primeiro: Antes de se aproximar do animal, certifique-se de que o local é seguro tanto para você quanto para o animal. Evite áreas com muito tráfego ou perigos potenciais."
-                            android:textSize="12dp" />
-
-                        <TextView
-                            android:id="@+id/textView26"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/varela_round"
-                            android:text=" * Calma e Paciência: Aproximar-se lentamente e com calma. Evite movimentos bruscos e barulhos altos que possam assustar o animal."
-                            android:textSize="12dp" />
+                            android:paddingRight="16dp"
+                            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Conteúdo do card interno -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="366dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:backgroundTint="@color/beige"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linear">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/textView24"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lilita_one"
+                                android:text="1. Avalie a situação"
+                                android:textColor="@color/asereje_yellow"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/textView25"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/varela_round"
+                                android:text=" * Segurança Primeiro: Antes de se aproximar do animal, certifique-se de que o local é seguro tanto para você quanto para o animal. Evite áreas com muito tráfego ou perigos potenciais."
+                                android:textSize="12dp" />
+
+                            <TextView
+                                android:id="@+id/textView26"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/varela_round"
+                                android:text=" * Calma e Paciência: Aproximar-se lentamente e com calma. Evite movimentos bruscos e barulhos altos que possam assustar o animal."
+                                android:textSize="12dp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
