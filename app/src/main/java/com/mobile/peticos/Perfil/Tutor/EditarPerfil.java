@@ -28,6 +28,7 @@ import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Cadastros.CadastroTutor;
 import com.mobile.peticos.Cadastros.DesejaCadastrarUmPet;
 import com.mobile.peticos.MainActivity;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.R;
@@ -51,6 +52,7 @@ public class EditarPerfil extends AppCompatActivity {
     Retrofit retrofit;
     List<String> generoList = new ArrayList<>();
     private ActivityResultLauncher<Intent> cameraLauncher;
+    MetodosBanco metodosBanco = new MetodosBanco();
     String url;
     int idUser, idAddress, idPlan;
     String emailUser, username;
@@ -252,17 +254,20 @@ public class EditarPerfil extends AppCompatActivity {
         }
 
         if (!erro) {
-            // Verificar se o bairro é válido antes de continuar o cadastro
-//            verificarBairro(new CadastroTutor.BairroCallback() {
-//                @Override
-//                public void onResult(boolean bairroEncontrado) {
-//                    if (bairroEncontrado) {
-//                        atualizarTutorBanco(view); // Continuar com o cadastro
-//                    } else {
-//                        bairro.setError("Selecione um bairro válido");
-//                    }
-//                }
-//            });
+//             Verificar se o bairro é válido antes de continuar o cadastro
+            metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
+                @Override
+                public void onResult(boolean bairroEncontrado) {
+                    if (bairroEncontrado) {
+                        // Se o bairro for encontrado, prossiga com o cadastro
+                        atualizarTutorBanco(view);
+                    } else {
+                        // Mostra um erro se o bairro não for válido
+                        bairro.setError("Selecione um bairro válido");
+                    }
+                }
+            }, bairro); // Passando o EditText bairro como argumento
+
         }
     }
 

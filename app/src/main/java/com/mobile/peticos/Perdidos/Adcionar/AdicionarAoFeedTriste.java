@@ -41,6 +41,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Perdidos.ApiPerdidos;
 import com.mobile.peticos.Perdidos.PerdidoFragment;
@@ -75,6 +76,7 @@ public class AdicionarAoFeedTriste extends Fragment {
     EditText descricao, data, referencia;
     AutoCompleteTextView bairro;
     private Retrofit retrofit;
+    MetodosBanco metodosBanco = new MetodosBanco();
     List<String> bairrosNomes;
     ImageView upload;
     TextView publicacoes, petsInvalidos;
@@ -301,7 +303,21 @@ public class AdicionarAoFeedTriste extends Fragment {
         }
 
         if(!erro){
-            RegistrarPetPerdido(v);
+            //             Verificar se o bairro é válido antes de continuar o cadastro
+            metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
+                @Override
+                public void onResult(boolean bairroEncontrado) {
+                    if (bairroEncontrado) {
+                        // Se o bairro for encontrado, prossiga com o cadastro
+                        RegistrarPetPerdido(v);
+                    } else {
+                        // Mostra um erro se o bairro não for válido
+                        bairro.setError("Selecione um bairro válido");
+                    }
+                }
+            }, bairro); // Passando o EditText bairro como argumento
+
+
         }
     }
 

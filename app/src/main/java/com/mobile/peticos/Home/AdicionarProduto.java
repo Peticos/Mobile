@@ -225,7 +225,7 @@ public class AdicionarProduto extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        AdicionarAoFeedPrincipal.APIHome api = retrofit.create(AdicionarAoFeedPrincipal.APIHome.class);
+        ApiHome api = retrofit.create(ApiHome.class);
 
         Call<FeedPet> call = api.insert(post);
 

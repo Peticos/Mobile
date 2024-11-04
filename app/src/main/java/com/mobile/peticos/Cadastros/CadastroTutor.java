@@ -31,6 +31,7 @@ import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
+import com.mobile.peticos.Padrao.MetodosBanco;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
@@ -55,6 +56,7 @@ public class CadastroTutor extends AppCompatActivity {
     private EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
     private AutoCompleteTextView bairro;
     private TextView senha1, senha2;
+    MetodosBanco metodosBanco = new MetodosBanco();
 
 
     private String url = null;
@@ -226,9 +228,6 @@ public class CadastroTutor extends AppCompatActivity {
 
 
     }
-
-
-
 
     // Inicializa os componentes de interface
     private void inicializarComponentes() {
@@ -414,7 +413,21 @@ public class CadastroTutor extends AppCompatActivity {
 
 
         if (!erro) {
-            cadastrarTutorBanco(view);
+            //             Verificar se o bairro é válido antes de continuar o cadastro
+            metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
+                @Override
+                public void onResult(boolean bairroEncontrado) {
+                    if (bairroEncontrado) {
+                        // Se o bairro for encontrado, prossiga com o cadastro
+                        cadastrarTutorBanco(view);
+                    } else {
+                        // Mostra um erro se o bairro não for válido
+                        bairro.setError("Selecione um bairro válido");
+                    }
+                }
+            }, bairro); // Passando o EditText bairro como argumento
+
+
         }
     }
     // Método para verificar se a senha é forte

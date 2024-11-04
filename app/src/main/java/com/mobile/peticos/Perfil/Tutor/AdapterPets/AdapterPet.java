@@ -67,7 +67,7 @@ public class AdapterPet extends RecyclerView.Adapter<AdapterPet.PetViewHolder> {
             editor.putString("genero", Pet.getSex());
             editor.putInt("id", Pet.getIdPet());
             editor.apply();
-            Toast.makeText(v.getContext(), "Pet", Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent( v.getContext(), PerfilPet.class);
             v.getContext().startActivity(intent);
         });

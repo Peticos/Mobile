@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mobile.peticos.Home.ApiHome;
 import com.mobile.peticos.Home.Feed.FeedPet;
 
 import android.widget.EditText;
@@ -324,7 +325,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        APIHome api = retrofit.create(APIHome.class);
+        ApiHome api = retrofit.create(ApiHome.class);
 
 
         Call<FeedPet> call = api.insert(post);
@@ -380,32 +381,5 @@ public class AdicionarAoFeedPrincipal extends Fragment {
     }
 
 
-    public static interface APIHome {
 
-        //mudar para alternado
-        @GET("/api/posts/alternado")
-        Call<List<FeedPet>> getAll();
-
-        @GET("/api/dayhint/random")
-        Call <List<DicasDoDia>> getDayHint();
-
-        @PUT("/api/posts/{id}/like")
-        Call<String> like(@Path("id") String id, @Query("username")String username);
-
-        @PUT("/api/posts/{id}/dislike")
-        Call<String> dislike(@Path("id") String id, @Query("username")String username);
-
-        @PUT("/api/posts/{id}/share")
-        Call<String> share(@Path("id") String id, @Query("username")String username);
-
-        @POST("/api/posts/insert")
-        Call<FeedPet> insert(@Body FeedPet feedPet);
-
-        @GET("/api/petregister/nicknames")
-        Call<List<String>> getPetNicknames( @Query("ids") List<Integer> ids);
-
-
-
-
-    }
 }
