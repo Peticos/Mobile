@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -44,7 +46,7 @@ public class HomeFragment extends Fragment {
     public static final String[] REQUIRED_PERMISSIONS;
     CardView cardFeedErro, cardDicasErro, cardFeedSemPost;
     MetodosBanco metodosBanco = new MetodosBanco();
-    private ProgressBar progressBar;
+    private ProgressBar progressBar, recarregarPosts;
 
     static {
         List<String> requiredPermissions = new ArrayList<>();
@@ -77,6 +79,7 @@ public class HomeFragment extends Fragment {
         cardDicasErro = view.findViewById(R.id.cardDicasErro);
         cardFeedSemPost = view.findViewById(R.id.cardFeedSemPost);
         progressBar = view.findViewById(R.id.progressBar2);
+        recarregarPosts = view.findViewById(R.id.recarregarPosts);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
@@ -243,6 +246,21 @@ public class HomeFragment extends Fragment {
         // Configuração do Adapter para o RecyclerViewFeedPets
         FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(postagens);
         recyclerViewFeedPets.setAdapter(feedPetsAdapter);
+
+        recyclerViewFeedPets.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && layoutManager.findLastVisibleItemPosition() == feedList.size() - 1) {
+                    recarregarPosts.setVisibility(View.VISIBLE);
+                    initRecyclerViewFeed(v);
+//MUDA AQUI LIVIA GOMES AOJHGCUOHQPJEIHODGUSICBJDSHFOWGYIEQDBJSNALKDVHOFGEIYBQWDJNLSKÇAJDHVFUGIEWBKJDNLSAÇMJCHODFGVUIFEBDJQNLSAKJCDHIOUGVWYFEHBVKJDNACSHOVUGIFWEBJNDASCKDJSHFVOGUI
+                } else {
+                    recarregarPosts.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     // Curiosidades

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mobile.peticos.Perdidos.Adcionar.AdicionarAoFeedTriste;
 import com.mobile.peticos.PrimeiroCuidadosAchados;
@@ -38,7 +40,7 @@ public class PerdidoFragment extends Fragment {
     private ImageView infoPerdidos, fechar;
     private View cardInfoPerdido;
     CardView cardErroPerdidos, cardPerdidosSemPost;
-    private ProgressBar progressBar;
+    private ProgressBar progressBar, recarregarPosts;
 
     public PerdidoFragment() {
         // Required empty public constructor
@@ -61,6 +63,8 @@ public class PerdidoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         cardErroPerdidos = view.findViewById(R.id.cardErroPerdidos);
         progressBar = view.findViewById(R.id.progressBar2);
+        recarregarPosts = view.findViewById(R.id.recarregarPosts);
+
         cardPerdidosSemPost = view.findViewById(R.id.cardPerdidosSemPost);
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);

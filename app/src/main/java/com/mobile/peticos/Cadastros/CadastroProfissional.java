@@ -358,6 +358,7 @@ public class CadastroProfissional extends AppCompatActivity {
                 telefone.getText().toString().replaceAll("[^\\d]", ""),
                 null,
                 url,
+                null,
                 cnpj.getText().toString().replaceAll("[^\\d]", "")
         );
 
