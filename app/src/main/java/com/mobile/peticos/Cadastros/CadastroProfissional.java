@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -349,6 +350,17 @@ public class CadastroProfissional extends AppCompatActivity {
                 .build();
         APIPerfil aPIPerfil = retrofitPerfil.create(APIPerfil.class);
 
+        //{
+        //    "fullName": "Não aguento mais",
+        //    "username": "grilo2",
+        //    "email": "grilo2@gmail.com",
+        //    "plan": "Sem Plano",
+        //    "bairro":"Bom Retiro",
+        //    "phone":"11962125000",
+        //    "cnpj":"12345678000195",
+        //    "idusername":null,
+        //  "genero":null
+        //}
         ModelPerfil perfil = new ModelPerfil(
                 nomeCompleto.getText().toString(),
                 nomeUsuario.getText().toString(),
@@ -356,10 +368,22 @@ public class CadastroProfissional extends AppCompatActivity {
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString().replaceAll("[^\\d]", ""),
-                null,
                 url,
+                null,
                 cnpj.getText().toString().replaceAll("[^\\d]", "")
         );
+
+//        ModelPerfil perfil = new ModelPerfil(
+//                nomeCompleto.getText().toString(),
+//                nomeUsuario.getText().toString(),
+//                email.getText().toString(),
+//                bairro.getText().toString(),
+//                "Sem Plano",
+//                telefone.getText().toString().replaceAll("[^\\d]", ""),
+//                null,
+//                url,
+//                cnpj.getText().toString().replaceAll("[^\\d]", "")
+//        );
 
         Call<Integer> call = aPIPerfil.insertProfissional(perfil);
         call.enqueue(new Callback<Integer>() {
