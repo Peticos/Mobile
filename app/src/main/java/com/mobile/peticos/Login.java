@@ -28,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Login extends AppCompatActivity {
     Button btnSalvar, btnCadastrar;
     EditText txtEmail, txtSenha;
+    TextView btnRestrita;
     TextView senhainvalida;
     MetodosBanco metodosBanco = new MetodosBanco();
     private ProgressBar progressBar;
@@ -43,7 +44,7 @@ public class Login extends AppCompatActivity {
         senhainvalida = findViewById(R.id.senhainalida);
         progressBar = findViewById(R.id.progressBar2);
 
-
+        btnRestrita = findViewById(R.id.btnRestrita);
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("Perfil", MODE_PRIVATE);
@@ -61,11 +62,13 @@ public class Login extends AppCompatActivity {
             finish();
         }
 
-
-
-
-
-
+        btnRestrita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, LoginRestrito.class);
+                startActivity(intent);
+            }
+        });
 
         btnCadastrar.setOnClickListener(v -> {
             Intent intent = new Intent(Login.this, Tutor_ou_Profissional.class);
