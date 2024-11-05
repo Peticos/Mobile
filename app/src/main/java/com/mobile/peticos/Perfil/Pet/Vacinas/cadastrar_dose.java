@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.Perfil.Pet.API.APIPets;

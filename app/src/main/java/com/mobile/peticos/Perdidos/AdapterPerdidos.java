@@ -75,7 +75,6 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                 if (response.isSuccessful() && response.body() != null) {
                     ModelRetorno perdido = response.body();
                     Log.d("Perfil", "perdido: " + perdido);
-                    Toast.makeText(holder.itemView.getContext(), "Achou", Toast.LENGTH_SHORT).show();
                     // Exibir o modal com os detalhes do pet encontrado
                     PetFoundDialogFragment dialog = PetFoundDialogFragment.newInstance(
                             "Ebaa!!! Mais um amiguinho encontrado!",
@@ -87,7 +86,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
                     Log.e("FeedPet", "Erro código: " + response.code());
                     Log.e("FeedPet", "Erro mensagem: " + response.message());
-                    Toast.makeText(holder.itemView.getContext(), "erro em achar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(holder.itemView.getContext(), "Ocorreu um erro, tente novamente", Toast.LENGTH_SHORT).show();
 
                 }
             }

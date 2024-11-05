@@ -186,22 +186,18 @@ public class AdicionarProduto extends Fragment {
             return;
         }
         if (legenda.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Legenda Obrigatória", Toast.LENGTH_SHORT).show();
             legenda.setError("Legenda é obrigatória");
             return;
         }
         if (nomeProduto.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Nome do Produto Obrigatório", Toast.LENGTH_SHORT).show();
             nomeProduto.setError("Nome do Produto é obrigatório");
             return;
         }
         if (valor.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Valor Obrigatório", Toast.LENGTH_SHORT).show();
             valor.setError("Valor é obrigatório");
             return;
         }
         if (telefone.getText().toString().isEmpty() || telefoneFormatado.length() != 11) {
-            Toast.makeText(getContext(), "Telefone Invalido", Toast.LENGTH_SHORT).show();
             telefone.setError("Telefone Invalido");
             return;
         }

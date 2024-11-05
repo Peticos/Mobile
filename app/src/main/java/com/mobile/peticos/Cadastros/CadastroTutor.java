@@ -163,7 +163,7 @@ public class CadastroTutor extends AppCompatActivity {
                                 public void onError(String errorMessage) {
                                     progressBar.setVisibility(View.GONE);
                                     // Lide com o erro, se necessário
-                                    Toast.makeText(CadastroTutor.this, "Erro ao autenticar: " + errorMessage, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CadastroTutor.this, "Ocorreu um erro, tente novamente!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                     );

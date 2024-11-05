@@ -218,7 +218,6 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         metodosBanco.curtir(feedPet.getId(), username, new MetodosBanco.CurtirCallback() {
             @Override
             public void onSuccess(String modelRetorno) {
-                Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -231,7 +230,6 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         metodosBanco.descurtir(feedPet.getId(),username, new MetodosBanco.CurtirCallback() {
             @Override
             public void onSuccess(String modelRetorno) {
-                Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -246,7 +244,6 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         metodosBanco.share(feedPet.getId(),username, new MetodosBanco.CurtirCallback() {
             @Override
             public void onSuccess(String modelRetorno) {
-                Toast.makeText(holder.itemView.getContext(), "foi", Toast.LENGTH_SHORT).show();
             }
 
             @Override
