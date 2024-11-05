@@ -1,9 +1,11 @@
-package com.mobile.peticos;
+package com.mobile.peticos.AreaRestrita;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.webkit.WebView;
+
+import com.mobile.peticos.R;
 
 public class AreaRestrita extends AppCompatActivity {
     WebView webViewAreaRestrita;

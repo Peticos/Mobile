@@ -33,10 +33,10 @@
         android:theme="@style/Theme.Peticos"
         tools:targetApi="31">
         <activity
-            android:name=".AreaRestrita"
+            android:name=".AreaRestrita.AreaRestrita"
             android:exported="false" />
         <activity
-            android:name=".LoginRestrito"
+            android:name=".AreaRestrita.LoginRestrito"
             android:exported="false" />
         <activity
             android:name=".Perfil.Pet.PesoPets"

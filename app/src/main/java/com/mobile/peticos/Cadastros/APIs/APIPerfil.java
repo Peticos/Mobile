@@ -1,5 +1,6 @@
 package com.mobile.peticos.Cadastros.APIs;
 
+import com.mobile.peticos.AreaRestrita.ModelLoginRestrita;
 import com.mobile.peticos.Padrao.ModelRetorno;
 
 import java.util.List;
@@ -46,6 +47,9 @@ public interface APIPerfil {
 
     @POST("/api/auth/login")
     Call<Integer> login(@Body ModelPerfilAuth model);
+
+    @POST("/api/admin/login")
+    Call<Integer> loginAdmin(@Body ModelLoginRestrita model);
 
 
 
