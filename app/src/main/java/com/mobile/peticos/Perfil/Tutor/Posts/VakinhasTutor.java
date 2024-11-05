@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -113,7 +112,6 @@ public class VakinhasTutor extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     cardVakinhasSemPost.setVisibility(View.VISIBLE);
                     Log.e("FeedDoPet", "Erro na resposta: " + (response.errorBody() != null ? response.errorBody().toString() : "Resposta vazia"));
-                    Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -122,7 +120,6 @@ public class VakinhasTutor extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 cardErroVakinhas.setVisibility(View.VISIBLE);
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
-                Toast.makeText(getContext(), "Erro ao carregar posts: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

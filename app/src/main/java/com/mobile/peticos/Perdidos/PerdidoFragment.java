@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import android.widget.ImageView;
 
 import com.mobile.peticos.Perdidos.Adcionar.AdicionarAoFeedTriste;
@@ -127,7 +126,6 @@ public class PerdidoFragment extends Fragment {
                     updateRecyclerView(PerdidosList);
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText( getActivity(), "Nenhum perdido perdido", Toast.LENGTH_SHORT).show();
                     cardPerdidosSemPost.setVisibility(View.VISIBLE);
                 }
             }

@@ -210,7 +210,6 @@ public class PersonalizarPets extends AppCompatActivity {
                         cabeca = pet.getHatId();
                         brinquedo = pet.getToyId();
                         oculos = pet.getGlassesId();
-                        Toast.makeText(PersonalizarPets.this,"" + cabeca,  Toast.LENGTH_SHORT).show();
 
 
 

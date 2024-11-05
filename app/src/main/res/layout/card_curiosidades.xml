@@ -5,8 +5,10 @@
     android:layout_width="350dp"
     android:layout_height="80dp"
     android:layout_gravity="center_horizontal"
-    android:layout_marginHorizontal="26dp"
+    android:layout_marginHorizontal="24dp"
     android:foregroundGravity="center_horizontal"
+    android:backgroundTint="@color/wood_brown"
+    app:cardElevation="8dp"
     app:cardCornerRadius="12dp">
 
     <TextView
@@ -16,7 +18,7 @@
         android:fontFamily="@font/varela_round"
         android:padding="10dp"
         android:text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit odit facere sunt commodi soluta dolore."
-        android:textColor="@color/wood_brown"
+        android:textColor="@color/beige"
         android:textSize="16sp" />
 
 </androidx.cardview.widget.CardView>

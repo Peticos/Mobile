@@ -30,12 +30,6 @@ import com.mobile.peticos.Perfil.Profissional.Graficos.GraficoFragment;
 import com.mobile.peticos.R;
 
 public class PerfilProfissional extends Fragment {
-
-
-
-
-
-
     public PerfilProfissional() {
         // Required empty public constructor
     }

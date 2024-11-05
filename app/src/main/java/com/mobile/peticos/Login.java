@@ -136,7 +136,6 @@ public class Login extends AppCompatActivity {
                                         }else{
                                             editor.putBoolean("mei", true);
                                         }
-                                        Toast.makeText(Login.this, "mei!" + sharedPreferences.getBoolean("mei", true), Toast.LENGTH_SHORT).show();
 
                                         editor.putString("telefone", perfil.getTelefone());
                                         editor.putString("url", perfil.getProfilePicture());
@@ -160,7 +159,7 @@ public class Login extends AppCompatActivity {
                         );
                     }else{
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(Login.this, "nao ta no mongo", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Email não cadastrado.", Toast.LENGTH_SHORT).show();
                     }
 
 

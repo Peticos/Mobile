@@ -220,12 +220,12 @@ public class EditarPerfil extends AppCompatActivity {
                     }
 
                     // Exibir o código de erro e a mensagem
-                    Toast.makeText(EditarPerfil.this, "Erro ao carregar perfil: Código " + errorCode + "\n" + errorBody, Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarPerfil.this, "Erro ao carregar perfil", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<ModelPerfil> call, Throwable t) {
-                Toast.makeText(EditarPerfil.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarPerfil.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -379,13 +379,13 @@ public class EditarPerfil extends AppCompatActivity {
                             errorMessage = "Erro ao cadastrar: " + response.code();
                             break;
                     }
-                    Toast.makeText(EditarPerfil.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditarPerfil.this, "Ocorreu um erro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
-                Toast.makeText(EditarPerfil.this, "Erro de conexão: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarPerfil.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
     }

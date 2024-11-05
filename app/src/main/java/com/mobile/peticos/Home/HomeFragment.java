@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
@@ -159,13 +158,12 @@ public class HomeFragment extends Fragment {
 
                         @Override
                         public void onError(String errorMessage) {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getContext(), "Erro ao carregar dicas: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        cardDicasErro.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
                         }
                     });
                 } else {
-
-                    Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
+                    cardDicasErro.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -204,18 +202,16 @@ public class HomeFragment extends Fragment {
                 } else {
                     progressBar.setVisibility(View.GONE);
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
-                    //cardFeedSemPost.setVisibility(View.VISIBLE);
-                    //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
+                    cardFeedSemPost.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
-               // cardFeedErro.setVisibility(View.VISIBLE);
+               cardFeedErro.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -273,7 +269,6 @@ public class HomeFragment extends Fragment {
                         public void onResult(boolean isSuccess) {
                             if (isSuccess) {
                                 Log.d("DICA DO DIA", "Dica do dia inserida com sucesso");
-                                Toast.makeText(getContext(), "carregar", Toast.LENGTH_SHORT).show();
                                 carregarDicas(v);
                             } else {
                                 Log.e("DICA DO DIA", "Erro ao inserir dica do dia");
@@ -284,10 +279,9 @@ public class HomeFragment extends Fragment {
 
 
                 } else {
-//                    progressBar.setVisibility(View.GONE);
-//                    cardDicasErro.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    cardDicasErro.setVisibility(View.VISIBLE);
                     Log.e("DICA DO DIA", "Erro: " + response.errorBody().toString());
-                    Toast.makeText(getContext(), "Nenhuma Dica encontrada", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -295,7 +289,6 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
                 cardDicasErro.setVisibility(View.VISIBLE);
-                Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
                 Log.e("DICA DO DIA", throwable.getMessage());
 
             }
@@ -314,8 +307,11 @@ public class HomeFragment extends Fragment {
         recyclerViewDicas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         // Configuração do Adapter para o RecyclerViewFeedPets
-        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas);
+        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas, recyclerViewDicas);
         recyclerViewDicas.setAdapter(dicasAdapter);
+
+        dicasAdapter.startAutoScroll();
+
 
     }
 

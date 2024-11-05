@@ -56,7 +56,7 @@ public class PesoPets extends AppCompatActivity {
         peso = findViewById(R.id.pesoAtual);
         data = findViewById(R.id.data);
         webView = findViewById(R.id.webView);
-        webView.loadUrl("https://app.powerbi.com/groups/me/reports/cd340a9f-fd1b-4239-8d75-c71de374f3ce/53275a6882fc9cbb770d?ctid=b148f14c-2397-402c-ab6a-1b4711177ac0&experience=power-bi");
+        webView.loadUrl("https://app.powerbi.com/view?r=eyJrIjoiODNhNTNjOTgtYTU4YS00ZTk4LWIwMjYtYjRiMjMyMGM3ODZmIiwidCI6ImIxNDhmMTRjLTIzOTctNDAyYy1hYjZhLTFiNDcxMTE3N2FjMCJ9");
         // Recuperar o ID do SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Pet", Context.MODE_PRIVATE);
         id = sharedPreferences.getInt("id", 0);
