@@ -38,7 +38,6 @@ public class PerfilPet extends AppCompatActivity {
         NomePet2 = findViewById(R.id.NomePet);
         sexoPet = findViewById(R.id.sexoPet);
         idadePet = findViewById(R.id.IdadePet);
-//        especiePet = findViewById(R.id.EspeciePet);
         racaPet = findViewById(R.id.RacaPet);
         corPet = findViewById(R.id.CorPet);
         portePet = findViewById(R.id.PortPet);

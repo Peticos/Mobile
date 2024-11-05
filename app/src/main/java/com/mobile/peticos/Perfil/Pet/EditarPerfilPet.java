@@ -179,7 +179,7 @@ public class EditarPerfilPet extends AppCompatActivity {
                                     oculos_dog.setImageResource(R.drawable.oculos_personalizado_7);
                                 }
                                 petzao.setVisibility(View.VISIBLE);
-                                if (pet.getHairId() == 1) {
+                                if (pet.getHairId() == 1 || pet.getHairId() == 0) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_1);
                                 } else if (pet.getHairId() == 2) {
                                     petzao.setImageResource(R.drawable.dog_personalizado_2);

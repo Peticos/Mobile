@@ -1,14 +1,16 @@
-package com.mobile.peticos;
+package com.mobile.peticos.AreaRestrita;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class LoginRestrito extends AppCompatActivity {
+import com.mobile.peticos.R;
+
+public class AreaRestrita extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_restrito);
+        setContentView(R.layout.activity_area_restrita);
     }
 }
