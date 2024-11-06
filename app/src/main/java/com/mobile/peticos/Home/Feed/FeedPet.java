@@ -20,60 +20,64 @@ public class FeedPet {
     //  },
     //},
 
+    //postDate -> post_date
+    //isMei -> is_mei
+    //userId -> user_id
+    //productName -> product_name
 
-    public String id;
-    public int userId;
+    public String _id;
+    public int user_id;
     public List<String> likes;
     public List<String> shares;
     public String picture;
     public String caption;
     public List<Integer> pets;
-    public String postDate;
+    public String post_date;
     public boolean is_mei;
     public double price;
     public String telephone;
-    public String productName;
+    public String product_name;
 
 
     public FeedPet(int userId,List<String> likes, List<String> shares, String picture, String caption, List<Integer> pets, String postDate, boolean isMei) {
-        this.userId = userId;
+        this.user_id = userId;
         this.likes = likes;
         this.shares = shares;
         this.picture = picture;
         this.caption = caption;
         this.pets = pets;
-        this.postDate = postDate;
+        this.post_date = postDate;
         this.is_mei = isMei;
     }
 
 
     public FeedPet(int userId,List<String> likes, List<String> shares, String picture, String caption, String postDate, boolean isMei, double price, String telephone, String productName) {
-        this.userId = userId;
+        this.user_id = userId;
         this.likes = likes;
         this.shares = shares;
         this.picture = picture;
         this.caption = caption;
-        this.postDate = postDate;
+        this.post_date = postDate;
         this.is_mei = isMei;
         this.price = price;
         this.telephone = telephone;
-        this.productName = productName;
+        this.product_name = productName;
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public int getUserId() {
-        return userId;
+        return user_id;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.user_id = userId;
     }
 
     public List<String> getLikes() {
@@ -118,11 +122,11 @@ public class FeedPet {
     }
 
     public String getPostDate() {
-        return postDate;
+        return post_date;
     }
 
     public void setPostDate(String postDate) {
-        this.postDate = postDate;
+        this.post_date = postDate;
     }
 
     public boolean isIs_mei() {
@@ -150,26 +154,26 @@ public class FeedPet {
     }
 
     public String getProductName() {
-        return productName;
+        return product_name;
     }
 
     public void setProductName(String productName) {
-        this.productName = productName;
+        this.product_name = productName;
     }
 
     public FeedPet(String id, int userId, List<String> likes, List<String> shares, String picture, String caption, List<Integer> pets, String postDate, boolean is_mei, double price, String telephone, String productName) {
-        this.id = id;
-        this.userId = userId;
+        this._id = id;
+        this.user_id = userId;
         this.likes = likes;
         this.shares = shares;
         this.picture = picture;
         this.caption = caption;
         this.pets = pets;
-        this.postDate = postDate;
+        this.post_date = postDate;
         this.is_mei = is_mei;
         this.price = price;
         this.telephone = telephone;
-        this.productName = productName;
+        this.product_name = productName;
     }
 }
 

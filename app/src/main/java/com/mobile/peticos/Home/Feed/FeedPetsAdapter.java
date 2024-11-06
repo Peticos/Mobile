@@ -22,10 +22,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
 import com.mobile.peticos.Padrao.MetodosBanco;
+import com.mobile.peticos.Padrao.ModelRetorno;
 import com.mobile.peticos.R;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,36 +50,52 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
         return new FeedPetsViewHolder(view);
     }
 
-    public void ConfigTutor( FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco){
+    public void ConfigTutor(FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco) {
         holder.entrarContato.setVisibility(View.GONE);
-        // Parseando a data da foto para um OffsetDateTime e depois pegando a data (LocalDate)
-        OffsetDateTime dateTime = OffsetDateTime.parse(feedPet.getPostDate());
-        LocalDate dataAnterior = dateTime.toLocalDate();
 
-        // Obtendo a data atual
-        LocalDate dataAtual = LocalDate.now();
+        String postDate = feedPet.getPostDate();
+        if (postDate != null) {
+            // Remover espaços não imprimíveis e espaços em branco extras
+            postDate = postDate.trim();
 
-        // Calculando a diferença em dias
-        long dias = ChronoUnit.DAYS.between(dataAnterior, dataAtual);
+            try {
+                // Definindo o formatter para o formato de data recebido
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime dateTime = LocalDateTime.parse(postDate, formatter);
+                LocalDate dataAnterior = dateTime.toLocalDate();
 
-        // Configurando o texto com o número de dias + " dias atrás"
-        if(dias == 0){
-            holder.days.setText("Hoje");
-        }else if(dias == 1){
-            holder.days.setText("Ontem");
+                // Obtendo a data atual
+                LocalDate dataAtual = LocalDate.now();
 
-        }else{
-            holder.days.setText("Há "+dias + " dias atrás");
+                // Calculando a diferença em dias
+                long dias = ChronoUnit.DAYS.between(dataAnterior, dataAtual);
 
+                // Configurando o texto com o número de dias + " dias atrás"
+                if (dias == 0) {
+                    holder.days.setText("Hoje");
+                } else if (dias == 1) {
+                    holder.days.setText("Ontem");
+                } else {
+                    holder.days.setText("Há " + dias + " dias atrás");
+                }
+            } catch (DateTimeParseException e) {
+                // Lida com o erro de parsing
+                Log.e("Data Parse Error", "Formato de data inválido: " + postDate, e);
+                holder.days.setText("Data inválida");
+            }
+        } else {
+            // Lide com o caso de data nula
+            holder.days.setText("Data não disponível");
         }
-        metodosBanco.getPets( feedPet.getPets(), new MetodosBanco.PetsCallBack() {
+
+
+
+        metodosBanco.getPets(feedPet.getPets(), new MetodosBanco.PetsCallBack() {
             @Override
             public void onSuccess(List<String> pets) {
-
                 // Supondo que pets é uma lista de strings
                 String petsConcatenados = TextUtils.join(", ", pets);
                 holder.petsInPhoto.setText(petsConcatenados);
-
             }
 
             @Override
@@ -84,9 +104,9 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
                 Log.e("Erro", errorMessage);
                 holder.petsInPhoto.setText("Erro ao buscar pets");
             }
-
         });
     }
+
     public void ConfigMei(FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco){
         holder.days.setText( "R$ "+feedPet.getPrice());
         holder.entrarContato.setVisibility(View.VISIBLE);
@@ -111,7 +131,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
     }
 
     public void ConfigPerfilUserPost (FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco){
-        metodosBanco.getPerfil(feedPet.userId, holder.itemView.getContext(), new MetodosBanco.PerfilCallback() {
+        metodosBanco.getPerfil(feedPet.user_id, holder.itemView.getContext(), new MetodosBanco.PerfilCallback() {
             @Override
             public void onSuccess(ModelPerfil perfil) {
                 // Configure as informações do perfil no holder, por exemplo:
@@ -137,7 +157,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             public void onError(String errorMessage) {
                 // Trate o erro se necessário, por exemplo:
                 Log.e("Erro", errorMessage);
-                holder.username.setText(String.format("Erro: %s", feedPet.userId));
+                holder.username.setText(String.format("Erro: %s", feedPet.user_id));
                 Glide.with(holder.userPhoto.getContext())
                         .load(R.drawable.fotogenerica)
                         .error(R.drawable.fotogenerica)
@@ -215,9 +235,10 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
     }
 
     public void CurtirBanco(FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco, String username) {
+        Log.d("CurtirBanco", "id: " + feedPet.getId() + " username: " + username);
         metodosBanco.curtir(feedPet.getId(), username, new MetodosBanco.CurtirCallback() {
             @Override
-            public void onSuccess(String modelRetorno) {
+            public void onSuccess(ModelRetorno modelRetorno) {
             }
 
             @Override
@@ -229,7 +250,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
     public void DesCurtirBanco(FeedPetsViewHolder holder, FeedPet feedPet, MetodosBanco metodosBanco, String username) {
         metodosBanco.descurtir(feedPet.getId(),username, new MetodosBanco.CurtirCallback() {
             @Override
-            public void onSuccess(String modelRetorno) {
+            public void onSuccess(ModelRetorno modelRetorno) {
 
             }
 
@@ -243,7 +264,7 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
     public void CompartilharBanco(FeedPetsViewHolder holder, FeedPet feedPet,MetodosBanco metodosBanco, String username) {
         metodosBanco.share(feedPet.getId(),username, new MetodosBanco.CurtirCallback() {
             @Override
-            public void onSuccess(String modelRetorno) {
+            public void onSuccess(ModelRetorno modelRetorno) {
             }
 
             @Override
