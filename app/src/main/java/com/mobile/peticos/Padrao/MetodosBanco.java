@@ -233,7 +233,7 @@ public class MetodosBanco {
     }
 
     public void curtir(String id, String username, CurtirCallback callback) {
-        String API = "https://api-mongo-i1jq.onrender.com/";
+        String API = "https://apiredis-63tq.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -262,7 +262,7 @@ public class MetodosBanco {
         });
     }
     public void descurtir(String id, String username, CurtirCallback callback) {
-        String API = "https://api-mongo-i1jq.onrender.com/";
+        String API = "https://apiredis-63tq.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

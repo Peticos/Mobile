@@ -75,7 +75,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                 if (response.isSuccessful() && response.body() != null) {
                     ModelRetorno perdido = response.body();
                     Log.d("Perfil", "perdido: " + perdido);
-                    Toast.makeText(holder.itemView.getContext(), "Achou", Toast.LENGTH_SHORT).show();
+
                     // Exibir o modal com os detalhes do pet encontrado
                     PetFoundDialogFragment dialog = PetFoundDialogFragment.newInstance(
                             "Ebaa!!! Mais um amiguinho encontrado!",
@@ -170,7 +170,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
             if(id == pet.getIdUser()){
                 holder.acharPet.setVisibility(View.VISIBLE);
                 holder.acharPet.setOnClickListener(v->{
-                    acharPet(pet.getId_rescued_lost(),holder);
+                    acharPet(pet.getIdPet(),holder);
                 });
             }else{
                 holder.acharPet.setVisibility(View.GONE);

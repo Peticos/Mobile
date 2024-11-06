@@ -17,17 +17,20 @@ import retrofit2.http.Query;
 
 public interface ApiHome {
     //mudar para alternado
-    @GET("/api/posts/alternado")
-    Call<List<FeedPet>> getAll();
+    @GET("/feed/newfeed/{user_id}")
+    Call<List<FeedPet>> getAll( @Path("user_id") String user_id);
+
+    @GET("/feed/newfeed/{user_id}")
+    Call<List<FeedPet>> getNewFeed( @Path("user_id") String user_id);
 
     @GET("/api/dayhint/random")
     Call <List<DicasDoDia>> getDayHint();
 
-    @PUT("/api/posts/{id}/like")
-    Call<String> like(@Path("id") String id, @Query("username")String username);
+    @PUT("/like/{post_id}/{username}")
+    Call<String> like(@Path("id") String id, @Path("username")String username);
 
-    @PUT("/api/posts/{id}/dislike")
-    Call<String> dislike(@Path("id") String id, @Query("username")String username);
+    @PUT("/dislike/{post_id}/{username}")
+    Call<String> dislike(@Path("id") String id, @Path("username")String username);
 
     @PUT("/api/posts/{id}/share")
     Call<String> share(@Path("id") String id, @Query("username")String username);

@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment {
         return new HomeFragment();
     }
 
+    String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,8 +82,9 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
-        Boolean mei = sharedPreferences.getBoolean("mei", true);
 
+        Boolean mei = sharedPreferences.getBoolean("mei", true);
+        username = sharedPreferences.getString("nome_usuario", "");
         // Encontrar o ImageView com o ID correto
         ImageView btnCadastrar = view.findViewById(R.id.btn_cadastrar_feed);
 
@@ -183,7 +185,7 @@ public class HomeFragment extends Fragment {
     Retrofit retrofit;
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
-        String API = "https://api-mongo-i1jq.onrender.com";
+        String API = "https://apiredis-63tq.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -193,18 +195,23 @@ public class HomeFragment extends Fragment {
     // Inicializa o RecyclerView com todos os locais
     private void initRecyclerViewFeed(View v) {
         progressBar.setVisibility(View.VISIBLE);
-        Call<List<FeedPet>> call = ApiHome.getAll();
+        Log.e("FeedPet", username);
+        Call<List<FeedPet>> call = ApiHome.getAll(username);
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     progressBar.setVisibility(View.GONE);
                     List<FeedPet> feedList = response.body();
+                    Log.e("FeedPet", feedList.toString());
+                    Log.e("FeedPet", "Tamanho: " + feedList.size());
+                    Log.e("FeedPet", response.body().toString());
+                    Log.e("FeedPet", "code: " + response.code());
                     updateRecyclerViewFeed(feedList, v);
                 } else {
                     progressBar.setVisibility(View.GONE);
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
-                    //cardFeedSemPost.setVisibility(View.VISIBLE);
+                    cardFeedSemPost.setVisibility(View.VISIBLE);
                     //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -215,7 +222,7 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
-               // cardFeedErro.setVisibility(View.VISIBLE);
+                cardFeedErro.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -284,8 +291,8 @@ public class HomeFragment extends Fragment {
 
 
                 } else {
-//                    progressBar.setVisibility(View.GONE);
-//                    cardDicasErro.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    cardDicasErro.setVisibility(View.VISIBLE);
                     Log.e("DICA DO DIA", "Erro: " + response.errorBody().toString());
                     Toast.makeText(getContext(), "Nenhuma Dica encontrada", Toast.LENGTH_SHORT).show();
                 }

@@ -246,6 +246,8 @@ public class CadastrarPet extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 progressBar.setVisibility(View.GONE);
                                 Toast.makeText(CadastrarPet.this, "Pet cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(CadastrarPet.this, MainActivity.class);
+                                startActivity(intent);
                                 finish();
 
 
