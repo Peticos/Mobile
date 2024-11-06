@@ -15,6 +15,6 @@ public class AreaRestrita extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area_restrita);
         webViewAreaRestrita = findViewById(R.id.webViewAreaRestrita);
-        webViewAreaRestrita.loadUrl("https://area-restrita-dados-3.onrender.com/previsao-user");
+        webViewAreaRestrita.loadUrl("https://area-restrita-dados-4.onrender.com/possiveis-users");
     }
 }
