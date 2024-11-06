@@ -7,17 +7,15 @@
     tools:context=".SplashScreen"
     android:background="@color/water_blue">
 
-    <ImageView
-        android:id="@+id/imagemSplash"
-        android:layout_width="961dp"
-        android:layout_height="1650dp"
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="1052dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.437"
-        app:srcCompat="@drawable/ic_logo"
-        app:tint="@color/white" />
+        app:layout_constraintVertical_bias="0.177" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
