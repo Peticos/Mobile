@@ -99,8 +99,8 @@
 
             <ImageView
                 android:id="@+id/curtida"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -153,7 +153,7 @@
                     android:id="@+id/shareButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="300dp"
+                    android:layout_marginRight="280dp"
                     android:background="@color/white"
                     app:srcCompat="@drawable/ic_share" />
 

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.mobile.peticos.Cadastros.APIs.APIPerfil;
 import com.mobile.peticos.Cadastros.APIs.ModelPerfil;
@@ -240,14 +239,17 @@ public class MetodosBanco {
                 .build();
         ApiHome api = retrofit.create(ApiHome.class);
 
-        Call<String> call = api.like(id, username);
-        call.enqueue(new Callback<String>() {
+        Call<ModelRetorno> call = api.like(id, username);
+        call.enqueue(new Callback<ModelRetorno>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                 if (response.isSuccessful()) {
                     Log.d("Curtir response code", "Curtir: " + response.code());
                     callback.onSuccess(response.body());
+
                 } else {
+                    Log.d("Curtir response code", "Curtir: " + response.code());
+
                     callback.onError("Erro ao curtir");
                 }
                 Log.d("Response", response.toString());
@@ -255,7 +257,7 @@ public class MetodosBanco {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable throwable) {
+            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
                 Log.e("Curtir error onFailure", "Falha ao curtir: " + throwable.getMessage());
                 callback.onError(throwable.getMessage());
             }
@@ -270,15 +272,15 @@ public class MetodosBanco {
 
         ApiHome api = retrofit.create(ApiHome.class);
 
-        Call<String> call = api.dislike(id, username);
-        call.enqueue(new Callback<String>() {
+        Call<ModelRetorno> call = api.dislike(id, username);
+        call.enqueue(new Callback<ModelRetorno>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                 if (response.isSuccessful()) {
                     Log.d("Curtir response code", "Curtir: " + response.code());
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Erro ao curtir" + response.code());
+                    callback.onError("Erro ao descurtir" + response.code());
 
                 }
 
@@ -286,7 +288,7 @@ public class MetodosBanco {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable throwable) {
+            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
                 Log.e("Curtir error onFailure", "Falha ao curtir: " + throwable.getMessage());
                 callback.onError(throwable.getMessage());
             }
@@ -301,10 +303,10 @@ public class MetodosBanco {
 
         ApiHome api = retrofit.create(ApiHome.class);
 
-        Call<String> call = api.share(id, username);
-        call.enqueue(new Callback<String>() {
+        Call<ModelRetorno> call = api.share(id, username);
+        call.enqueue(new Callback<ModelRetorno>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                 if (response.isSuccessful()) {
                     Log.d("Share response code", "SHare: " + response.code());
                     callback.onSuccess(response.body());
@@ -316,14 +318,14 @@ public class MetodosBanco {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable throwable) {
+            public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
                 Log.e("Curtir error onFailure", "Falha ao compartilhar: " + throwable.getMessage());
                 callback.onError(throwable.getMessage());
             }
         });
     }
     public interface CurtirCallback {
-        void onSuccess(String modelRetorno);
+        void onSuccess(ModelRetorno modelRetorno);
         void onError(String errorMessage);
     }
 

@@ -17,8 +17,8 @@ import retrofit2.http.Query;
 
 public interface ApiHome {
     //mudar para alternado
-    @GET("/feed/newfeed/{user_id}")
-    Call<List<FeedPet>> getAll( @Path("user_id") String user_id);
+    @GET("/feed/{user_id}")
+    Call<List<FeedPet>> getAll(@Path("user_id") String user_id);
 
     @GET("/feed/newfeed/{user_id}")
     Call<List<FeedPet>> getNewFeed( @Path("user_id") String user_id);
@@ -26,14 +26,14 @@ public interface ApiHome {
     @GET("/api/dayhint/random")
     Call <List<DicasDoDia>> getDayHint();
 
-    @PUT("/like/{post_id}/{username}")
-    Call<String> like(@Path("id") String id, @Path("username")String username);
+    @POST("/like/{post_id}/{username}")
+    Call<ModelRetorno> like(@Path("post_id") String id, @Path("username")String username);
 
-    @PUT("/dislike/{post_id}/{username}")
-    Call<String> dislike(@Path("id") String id, @Path("username")String username);
+    @POST("/dislike/{post_id}/{username}")
+    Call<ModelRetorno> dislike(@Path("post_id") String id, @Path("username")String username);
 
     @PUT("/api/posts/{id}/share")
-    Call<String> share(@Path("id") String id, @Query("username")String username);
+    Call<ModelRetorno> share(@Path("id") String id, @Query("username")String username);
 
     @POST("/api/posts/insert")
     Call<FeedPet> insert(@Body FeedPet feedPet);

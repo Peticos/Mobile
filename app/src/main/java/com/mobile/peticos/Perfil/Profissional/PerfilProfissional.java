@@ -49,6 +49,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PerfilProfissional extends Fragment {
 
 
+
     private static final String BASE_URL = "https://api-mongo-i1jq.onrender.com";
     private static final String PREFS_NAME = "Perfil";
     private static final String KEY_ID = "id";

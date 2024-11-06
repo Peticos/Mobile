@@ -186,11 +186,6 @@ public class CadastrarPet extends AppCompatActivity {
 
     //cadastrar pet
     public void Cadastrar(View view) {
-        // Verifica se todos os campos obrigatórios estão preenchidos
-//        if (especie.getText().toString().isEmpty() || raca.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || porte.getText().toString().isEmpty() || genero.getText().toString().isEmpty()) {
-//            Toast.makeText(CadastrarPet.this, "Por favor, preencha todos os campos obrigatórios.", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
         APIPets api1 = retrofit1.create(APIPets.class);
         APIPets api2 = retrofit2.create(APIPets.class);
 

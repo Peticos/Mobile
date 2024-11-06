@@ -112,7 +112,6 @@ public class FeedDoPet extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     cardFeedSemPost.setVisibility(View.VISIBLE);
                     Log.e("FeedDoPet", "Erro na resposta: " + (response.errorBody() != null ? response.errorBody().toString() : "Resposta vazia"));
-                    Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -121,7 +120,6 @@ public class FeedDoPet extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 cardFeedErro.setVisibility(View.VISIBLE);
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
-                Toast.makeText(getContext(), "Erro ao carregar posts: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

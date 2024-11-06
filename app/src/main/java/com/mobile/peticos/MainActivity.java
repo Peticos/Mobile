@@ -3,8 +3,6 @@ package com.mobile.peticos;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -122,6 +120,5 @@ public class MainActivity extends AppCompatActivity {
                 .setMessage("Carregando perfil...")
                 .setCancelable(false)
                 .show();
-        Toast.makeText(this, "Pera! Ta carregando", Toast.LENGTH_SHORT).show();
     }
 }

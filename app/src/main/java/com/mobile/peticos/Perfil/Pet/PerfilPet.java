@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -126,6 +127,7 @@ public class PerfilPet extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if(response.body() != null) {
                         Personalizacao pet = response.body();
+                        Log.e("teste", pet.getHairId() + " hat" + pet.getHatId() + "glasses " + pet.getGlassesId() + " toy" + pet.getToyId());
 
                         if(pet.getSpecies().equals("Cachorro")) {
 
@@ -173,6 +175,7 @@ public class PerfilPet extends AppCompatActivity {
                             }
 
                         } else if(pet.getSpecies().equals("Gato")) {
+
                             if(pet.getGlassesId() == 1) {
                                 oculos_cat.setVisibility(View.VISIBLE);
                                 oculos_cat.setImageResource(R.drawable.oculos_personalizado_1);
@@ -195,7 +198,7 @@ public class PerfilPet extends AppCompatActivity {
                                 oculos_cat.setVisibility(View.VISIBLE);
                                 oculos_cat.setImageResource(R.drawable.oculos_personalizado_7);
                             }
-                            petzao.setVisibility(View.VISIBLE);
+
                             if(pet.getHairId() == 1 || pet.getHatId() == 0) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_1);
                             }else if (pet.getHairId()==2) {
@@ -215,6 +218,7 @@ public class PerfilPet extends AppCompatActivity {
                             }else if(pet.getHairId()==9) {
                                 petzao.setImageResource(R.drawable.cat_personalizado_9);
                             }
+                            petzao.setVisibility(View.VISIBLE);
 
                         }
                         if(pet.getToyId() == 1) {

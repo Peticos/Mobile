@@ -99,14 +99,15 @@
 
             <ImageView
                 android:id="@+id/curtida"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/like" />
+                app:layout_constraintTop_toTopOf="@+id/photo"
+                app:srcCompat="@drawable/like" />
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/entrarContato"
@@ -154,14 +155,14 @@
                     android:id="@+id/shareButton"
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="490dp"
+                    android:layout_marginRight="470dp"
                     android:background="@color/white"
                     app:srcCompat="@drawable/ic_share" />
 
                 <ImageButton
                     android:id="@+id/likeButton"
                     android:layout_width="30dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
                     app:srcCompat="@drawable/ic_like" />
 

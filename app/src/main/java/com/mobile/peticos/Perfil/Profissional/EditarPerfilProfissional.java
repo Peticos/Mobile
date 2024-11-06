@@ -164,7 +164,7 @@ public class EditarPerfilProfissional extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ModelPerfil> call, Throwable t) {
-                Toast.makeText(EditarPerfilProfissional.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarPerfilProfissional.this, "Ocorreu um erro, tente novamente!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -284,13 +284,13 @@ public class EditarPerfilProfissional extends AppCompatActivity {
                             errorMessage = "Erro ao cadastrar: " + response.code();
                             break;
                     }
-                    Toast.makeText(EditarPerfilProfissional.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditarPerfilProfissional.this, "Ocorreu um erro, tente novamente.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
-                Toast.makeText(EditarPerfilProfissional.this, "Erro de conexão: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarPerfilProfissional.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
     }

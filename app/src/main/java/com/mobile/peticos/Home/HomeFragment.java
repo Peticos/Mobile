@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -45,7 +46,7 @@ public class HomeFragment extends Fragment {
     public static final String[] REQUIRED_PERMISSIONS;
     CardView cardFeedErro, cardDicasErro, cardFeedSemPost;
     MetodosBanco metodosBanco = new MetodosBanco();
-    private ProgressBar progressBar;
+    private ProgressBar progressBar, recarregarPosts;
 
     static {
         List<String> requiredPermissions = new ArrayList<>();
@@ -79,6 +80,7 @@ public class HomeFragment extends Fragment {
         cardDicasErro = view.findViewById(R.id.cardDicasErro);
         cardFeedSemPost = view.findViewById(R.id.cardFeedSemPost);
         progressBar = view.findViewById(R.id.progressBar2);
+        recarregarPosts = view.findViewById(R.id.recarregarPosts);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
@@ -129,7 +131,7 @@ public class HomeFragment extends Fragment {
         });
 
         setupRetrofitFeed();
-        initRecyclerViewFeed(view);
+        initRecyclerViewFeed(view, 1);
 
         setupRetrofiAdapter();
         String APIRedis = "https://apiredis-63tq.onrender.com";
@@ -161,13 +163,12 @@ public class HomeFragment extends Fragment {
 
                         @Override
                         public void onError(String errorMessage) {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getContext(), "Erro ao carregar dicas: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        cardDicasErro.setVisibility(View.VISIBLE);
+                        progressBar.setVisibility(View.GONE);
                         }
                     });
                 } else {
-
-                    Toast.makeText(getContext(), "Erro ao carregar dicas", Toast.LENGTH_SHORT).show();
+                    cardDicasErro.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -185,18 +186,21 @@ public class HomeFragment extends Fragment {
     Retrofit retrofit;
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
-        String API = "https://apiredis-63tq.onrender.com";
+        String API = "https://apiredis-63tq.onrender.com/";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiHome = retrofit.create(ApiHome.class);
     }
-    // Inicializa o RecyclerView com todos os locais
-    private void initRecyclerViewFeed(View v) {
+    // Inicializa o RecyclerView com todos os posts
+    private void initRecyclerViewFeed(View v, int tipo) {
         progressBar.setVisibility(View.VISIBLE);
         Log.e("FeedPet", username);
         Call<List<FeedPet>> call = ApiHome.getAll(username);
+            Log.e("FeedPet", "getAll");
+
+
         call.enqueue(new Callback<List<FeedPet>>() {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
@@ -211,8 +215,44 @@ public class HomeFragment extends Fragment {
                 } else {
                     progressBar.setVisibility(View.GONE);
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
-                    cardFeedSemPost.setVisibility(View.VISIBLE);
-                    //Toast.makeText(getContext(), "Nenhum Post encontrado", Toast.LENGTH_SHORT).show();
+                    //cardFeedSemPost.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("FeedPet", "Erro: " + throwable.getMessage());
+
+               cardFeedErro.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+    private void initRecyclerViewFeedNew(View v, int tipo) {
+        progressBar.setVisibility(View.VISIBLE);
+        Log.e("FeedPet", username);
+        Call<List<FeedPet>> call = ApiHome.getNewFeed(username);
+        Log.e("FeedPet", "getAll");
+
+
+        call.enqueue(new Callback<List<FeedPet>>() {
+            @Override
+            public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    List<FeedPet> feedList = response.body();
+                    Log.e("FeedPet", feedList.toString());
+                    Log.e("FeedPet", "Tamanho: " + feedList.size());
+                    Log.e("FeedPet", response.body().toString());
+                    Log.e("FeedPet", "code: " + response.code());
+                    recarregarPosts.setVisibility(View.GONE);
+                    updateRecyclerViewFeed(feedList, v);
+                } else {
+
+
+                    Log.e("FeedPet", "Erro: " + response.errorBody().toString());
+                    //cardFeedSemPost.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -226,6 +266,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 
     private void updateRecyclerViewFeed(List<FeedPet> feedList, View v) {
         List<FeedPet> postagens = new ArrayList<>();
@@ -252,8 +293,24 @@ public class HomeFragment extends Fragment {
 
 
         // Configuração do Adapter para o RecyclerViewFeedPets
+
         FeedPetsAdapter feedPetsAdapter = new FeedPetsAdapter(postagens);
         recyclerViewFeedPets.setAdapter(feedPetsAdapter);
+        progressBar.setVisibility(View.GONE);
+
+        recyclerViewFeedPets.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && layoutManager.findLastVisibleItemPosition() == feedList.size() - 1) {
+                    recarregarPosts.setVisibility(View.VISIBLE);
+                    initRecyclerViewFeedNew(v, 0);
+                } else {
+                    recarregarPosts.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     // Curiosidades
@@ -321,8 +378,11 @@ public class HomeFragment extends Fragment {
         recyclerViewDicas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         // Configuração do Adapter para o RecyclerViewFeedPets
-        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas);
+        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas, recyclerViewDicas);
         recyclerViewDicas.setAdapter(dicasAdapter);
+
+        dicasAdapter.startAutoScroll();
+
 
     }
 
