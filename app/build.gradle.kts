@@ -85,8 +85,7 @@ dependencies {
     implementation("androidx.camera:camera-video:1.2.2")
     implementation("androidx.camera:camera-extensions:1.2.2")
     implementation ("androidx.camera:camera-view:1.2.0") // Para PreviewView
-
-
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.23")
 
     implementation("com.google.guava:guava:31.0.1-android")
     implementation("androidx.concurrent:concurrent-futures:1.2.0")
