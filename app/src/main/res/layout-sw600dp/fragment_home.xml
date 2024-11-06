@@ -229,5 +229,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnRecarregar"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="30dp"
+            android:textSize="20dp"
+            android:fontFamily="@font/varela_round"
+            android:text="Recarregar"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

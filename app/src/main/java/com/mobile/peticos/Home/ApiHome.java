@@ -21,7 +21,7 @@ public interface ApiHome {
     Call<List<FeedPet>> getAll(@Path("user_id") String user_id);
 
     @GET("/feed/newfeed/{user_id}")
-    Call<List<FeedPet>> getNewFeed( @Path("user_id") String user_id);
+    Call<List<FeedPet>> getNewFeed(@Path("user_id") String user_id);
 
     @GET("/api/dayhint/random")
     Call <List<DicasDoDia>> getDayHint();
