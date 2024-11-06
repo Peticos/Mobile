@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
 
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
-    CardView cardFeedErro, cardDicasErro, cardFeedSemPost;
+    CardView cardFeedErro, cardDicasErro, cardFeedSemPost, cardSemNet, cardTimeout;
     MetodosBanco metodosBanco = new MetodosBanco();
     private ProgressBar progressBar, recarregarPosts;
 
@@ -80,6 +80,8 @@ public class HomeFragment extends Fragment {
         cardFeedSemPost = view.findViewById(R.id.cardFeedSemPost);
         progressBar = view.findViewById(R.id.progressBar2);
         recarregarPosts = view.findViewById(R.id.recarregarPosts);
+        cardSemNet = view.findViewById(R.id.cardSemNet);
+        cardTimeout = view.findViewById(R.id.cardTimeOut);
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
 
@@ -212,9 +214,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                Log.e("FeedPet", "Erro: " + throwable.getMessage());
-
-               cardFeedErro.setVisibility(View.VISIBLE);
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardFeedErro.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -306,8 +312,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                cardDicasErro.setVisibility(View.VISIBLE);
-                Log.e("DICA DO DIA", throwable.getMessage());
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardFeedErro.setVisibility(View.VISIBLE);
+                }
 
             }
         });
@@ -329,9 +340,5 @@ public class HomeFragment extends Fragment {
         recyclerViewDicas.setAdapter(dicasAdapter);
 
         dicasAdapter.startAutoScroll();
-
-
     }
-
-
 }

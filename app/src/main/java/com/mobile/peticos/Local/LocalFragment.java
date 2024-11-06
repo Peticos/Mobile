@@ -34,7 +34,7 @@ public class LocalFragment extends Fragment {
     private Retrofit retrofit;
     private ApiLocais apiLocais;
     private ProgressBar progressBar;
-    CardView cardErroLocal;
+    CardView cardErroLocal, cardSemNet, cardTimeout;
 
     // Construtor
     public LocalFragment() {
@@ -55,7 +55,10 @@ public class LocalFragment extends Fragment {
 
         cardErroLocal = view.findViewById(R.id.cardErroLugares);
 
+        cardSemNet = view.findViewById(R.id.cardSemNet);
+
         progressBar = view.findViewById(R.id.progressBar2);
+        cardTimeout = view.findViewById(R.id.cardTimeOut);
 
         // Configuração dos botões
         btnConsulta = view.findViewById(R.id.btnConsulta);
@@ -106,7 +109,13 @@ public class LocalFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Local>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                cardErroLocal.setVisibility(View.VISIBLE);
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardErroLocal.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -122,7 +131,7 @@ public class LocalFragment extends Fragment {
                 btnOngs.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
                 btnConsulta.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
                 btn_semfiltro.setImageDrawable(getResources().getDrawable(R.drawable.filter_off));
-                LocaisFiltrado(1);
+                LocaisFiltrado(2);
             }
         });
         btnLazer.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +142,7 @@ public class LocalFragment extends Fragment {
                 btnOngs.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
                 btnConsulta.setCardBackgroundColor(getResources().getColor(R.color.water_blue));
                 btn_semfiltro.setImageDrawable(getResources().getDrawable(R.drawable.filter_off));
-                LocaisFiltrado(2);
+                LocaisFiltrado(1);
             }
         });
         btnOngs.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +200,13 @@ public class LocalFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Local>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                showToast("Erro ao carregar Locais");
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardErroLocal.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

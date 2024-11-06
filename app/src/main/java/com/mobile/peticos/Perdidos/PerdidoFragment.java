@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,8 @@ public class PerdidoFragment extends Fragment {
     private ImageButton btAdicionar, btnSos;
     private ImageView infoPerdidos, fechar;
     private View cardInfoPerdido;
-    CardView cardErroPerdidos, cardPerdidosSemPost;
-    private ProgressBar progressBar, recarregarPosts;
+    CardView cardErroPerdidos, cardPerdidosSemPost, cardSemNet, cardTimeout;
+    private ProgressBar progressBar;
 
     public PerdidoFragment() {
         // Required empty public constructor
@@ -63,7 +64,9 @@ public class PerdidoFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         cardErroPerdidos = view.findViewById(R.id.cardErroPerdidos);
         progressBar = view.findViewById(R.id.progressBar2);
-        recarregarPosts = view.findViewById(R.id.recarregarPosts);
+
+        cardSemNet = view.findViewById(R.id.cardSemNet);
+        cardTimeout = view.findViewById(R.id.cardTimeOut);
 
         cardPerdidosSemPost = view.findViewById(R.id.cardPerdidosSemPost);
 
@@ -137,10 +140,18 @@ public class PerdidoFragment extends Fragment {
             @Override
             public void onFailure(Call<List<PetPerdido>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                cardErroPerdidos.setVisibility(View.VISIBLE);
+
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardErroPerdidos.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
+
     //public PetPerdido(int idPet, int idUser, String bairro, String title, String description, String postTime, String picture, String location, String lostDate, String phone, String rescuedDate) {
     //        this.idPet = idPet;
     //        this.idUser = idUser;

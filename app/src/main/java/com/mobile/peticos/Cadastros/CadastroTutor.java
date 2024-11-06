@@ -105,8 +105,8 @@ public class CadastroTutor extends AppCompatActivity {
         String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
         ModelPerfil perfil = new ModelPerfil(
                 nomeCompleto.getText().toString(),
-                nomeUsuario.getText().toString(),
-                emailCadastro.getText().toString(),
+                nomeUsuario.getText().toString().replaceAll("\\s+", ""),
+                emailCadastro.getText().toString().replaceAll("\\s+", ""),
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefoneFormatado,
@@ -115,10 +115,6 @@ public class CadastroTutor extends AppCompatActivity {
                 genero_drop.getSelectedItem().toString(),
                 null
         );
-
-
-
-
 
 
         progressBar.setVisibility(View.VISIBLE);
@@ -146,8 +142,8 @@ public class CadastroTutor extends AppCompatActivity {
                     metodos.Authentication(
                             view,
                             id,
-                            emailCadastro.getText().toString(),
-                            senhaCadastro.getText().toString(),
+                            emailCadastro.getText().toString().replaceAll("\\s+", ""),
+                            senhaCadastro.getText().toString().replaceAll("\\s+", ""),
                             view.getContext(),
                             new AuthCallback() {
                                 @Override

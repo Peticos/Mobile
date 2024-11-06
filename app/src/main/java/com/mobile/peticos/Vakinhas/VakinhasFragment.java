@@ -54,7 +54,7 @@ public class VakinhasFragment extends Fragment {
     VakinhAPI apiVakinhas;
 
     private ImageView infoVakinha, fechar;
-    CardView cardInfoVakinha, cardErroVakinhas, cardNovaVakinha;
+    CardView cardInfoVakinha, cardErroVakinhas, cardNovaVakinha, cardSemNet, cardTimeout;
 
     public VakinhasFragment() {
         // Required empty public constructor
@@ -84,6 +84,10 @@ public class VakinhasFragment extends Fragment {
         btn_sair = view.findViewById(R.id.btn_sair);
         linkVakinha = view.findViewById(R.id.linkVakinha);
         btn_salvar = view.findViewById(R.id.btn_salvar);
+
+        cardSemNet = view.findViewById(R.id.cardSemNet);
+        cardTimeout = view.findViewById(R.id.cardTimeOut);
+        cardTimeout = view.findViewById(R.id.cardTimeOut);
 
         // Inicializando o card como GONE inicialmente
         cardInfoVakinha = view.findViewById(R.id.cardInfoVakinha);
@@ -179,6 +183,7 @@ public class VakinhasFragment extends Fragment {
 
         APIPets apiPets = retrofit.create(APIPets.class);
 
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "modolo"));
         call.enqueue(new Callback<List<ModelPetBanco>>() {
             @Override
@@ -187,15 +192,25 @@ public class VakinhasFragment extends Fragment {
                     List<ModelPetBanco> listaPets = response.body();
                     adapterAdicionarVakinha = new AdapterAdicionarVakinha(listaPets);
                     recyclerPetsVakinha.setAdapter(adapterAdicionarVakinha);
+                    progressBar.setVisibility(View.GONE);
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    cardErroVakinhas.setVisibility(View.VISIBLE);
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                if (t instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (t instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardErroVakinhas.setVisibility(View.VISIBLE);
+                }
                 Log.e("API_ERROR", "Falha na chamada", t);
-                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -224,6 +239,7 @@ public class VakinhasFragment extends Fragment {
                 idPetInt,
                 "https://www.vakinha.com.br/5167185"
         );
+        progressBar.setVisibility(View.VISIBLE);
         Call<ModelRetorno> call = apiVakinhas.insertVakinha(vakinha);
 
         call.enqueue(new Callback<ModelRetorno>() {
@@ -235,9 +251,10 @@ public class VakinhasFragment extends Fragment {
                     editor.putString("selectedPet", "0");
 
                     editor.apply();
-
-
+                    progressBar.setVisibility(View.GONE);
                 } else {
+                    progressBar.setVisibility(View.GONE);
+                    cardErroVakinhas.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(), "Erro ao criar vakinha", Toast.LENGTH_SHORT).show();
                     cardNovaVakinha.setVisibility(View.GONE);
                     editor.putString("selectedPet", "0");
@@ -249,7 +266,16 @@ public class VakinhasFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ModelRetorno> call, Throwable t) {
-                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
+
+                progressBar.setVisibility(View.GONE);
+                if (t instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (t instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardErroVakinhas.setVisibility(View.VISIBLE);
+                }
+
                 cardNovaVakinha.setVisibility(View.GONE);
                 editor.putString("selectedPet", "0");
 
@@ -282,15 +308,15 @@ public class VakinhasFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Vakinha>> call, Throwable throwable) {
-               progressBar.setVisibility(View.GONE);
-                cardErroVakinhas.setVisibility(View.VISIBLE);
-                Log.e("API_ERROR", "Falha na chamada", throwable);
+                progressBar.setVisibility(View.GONE);
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardErroVakinhas.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
-
-
-
-
-
 }

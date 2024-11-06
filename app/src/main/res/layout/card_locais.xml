@@ -3,22 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
-    android:layout_height="470dp"
-    android:backgroundTint="@color/white"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
+    android:backgroundTint="@color/white"
     app:cardCornerRadius="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
+        android:paddingBottom="20dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="4dp">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -91,13 +92,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="10dp"
-                    android:layout_height="80dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="left"
                     android:layout_marginLeft="30dp"
                     android:backgroundTint="@color/water_blue"
@@ -111,13 +112,15 @@
 
                     <TextView
                         android:id="@+id/descricao"
+                        android:paddingRight="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/varela_round"
-                        android:text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem expedita id similique recusand" />
+                        android:text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem expedita id similique recusand Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem expedita id similique recusand Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem expedita id similique recusand" />
 
                     <TextView
                         android:id="@+id/btnSaibaMais"
+                        android:textColor="@color/water_blue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/varela_round"
