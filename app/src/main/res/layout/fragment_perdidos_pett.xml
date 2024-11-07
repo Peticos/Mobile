@@ -50,6 +50,98 @@
 
             </LinearLayout>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPerdidosSemPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="130dp"
+                android:backgroundTint="@color/beige"
+                android:visibility="gone"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView41"
+                        android:layout_width="372dp"
+                        android:layout_height="237dp"
+                        android:paddingVertical="30dp"
+                        android:src="@drawable/gatinha" />
+
+                    <TextView
+                        android:id="@+id/textView63"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:text="Uhuu! Nenhum pet está perdido no momento!"
+                        android:textColor="@color/water_blue"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/textView65"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:paddingVertical="12dp"
+                        android:text="Todos os nossos amigos peludos estão em casa, seguros e felizes.  Seu pet esta desaparecido? Publique aqui algumas informações para que outros tutores possam te ajudar a encontra-lo."
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardErroPerdidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="110dp"
+                android:backgroundTint="@color/beige"
+                android:visibility="gone"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView21"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="30dp"
+                        android:src="@drawable/gatinha_triste" />
+
+                    <TextView
+                        android:id="@+id/textView53"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:text="Ops! Parece que algo deu errado..."
+                        android:textColor="@color/water_blue"
+                        android:textSize="40sp" />
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="16dp"
+                        android:text="Nosso feed de vakinhas não conseguiu carregar. 🐾 Mas não se preocupe, estamos tentando consertar! Enquanto isso, que tal dar uma olhada nas outras funcionalidades do app?"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="wrap_content"
@@ -58,102 +150,6 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardPerdidosSemPost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="130dp"
-            android:backgroundTint="@color/beige"
-            android:visibility="gone"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView41"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="30dp"
-                    android:src="@drawable/gatinha" />
-
-                <TextView
-                    android:id="@+id/textView63"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lilita_one"
-                    android:gravity="center"
-                    android:text="Uhuu! Nenhum pet está perdido no momento!"
-                    android:textColor="@color/water_blue"
-                    android:textSize="36sp" />
-
-                <TextView
-                    android:id="@+id/textView65"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lilita_one"
-                    android:gravity="center"
-                    android:paddingHorizontal="100dp"
-                    android:paddingVertical="16dp"
-                    android:text="Todos os nossos amigos peludos estão em casa, seguros e felizes.  Seu pet esta desaparecido? Publique aqui algumas informações para que outros tutores possam te ajudar a encontra-lo."
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardErroPerdidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="110dp"
-            android:backgroundTint="@color/beige"
-            android:visibility="gone"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView21"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="30dp"
-                    android:src="@drawable/gatinha_triste" />
-
-                <TextView
-                    android:id="@+id/textView53"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lilita_one"
-                    android:gravity="center"
-                    android:text="Ops! Parece que algo deu errado..."
-                    android:textColor="@color/water_blue"
-                    android:textSize="40sp" />
-
-                <TextView
-                    android:id="@+id/textView55"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lilita_one"
-                    android:gravity="center"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="16dp"
-                    android:text="Nosso feed de vakinhas não conseguiu carregar. 🐾 Mas não se preocupe, estamos tentando consertar! Enquanto isso, que tal dar uma olhada nas outras funcionalidades do app?"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/cardSemNet"
             android:layout_width="match_parent"

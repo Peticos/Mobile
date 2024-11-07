@@ -107,7 +107,7 @@ public class CadastroTutor extends AppCompatActivity {
             return;
         }
 
-        String urlAPI = "https://apipeticos-ltwk.onrender.com";
+        String urlAPI = "https://apipeticos.onrender.com";
 
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
@@ -298,7 +298,7 @@ public class CadastroTutor extends AppCompatActivity {
 
     // Carrega os bairros usando a API
     private void carregarBairros() {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

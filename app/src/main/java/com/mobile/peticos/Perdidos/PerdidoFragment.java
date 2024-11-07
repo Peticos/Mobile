@@ -113,7 +113,7 @@ public class PerdidoFragment extends Fragment {
     }
     ApiPerdidos apiPerdidos;
     private void setupRetrofit() {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

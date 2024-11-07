@@ -36,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class VakinhasTutor extends Fragment {
 
-    private static final String BASE_URL = "https://apipeticos-ltwk.onrender.com/";
+    private static final String BASE_URL = "https://apipeticos.onrender.com";
 
     private VakinhAPI apiVakinha;
     private RecyclerView recyclerView;

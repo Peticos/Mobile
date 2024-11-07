@@ -65,7 +65,7 @@ public class LoginRestrito extends AppCompatActivity {
     }
     private void Authentication(View view) {
         progressBar.setVisibility(View.VISIBLE);
-        String urlAPI = "https://apipeticos-ltwk.onrender.com";
+        String urlAPI = "https://apipeticos.onrender.com";
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())

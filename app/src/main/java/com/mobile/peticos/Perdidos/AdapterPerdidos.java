@@ -1,5 +1,6 @@
 package com.mobile.peticos.Perdidos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,7 +59,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
 
     public void acharPet (int id, ViewHolder holder){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos-ltwk.onrender.com")
+                .baseUrl("https://apipeticos.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -81,6 +82,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
                             "Nós da Peticos ficamos feliz que você tenha encontrado seu Pet! Que tal fazer uma publicação em comemoração?"
                     );
                     dialog.show(((FragmentActivity) holder.itemView.getContext()).getSupportFragmentManager(), "PetFoundDialog");
+
 
                 } else {
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());

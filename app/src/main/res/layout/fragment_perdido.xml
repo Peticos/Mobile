@@ -212,13 +212,14 @@
             android:id="@+id/cardErroPerdidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="90dp"
+            android:layout_marginTop="50dp"
             android:backgroundTint="@color/beige"
             android:visibility="gone"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -261,17 +262,18 @@
             android:id="@+id/cardPerdidosSemPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="90dp"
+            android:layout_marginTop="50dp"
             android:backgroundTint="@color/beige"
             android:visibility="gone"
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
@@ -289,7 +291,7 @@
                     android:gravity="center"
                     android:text="Uhuu! Nenhum pet está perdido no momento!"
                     android:textColor="@color/red_or_orange"
-                    android:textSize="36sp" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/textView65"
@@ -301,7 +303,7 @@
                     android:paddingVertical="16dp"
                     android:text="Todos os nossos amigos peludos estão em casa, seguros e felizes.  Seu pet esta desaparecido? Publique aqui algumas informações para que outros tutores possam te ajudar a encontra-lo."
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

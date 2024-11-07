@@ -42,8 +42,9 @@ public class EditarPerfilPet extends AppCompatActivity {
     AutoCompleteTextView especie, raca, cor, porte, genero;
     TextView nome, idade;
     Retrofit retrofit1, retrofit2;
-    int cor_pet, cabeca_pet, brinquedo_pet, oculos_pet;
-    String username;
+    int  cabeca_pet, brinquedo_pet, oculos_pet;
+    int cor_pet;
+    String especie_pet;
 
 
     @Override
@@ -66,13 +67,13 @@ public class EditarPerfilPet extends AppCompatActivity {
         nome = findViewById(R.id.nome);
         idade = findViewById(R.id.idade);
         // Chamar API para setar os drops downs
-        String APISQL = "https://apipeticos-ltwk.onrender.com";
+        String APISQL = "https://apipeticos.onrender.com";
         retrofit1 = new Retrofit.Builder()
                 .baseUrl(APISQL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         setarDropDowns();
-        String APIMONGO = "https://api-mongo-i1jq.onrender.com";
+        String APIMONGO = "https://apimongo-ghjh.onrender.com";
         retrofit2 = new Retrofit.Builder()
                 .baseUrl(APIMONGO)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -105,13 +106,6 @@ public class EditarPerfilPet extends AppCompatActivity {
             update();
         });
 
-
-
-
-
-
-
-
         btnVoltarEditar = findViewById(R.id.btn_voltar_perfil);
         btnVoltarEditar.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), PerfilPet.class);
@@ -125,7 +119,7 @@ public class EditarPerfilPet extends AppCompatActivity {
 
         private void avatarPet () {
 
-            String API = "https://api-mongo-i1jq.onrender.com";
+            String API = "https://apimongo-ghjh.onrender.com";
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(API)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -150,6 +144,8 @@ public class EditarPerfilPet extends AppCompatActivity {
                             cabeca_pet = pet.getHatId();
                             brinquedo_pet = pet.getToyId();
                             oculos_pet = pet.getGlassesId();
+                            cor_pet = pet.getHairId();
+                            especie_pet = pet.getSpecies();
 
 
 
@@ -437,6 +433,7 @@ public class EditarPerfilPet extends AppCompatActivity {
 //                    "color": "Branco e Marrom"
 //            }
             // Cria o objeto do pet com os dados fornecidos
+
             ModelPetBanco pet = new ModelPetBanco(
                     nome.getText().toString(),
                     Integer.parseInt(idade.getText().toString()),
@@ -447,6 +444,7 @@ public class EditarPerfilPet extends AppCompatActivity {
                     cor.getText().toString(),
                     id
             );
+            Log.e("Pet", id +"id");
 
             // Faz a chamada à API para inserir o pet
             // Chamar API para setar os drops downs
@@ -459,15 +457,29 @@ public class EditarPerfilPet extends AppCompatActivity {
                 public void onResponse(Call<ModelRetorno> call, Response<ModelRetorno> response) {
                     // Verifica se a resposta da API é bem-sucedida
                     if (response.isSuccessful() && response.body() != null) {
+                        Personalizacao petPersonalizado;
+                        if(especie_pet.equals(especie.getText().toString())){
+                            petPersonalizado = new Personalizacao(
+                                    id,
+                                    especie.getText().toString(),
+                                    cabeca_pet,
+                                    cor_pet,
+                                    brinquedo_pet,
+                                    oculos_pet
+                            );
+                        }else{
+                            petPersonalizado = new Personalizacao(
+                                    id,
+                                    especie.getText().toString(),
+                                    cabeca_pet,
+                                    0,
+                                    brinquedo_pet,
+                                    oculos_pet
+                            );
+                        }
 
-                        Personalizacao petPersonalizado = new Personalizacao(
-                                id,
-                                especie.getText().toString(),  // Pode ser modificado conforme a lógica do seu app
-                                cabeca_pet,
-                                0,
-                                brinquedo_pet,
-                                oculos_pet
-                        );
+
+                        Log.e("Pet", petPersonalizado.toString());
 
                         // Chama a API para personalizar o pet
                         Call<ModelRetorno> callPersonalizacao = api2.personalizarPet(petPersonalizado);

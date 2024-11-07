@@ -31,7 +31,7 @@ public class MetodosBanco {
 
 
     public void getDicasDoDia(Context context, DicaDoDiaCallback callback) {
-        String APIRedis = "https://apiredis-63tq.onrender.com";
+        String APIRedis = "https://apiredis-n0ke.onrender.com";
         Retrofit retrofitRedis = new Retrofit.Builder()
                 .baseUrl(APIRedis)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -69,7 +69,7 @@ public class MetodosBanco {
 
 
     public void insertDicaDia(List<DicasDoDia> dicas, DicaCallback callback) {
-        String APIRedis = "https://apiredis-63tq.onrender.com";
+        String APIRedis = "https://apiredis-n0ke.onrender.com";
         Retrofit retrofitRedis = new Retrofit.Builder()
                 .baseUrl(APIRedis)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -101,7 +101,7 @@ public class MetodosBanco {
     }
 
     public void dicasDoDia(DicaCallback callback) {
-        String API = "https://apiredis-63tq.onrender.com";
+        String API = "https://apiredis-n0ke.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -145,7 +145,7 @@ public class MetodosBanco {
 
     public void verificarBairro(BairroCallback callback, EditText bairro) {
         // URL da API
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -195,7 +195,7 @@ public class MetodosBanco {
     }
 
     public void getPerfil(int id, Context context, PerfilCallback callback) {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -232,7 +232,7 @@ public class MetodosBanco {
     }
 
     public void curtir(String id, String username, CurtirCallback callback) {
-        String API = "https://apiredis-63tq.onrender.com";
+        String API = "https://apiredis-n0ke.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -264,7 +264,7 @@ public class MetodosBanco {
         });
     }
     public void descurtir(String id, String username, CurtirCallback callback) {
-        String API = "https://apiredis-63tq.onrender.com";
+        String API = "https://apiredis-n0ke.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -295,7 +295,7 @@ public class MetodosBanco {
         });
     }
     public void share(String id, String username, CurtirCallback callback) {
-        String API = "https://api-mongo-i1jq.onrender.com/";
+        String API = "https://apimongo-ghjh.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -330,7 +330,7 @@ public class MetodosBanco {
     }
 
     public void getPets(List<Integer> ids, PetsCallBack callback) {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

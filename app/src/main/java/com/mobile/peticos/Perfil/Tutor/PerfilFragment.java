@@ -130,7 +130,7 @@ public class PerfilFragment extends Fragment {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos-ltwk.onrender.com")
+                .baseUrl("https://apipeticos.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -207,6 +207,48 @@ public class PerfilFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        atualizarDados(); // Aqui você chama a atualização da interface
+    }
+
+    private void atualizarDados() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://apipeticos.onrender.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        APIPets apiPets = retrofit.create(APIPets.class);
+
+        Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "oi"));
+        call.enqueue(new Callback<List<ModelPetBanco>>() {
+            @Override
+            public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<ModelPetBanco> listaPets = response.body();
+                    if(listaPets.size()!=0){
+                        AdapterPet adapterPet = new AdapterPet(listaPets);
+                        recyclerPets.setAdapter(adapterPet);
+                    }
+
+                } else {
+                    Log.e("API_ERROR", "Erro: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                Log.e("API_ERROR", "Falha na chamada", t);
+                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+    }
     public void goToPost(View view) {
         Log.d("FragmentNavigation", "Navigating to FeedDoPet fragment");
 

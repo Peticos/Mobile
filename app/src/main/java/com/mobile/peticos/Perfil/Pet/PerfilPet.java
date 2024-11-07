@@ -27,7 +27,7 @@ public class PerfilPet extends AppCompatActivity {
     TextView NomePet, sexoPet, idadePet, especiePet, racaPet, corPet, portePet, NomePet2;
     ImageView btnvoltar, btn_editar, petzao, cabeca, oculos_dog, oculos_cat, brinquedo, especie, btn_personalizar;
     int id;
-    CardView Vacinas, Peso;
+    CardView Vacinas;
 
 
     @Override
@@ -47,7 +47,7 @@ public class PerfilPet extends AppCompatActivity {
         btn_editar = findViewById(R.id.btn_editar);
         btn_personalizar = findViewById(R.id.btn_personalizar);
         Vacinas = findViewById(R.id.Vacinas);
-        Peso = findViewById(R.id.Peso);
+
 
         brinquedo = findViewById(R.id.brinquedao);
         oculos_dog = findViewById(R.id.oculosao_dog);
@@ -83,37 +83,40 @@ public class PerfilPet extends AppCompatActivity {
 
 
         btnvoltar.setOnClickListener(v -> {
+
             finish();
         });
         btn_editar.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), EditarPerfilPet.class);
             v.getContext().startActivity(intent);
+            finish();
 
 
         });
         btn_personalizar.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), PersonalizarPets.class);
             v.getContext().startActivity(intent);
+            finish();
 
 
         });
         Vacinas.setOnClickListener(v->{
             Intent intent = new Intent(v.getContext(), VacinasPets.class);
             v.getContext().startActivity(intent);
+            finish();
 
 
         });
-        Peso.setOnClickListener(v->{
-            Intent intent = new Intent(v.getContext(), PesoPets.class);
-            v.getContext().startActivity(intent);
 
-        });
+
+
 
 
     }
+
     private void avatarPet(SharedPreferences sharedPreferences) {
 
-        String API = "https://api-mongo-i1jq.onrender.com";
+        String API = "https://apimongo-ghjh.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -154,7 +157,7 @@ public class PerfilPet extends AppCompatActivity {
                                 oculos_dog.setImageResource(R.drawable.oculos_personalizado_7);
                             }
                             petzao.setVisibility(View.VISIBLE);
-                            if(pet.getHairId() == 1) {
+                            if(pet.getHairId() == 1 || pet.getHairId() == 0) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_1);
                             }else if (pet.getHairId()==2) {
                                 petzao.setImageResource(R.drawable.dog_personalizado_2);

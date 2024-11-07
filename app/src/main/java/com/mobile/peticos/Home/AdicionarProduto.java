@@ -215,7 +215,7 @@ public class AdicionarProduto extends Fragment {
                 nomeProduto.getText().toString() // productName
         );
 
-        String API = "https://api-mongo-i1jq.onrender.com/";
+        String API = "https://apimongo-ghjh.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

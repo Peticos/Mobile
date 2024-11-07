@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lilita_one"
                     android:gravity="center"
-                    android:text="Eba! Nenhum pet está precisando de ajuda no momento."
+                    android:text="Eba! Você não tem nenhum pet está precisando de ajuda no momento."
                     android:textColor="@color/water_blue"
                     android:textSize="32sp" />
 

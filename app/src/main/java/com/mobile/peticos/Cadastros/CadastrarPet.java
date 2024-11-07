@@ -90,14 +90,14 @@ public class CadastrarPet extends AppCompatActivity {
 
 
         // Chamar API para setar os drops downs
-        String APISQL = "https://apipeticos-ltwk.onrender.com";
+        String APISQL = "https://apipeticos.onrender.com";
         retrofit1 = new Retrofit.Builder()
                 .baseUrl(APISQL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
-        String APIMONGO = "https://api-mongo-i1jq.onrender.com/";
+        String APIMONGO = "https://apimongo-ghjh.onrender.com";
         retrofit2 = new Retrofit.Builder()
                 .baseUrl(APIMONGO)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/varela_round"
-                    android:text="Data da pirmeira dose"
+                    android:text="Data da próxima dose"
                     android:textColor="@color/water_blue" />
 
                 <EditText

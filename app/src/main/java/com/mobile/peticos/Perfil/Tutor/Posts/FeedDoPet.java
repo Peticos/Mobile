@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FeedDoPet extends Fragment {
 
-    private static final String BASE_URL = "https://api-mongo-i1jq.onrender.com";
+    private static final String BASE_URL = "https://apimongo-ghjh.onrender.com";
     private static final String PREFS_NAME = "Perfil";
     private static final String KEY_ID = "id";
     private static final int DEFAULT_ID = 2;
@@ -103,6 +103,10 @@ public class FeedDoPet extends Fragment {
 
                 if (response.isSuccessful() && response.body() != null) {
                     List<FeedPet> feedList = response.body();
+                    if(feedList.isEmpty()){
+                        progressBar.setVisibility(View.GONE);
+                        cardFeedSemPost.setVisibility(View.VISIBLE);
+                    }
 
                     progressBar.setVisibility(View.GONE);
                     Log.d("FeedDoPet", "Dados recebidos: " + feedList.toString()); // Logando os dados recebidos

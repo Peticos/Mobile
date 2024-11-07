@@ -187,7 +187,7 @@ public class HomeFragment extends Fragment {
     Retrofit retrofit;
 
     private void setupRetrofitFeed() {
-        String API = "https://apiredis-63tq.onrender.com";
+        String API = "https://apiredis-n0ke.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -229,7 +229,7 @@ public class HomeFragment extends Fragment {
 
     private void initRecyclerViewFeedNew(View v) {
         progressBar.setVisibility(View.VISIBLE);
-        String API = "https://apiredis-63tq.onrender.com";
+        String API = "https://apiredis-n0ke.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -294,7 +294,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupRetrofiAdapter() {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -74,6 +74,54 @@
                     android:src="@drawable/ic_alert"/>
             </LinearLayout>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardVakinhasSemPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="110dp"
+                android:backgroundTint="@color/beige"
+                android:visibility="gone"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView31"
+                        android:layout_width="361dp"
+                        android:layout_height="234dp"
+                        android:paddingVertical="30dp"
+                        android:src="@drawable/gatinha" />
+
+                    <TextView
+                        android:id="@+id/textView63"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:text="Eba! Nenhum pet está precisando de ajuda no momento."
+                        android:textColor="@color/asereje_yellow"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/textView65"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lilita_one"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="16dp"
+                        android:text=" Se você souber de algum pet que precise de apoio, não hesite em publicar aqui. Estamos sempre prontos para ajudar!"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerViewVakinhas"
                 android:layout_width="match_parent"
@@ -239,54 +287,6 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="16dp"
                     android:text="Nosso feed de vakinhas não conseguiu carregar. 🐾 Mas não se preocupe, estamos tentando consertar! Enquanto isso, que tal dar uma olhada nas outras funcionalidades do app?"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardVakinhasSemPost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="110dp"
-            android:backgroundTint="@color/beige"
-            android:visibility="gone"
-            app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView31"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="30dp"
-                    android:src="@drawable/gatinha" />
-
-                <TextView
-                    android:id="@+id/textView63"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lilita_one"
-                    android:gravity="center"
-                    android:text="Eba! Nenhum pet está precisando de ajuda no momento."
-                    android:textColor="@color/asereje_yellow"
-                    android:textSize="32sp" />
-
-                <TextView
-                    android:id="@+id/textView65"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lilita_one"
-                    android:gravity="center"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="16dp"
-                    android:text=" Se você souber de algum pet que precise de apoio, não hesite em publicar aqui. Estamos sempre prontos para ajudar!"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>

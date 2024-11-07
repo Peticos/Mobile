@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Metodos {
     public void Authentication(View view, int id, String emailCadastro, String senhaCadastro, Context context, AuthCallback callback) {
 
-        String urlAPI = "https://api-mongo-i1jq.onrender.com/";
+        String urlAPI = "https://apimongo-ghjh.onrender.com ";
         Retrofit retrofitPerfil = new Retrofit.Builder()
                 .baseUrl(urlAPI)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -59,7 +59,7 @@ public class Metodos {
 
 
     public void getPerfil(int id, Context context, PerfilCallback callback) {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

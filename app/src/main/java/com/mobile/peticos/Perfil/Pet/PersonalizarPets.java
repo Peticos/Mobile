@@ -53,7 +53,7 @@ public class PersonalizarPets extends AppCompatActivity {
 
     private void atualizar (View v){
 
-        String APIMONGO = "https://api-mongo-i1jq.onrender.com/";
+        String APIMONGO = "https://apimongo-ghjh.onrender.com";
         retrofit2 = new Retrofit.Builder()
                 .baseUrl(APIMONGO)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -192,7 +192,7 @@ public class PersonalizarPets extends AppCompatActivity {
 
     private void avatarPet( ) {
 
-        String API = "https://api-mongo-i1jq.onrender.com";
+        String API = "https://apimongo-ghjh.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
