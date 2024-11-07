@@ -163,9 +163,8 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Email não cadastrado.", Toast.LENGTH_SHORT).show();
                     }
 
-
-
                 } else {
+                    progressBar.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Senha ou Email Incorretos", Toast.LENGTH_SHORT).show();
                 }
             }

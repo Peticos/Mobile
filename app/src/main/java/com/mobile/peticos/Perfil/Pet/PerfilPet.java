@@ -175,7 +175,6 @@ public class PerfilPet extends AppCompatActivity {
                             }
 
                         } else if(pet.getSpecies().equals("Gato")) {
-
                             if(pet.getGlassesId() == 1) {
                                 oculos_cat.setVisibility(View.VISIBLE);
                                 oculos_cat.setImageResource(R.drawable.oculos_personalizado_1);

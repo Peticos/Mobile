@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="460dp"
-    android:layout_height="580dp"
+    android:layout_height="wrap_content"
     android:backgroundTint="@color/white"
     android:layout_marginBottom="20dp"
     app:cardCornerRadius="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
         android:backgroundTint="@color/white"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="4dp">
@@ -18,7 +19,7 @@
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,13 +90,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="10dp"
-                    android:layout_height="80dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="left"
                     android:layout_marginLeft="30dp"
                     android:backgroundTint="@color/water_blue"
@@ -103,12 +104,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="5dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
 
                     <TextView
                         android:id="@+id/descricao"
+                        android:paddingRight="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/varela_round"
@@ -119,7 +121,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/varela_round"
-                        android:text="Saiba Mais" />
+                        android:text="Saiba Mais"
+                        android:textColor="@color/water_blue" />
                 </LinearLayout>
 
             </LinearLayout>

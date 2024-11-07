@@ -351,8 +351,8 @@ public class CadastroProfissional extends AppCompatActivity {
 
         ModelPerfil perfil = new ModelPerfil(
                 nomeCompleto.getText().toString(),
-                nomeUsuario.getText().toString(),
-                email.getText().toString(),
+                nomeUsuario.getText().toString().replaceAll("\\s+", ""),
+                email.getText().toString().replaceAll("\\s+", ""),
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString().replaceAll("[^\\d]", ""),
@@ -386,8 +386,8 @@ public class CadastroProfissional extends AppCompatActivity {
                     metodos.Authentication(
                             view,
                             id,
-                            email.getText().toString(),
-                            senha1.getText().toString(),
+                            email.getText().toString().replaceAll("\\s+", ""),
+                            senha1.getText().toString().replaceAll("\\s+", ""),
                             view.getContext(),
                             new AuthCallback() {
                                 @Override

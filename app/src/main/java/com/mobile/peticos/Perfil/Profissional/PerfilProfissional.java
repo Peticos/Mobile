@@ -47,15 +47,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PerfilProfissional extends Fragment {
-
-
-
     private static final String BASE_URL = "https://api-mongo-i1jq.onrender.com";
     private static final String PREFS_NAME = "Perfil";
     private static final String KEY_ID = "id";
     private static final int DEFAULT_ID = 2;
-
-
 
     public PerfilProfissional() {
         // Required empty public constructor
@@ -82,7 +77,7 @@ public class PerfilProfissional extends Fragment {
     Button novo_produto_button;
     private APIPerfil apiPerfil;
     private RecyclerView recyclerView;
-    private CardView cardFeedErro, cardFeedSemPost;
+    CardView cardFeedErro, cardFeedSemPost, cardTimeOut, cardSemNet;
     private ProgressBar progressBar;
 
     @Override
@@ -103,6 +98,7 @@ public class PerfilProfissional extends Fragment {
         progressBar = view.findViewById(R.id.progressBar2);
         recyclerView = view.findViewById(R.id.recycler);
 
+        cardSemNet = view.findViewById(R.id.cardSemNet);
 
         // Acesso ao SharedPreferences
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
@@ -245,9 +241,14 @@ public class PerfilProfissional extends Fragment {
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                cardFeedErro.setVisibility(View.VISIBLE);
-                Log.e("FeedPet", "Erro: " + throwable.getMessage());
-                Toast.makeText(getContext(), "Erro ao carregar posts: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeOut.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardFeedErro.setVisibility(View.VISIBLE);
+                }
+                Log.e("API_ERROR", "Falha na chamada", throwable);
             }
         });
     }
