@@ -3,8 +3,17 @@ package com.mobile.peticos.Cadastros;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +41,7 @@ import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
 import com.mobile.peticos.Padrao.MetodosBanco;
+import com.mobile.peticos.Padrao.NotificationReciver;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
@@ -56,6 +66,7 @@ public class CadastroTutor extends AppCompatActivity {
     private EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
     private AutoCompleteTextView bairro;
     private TextView senha1, senha2;
+    private static final String CHANNEL_ID = "canal_notificacoes";
     MetodosBanco metodosBanco = new MetodosBanco();
 
 
@@ -78,6 +89,8 @@ public class CadastroTutor extends AppCompatActivity {
         carregarBairros();
         configurarCadastro();
         configurargenero();
+        // Criar canal de notificação
+        createNotificationChannel();
 
     }
     // Método para cadastrar o tutor no banco de dados
@@ -105,8 +118,8 @@ public class CadastroTutor extends AppCompatActivity {
         String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
         ModelPerfil perfil = new ModelPerfil(
                 nomeCompleto.getText().toString(),
-                nomeUsuario.getText().toString(),
-                emailCadastro.getText().toString(),
+                nomeUsuario.getText().toString().replaceAll("\\s+", ""),
+                emailCadastro.getText().toString().replaceAll("\\s+", ""),
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefoneFormatado,
@@ -115,10 +128,6 @@ public class CadastroTutor extends AppCompatActivity {
                 genero_drop.getSelectedItem().toString(),
                 null
         );
-
-
-
-
 
 
         progressBar.setVisibility(View.VISIBLE);
@@ -146,8 +155,8 @@ public class CadastroTutor extends AppCompatActivity {
                     metodos.Authentication(
                             view,
                             id,
-                            emailCadastro.getText().toString(),
-                            senhaCadastro.getText().toString(),
+                            emailCadastro.getText().toString().replaceAll("\\s+", ""),
+                            senhaCadastro.getText().toString().replaceAll("\\s+", ""),
                             view.getContext(),
                             new AuthCallback() {
                                 @Override
@@ -156,6 +165,7 @@ public class CadastroTutor extends AppCompatActivity {
                                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
                                     progressBar.setVisibility(View.GONE);
                                     startActivity(intent);
+                                    notificar();
                                     finish();
                                 }
 
@@ -338,8 +348,10 @@ public class CadastroTutor extends AppCompatActivity {
 
     // Método para validar os campos antes de cadastrar
     private void validarCampos(View view) {
-        boolean erro = false;
+        final boolean[] erro = {false};
         String telefoneFormatado = telefone.getText().toString().replaceAll("[^\\d]", "");
+
+        APIPerfil aPIPerfil = retrofit.create(APIPerfil.class);
 
         if(url == null){
             Toast.makeText(this, "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
@@ -350,58 +362,80 @@ public class CadastroTutor extends AppCompatActivity {
                     .load(R.drawable.adicionar_imagem_vermelho)
                     .apply(options)
                     .into(btnUpload);
-            erro = true;
+            erro[0] = true;
         }
         if (nomeCompleto.getText().toString().isEmpty()) {
             nomeCompleto.setError("Nome completo é obrigatório");
-            erro = true;
+            erro[0] = true;
         } else if (nomeCompleto.getText().toString().length() > 255) {
             nomeCompleto.setError("Excesso de caracteres. Max. 255");
-            erro = true;
+            erro[0] = true;
         }
 
         if (nomeUsuario.getText().toString().isEmpty()) {
             nomeUsuario.setError("Nome de usuário é obrigatório");
-            erro = true;
+            erro[0] = true;
         } else if (nomeUsuario.getText().toString().length() > 255) {
             nomeUsuario.setError("Excesso de caracteres. Max. 255");
-            erro = true;
+            erro[0] = true;
         }
+
+        aPIPerfil.getByUsername(nomeUsuario.getText().toString()).enqueue(new Callback<ModelPerfil>() {
+            @Override
+            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // O nome de usuário já está em uso
+                    nomeUsuario.setError("Nome de usuário em uso");
+                    erro[0] = true;
+                } else if (response.code() == 404) {
+                    nomeUsuario.setError(null);
+                } else {
+                    erro[0] = true;
+                    // Resposta inesperada
+                    Log.e("ValidarNomeUsuario", "Erro: " + response.code());
+                    Toast.makeText(getApplicationContext(), "Erro ao verificar nome de usuário", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelPerfil> call, Throwable t) {
+            }
+        });
 
         String generoSelecionado = genero_drop.getSelectedItem().toString().trim();
         if (generoSelecionado.equals("Selecione o seu genero") || generoSelecionado.isEmpty()) {
             generoobrigatorio.setVisibility(View.VISIBLE);
-            erro = true;
+            erro[0] = true;
         } else {
             generoobrigatorio.setVisibility(View.GONE);
         }
 
         if (telefone.getText().toString().isEmpty() || !validarTelefone(telefoneFormatado)) {
             telefone.setError("Telefone inválido");
-            erro = true;
+            erro[0] = true;
         }
 
         if (emailCadastro.getText().toString().isEmpty() ||
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(emailCadastro.getText().toString()).matches() ||
                 emailCadastro.getText().toString().length() > 255) {
             emailCadastro.setError("E-mail inválido ou com excesso de caracteres");
-            erro = true;
+            erro[0] = true;
         }
 
         if (bairro.getText().toString().isEmpty()) {
             bairro.setError("Selecione um bairro");
-            erro = true;
+            erro[0] = true;
         }
         if(senhaCadastro.getText().toString().replaceAll("\\s+", "").isEmpty()){
             senha1.setVisibility(view.VISIBLE);
-            erro = true;
+            erro[0] = true;
         }
         if(!senhaRepetida.getText().toString().replaceAll("\\s+", "").equals(senhaCadastro.getText().toString().replaceAll("\\s+", "")) || senhaRepetida.getText().toString().replaceAll("\\s+", "").isEmpty()){
             senha2.setVisibility(view.VISIBLE);
             senha1.setVisibility(view.VISIBLE);
             senha2.setText("As senhas nao se coicidem.");
             senha1.setText("As senhas nao se coicidem.");
-            erro = true;
+            erro[0] = true;
         }
 
         else if (!isStrongPassword(senhaCadastro.getText().toString())) {
@@ -412,7 +446,7 @@ public class CadastroTutor extends AppCompatActivity {
         }
 
 
-        if (!erro) {
+        if (!erro[0]) {
             //             Verificar se o bairro é válido antes de continuar o cadastro
             metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
                 @Override
@@ -483,6 +517,47 @@ public class CadastroTutor extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+    }
+    private void notificar() {
+        Context context = this;
+
+        Intent intentAndroid = new Intent(context, NotificationReciver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                intentAndroid,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        @SuppressLint("NotificationTrampoline") NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.icon_app_logo)
+                .setContentTitle("Bem vindo ao Peticos!")
+                .setContentText("Seja muito bem vindo ao melhor app para donas de pets do Brasil!!")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            notificationManager.notify(1, builder.build());
+        } else {
+            // Solicitar permissão se não tiver
+            Log.e("SuaActivity", "Permissão de notificações não concedida.");
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Notificar",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
+        }
     }
 
 }

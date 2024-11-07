@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobile.peticos.Home.ApiHome;
@@ -72,6 +73,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
     Button btnPublicar, btnSair;
     ImageButton btn_voltar_publicacoes;
     TextView publicacoes, petsInvalidos;
+    ProgressBar progressBar;
 
     public AdicionarAoFeedPrincipal() {
         // Required empty public constructor
@@ -111,6 +113,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         legenda = view.findViewById(R.id.legenda);
         recyclerPets = view.findViewById(R.id.amiguinhos);
         petsInvalidos = view.findViewById(R.id.petsInvalidos);
+        progressBar = view.findViewById(R.id.progressBar2);
         // Remove o campo "selectedPets"
         SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("PetCache", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences2.edit();
@@ -203,6 +206,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
         APIPets apiPets = retrofit.create(APIPets.class);
 
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "modolo"));
         call.enqueue(new Callback<List<ModelPetBanco>>() {
             @Override
@@ -212,13 +216,16 @@ public class AdicionarAoFeedPrincipal extends Fragment {
                     AdapterPetFeedPrincipal adapterPet = new AdapterPetFeedPrincipal(listaPets);
 
                     recyclerPets.setAdapter(adapterPet);
+                    progressBar.setVisibility(View.GONE);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Log.e("API_ERROR", "Falha na chamada", t);
                 Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
@@ -328,6 +335,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
         ApiHome api = retrofit.create(ApiHome.class);
 
 
+        progressBar.setVisibility(View.VISIBLE);
         Call<FeedPet> call = api.insert(post);
 
         call.enqueue(new Callback<FeedPet>() {
@@ -353,9 +361,9 @@ public class AdicionarAoFeedPrincipal extends Fragment {
                     transaction.replace(R.id.fragmentContainerView, HomeFragment.newInstance());
                     transaction.addToBackStack(null);
                     transaction.commit();
-
-
+                    progressBar.setVisibility(View.GONE);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e("FeedPet", "Erro: " + response.errorBody().toString());
                     Toast.makeText(getContext(), "Erro ao publicar o post", Toast.LENGTH_SHORT).show();
 
@@ -364,6 +372,7 @@ public class AdicionarAoFeedPrincipal extends Fragment {
 
             @Override
             public void onFailure(Call<FeedPet> call, Throwable throwable) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
                 Log.e("FeedPet", "Erro: " + throwable.getMessage());
 

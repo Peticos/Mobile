@@ -200,7 +200,7 @@ public class CadastrarPet extends AppCompatActivity {
 
         // Cria o objeto do pet com os dados fornecidos
         ModelPetBanco pet = new ModelPetBanco(
-             nome.getText().toString(),
+                nome.getText().toString(),
             Integer.parseInt(idade.getText().toString()),
             g,
             especie_drop.getSelectedItem().toString(),

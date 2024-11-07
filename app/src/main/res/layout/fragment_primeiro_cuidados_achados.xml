@@ -49,14 +49,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingHorizontal="30dp"
                     android:paddingTop="20dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="10dp"
-                        android:layout_height="132dp"
+                        android:layout_height="match_parent"
                         android:backgroundTint="@color/red_or_orange"
                         app:cardCornerRadius="12dp">
 
@@ -64,7 +64,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 
@@ -97,14 +97,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingHorizontal="30dp"
                     android:paddingTop="20dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="10dp"
-                        android:layout_height="132dp"
+                        android:layout_height="match_parent"
                         android:backgroundTint="@color/red_or_orange"
                         app:cardCornerRadius="12dp">
 
@@ -112,7 +112,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 
@@ -203,14 +203,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingHorizontal="30dp"
                     android:paddingTop="20dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="10dp"
-                        android:layout_height="110dp"
+                        android:layout_height="match_parent"
                         android:backgroundTint="@color/red_or_orange"
                         app:cardCornerRadius="12dp">
 
@@ -218,7 +218,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 
@@ -252,14 +252,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingHorizontal="30dp"
                     android:paddingTop="20dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="10dp"
-                        android:layout_height="170dp"
+                        android:layout_height="match_parent"
                         android:backgroundTint="@color/red_or_orange"
                         app:cardCornerRadius="12dp">
 
@@ -267,7 +267,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 

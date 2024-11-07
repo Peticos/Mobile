@@ -3,6 +3,7 @@ package com.mobile.peticos.Perdidos.Adcionar;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -34,6 +35,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -83,6 +85,7 @@ public class AdicionarAoFeedTriste extends Fragment {
     RecyclerView amiguinhos;
     private ActivityResultLauncher<Intent> cameraLauncher;
     Button btnSair;
+    ProgressBar progressBar;
 
     private static final String CHANNEL_ID = "channel_id";
     String url;
@@ -112,6 +115,7 @@ public class AdicionarAoFeedTriste extends Fragment {
         amiguinhos = view.findViewById(R.id.amiguinhos);
         referencia = view.findViewById(R.id.referencia);
         petsInvalidos = view.findViewById(R.id.petsInvalidos);
+        progressBar = view.findViewById(R.id.progressBar2);
 
         carregarBairros();
         formatarData(data);
@@ -189,6 +193,7 @@ public class AdicionarAoFeedTriste extends Fragment {
 
         APIPets apiPets = retrofit.create(APIPets.class);
 
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "modolo"));
         call.enqueue(new Callback<List<ModelPetBanco>>() {
             @Override
@@ -198,13 +203,17 @@ public class AdicionarAoFeedTriste extends Fragment {
                     AdapterPetFeedTriste adapterPet = new AdapterPetFeedTriste(listaPets);
 
                     amiguinhos.setAdapter(adapterPet);
+
+                    progressBar.setVisibility(View.GONE);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Log.e("API_ERROR", "Falha na chamada", t);
                 Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
@@ -361,6 +370,7 @@ public class AdicionarAoFeedTriste extends Fragment {
             );
 
 
+            progressBar.setVisibility(View.VISIBLE);
             Call<ModelRetorno> call = apiPerdidos.isertPerdido(petPerdido);
             call.enqueue(new Callback<ModelRetorno>() {
                 @Override
@@ -381,8 +391,10 @@ public class AdicionarAoFeedTriste extends Fragment {
                         transaction.addToBackStack(null);
                         transaction.commit();
 
+                        progressBar.setVisibility(View.GONE);
 
                     } else {
+                        progressBar.setVisibility(View.GONE);
                         Log.e("FeedPet", "Erro: " + response.errorBody().toString());
                         Log.e("FeedPet", "Erro código: " + response.code());
                         Log.e("FeedPet", "Erro mensagem: " + response.message());
@@ -394,6 +406,7 @@ public class AdicionarAoFeedTriste extends Fragment {
 
                 @Override
                 public void onFailure(Call<ModelRetorno> call, Throwable throwable) {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Erro ao carregar posts", Toast.LENGTH_SHORT).show();
                     Log.e("FeedPet", "Erro: " + throwable.getMessage());
 
@@ -401,15 +414,6 @@ public class AdicionarAoFeedTriste extends Fragment {
             });
 
         }
-
-
-
-
-
-
-
-
-
     }
 
     private void notificar() {
@@ -419,10 +423,10 @@ public class AdicionarAoFeedTriste extends Fragment {
         Intent intentAndroid = new Intent(context, NotificationReciver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentAndroid, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+        @SuppressLint("NotificationTrampoline") NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.icon_app_logo)
-                .setContentTitle("Pet Perdido!!!")
-                .setContentText("Um pet foi perdido perto de você. Ajude a encontrá-lo e trazer segurança para ele!")
+                .setContentTitle("Sinto muito por ter perdido seu amiguinho!")
+                .setContentText("Nós da Peticos lamentamos muito que tenha perdido seu pet, com a nossa ajuda você o encontrará super rápido!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);

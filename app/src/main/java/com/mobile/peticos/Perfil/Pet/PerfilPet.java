@@ -27,7 +27,7 @@ public class PerfilPet extends AppCompatActivity {
     TextView NomePet, sexoPet, idadePet, especiePet, racaPet, corPet, portePet, NomePet2;
     ImageView btnvoltar, btn_editar, petzao, cabeca, oculos_dog, oculos_cat, brinquedo, especie, btn_personalizar;
     int id;
-    CardView Vacinas, Peso;
+    CardView Vacinas;
 
 
     @Override
@@ -47,7 +47,7 @@ public class PerfilPet extends AppCompatActivity {
         btn_editar = findViewById(R.id.btn_editar);
         btn_personalizar = findViewById(R.id.btn_personalizar);
         Vacinas = findViewById(R.id.Vacinas);
-        Peso = findViewById(R.id.Peso);
+
 
         brinquedo = findViewById(R.id.brinquedao);
         oculos_dog = findViewById(R.id.oculosao_dog);
@@ -107,12 +107,7 @@ public class PerfilPet extends AppCompatActivity {
 
 
         });
-        Peso.setOnClickListener(v->{
-            Intent intent = new Intent(v.getContext(), PesoPets.class);
-            v.getContext().startActivity(intent);
-            finish();
 
-        });
 
 
 
@@ -183,7 +178,6 @@ public class PerfilPet extends AppCompatActivity {
                             }
 
                         } else if(pet.getSpecies().equals("Gato")) {
-
                             if(pet.getGlassesId() == 1) {
                                 oculos_cat.setVisibility(View.VISIBLE);
                                 oculos_cat.setImageResource(R.drawable.oculos_personalizado_1);

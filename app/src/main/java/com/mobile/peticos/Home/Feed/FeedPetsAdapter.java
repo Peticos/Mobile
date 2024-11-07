@@ -58,12 +58,16 @@ public class FeedPetsAdapter extends RecyclerView.Adapter<FeedPetsAdapter.FeedPe
             // Remover espaços não imprimíveis e espaços em branco extras
             postDate = postDate.trim();
 
+            // Remover qualquer milissegundo adicional se presente (ex: ".0")
+            postDate = postDate.replaceAll("\\.\\d+$", "");
+
             try {
                 // Definindo o formatter para o formato de data recebido
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime dateTime = LocalDateTime.parse(postDate, formatter);
                 LocalDate dataAnterior = dateTime.toLocalDate();
 
+                Log.d("Data", "postDate: " + postDate);
                 // Obtendo a data atual
                 LocalDate dataAtual = LocalDate.now();
 

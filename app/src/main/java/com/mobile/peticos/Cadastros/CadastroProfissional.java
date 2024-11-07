@@ -58,6 +58,7 @@ public class CadastroProfissional extends AppCompatActivity {
     MetodosBanco metodosBanco = new MetodosBanco();
     private String url;
     private ProgressBar progressBar;
+    private Retrofit retrofit;
     private ActivityResultLauncher<Intent> cameraLauncher;
 
     @Override
@@ -174,7 +175,9 @@ public class CadastroProfissional extends AppCompatActivity {
 
     // Método para validar os campos antes de cadastrar
     private void validarCampos(View view) {
-        boolean erro = false;
+        final boolean[] erro = {false};
+        APIPerfil aPIPerfil = retrofit.create(APIPerfil.class);
+
         if(url == null){
             Toast.makeText(this, "Imagem Obrigatória", Toast.LENGTH_SHORT).show();
             RequestOptions options = new RequestOptions()
@@ -184,38 +187,60 @@ public class CadastroProfissional extends AppCompatActivity {
                     .load(R.drawable.adicionar_imagem_vermelho)
                     .apply(options)
                     .into(btnUpload);
-            erro = true;
+            erro[0] = true;
         }
 
         // Validação dos campos de entrada
-        if (validarCampo(nomeCompleto, 255, "Nome completo é obrigatório")) erro = true;
-        if (validarCampo(nomeUsuario, 255, "Nome de usuário é obrigatório")) erro = true;
-        if (validarCampoTelefone(telefone)) erro = true;
-        if (validarCampoEmail(email)) erro = true;
-        if (validarCampoCNPJ(cnpj)) erro = true;
+        if (validarCampo(nomeCompleto, 255, "Nome completo é obrigatório")) erro[0] = true;
+        if (validarCampo(nomeUsuario, 255, "Nome de usuário é obrigatório")) erro[0] = true;
+        if (validarCampoTelefone(telefone)) erro[0] = true;
+        if (validarCampoEmail(email)) erro[0] = true;
+        if (validarCampoCNPJ(cnpj)) erro[0] = true;
         if (bairro.getText().toString().isEmpty()) {
             bairro.setError("Selecione um bairro");
-            erro = true;
+            erro[0] = true;
         }
+
+        aPIPerfil.getByUsername(nomeUsuario.getText().toString()).enqueue(new Callback<ModelPerfil>() {
+            @Override
+            public void onResponse(Call<ModelPerfil> call, Response<ModelPerfil> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // O nome de usuário já está em uso
+                    nomeUsuario.setError("Nome de usuário em uso");
+                    erro[0] = true;
+                } else if (response.code() == 404) {
+                    nomeUsuario.setError(null);
+                } else {
+                    erro[0] = true;
+                    // Resposta inesperada
+                    Log.e("ValidarNomeUsuario", "Erro: " + response.code());
+                    Toast.makeText(getApplicationContext(), "Erro ao verificar nome de usuário", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelPerfil> call, Throwable t) {
+            }
+        });
 
         if(senha1.getText().toString().replaceAll("\\s+", "").isEmpty()){
             senhaInvalida1.setVisibility(view.VISIBLE);
-            erro = true;
+            erro[0] = true;
         }
         if(!senha2.getText().toString().replaceAll("\\s+", "").equals(senha1.getText().toString().replaceAll("\\s+", "")) || senha2.getText().toString().replaceAll("\\s+", "").isEmpty()){
             senhaInvalida2.setVisibility(view.VISIBLE);
-            erro = true;
+            erro[0] = true;
         }
         if(senha1.getText().toString().replaceAll("\\s+", "").isEmpty()){
             senhaInvalida1.setVisibility(view.VISIBLE);
-            erro = true;
+            erro[0] = true;
         }
         if(!senha2.getText().toString().replaceAll("\\s+", "").equals(senha1.getText().toString().replaceAll("\\s+", "")) || senha2.getText().toString().replaceAll("\\s+", "").isEmpty()){
             senhaInvalida1.setVisibility(view.VISIBLE);
             senhaInvalida2.setVisibility(view.VISIBLE);
             senhaInvalida2.setText("As senhas nao se coicidem.");
             senhaInvalida1.setText("As senhas nao se coicidem.");
-            erro = true;
+            erro[0] = true;
         }
 
         else if (!isStrongPassword(senha1.getText().toString())) {
@@ -226,7 +251,7 @@ public class CadastroProfissional extends AppCompatActivity {
         }
 
         // Se não houver erros, prosseguir com o cadastro
-        if (!erro) {
+        if (!erro[0]) {
             //             Verificar se o bairro é válido antes de continuar o cadastro
             metodosBanco.verificarBairro(new MetodosBanco.BairroCallback() {
                 @Override
@@ -351,8 +376,8 @@ public class CadastroProfissional extends AppCompatActivity {
 
         ModelPerfil perfil = new ModelPerfil(
                 nomeCompleto.getText().toString(),
-                nomeUsuario.getText().toString(),
-                email.getText().toString(),
+                nomeUsuario.getText().toString().replaceAll("\\s+", ""),
+                email.getText().toString().replaceAll("\\s+", ""),
                 bairro.getText().toString(),
                 "Sem Plano",
                 telefone.getText().toString().replaceAll("[^\\d]", ""),
@@ -386,8 +411,8 @@ public class CadastroProfissional extends AppCompatActivity {
                     metodos.Authentication(
                             view,
                             id,
-                            email.getText().toString(),
-                            senha1.getText().toString(),
+                            email.getText().toString().replaceAll("\\s+", ""),
+                            senha1.getText().toString().replaceAll("\\s+", ""),
                             view.getContext(),
                             new AuthCallback() {
                                 @Override

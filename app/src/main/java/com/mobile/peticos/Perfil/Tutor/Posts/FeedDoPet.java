@@ -103,6 +103,10 @@ public class FeedDoPet extends Fragment {
 
                 if (response.isSuccessful() && response.body() != null) {
                     List<FeedPet> feedList = response.body();
+                    if(feedList.isEmpty()){
+                        progressBar.setVisibility(View.GONE);
+                        cardFeedSemPost.setVisibility(View.VISIBLE);
+                    }
 
                     progressBar.setVisibility(View.GONE);
                     Log.d("FeedDoPet", "Dados recebidos: " + feedList.toString()); // Logando os dados recebidos

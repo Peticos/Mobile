@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,9 @@ public class PerfilFragment extends Fragment {
     TextView email;
     ImageView fotoPerfil, btn_cadastrarpet;
     RecyclerView recyclerPets;
+    private ProgressBar progressBar;
+    CardView cardSemNet, cardErro, cardTimeout;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -81,6 +85,9 @@ public class PerfilFragment extends Fragment {
         recyclerPets = view.findViewById(R.id.amiguinhos);
         recyclerPets.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
+        cardTimeout = view.findViewById(R.id.cardTimeOut);
+        cardSemNet = view.findViewById(R.id.cardSemNet);
+        progressBar = view.findViewById(R.id.progressBar2);
         btn_cadastrarpet = view.findViewById(R.id.btn_cadastrarpet);
 
         // Acesso ao SharedPreferences
@@ -129,6 +136,7 @@ public class PerfilFragment extends Fragment {
 
         APIPets apiPets = retrofit.create(APIPets.class);
 
+        progressBar.setVisibility(View.VISIBLE);
         Call<List<ModelPetBanco>> call = apiPets.getPets(sharedPreferences.getString("nome_usuario", "oi"));
         call.enqueue(new Callback<List<ModelPetBanco>>() {
             @Override
@@ -138,22 +146,28 @@ public class PerfilFragment extends Fragment {
                     if(listaPets.size()!=0){
                         AdapterPet adapterPet = new AdapterPet(listaPets);
                         recyclerPets.setAdapter(adapterPet);
+                        progressBar.setVisibility(View.GONE);
                     }
 
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<List<ModelPetBanco>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                if (t instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (t instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardErro.setVisibility(View.VISIBLE);
+                }
                 Log.e("API_ERROR", "Falha na chamada", t);
-                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
 
         CardView cardPost = view.findViewById(R.id.cardPost);
         CardView cardVakinhas = view.findViewById(R.id.cardVakinhas);
@@ -288,7 +302,4 @@ public class PerfilFragment extends Fragment {
         startActivity(intent);
 
     }
-
-
-
 }
