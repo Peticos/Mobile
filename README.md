@@ -11,9 +11,12 @@
 **Peticos** é uma aplicação móvel que permite aos usuários cadastrar, gerenciar e buscar informações sobre seus pets. Através da plataforma, os donos de pets podem registrar dados como nome, idade, espécie e outras informações relevantes, além de visualizar um calendário de eventos para cuidados dos pets.
 
 ## Funcionalidades Principais
-1. **Cadastro de Pets**: Permite ao usuário cadastrar seus pets com informações como nome, idade, espécie, raça, e muito mais.
+1. **Cadastro de Pets**: Permite ao usuário cadastrar seus pets com informações como nome, idade, espécie, raça, vacinas e muito mais.
 2. **Gerenciamento de Perfis de Pets**: Edição de informações dos pets cadastrados.
-3. **
+3. **Feed Principal**: Um feed com as fotos favoritas de todos os usúarios de seus pets.
+4. **Pets Perdidos**: Onde reune todos os pets perdidos de sua região, com a intenção de todos se ajudarem a achar.
+5. **Locais**: Recomendamos lugares ideiais para levar o seu pet.
+   
 ## Instalação
 1. Clone o repositório:
    ```bash
