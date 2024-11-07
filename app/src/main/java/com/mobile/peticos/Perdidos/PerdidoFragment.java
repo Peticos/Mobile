@@ -127,7 +127,7 @@ public class PerdidoFragment extends Fragment {
         call.enqueue(new Callback<List<PetPerdido>>() {
             @Override
             public void onResponse(Call<List<PetPerdido>> call, Response<List<PetPerdido>> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     progressBar.setVisibility(View.GONE);
                     List<PetPerdido> PerdidosList = response.body();
                     updateRecyclerView(PerdidosList);

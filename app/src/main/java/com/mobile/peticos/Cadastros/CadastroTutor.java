@@ -3,8 +3,17 @@ package com.mobile.peticos.Cadastros;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +41,7 @@ import com.mobile.peticos.Cadastros.Bairros.APIBairro;
 import com.mobile.peticos.Cadastros.Bairros.ModelBairro;
 import com.mobile.peticos.Padrao.CallBack.AuthCallback;
 import com.mobile.peticos.Padrao.MetodosBanco;
+import com.mobile.peticos.Padrao.NotificationReciver;
 import com.mobile.peticos.Padrao.Upload.Camera;
 import com.mobile.peticos.Padrao.Metodos;
 import com.mobile.peticos.Padrao.ModelRetorno;
@@ -56,6 +66,7 @@ public class CadastroTutor extends AppCompatActivity {
     private EditText nomeCompleto, nomeUsuario, telefone, emailCadastro, senhaCadastro, senhaRepetida;
     private AutoCompleteTextView bairro;
     private TextView senha1, senha2;
+    private static final String CHANNEL_ID = "canal_notificacoes";
     MetodosBanco metodosBanco = new MetodosBanco();
 
 
@@ -78,6 +89,8 @@ public class CadastroTutor extends AppCompatActivity {
         carregarBairros();
         configurarCadastro();
         configurargenero();
+        // Criar canal de notificação
+        createNotificationChannel();
 
     }
     // Método para cadastrar o tutor no banco de dados
@@ -152,6 +165,7 @@ public class CadastroTutor extends AppCompatActivity {
                                     Intent intent = new Intent(CadastroTutor.this, DesejaCadastrarUmPet.class);
                                     progressBar.setVisibility(View.GONE);
                                     startActivity(intent);
+                                    notificar();
                                     finish();
                                 }
 
@@ -479,6 +493,47 @@ public class CadastroTutor extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+    }
+    private void notificar() {
+        Context context = this;
+
+        Intent intentAndroid = new Intent(context, NotificationReciver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                intentAndroid,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        @SuppressLint("NotificationTrampoline") NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.icon_app_logo)
+                .setContentTitle("Bem vindo ao Peticos!")
+                .setContentText("Seja muito bem vindo ao melhor app para donas de pets do Brasil!!")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            notificationManager.notify(1, builder.build());
+        } else {
+            // Solicitar permissão se não tiver
+            Log.e("SuaActivity", "Permissão de notificações não concedida.");
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Notificar",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
+        }
     }
 
 }

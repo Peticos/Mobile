@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
 
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
     public static final String[] REQUIRED_PERMISSIONS;
-    CardView cardFeedErro, cardDicasErro, cardFeedSemPost, cardSemNet, cardTimeout;
+    CardView cardFeedErro, cardDicasErro, cardFeedSemPost, cardTimeout, cardSemNet;
     MetodosBanco metodosBanco = new MetodosBanco();
     private ProgressBar progressBar, recarregarPosts;
     Button btnRecarregar;
@@ -81,12 +81,10 @@ public class HomeFragment extends Fragment {
         cardFeedSemPost = view.findViewById(R.id.cardFeedSemPost);
         progressBar = view.findViewById(R.id.progressBar2);
         recarregarPosts = view.findViewById(R.id.recarregarPosts);
-<<<<<<< HEAD
+        btnRecarregar = view.findViewById(R.id.btnRecarregar);
+
         cardSemNet = view.findViewById(R.id.cardSemNet);
         cardTimeout = view.findViewById(R.id.cardTimeOut);
-=======
-        btnRecarregar = view.findViewById(R.id.btnRecarregar);
->>>>>>> 0d68dd232e32e751affe7fa4c6cafb91e836941d
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("Perfil", Context.MODE_PRIVATE);
         Boolean mei = sharedPreferences.getBoolean("mei", true);
@@ -206,18 +204,18 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<FeedPet>> call, Response<List<FeedPet>> response) {
                 progressBar.setVisibility(View.GONE);
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     List<FeedPet> feedList = response.body();
                     updateRecyclerViewFeed(feedList, v);
                 } else {
-                    Log.e("FeedPet", "Erro: " + response.errorBody().toString());
+                    progressBar.setVisibility(View.GONE);
+                    cardFeedSemPost.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-<<<<<<< HEAD
                 if (throwable instanceof java.net.SocketTimeoutException) {
                     cardTimeout.setVisibility(View.VISIBLE);
                 } else if (throwable instanceof java.io.IOException) {
@@ -225,10 +223,6 @@ public class HomeFragment extends Fragment {
                 } else {
                     cardFeedErro.setVisibility(View.VISIBLE);
                 }
-=======
-                Toast.makeText(getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                cardFeedErro.setVisibility(View.VISIBLE);
->>>>>>> 0d68dd232e32e751affe7fa4c6cafb91e836941d
             }
         });
     }
@@ -250,7 +244,7 @@ public class HomeFragment extends Fragment {
                     transaction.replace(R.id.fragmentContainerView, HomeFragment.newInstance());
                     transaction.addToBackStack(null);
                     transaction.commit();
-                     } else {
+                } else {
                     try {
                         Log.e("FeedPet", "Erro: " + (response.errorBody() != null ? response.errorBody().string() : "Resposta nula"));
                     } catch (IOException e) {
@@ -262,7 +256,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<List<FeedPet>> call, Throwable throwable) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(v.getContext(), "Erro: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                if (throwable instanceof java.net.SocketTimeoutException) {
+                    cardTimeout.setVisibility(View.VISIBLE);
+                } else if (throwable instanceof java.io.IOException) {
+                    cardSemNet.setVisibility(View.VISIBLE);
+                } else {
+                    cardFeedErro.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -323,7 +323,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<DicasDoDia>> call, Throwable throwable) {
-<<<<<<< HEAD
+                Log.e("ErroDicas", throwable.getMessage());
                 progressBar.setVisibility(View.GONE);
                 if (throwable instanceof java.net.SocketTimeoutException) {
                     cardTimeout.setVisibility(View.VISIBLE);
@@ -332,31 +332,6 @@ public class HomeFragment extends Fragment {
                 } else {
                     cardFeedErro.setVisibility(View.VISIBLE);
                 }
-
-            }
-        });
-    }
-    private void updateRecyclerViewDicas(List<DicasDoDia> dicasdodia, View v) {
-
-
-        List<String> dicas = new ArrayList<>();
-        for (DicasDoDia dica : dicasdodia) {
-            dicas.add(dica.getHint_text());
-        }
-
-        // Configuração do RecyclerView para o dica do dia
-        RecyclerView recyclerViewDicas = v.findViewById(R.id.RecyclerViewDicas);
-        recyclerViewDicas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-        // Configuração do Adapter para o RecyclerViewFeedPets
-        AdapterCuriosidadesDiarias dicasAdapter = new AdapterCuriosidadesDiarias(dicas, recyclerViewDicas);
-        recyclerViewDicas.setAdapter(dicasAdapter);
-
-        dicasAdapter.startAutoScroll();
-    }
-=======
-                Log.e("ErroDicas", throwable.getMessage());
-                cardDicasErro.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -373,5 +348,4 @@ public class HomeFragment extends Fragment {
 
 
 
->>>>>>> 0d68dd232e32e751affe7fa4c6cafb91e836941d
 }

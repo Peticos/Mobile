@@ -54,7 +54,7 @@ public class VakinhasFragment extends Fragment {
     VakinhAPI apiVakinhas;
 
     private ImageView infoVakinha, fechar;
-    CardView cardInfoVakinha, cardErroVakinhas, cardNovaVakinha, cardSemNet, cardTimeout;
+    CardView cardInfoVakinha, cardErroVakinhas, cardNovaVakinha, cardSemNet, cardTimeout, cardSemPost;
 
     public VakinhasFragment() {
         // Required empty public constructor
@@ -87,7 +87,8 @@ public class VakinhasFragment extends Fragment {
 
         cardSemNet = view.findViewById(R.id.cardSemNet);
         cardTimeout = view.findViewById(R.id.cardTimeOut);
-        cardTimeout = view.findViewById(R.id.cardTimeOut);
+        cardSemPost = view.findViewById(R.id.cardVakinhasSemPost);
+
 
         // Inicializando o card como GONE inicialmente
         cardInfoVakinha = view.findViewById(R.id.cardInfoVakinha);
@@ -188,14 +189,14 @@ public class VakinhasFragment extends Fragment {
         call.enqueue(new Callback<List<ModelPetBanco>>() {
             @Override
             public void onResponse(Call<List<ModelPetBanco>> call, Response<List<ModelPetBanco>> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     List<ModelPetBanco> listaPets = response.body();
                     adapterAdicionarVakinha = new AdapterAdicionarVakinha(listaPets);
                     recyclerPetsVakinha.setAdapter(adapterAdicionarVakinha);
                     progressBar.setVisibility(View.GONE);
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    cardErroVakinhas.setVisibility(View.VISIBLE);
+                    cardSemPost.setVisibility(View.VISIBLE);
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
                 }
             }
@@ -254,7 +255,7 @@ public class VakinhasFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    cardErroVakinhas.setVisibility(View.VISIBLE);
+                    cardSemPost.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(), "Erro ao criar vakinha", Toast.LENGTH_SHORT).show();
                     cardNovaVakinha.setVisibility(View.GONE);
                     editor.putString("selectedPet", "0");
@@ -292,15 +293,14 @@ public class VakinhasFragment extends Fragment {
         call.enqueue(new Callback<List<Vakinha>>() {
             @Override
             public void onResponse(Call<List<Vakinha>> call, Response<List<Vakinha>> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     progressBar.setVisibility(View.GONE);
                     List<Vakinha> vakinhaList = response.body();
 
                     recyclerView.setAdapter(new VakinhasAdapter(vakinhaList));
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    cardErroVakinhas.setVisibility(View.VISIBLE);
-                    Toast.makeText(getContext(), "Nenhuma vakinha encontrada", Toast.LENGTH_SHORT).show();;
+                    cardSemPost.setVisibility(View.VISIBLE);
                     Log.e("API_ERROR", "Erro: " + response.errorBody());
                     Log.e("API_ERROR", "CODE: " + response.code());
                 }
