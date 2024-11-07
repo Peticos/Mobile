@@ -58,7 +58,7 @@ public class AdapterPerdidos extends RecyclerView.Adapter<AdapterPerdidos.ViewHo
 
     public void acharPet (int id, ViewHolder holder){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos-ltwk.onrender.com")
+                .baseUrl("https://apipeticos.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

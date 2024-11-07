@@ -87,7 +87,7 @@ public class AdapterPetFeedPrincipal extends RecyclerView.Adapter<AdapterPetFeed
 
             }
         });
-        String API = "https://api-mongo-i1jq.onrender.com";
+        String API = "https://apimongo-ghjh.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -127,7 +127,7 @@ public class AdapterPetFeedPrincipal extends RecyclerView.Adapter<AdapterPetFeed
                                 holder.oculosao_dog.setImageResource(R.drawable.oculos_personalizado_7);
                             }
                             holder.petzao.setVisibility(View.VISIBLE);
-                            if(pet.getHairId() == 1) {
+                            if(pet.getHairId() == 1 || pet.getHairId() == 0) {
                                 holder.petzao.setImageResource(R.drawable.dog_personalizado_1);
                             }else if (pet.getHairId()==2) {
                                 holder.petzao.setImageResource(R.drawable.dog_personalizado_2);
@@ -152,16 +152,22 @@ public class AdapterPetFeedPrincipal extends RecyclerView.Adapter<AdapterPetFeed
                                 holder.oculosao_cat.setVisibility(View.VISIBLE);
                                 holder.oculosao_cat.setImageResource(R.drawable.oculos_personalizado_1);
                             } else if (pet.getGlassesId()==2) {
+                                holder.oculosao_cat.setVisibility(View.VISIBLE);
                                 holder.oculosao_cat.setImageResource(R.drawable.oculos_personalizado_2);
                             }  else if (pet.getGlassesId()==3) {
+                                holder.oculosao_cat.setVisibility(View.VISIBLE);
                                 holder.oculosao_cat.setImageResource(R.drawable.oculos_personalizado_3);
                             } else if (pet.getGlassesId()==4) {
+                                holder.oculosao_cat.setVisibility(View.VISIBLE);
                                 holder.oculosao_cat.setImageResource(R.drawable.oculos_personalizado_4);
                             } else if (pet.getGlassesId()==5) {
+                                holder.oculosao_cat.setVisibility(View.VISIBLE);
                                 holder.oculosao_cat.setImageResource(R.drawable.oculos_personalizado_5);
                             } else if (pet.getGlassesId()==6) {
+                                holder.oculosao_cat.setVisibility(View.VISIBLE);
                                 holder.oculosao_cat.setImageResource(R.drawable.oculos_personalizado_6);
                             } else if (pet.getGlassesId()==7) {
+                                holder.oculosao_cat.setVisibility(View.VISIBLE);
                                 holder.oculosao_cat.setImageResource(R.drawable.oculos_personalizado_7);
                             }
                             holder.petzao.setVisibility(View.VISIBLE);

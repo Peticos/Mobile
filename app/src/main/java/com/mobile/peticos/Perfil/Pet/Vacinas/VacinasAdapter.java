@@ -53,7 +53,7 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
     APIPets apiPets;
 
     private void setupRetrofitFeed() {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -88,6 +88,8 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
         if(vacina.getNumDoses() == 0){
             num = 1;
         }
+
+        holder.titulo.setText("Data da dose " + num);
 
         ModelDose dose = new ModelDose(
                 id,
@@ -397,7 +399,7 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             holder.circulo9.setVisibility(View.VISIBLE);
 
         }
-        holder.data1.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -410,11 +412,9 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
         ImageView circulo1, circulo2, circulo3, circulo4,circulo5, circulo6, circulo7, circulo8, circulo9;
         TextView data1,data2, data3, data4, data5, data6, data7,data8, data9;
         List<ModelDose> doses = new ArrayList<>();
+        TextView titulo;
         CardView tudo;
         int id;
-
-
-
 
         public VacinaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -438,7 +438,9 @@ public class VacinasAdapter extends RecyclerView.Adapter<VacinasAdapter.VacinaVi
             data7 = itemView.findViewById(R.id.data7);
             data8 = itemView.findViewById(R.id.data8);
             data9 = itemView.findViewById(R.id.data9);
+            titulo = itemView.findViewById(R.id.titulo);
 
+            data1.setVisibility(View.GONE);
 
 
 

@@ -325,12 +325,12 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/Vacinas"
                     android:layout_width="152dp"
-                    android:layout_height="116dp"
+                    android:layout_height="120dp"
                     android:layout_marginRight="20dp"
-                    android:paddingBottom="8dp"
                     android:background="@drawable/perfil"
                     android:backgroundTint="@color/water_blue"
                     android:clickable="true"
+                    android:paddingBottom="8dp"
                     app:cardCornerRadius="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cardCalendar"
@@ -344,8 +344,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="25dp"
-                            android:gravity="center"
                             android:layout_marginTop="2dp"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -378,7 +378,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/Peso"
                     android:layout_width="152dp"
-                    android:layout_height="116dp"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/perfil"
                     android:backgroundTint="@color/water_blue"
@@ -396,8 +396,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="25dp"
-                            android:gravity="center"
                             android:layout_marginTop="2dp"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <ImageView

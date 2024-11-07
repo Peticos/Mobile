@@ -78,7 +78,7 @@ public class LocalFragment extends Fragment {
 
     // Configuração do Retrofit
     private void setupRetrofit() {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

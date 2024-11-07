@@ -173,7 +173,7 @@ public class VakinhasFragment extends Fragment {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Perfil", MODE_PRIVATE);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://apipeticos-ltwk.onrender.com")
+                .baseUrl("https://apipeticos.onrender.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -202,7 +202,7 @@ public class VakinhasFragment extends Fragment {
 
     // Configuração do Retrofit
     private void setupRetrofit() {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())

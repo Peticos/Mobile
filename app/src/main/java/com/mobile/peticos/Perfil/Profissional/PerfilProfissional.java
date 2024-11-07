@@ -50,7 +50,7 @@ public class PerfilProfissional extends Fragment {
 
 
 
-    private static final String BASE_URL = "https://api-mongo-i1jq.onrender.com";
+    private static final String BASE_URL = "https://apimongo-ghjh.onrender.com";
     private static final String PREFS_NAME = "Perfil";
     private static final String KEY_ID = "id";
     private static final int DEFAULT_ID = 2;

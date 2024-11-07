@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mobile.peticos.Perfil.Pet.API.APIPets;
+import com.mobile.peticos.Perfil.Pet.PerfilPet;
+import com.mobile.peticos.Perfil.Pet.PesoPets;
 import com.mobile.peticos.R;
 
 import java.util.ArrayList;
@@ -72,6 +74,8 @@ public class VacinasPets extends AppCompatActivity {
         id = sharedPreferences.getInt("id", 0);
         btn_voltar = findViewById(R.id.btn_voltar);
         btn_voltar.setOnClickListener(v ->{
+            Intent intent = new Intent(VacinasPets.this, PerfilPet.class);
+            startActivity(intent);
             finish();
         });
 
@@ -197,7 +201,7 @@ public class VacinasPets extends AppCompatActivity {
 
     // Configuração do Retrofit
     private void setupRetrofitFeed() {
-        String API = "https://apipeticos-ltwk.onrender.com";
+        String API = "https://apipeticos.onrender.com";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API)
                 .addConverterFactory(GsonConverterFactory.create())
